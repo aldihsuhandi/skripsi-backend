@@ -2,18 +2,22 @@ package id.thesis.shumishumi.dalgen.service.impl;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.database.StatementBuilder;
+import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.dalgen.model.mapper.SessionDOMapper;
 import id.thesis.shumishumi.dalgen.model.request.SessionDAORequest;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.service.SesssionDAO;
+import id.thesis.shumishumi.dalgen.service.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
-public class SessionDAOImpl implements SesssionDAO {
+public class SessionDAOImpl implements SessionDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -33,5 +37,25 @@ public class SessionDAOImpl implements SesssionDAO {
         }
 
         return sessionDOs.get(0);
+    }
+
+    @Override
+    public void refreshSession(SessionDAORequest request) throws ShumishumiException {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.SESSION_DT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setTimestamp(1, new Timestamp(request.getSessionDt().getTime()));
+                ps.setString(2, request.getSessionId());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 }

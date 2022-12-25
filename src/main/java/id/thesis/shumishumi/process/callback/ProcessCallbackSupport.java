@@ -8,7 +8,7 @@ import id.thesis.shumishumi.rest.request.BaseRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 
 public class ProcessCallbackSupport {
-    public static BaseResult process(final BaseRequest request, final ProcessTypeEnum processType, final ProcessCallback callback) {
+    public static BaseResult process(final ProcessTypeEnum processType, final BaseRequest request, final ProcessCallback callback) {
         BaseResult result = callback.initResult();
         ResultContext resultContext = new ResultContext();
         try {

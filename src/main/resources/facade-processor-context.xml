@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--processors-->
+    <!--user-->
+    <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
+
+    <util:map id="processorMap" map-class="java.util.HashMap">
+        <entry key="USER_REGISTER">
+            <ref bean="userRegisterProcessor"/>
+        </entry>
+    </util:map>
+
+    <!--validators-->
+    <!--user-->
+    <bean id="userRegisterValidator" class="id.thesis.shumishumi.core.validator.user.UserRegisterValidator"/>
+
+    <util:map id="validatorMap" map-class="java.util.HashMap">
+        <entry key="USER_REGISTER">
+            <ref bean="userRegisterValidator"/>
+        </entry>
+    </util:map>
+
+    <bean id="processFacade" class="id.thesis.shumishumi.process.service.ProcessFacade">
+        <property name="processors" ref="processorMap"/>
+        <property name="validators" ref="validatorMap"/>
+    </bean>
+</beans>
