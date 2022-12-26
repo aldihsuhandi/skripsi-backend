@@ -11,7 +11,7 @@ public class ParamChecker {
     }
 
     public static void isNotEmpty(String value, String param, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
-        if (value.isEmpty()) {
+        if (value == null || value.isEmpty()) {
             throwsException(String.format("%s cannot be empty", param), errorCode);
         }
     }
@@ -23,7 +23,7 @@ public class ParamChecker {
     }
 
     public static void isExpected(String value, String comp, String param, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
-        if (value.matches(comp)) {
+        if (!value.matches(comp)) {
             throwsException(String.format("the value of %s is not expected", param), errorCode);
         }
     }

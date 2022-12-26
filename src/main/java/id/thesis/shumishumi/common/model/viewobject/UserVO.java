@@ -2,9 +2,8 @@
  * Dana.id
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.model.request.user;
+package id.thesis.shumishumi.common.model.viewobject;
 
-import id.thesis.shumishumi.common.model.request.BaseInnerRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,16 +12,17 @@ import java.sql.Blob;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
- * @version $Id: UserCreateInnerRequest.java, v 0.1 2022‐12‐26 7:18 AM Aldih Suhandi Exp $$
+ * @version $Id: UserVO.java, v 0.1 2022‐12‐26 8:47 AM Aldih Suhandi Exp $$
  */
 @Getter
 @Setter
 @ToString
-public class UserCreateInnerRequest extends BaseInnerRequest {
+public class UserVO extends BaseVO {
     private String userId;
     private String username;
     private String email;
     private String phoneNumber;
     private Blob profilePicture;
     private String password;
+    private String roleId;
 }

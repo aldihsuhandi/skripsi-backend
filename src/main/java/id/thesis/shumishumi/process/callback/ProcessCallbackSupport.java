@@ -25,7 +25,7 @@ public class ProcessCallbackSupport {
 
             if (e instanceof ShumishumiException) {
                 ShumishumiException se = (ShumishumiException) e;
-                resultContext.setResultMsg(se.getErrorCode().getErrorMsg());
+                resultContext.setResultMsg(se.getMessage());
                 resultContext.setResultCode(se.getErrorCode().getErrorCode());
             }
         }

@@ -10,6 +10,24 @@ public class AssertUtil {
         }
     }
 
+    public static void isExpected(boolean val, String msg, ShumishumiErrorCodeEnum errorCodeEnum) throws ShumishumiException {
+        if (!val) {
+            throwError(msg, errorCodeEnum);
+        }
+    }
+
+    public static void isNull(Object o, String msg, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
+        if (o != null) {
+            throwError(msg, errorCode);
+        }
+    }
+
+    public static void isNotNull(Object o, String msg, ShumishumiErrorCodeEnum errorCodeEnum) throws ShumishumiException {
+        if (o == null) {
+            throwError(msg, errorCodeEnum);
+        }
+    }
+
     private static void throwError(String msg, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
         throw new ShumishumiException(msg, errorCode);
     }

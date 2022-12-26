@@ -1,0 +1,34 @@
+/**
+ * Dana.id
+ * Copyright (c) 2017‐2022 All Rights Reserved.
+ */
+package id.thesis.shumishumi.process.callback;
+
+import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.model.context.Headers;
+import id.thesis.shumishumi.common.model.context.ResultContext;
+import id.thesis.shumishumi.rest.result.BaseResult;
+
+/**
+ * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @version $Id: ControllerCallbackSupport.java, v 0.1 2022‐12‐26 3:50 PM Aldih Suhandi Exp $$
+ */
+public class ControllerCallbackSupport {
+    public static BaseResult process(final Headers headers, final ControllerCallback controllerCallback) {
+        try {
+            controllerCallback.authCheck();
+
+            return controllerCallback.doProcess();
+        } catch (ShumishumiException e) {
+            e.printStackTrace();
+            BaseResult baseResult = controllerCallback.initResult();
+            ResultContext resultContext = new ResultContext();
+            resultContext.setSuccess(false);
+            resultContext.setResultMsg(e.getMessage());
+            resultContext.setResultCode(e.getErrorCode().getErrorCode());
+
+            baseResult.setResultContext(resultContext);
+            return baseResult;
+        }
+    }
+}
