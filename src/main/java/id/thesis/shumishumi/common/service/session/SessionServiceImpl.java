@@ -2,7 +2,7 @@ package id.thesis.shumishumi.common.service.session;
 
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.core.service.session.SessionService;
+import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.dalgen.converter.SessionDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.SessionDAORequest;
 import id.thesis.shumishumi.dalgen.service.SessionDAO;

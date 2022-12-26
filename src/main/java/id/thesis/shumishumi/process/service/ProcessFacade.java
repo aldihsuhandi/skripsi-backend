@@ -4,7 +4,7 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.core.service.session.SessionService;
+import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.validator.BaseValidator;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;

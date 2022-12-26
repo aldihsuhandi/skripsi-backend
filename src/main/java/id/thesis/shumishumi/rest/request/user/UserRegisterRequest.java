@@ -9,9 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserRegisterRequest extends BaseRequest {
+    private String username;
     private String email;
     private String phoneNumber;
-    private String username;
-    private String password;
     private String profilePicture;
+    private String password;
 }

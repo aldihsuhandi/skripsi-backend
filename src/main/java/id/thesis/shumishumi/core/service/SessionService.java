@@ -1,4 +1,4 @@
-package id.thesis.shumishumi.core.service.session;
+package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
