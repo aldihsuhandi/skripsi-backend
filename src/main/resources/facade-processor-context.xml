@@ -10,6 +10,7 @@
     <!--processors-->
     <!--user-->
     <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
+    <bean id="userLoginProcessor" class="id.thesis.shumishumi.process.processor.user.UserLoginProcessor"/>
 
     <!--client-->
     <bean id="clientAuthProcessor" class="id.thesis.shumishumi.process.processor.client.ClientAuthProcessor"/>
@@ -18,6 +19,10 @@
         <entry key="USER_REGISTER">
             <ref bean="userRegisterProcessor"/>
         </entry>
+        <entry key="USER_LOGIN">
+            <ref bean="userLoginProcessor"/>
+        </entry>
+
         <entry key="CLIENT_AUTH">
             <ref bean="clientAuthProcessor"/>
         </entry>
@@ -26,6 +31,7 @@
     <!--validators-->
     <!--user-->
     <bean id="userRegisterValidator" class="id.thesis.shumishumi.core.validator.user.UserRegisterValidator"/>
+    <bean id="userLoginValidator" class="id.thesis.shumishumi.core.validator.user.UserLoginValidator"/>
 
     <!--client-->
     <bean id="clientAuthValidator" class="id.thesis.shumishumi.core.validator.client.ClientAuthValidator"/>
@@ -34,6 +40,10 @@
         <entry key="USER_REGISTER">
             <ref bean="userRegisterValidator"/>
         </entry>
+        <entry key="USER_LOGIN">
+            <ref bean="userLoginValidator"/>
+        </entry>
+
         <entry key="CLIENT_AUTH">
             <ref bean="clientAuthValidator"/>
         </entry>

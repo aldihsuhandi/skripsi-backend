@@ -5,8 +5,10 @@ import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.process.callback.ControllerCallback;
 import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
+import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
 import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
+import id.thesis.shumishumi.rest.result.user.UserLoginResult;
 import id.thesis.shumishumi.rest.result.user.UserRegisterResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +40,25 @@ public class UserController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return userFacade.register(request.getBody());
+            }
+        });
+    }
+
+    public UserLoginResult login(@RequestBody HtmlRequest<UserLoginRequest> request) {
+        return (UserLoginResult) ControllerCallbackSupport.process(request.getHead(), new ControllerCallback() {
+            @Override
+            public void authCheck() throws ShumishumiException {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new UserLoginResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return null;
             }
         });
     }

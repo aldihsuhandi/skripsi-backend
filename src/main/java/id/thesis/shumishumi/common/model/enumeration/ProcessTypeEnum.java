@@ -7,6 +7,7 @@ import lombok.ToString;
 @ToString
 public enum ProcessTypeEnum {
     USER_REGISTER("USER_REGISTER", "userRegisterValidator", "userRegisterProcessor", false),
+    USER_LOGIN("USER_LOGIN", "userLoginValidator", "userLoginProcessor", false),
 
 
     CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false);
