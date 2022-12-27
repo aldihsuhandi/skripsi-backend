@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Date;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -28,4 +29,6 @@ public class UserDO implements Serializable {
     private String roleId;
     private Blob profilePicture;
     private String password;
+    private Date gmtCreate;
+    private Date gmtModified;
 }

@@ -12,8 +12,12 @@
     <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
     <bean id="userLoginProcessor" class="id.thesis.shumishumi.process.processor.user.UserLoginProcessor"/>
 
+    <!--session-->
+    <bean id="sessionLogoutProcessor" class="id.thesis.shumishumi.process.processor.session.SessionLogoutProcessor"/>
+
     <!--client-->
     <bean id="clientAuthProcessor" class="id.thesis.shumishumi.process.processor.client.ClientAuthProcessor"/>
+
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -21,6 +25,10 @@
         </entry>
         <entry key="USER_LOGIN">
             <ref bean="userLoginProcessor"/>
+        </entry>
+
+        <entry key="SESSION_LOGOUT">
+            <ref bean="sessionLogoutProcessor"/>
         </entry>
 
         <entry key="CLIENT_AUTH">
@@ -33,6 +41,9 @@
     <bean id="userRegisterValidator" class="id.thesis.shumishumi.core.validator.user.UserRegisterValidator"/>
     <bean id="userLoginValidator" class="id.thesis.shumishumi.core.validator.user.UserLoginValidator"/>
 
+    <!--session-->
+    <bean id="sessionLogoutValidator" class="id.thesis.shumishumi.core.validator.session.SessionLogoutValidator"/>
+
     <!--client-->
     <bean id="clientAuthValidator" class="id.thesis.shumishumi.core.validator.client.ClientAuthValidator"/>
 
@@ -42,6 +53,10 @@
         </entry>
         <entry key="USER_LOGIN">
             <ref bean="userLoginValidator"/>
+        </entry>
+
+        <entry key="SESSION_LOGOUT">
+            <ref bean="sessionLogoutValidator"/>
         </entry>
 
         <entry key="CLIENT_AUTH">

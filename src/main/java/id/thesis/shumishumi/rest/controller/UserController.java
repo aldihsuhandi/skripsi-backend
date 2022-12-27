@@ -25,7 +25,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     public UserRegisterResult register(@RequestBody HtmlRequest<UserRegisterRequest> request) {
-        return (UserRegisterResult) ControllerCallbackSupport.process(request.getHead(), new ControllerCallback() {
+        return (UserRegisterResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
 
             @Override
             public void authCheck() throws ShumishumiException {
@@ -44,8 +44,9 @@ public class UserController extends BaseController {
         });
     }
 
+    @PostMapping("/login")
     public UserLoginResult login(@RequestBody HtmlRequest<UserLoginRequest> request) {
-        return (UserLoginResult) ControllerCallbackSupport.process(request.getHead(), new ControllerCallback() {
+        return (UserLoginResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
             @Override
             public void authCheck() throws ShumishumiException {
                 authenticate(request.getHead());
@@ -58,7 +59,7 @@ public class UserController extends BaseController {
 
             @Override
             public BaseResult doProcess() {
-                return null;
+                return userFacade.login(request.getBody());
             }
         });
     }

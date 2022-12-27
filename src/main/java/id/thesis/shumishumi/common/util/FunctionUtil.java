@@ -20,7 +20,11 @@ public class FunctionUtil {
         return UUID.randomUUID().toString();
     }
 
-    public static String encryptPassword(String password) {
+    public static String hashPassword(String password) {
         return bCryptPasswordEncoder.encode(password);
+    }
+
+    public static boolean verifyHash(String password, String hash) {
+        return bCryptPasswordEncoder.matches(password, hash);
     }
 }

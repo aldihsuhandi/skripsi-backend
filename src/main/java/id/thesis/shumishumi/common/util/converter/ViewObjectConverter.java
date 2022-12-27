@@ -5,8 +5,10 @@
 package id.thesis.shumishumi.common.util.converter;
 
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
+import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
+import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
 /**
@@ -27,16 +29,40 @@ public class ViewObjectConverter {
         userVO.setPhoneNumber(userDO.getPhoneNumber());
         userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setRoleId(userDO.getRoleId());
+        userVO.setGmtCreate(userDO.getGmtCreate());
+        userVO.setGmtModified(userDO.getGmtModified());
 
         return userVO;
     }
 
     public static ClientVO toViewObject(ClientDO clientDO) {
+        if (clientDO == null) {
+            return null;
+        }
+
         ClientVO clientVO = new ClientVO();
         clientVO.setClientName(clientDO.getClientName());
         clientVO.setClientSecret(clientDO.getClientSecret());
         clientVO.setClientId(clientDO.getClientId());
 
         return clientVO;
+    }
+
+    public static SessionVO toViewObject(SessionDO sessionDO) {
+        if (sessionDO == null) {
+            return null;
+        }
+
+        SessionVO sessionVO = new SessionVO();
+        sessionVO.setSessionId(sessionDO.getSessionId());
+        sessionVO.setUserId(sessionDO.getUserId());
+        sessionVO.setSessionDt(sessionDO.getSessionDt());
+        sessionVO.setRemembered(sessionDO.isRemembered());
+        sessionVO.setActive(sessionDO.isActive());
+        sessionVO.setGmtCreate(sessionDO.getGmtCreate());
+        sessionVO.setGmtModified(sessionDO.getGmtModified());
+
+        return sessionVO;
+
     }
 }

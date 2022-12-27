@@ -7,6 +7,7 @@ package id.thesis.shumishumi.process.callback;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.Headers;
 import id.thesis.shumishumi.common.model.context.ResultContext;
+import id.thesis.shumishumi.rest.request.BaseRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 
 /**
@@ -14,9 +15,11 @@ import id.thesis.shumishumi.rest.result.BaseResult;
  * @version $Id: ControllerCallbackSupport.java, v 0.1 2022‐12‐26 3:50 PM Aldih Suhandi Exp $$
  */
 public class ControllerCallbackSupport {
-    public static BaseResult process(final Headers headers, final ControllerCallback controllerCallback) {
+    public static BaseResult process(final Headers headers, final BaseRequest baseRequest, final ControllerCallback controllerCallback) {
         try {
             controllerCallback.authCheck();
+
+            composeSessionId(headers, baseRequest);
 
             return controllerCallback.doProcess();
         } catch (ShumishumiException e) {
@@ -30,5 +33,13 @@ public class ControllerCallbackSupport {
             baseResult.setResultContext(resultContext);
             return baseResult;
         }
+    }
+
+    private static void composeSessionId(Headers headers, BaseRequest baseRequest) {
+        if (headers.getSessionId() == null || headers.getSessionId().isEmpty()) {
+            return;
+        }
+
+        baseRequest.setSessionId(headers.getSessionId());
     }
 }

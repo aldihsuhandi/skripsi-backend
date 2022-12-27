@@ -9,6 +9,7 @@ public enum ProcessTypeEnum {
     USER_REGISTER("USER_REGISTER", "userRegisterValidator", "userRegisterProcessor", false),
     USER_LOGIN("USER_LOGIN", "userLoginValidator", "userLoginProcessor", false),
 
+    SESSION_LOGOUT("SESSION_LOGOUT", "sessionLogoutValidator", "sessionLogoutProcessor", true),
 
     CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false);
     private final String processName;

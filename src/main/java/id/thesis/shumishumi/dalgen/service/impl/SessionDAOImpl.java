@@ -32,7 +32,7 @@ public class SessionDAOImpl implements SessionDAO {
         List<SessionDO> sessionDOs = jdbcTemplate.query(statement, ps ->
                 ps.setString(1, request.getSessionId()), new SessionDOMapper());
 
-        if (sessionDOs == null || sessionDOs.isEmpty()) {
+        if (sessionDOs.isEmpty()) {
             return null;
         }
 
@@ -40,9 +40,58 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
+    public void create(SessionDAORequest request) throws ShumishumiException {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
+                .addValueStatement(DatabaseConst.SESSION_ID)
+                .addValueStatement(DatabaseConst.USER_ID)
+                .addValueStatement(DatabaseConst.SESSION_DT)
+                .addValueStatement(DatabaseConst.IS_ACTIVE)
+                .addValueStatement(DatabaseConst.IS_REMEMBERED)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, request.getSessionId());
+                ps.setString(2, request.getUserId());
+                ps.setTimestamp(3, new Timestamp(request.getSessionDt().getTime()));
+                ps.setBoolean(4, request.isActive());
+                ps.setBoolean(5, request.isRemembered());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
+    public void logout(SessionDAORequest request) throws ShumishumiException {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setBoolean(1, false);
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getSessionId());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
     public void refreshSession(SessionDAORequest request) throws ShumishumiException {
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.SESSION_DT)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
@@ -50,7 +99,8 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setTimestamp(1, new Timestamp(request.getSessionDt().getTime()));
-                ps.setString(2, request.getSessionId());
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getSessionId());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);

@@ -11,4 +11,5 @@ import lombok.ToString;
 public class UserLoginRequest extends BaseRequest {
     private String email;
     private String password;
+    private boolean isRemembered;
 }

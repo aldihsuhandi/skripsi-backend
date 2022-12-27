@@ -29,7 +29,7 @@ public class UserRegisterProcessor implements BaseProcessor {
         checkExistingUser(registerRequest);
 
         String userId = FunctionUtil.generateUUID();
-        registerRequest.setPassword(FunctionUtil.encryptPassword(registerRequest.getPassword()));
+        registerRequest.setPassword(FunctionUtil.hashPassword(registerRequest.getPassword()));
 
         UserCreateInnerRequest innerRequest = UserRequestConverter.toInnerRequest(registerRequest, userId);
         userService.register(innerRequest);
