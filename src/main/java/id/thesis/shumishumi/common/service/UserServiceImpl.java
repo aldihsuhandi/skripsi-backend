@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserUpdateInnerRequest request) throws ShumishumiException {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
+        userDAO.update(daoRequest);
     }
 
     @Override
