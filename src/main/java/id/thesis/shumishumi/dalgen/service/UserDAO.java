@@ -15,6 +15,8 @@ import id.thesis.shumishumi.dalgen.model.result.UserDO;
 public interface UserDAO {
     void create(UserDAORequest daoRequest) throws ShumishumiException;
 
+    void update(UserDAORequest daoRequest) throws ShumishumiException;
+
     void updateProfilePicture(UserDAORequest daoRequest) throws ShumishumiException;
 
     UserDO queryById(UserDAORequest daoRequest);

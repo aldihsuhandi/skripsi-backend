@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(UserUpdateInnerRequest request) throws ShumishumiException {
+        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
+    }
+
+    @Override
     public void updateProfilePicture(UserUpdateInnerRequest request) throws ShumishumiException {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.updateProfilePicture(daoRequest);

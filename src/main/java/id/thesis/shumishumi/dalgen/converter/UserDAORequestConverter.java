@@ -9,6 +9,8 @@ import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
 
+import java.util.Date;
+
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
  * @version $Id: UserDAORequestConverter.java, v 0.1 2022‐12‐26 7:48 AM Aldih Suhandi Exp $$
@@ -34,6 +36,7 @@ public class UserDAORequestConverter {
         userDAORequest.setUsername(updateContext.getUsername());
         userDAORequest.setPassword(updateContext.getPassword());
         userDAORequest.setProfilePicture(updateContext.getProfilePicture());
+        userDAORequest.setGmtModified(new Date());
 
         return userDAORequest;
     }

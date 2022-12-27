@@ -16,6 +16,8 @@ import id.thesis.shumishumi.common.model.viewobject.UserVO;
 public interface UserService {
     void register(UserCreateInnerRequest request) throws ShumishumiException;
 
+    void update(UserUpdateInnerRequest request) throws ShumishumiException;
+
     void updateProfilePicture(UserUpdateInnerRequest request) throws ShumishumiException;
 
     UserVO queryById(String userId);

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -50,6 +51,36 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(4, daoRequest.getUsername());
                 ps.setString(5, UserRolesEnum.USER.getUserRoleId());
                 ps.setString(6, daoRequest.getPassword());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
+    public void update(UserDAORequest daoRequest) throws ShumishumiException {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.EMAIL)
+                .addSetStatement(DatabaseConst.USERNAME)
+                .addSetStatement(DatabaseConst.PHONE_NUMBER)
+                .addSetStatement(DatabaseConst.PROFILE_PICTURE)
+                .addSetStatement(DatabaseConst.PASSWORD)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, daoRequest.getEmail());
+                ps.setString(2, daoRequest.getUsername());
+                ps.setString(3, daoRequest.getPhoneNumber());
+                ps.setBlob(4, daoRequest.getProfilePicture());
+                ps.setString(5, daoRequest.getPassword());
+                ps.setTimestamp(6, new Timestamp(daoRequest.getGmtModified().getTime()));
+                ps.setString(7, daoRequest.getUsername());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);

@@ -41,8 +41,8 @@ public class ProcessFacade {
         String sessionId = request.getSessionId();
         SessionVO sessionVO = sessionService.query(sessionId);
 
-        if (sessionVO == null || !sessionVO.isActive()
-                || sessionVO.getSessionDt().before(new Date())) {
+        if (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
+                || sessionVO.getSessionDt().before(new Date())))) {
             throw new ShumishumiException("Session Expired",
                     ShumishumiErrorCodeEnum.SESSION_EXPIRED);
         }

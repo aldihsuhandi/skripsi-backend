@@ -37,4 +37,12 @@ public class UserRequestConverter {
 
         return innerRequest;
     }
+
+    public static UserUpdateInnerRequest toInnerRequest(String userId, UserUpdateContext updateContext) {
+        UserUpdateInnerRequest innerRequest = new UserUpdateInnerRequest();
+        innerRequest.setUserId(userId);
+        innerRequest.setUserUpdateContext(updateContext);
+
+        return innerRequest;
+    }
 }

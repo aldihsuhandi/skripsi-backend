@@ -24,9 +24,11 @@ public class UserRegisterValidator implements BaseValidator {
         ParamChecker.isNotEmpty(request.getUsername(), "username", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         // check phonenumber
-        ParamChecker.isNotEmpty(request.getPhoneNumber(), "phonenumber", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isNotEmpty(request.getPhoneNumber(), "phoneNumber", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isExpected(request.getPhoneNumber(), "^[0-9]*$", "phoneNumber", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         // check password
         ParamChecker.isNotEmpty(request.getPassword(), "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isExpected(request.getPassword(), "^(?:[\\d,\\/().]*[a-zA-Z][a-zA-Z\\d,\\/().]*)?$", "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 }
