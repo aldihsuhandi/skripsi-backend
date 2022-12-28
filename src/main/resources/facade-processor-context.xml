@@ -12,6 +12,7 @@
     <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
     <bean id="userLoginProcessor" class="id.thesis.shumishumi.process.processor.user.UserLoginProcessor"/>
     <bean id="userUpdateProcessor" class="id.thesis.shumishumi.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userQueryProcessor" class="id.thesis.shumishumi.process.processor.user.UserQueryProcessor"/>
 
     <!--session-->
     <bean id="sessionLogoutProcessor" class="id.thesis.shumishumi.process.processor.session.SessionLogoutProcessor"/>
@@ -30,6 +31,9 @@
         <entry key="USER_UPDATE">
             <ref bean="userUpdateProcessor"/>
         </entry>
+        <entry key="USER_QUERY">
+            <ref bean="userQueryProcessor"/>
+        </entry>
 
         <entry key="SESSION_LOGOUT">
             <ref bean="sessionLogoutProcessor"/>
@@ -44,7 +48,8 @@
     <!--user-->
     <bean id="userRegisterValidator" class="id.thesis.shumishumi.core.validator.user.UserRegisterValidator"/>
     <bean id="userLoginValidator" class="id.thesis.shumishumi.core.validator.user.UserLoginValidator"/>
-    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.core.validator.user.UserUpdateValidator"/>
+    <bean id="userUpdateValidator" class="id.thesis.shumishumi.core.validator.user.UserUpdateValidator"/>
+    <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
 
     <!--session-->
     <bean id="sessionLogoutValidator" class="id.thesis.shumishumi.core.validator.session.SessionLogoutValidator"/>
@@ -60,7 +65,10 @@
             <ref bean="userLoginValidator"/>
         </entry>
         <entry key="USER_UPDATE">
-            <ref bean="userUpdateProcessor"/>
+            <ref bean="userUpdateValidator"/>
+        </entry>
+        <entry key="USER_QUERY">
+            <ref bean="userQueryValidator"/>
         </entry>
 
         <entry key="SESSION_LOGOUT">

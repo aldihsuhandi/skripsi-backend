@@ -111,7 +111,7 @@ public class StatementBuilder {
     }
 
     private void buildWhereStatement() {
-        if (DatabaseConst.STATEMENT_INSERT.equals(statementType)) {
+        if (DatabaseConst.STATEMENT_INSERT.equals(statementType) || whereList.isEmpty()) {
             return;
         }
 

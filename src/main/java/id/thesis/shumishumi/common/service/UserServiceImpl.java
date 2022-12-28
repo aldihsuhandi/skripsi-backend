@@ -9,13 +9,18 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.service.cache.UserFetchService;
 import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.dalgen.converter.UserDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
+import id.thesis.shumishumi.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.dalgen.service.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -26,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserFetchService userFetchService;
 
     @Override
     public void register(UserCreateInnerRequest request) throws ShumishumiException {
@@ -46,20 +54,76 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVO queryById(String userId) {
-        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.USER_ID, userId);
-        return ViewObjectConverter.toViewObject(userDAO.queryById(daoRequest));
+    public UserVO queryById(String userId, boolean useCache) {
+        UserVO userVO = queryFromCache(useCache, userId, DatabaseConst.USER_ID);
+
+        if (userVO == null) {
+            UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.USER_ID, userId);
+            userVO = ViewObjectConverter.toViewObject(userDAO.queryById(daoRequest));
+
+            userFetchService.putToCache(userVO);
+        }
+
+        return userVO;
     }
 
     @Override
-    public UserVO queryByEmail(String email) {
-        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.EMAIL, email);
-        return ViewObjectConverter.toViewObject(userDAO.queryByEmail(daoRequest));
+    public UserVO queryByEmail(String email, boolean useCache) {
+        UserVO userVO = queryFromCache(useCache, email, DatabaseConst.EMAIL);
+
+        if (userVO == null) {
+            UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.EMAIL, email);
+            userVO = ViewObjectConverter.toViewObject(userDAO.queryByEmail(daoRequest));
+
+            userFetchService.putToCache(userVO);
+        }
+
+        return userVO;
     }
 
     @Override
-    public UserVO queryByPhonenumber(String phoneNumber) {
-        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.PHONE_NUMBER, phoneNumber);
-        return ViewObjectConverter.toViewObject(userDAO.queryByPhoneNumber(daoRequest));
+    public UserVO queryByPhoneNumber(String phoneNumber, boolean useCache) {
+        UserVO userVO = queryFromCache(useCache, phoneNumber, DatabaseConst.PHONE_NUMBER);
+
+        if (userVO == null) {
+            UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.PHONE_NUMBER, phoneNumber);
+            userVO = ViewObjectConverter.toViewObject(userDAO.queryByPhoneNumber(daoRequest));
+
+            userFetchService.putToCache(userVO);
+        }
+
+        return userVO;
+    }
+
+    @Override
+    public void refreshCache(List<String> userIds, boolean refreshAll) {
+        List<UserVO> userVOS = refreshCacheAll(refreshAll);
+        if (userVOS == null) {
+            List<UserDAORequest> daoRequests = userIds.stream().map(userId ->
+                    UserDAORequestConverter.toDAORequest(DatabaseConst.USER_ID, userId)).collect(Collectors.toList());
+
+            List<UserDO> userDOS = userDAO.queryByIds(daoRequests);
+            userVOS = userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+        }
+
+        for (UserVO userVO : userVOS) {
+            userFetchService.putToCache(userVO);
+        }
+    }
+
+    private UserVO queryFromCache(boolean useCache, String key, String identifier) {
+        if (!useCache) {
+            return null;
+        }
+        return userFetchService.fetchFromCache(key, identifier);
+    }
+
+    private List<UserVO> refreshCacheAll(boolean refreshAll) {
+        if (!refreshAll) {
+            return null;
+        }
+
+        List<UserDO> userDOS = userDAO.queryAll();
+        return userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
     }
 }

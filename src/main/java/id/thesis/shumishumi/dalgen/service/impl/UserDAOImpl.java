@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -80,7 +81,7 @@ public class UserDAOImpl implements UserDAO {
                 ps.setBlob(4, daoRequest.getProfilePicture());
                 ps.setString(5, daoRequest.getPassword());
                 ps.setTimestamp(6, new Timestamp(daoRequest.getGmtModified().getTime()));
-                ps.setString(7, daoRequest.getUsername());
+                ps.setString(7, daoRequest.getUserId());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
@@ -127,6 +128,19 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public List<UserDO> queryByIds(List<UserDAORequest> userDAORequests) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_IN)
+                .buildStatement();
+
+        String userIds = userDAORequests.stream().map(UserDAORequest::getUserId).collect(Collectors.joining(", "));
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, userIds), new UserDOMapper());
+
+        return userDOS;
+    }
+
+    @Override
     public UserDO queryByEmail(UserDAORequest daoRequest) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
@@ -158,5 +172,14 @@ public class UserDAOImpl implements UserDAO {
         }
 
         return userDOS.get(0);
+    }
+
+    @Override
+    public List<UserDO> queryAll() {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .buildStatement();
+
+        return jdbcTemplate.query(statement, new UserDOMapper());
     }
 }

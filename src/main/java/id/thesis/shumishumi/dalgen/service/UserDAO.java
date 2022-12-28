@@ -8,6 +8,8 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
+import java.util.List;
+
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
  * @version $Id: UserDAO.java, v 0.1 2022‐12‐26 7:28 AM Aldih Suhandi Exp $$
@@ -21,7 +23,12 @@ public interface UserDAO {
 
     UserDO queryById(UserDAORequest daoRequest);
 
+    List<UserDO> queryByIds(List<UserDAORequest> userDAORequests);
+
     UserDO queryByEmail(UserDAORequest daoRequest);
 
     UserDO queryByPhoneNumber(UserDAORequest daoRequest);
+
+    List<UserDO> queryAll();
+
 }

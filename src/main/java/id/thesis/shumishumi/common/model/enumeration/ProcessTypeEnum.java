@@ -8,7 +8,8 @@ import lombok.ToString;
 public enum ProcessTypeEnum {
     USER_REGISTER("USER_REGISTER", "userRegisterValidator", "userRegisterProcessor", false),
     USER_LOGIN("USER_LOGIN", "userLoginValidator", "userLoginProcessor", false),
-    USER_UPDATE("USER_UPDATE", "userUpdateValidator", "userLoginProcessor", true),
+    USER_UPDATE("USER_UPDATE", "userUpdateValidator", "userUpdateProcessor", true),
+    USER_QUERY("USER_QUERY", "userQueryValidator", "userQueryProcessor", false),
 
     SESSION_LOGOUT("SESSION_LOGOUT", "sessionLogoutValidator", "sessionLogoutProcessor", true),
 

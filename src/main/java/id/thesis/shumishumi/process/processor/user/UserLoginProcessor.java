@@ -28,7 +28,7 @@ public class UserLoginProcessor implements BaseProcessor {
         UserLoginRequest loginRequest = (UserLoginRequest) request;
         UserLoginResult loginResult = (UserLoginResult) result;
 
-        UserVO userVO = userService.queryByEmail(loginRequest.getEmail());
+        UserVO userVO = userService.queryByEmail(loginRequest.getEmail(), true);
         AssertUtil.isNotNull(userVO, "User not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
 
         AssertUtil.isExpected(FunctionUtil.verifyHash(loginRequest.getPassword(), userVO.getPassword()),
