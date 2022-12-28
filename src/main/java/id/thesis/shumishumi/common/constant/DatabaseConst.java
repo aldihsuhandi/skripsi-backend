@@ -21,6 +21,7 @@ public class DatabaseConst implements Serializable {
 
     public static String TABLE_SESSION = "sessions";
     public static String TABLE_USER = "users";
+    public static String TABLE_ROLES = "user_roles";
     public static String TABLE_CLIENT = "clients";
 
     // General

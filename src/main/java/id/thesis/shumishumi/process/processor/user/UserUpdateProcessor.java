@@ -4,6 +4,7 @@
  */
 package id.thesis.shumishumi.process.processor.user;
 
+import id.thesis.shumishumi.common.converter.UserRequestConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
@@ -11,7 +12,6 @@ import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.common.util.converter.UserRequestConverter;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;

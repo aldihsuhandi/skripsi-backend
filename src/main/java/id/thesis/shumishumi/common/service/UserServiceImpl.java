@@ -5,12 +5,14 @@
 package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
+import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.common.service.cache.UserFetchService;
-import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
+import id.thesis.shumishumi.core.fetch.UserFetchService;
+import id.thesis.shumishumi.core.service.RoleService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.dalgen.converter.UserDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserFetchService userFetchService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public void register(UserCreateInnerRequest request) throws ShumishumiException {
@@ -59,7 +64,10 @@ public class UserServiceImpl implements UserService {
 
         if (userVO == null) {
             UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.USER_ID, userId);
-            userVO = ViewObjectConverter.toViewObject(userDAO.queryById(daoRequest));
+            UserDO userDO = userDAO.queryById(daoRequest);
+            userVO = ViewObjectConverter.toViewObject(userDO);
+
+            composeRoleVO(userDO.getRoleId(), userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -73,7 +81,10 @@ public class UserServiceImpl implements UserService {
 
         if (userVO == null) {
             UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.EMAIL, email);
-            userVO = ViewObjectConverter.toViewObject(userDAO.queryByEmail(daoRequest));
+            UserDO userDO = userDAO.queryByEmail(daoRequest);
+            userVO = ViewObjectConverter.toViewObject(userDO);
+
+            composeRoleVO(userDO.getRoleId(), userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -87,7 +98,10 @@ public class UserServiceImpl implements UserService {
 
         if (userVO == null) {
             UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.PHONE_NUMBER, phoneNumber);
-            userVO = ViewObjectConverter.toViewObject(userDAO.queryByPhoneNumber(daoRequest));
+            UserDO userDO = userDAO.queryByPhoneNumber(daoRequest);
+            userVO = ViewObjectConverter.toViewObject(userDO);
+
+            composeRoleVO(userDO.getRoleId(), userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -103,7 +117,12 @@ public class UserServiceImpl implements UserService {
                     UserDAORequestConverter.toDAORequest(DatabaseConst.USER_ID, userId)).collect(Collectors.toList());
 
             List<UserDO> userDOS = userDAO.queryByIds(daoRequests);
-            userVOS = userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+            userVOS = userDOS.stream().map(userDO -> {
+                UserVO userVO = ViewObjectConverter.toViewObject(userDO);
+                composeRoleVO(userDO.getRoleId(), userVO);
+
+                return userVO;
+            }).collect(Collectors.toList());
         }
 
         for (UserVO userVO : userVOS) {
@@ -125,5 +144,10 @@ public class UserServiceImpl implements UserService {
 
         List<UserDO> userDOS = userDAO.queryAll();
         return userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+    }
+
+    private void composeRoleVO(String roleId, UserVO userVO) {
+        RoleVO roleVO = roleService.queryById(roleId);
+        userVO.setRoleVO(roleVO);
     }
 }

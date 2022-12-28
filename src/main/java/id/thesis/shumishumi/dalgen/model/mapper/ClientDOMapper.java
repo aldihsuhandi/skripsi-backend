@@ -22,6 +22,8 @@ public class ClientDOMapper implements RowMapper<ClientDO> {
         clientDO.setClientId(rs.getString(DatabaseConst.CLIENT_ID));
         clientDO.setClientName(rs.getString(DatabaseConst.CLIENT_NAME));
         clientDO.setClientSecret(rs.getString(DatabaseConst.CLIENT_SECRET));
+        clientDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
+        clientDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 
         return clientDO;
     }

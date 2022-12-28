@@ -2,7 +2,7 @@
  * Dana.id
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.service.cache;
+package id.thesis.shumishumi.core.fetch;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;

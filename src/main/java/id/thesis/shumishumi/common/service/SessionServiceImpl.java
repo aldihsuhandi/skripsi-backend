@@ -1,10 +1,10 @@
 package id.thesis.shumishumi.common.service;
 
+import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.request.session.SessionCreateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.dalgen.converter.SessionDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.SessionDAORequest;

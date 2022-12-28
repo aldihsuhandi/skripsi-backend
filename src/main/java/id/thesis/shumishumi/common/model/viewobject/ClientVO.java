@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ClientVO {
+public class ClientVO extends BaseVO {
     String clientId;
     String clientName;
     String clientSecret;

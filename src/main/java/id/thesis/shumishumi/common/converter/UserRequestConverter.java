@@ -2,7 +2,7 @@
  * Dana.id
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.util.converter;
+package id.thesis.shumishumi.common.converter;
 
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;

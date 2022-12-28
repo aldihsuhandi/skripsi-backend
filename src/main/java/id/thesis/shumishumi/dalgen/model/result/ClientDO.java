@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
  * @version $Id: ClientDO.java, v 0.1 2022‐12‐26 3:32 PM Aldih Suhandi Exp $$
@@ -17,9 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class ClientDO implements Serializable {
-    private static final long serialVersionUID = -2905585580710262450L;
-
+public class ClientDO extends BaseDO {
     String clientId;
     String clientName;
     String clientSecret;

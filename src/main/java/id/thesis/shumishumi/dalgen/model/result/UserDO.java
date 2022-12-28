@@ -8,9 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.sql.Blob;
-import java.util.Date;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -19,9 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserDO implements Serializable {
-    private static final long serialVersionUID = 6682459763308624451L;
-
+public class UserDO extends BaseDO {
     private String userId;
     private String username;
     private String email;
@@ -29,6 +25,4 @@ public class UserDO implements Serializable {
     private String roleId;
     private Blob profilePicture;
     private String password;
-    private Date gmtCreate;
-    private Date gmtModified;
 }

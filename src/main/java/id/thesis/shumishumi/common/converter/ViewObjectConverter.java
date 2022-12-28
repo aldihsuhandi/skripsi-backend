@@ -2,12 +2,14 @@
  * Dana.id
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.util.converter;
+package id.thesis.shumishumi.common.converter;
 
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
+import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
+import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
@@ -28,7 +30,6 @@ public class ViewObjectConverter {
         userVO.setEmail(userDO.getEmail());
         userVO.setPhoneNumber(userDO.getPhoneNumber());
         userVO.setProfilePicture(userDO.getProfilePicture());
-        userVO.setRoleId(userDO.getRoleId());
         userVO.setGmtCreate(userDO.getGmtCreate());
         userVO.setGmtModified(userDO.getGmtModified());
 
@@ -44,6 +45,8 @@ public class ViewObjectConverter {
         clientVO.setClientName(clientDO.getClientName());
         clientVO.setClientSecret(clientDO.getClientSecret());
         clientVO.setClientId(clientDO.getClientId());
+        clientVO.setGmtCreate(clientDO.getGmtCreate());
+        clientVO.setGmtModified(clientDO.getGmtModified());
 
         return clientVO;
     }
@@ -64,5 +67,15 @@ public class ViewObjectConverter {
 
         return sessionVO;
 
+    }
+
+    public static RoleVO toViewObject(RoleDO roleDO) {
+        RoleVO roleVO = new RoleVO();
+        roleVO.setRoleId(roleDO.getRoleId());
+        roleVO.setRoleName(roleDO.getRoleName());
+        roleVO.setGmtCreate(roleDO.getGmtCreate());
+        roleVO.setGmtModified(roleDO.getGmtModified());
+
+        return roleVO;
     }
 }
