@@ -22,11 +22,13 @@ public class UserFetchService {
     private final Map<String, String> phoneNumberMap = new HashMap<>();
 
     public void putToCache(UserVO userVO) {
+        if (userVO == null) {
+            return;
+        }
+
         String userId = userVO.getUserId();
         String email = userVO.getEmail();
         String phoneNumber = userVO.getPhoneNumber();
-
-        System.out.println("putting UserVO to cache");
 
         emailMap.put(email, userId);
         phoneNumberMap.put(phoneNumber, userId);
@@ -34,7 +36,6 @@ public class UserFetchService {
     }
 
     public UserVO fetchFromCache(String value, String identifier) {
-        System.out.println("fetching UserVO from cache");
         String userId = value;
         if (DatabaseConst.EMAIL.equals(identifier)) {
             userId = emailMap.get(value);

@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
             UserDO userDO = userDAO.queryById(daoRequest);
             userVO = ViewObjectConverter.toViewObject(userDO);
 
-            composeRoleVO(userDO.getRoleId(), userVO);
+            composeRoleVO(userDO, userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
             UserDO userDO = userDAO.queryByEmail(daoRequest);
             userVO = ViewObjectConverter.toViewObject(userDO);
 
-            composeRoleVO(userDO.getRoleId(), userVO);
+            composeRoleVO(userDO, userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
             UserDO userDO = userDAO.queryByPhoneNumber(daoRequest);
             userVO = ViewObjectConverter.toViewObject(userDO);
 
-            composeRoleVO(userDO.getRoleId(), userVO);
+            composeRoleVO(userDO, userVO);
 
             userFetchService.putToCache(userVO);
         }
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
             List<UserDO> userDOS = userDAO.queryByIds(daoRequests);
             userVOS = userDOS.stream().map(userDO -> {
                 UserVO userVO = ViewObjectConverter.toViewObject(userDO);
-                composeRoleVO(userDO.getRoleId(), userVO);
+                composeRoleVO(userDO, userVO);
 
                 return userVO;
             }).collect(Collectors.toList());
@@ -146,8 +146,11 @@ public class UserServiceImpl implements UserService {
         return userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
     }
 
-    private void composeRoleVO(String roleId, UserVO userVO) {
-        RoleVO roleVO = roleService.queryById(roleId);
+    private void composeRoleVO(UserDO userDO, UserVO userVO) {
+        if (userDO == null) {
+            return;
+        }
+        RoleVO roleVO = roleService.queryById(userDO.getRoleId());
         userVO.setRoleVO(roleVO);
     }
 }
