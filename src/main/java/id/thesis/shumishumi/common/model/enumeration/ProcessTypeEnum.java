@@ -11,6 +11,7 @@ public enum ProcessTypeEnum {
     USER_UPDATE("USER_UPDATE", "userUpdateValidator", "userUpdateProcessor", true),
     USER_QUERY("USER_QUERY", "userQueryValidator", "userQueryProcessor", false),
 
+    SESSION_QUERY("SESSION_QUERY", "sessionQueryValidator", "sessionQueryProcessor", true),
     SESSION_LOGOUT("SESSION_LOGOUT", "sessionLogoutValidator", "sessionLogoutProcessor", true),
 
     CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false);

@@ -15,6 +15,7 @@
     <bean id="userQueryProcessor" class="id.thesis.shumishumi.process.processor.user.UserQueryProcessor"/>
 
     <!--session-->
+    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.process.processor.session.SessionQueryProcessor"/>
     <bean id="sessionLogoutProcessor" class="id.thesis.shumishumi.process.processor.session.SessionLogoutProcessor"/>
 
     <!--client-->
@@ -35,6 +36,9 @@
             <ref bean="userQueryProcessor"/>
         </entry>
 
+        <entry key="SESSION_QUERY">
+            <ref bean="sessionQueryProcessor"/>
+        </entry>
         <entry key="SESSION_LOGOUT">
             <ref bean="sessionLogoutProcessor"/>
         </entry>
@@ -52,6 +56,7 @@
     <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
 
     <!--session-->
+    <bean id="sessionQueryValidator" class="id.thesis.shumishumi.core.validator.session.SessionQueryValidator"/>
     <bean id="sessionLogoutValidator" class="id.thesis.shumishumi.core.validator.session.SessionLogoutValidator"/>
 
     <!--client-->
@@ -71,6 +76,9 @@
             <ref bean="userQueryValidator"/>
         </entry>
 
+        <entry key="SESSION_QUERY">
+            <ref bean="sessionQueryValidator"/>
+        </entry>
         <entry key="SESSION_LOGOUT">
             <ref bean="sessionLogoutValidator"/>
         </entry>

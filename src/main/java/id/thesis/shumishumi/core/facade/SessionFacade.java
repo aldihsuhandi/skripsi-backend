@@ -5,7 +5,9 @@
 package id.thesis.shumishumi.core.facade;
 
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -13,4 +15,6 @@ import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
  */
 public interface SessionFacade {
     SessionLogoutResult logout(SessionLogoutRequest request);
+
+    SessionQueryResult query(SessionQueryRequest request);
 }

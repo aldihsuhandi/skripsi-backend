@@ -10,8 +10,10 @@ import id.thesis.shumishumi.process.callback.ControllerCallback;
 import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SessionController extends BaseController {
 
     @Autowired
-    SessionFacade sessionFacade;
+    private SessionFacade sessionFacade;
 
     @PostMapping("/logout")
     public SessionLogoutResult logout(@RequestBody HtmlRequest<SessionLogoutRequest> request) {
@@ -45,6 +47,26 @@ public class SessionController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return sessionFacade.logout(request.getBody());
+            }
+        });
+    }
+
+    @PostMapping("/info")
+    public SessionQueryResult query(@RequestBody HtmlRequest<SessionQueryRequest> request) {
+        return (SessionQueryResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() throws ShumishumiException {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new SessionQueryResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return null;
             }
         });
     }

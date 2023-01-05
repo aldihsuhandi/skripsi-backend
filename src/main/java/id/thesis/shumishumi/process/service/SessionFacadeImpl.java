@@ -9,8 +9,10 @@ import id.thesis.shumishumi.core.facade.SessionFacade;
 import id.thesis.shumishumi.process.callback.ProcessCallback;
 import id.thesis.shumishumi.process.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +27,21 @@ public class SessionFacadeImpl extends ProcessFacade implements SessionFacade {
             @Override
             public BaseResult initResult() {
                 return new SessionLogoutResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public SessionQueryResult query(SessionQueryRequest request) {
+        return (SessionQueryResult) ProcessCallbackSupport.process(ProcessTypeEnum.SESSION_QUERY, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new SessionQueryResult();
             }
 
             @Override
