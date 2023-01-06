@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ShumishumiErrorCodeEnum {
+    SUCCESS("SUCCESS", "success"),
     SYSTEM_ERROR("SYSTEM_ERROR", "System encountered an internal error"),
     PARAM_ILLEGAL("PARAM_ILLEGAL", "parameter not expected"),
     AUTHENTICATION_FAILED("AUTHENTICATION_FAILED", "authentication failed"),

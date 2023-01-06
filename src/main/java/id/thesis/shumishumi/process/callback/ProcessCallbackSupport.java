@@ -15,8 +15,8 @@ public class ProcessCallbackSupport {
             callback.process(processType, result);
 
             resultContext.setSuccess(true);
-            resultContext.setResultCode("SUCCESS");
-            resultContext.setResultMsg("SUCCESS");
+            resultContext.setResultCode(ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+            resultContext.setResultMsg(ShumishumiErrorCodeEnum.SUCCESS.getErrorMsg());
         } catch (Exception e) {
             e.printStackTrace();
             resultContext.setSuccess(false);

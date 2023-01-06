@@ -41,6 +41,9 @@ public class UserUpdateProcessor implements BaseProcessor {
         UserVO userVO = queryUserFromSession(updateRequest.getSessionId());
         UserUpdateContext updateContext = updateRequest.getUserUpdateContext();
 
+        AssertUtil.isExpected(FunctionUtil.verifyHash(updateRequest.getPassword(), userVO.getPassword())
+                , "password", ShumishumiErrorCodeEnum.AUTHENTICATION_FAILED);
+
         validateEmail(updateContext.getEmail(), userVO.getEmail());
         validatePhoneNumber(updateContext.getPhoneNumber(), userVO.getPhoneNumber());
 
