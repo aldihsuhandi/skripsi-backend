@@ -26,7 +26,7 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });
@@ -41,7 +41,7 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });
@@ -56,7 +56,7 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });
@@ -71,7 +71,7 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });

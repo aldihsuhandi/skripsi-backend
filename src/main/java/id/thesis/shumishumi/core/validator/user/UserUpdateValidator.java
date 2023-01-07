@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.core.validator.user;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
@@ -18,7 +17,7 @@ import id.thesis.shumishumi.rest.request.user.UserUpdateRequest;
  */
 public class UserUpdateValidator implements BaseValidator {
     @Override
-    public void validate(BaseRequest baseRequest) throws ShumishumiException {
+    public void validate(BaseRequest baseRequest) {
         ParamChecker.isNotNull(baseRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
         ParamChecker.isExpected(baseRequest instanceof UserUpdateRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
@@ -33,7 +32,7 @@ public class UserUpdateValidator implements BaseValidator {
         checkPhoneNumber(updateContext.getPhoneNumber());
     }
 
-    private void checkEmail(String email) throws ShumishumiException {
+    private void checkEmail(String email) {
         if (email == null || email.isEmpty()) {
             return;
         }
@@ -43,7 +42,7 @@ public class UserUpdateValidator implements BaseValidator {
                 "email", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 
-    private void checkPassword(String password) throws ShumishumiException {
+    private void checkPassword(String password) {
         if (password == null || password.isEmpty()) {
             return;
         }
@@ -52,7 +51,7 @@ public class UserUpdateValidator implements BaseValidator {
         ParamChecker.isExpected(password, "^(?:[\\d,\\/().]*[a-zA-Z][a-zA-Z\\d,\\/().]*)?$", "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 
-    private void checkPhoneNumber(String phoneNumber) throws ShumishumiException {
+    private void checkPhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isEmpty()) {
             return;
         }

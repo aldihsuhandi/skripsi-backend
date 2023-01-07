@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.process.processor.session;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
@@ -24,7 +23,7 @@ public class SessionQueryProcessor implements BaseProcessor {
     private SessionService sessionService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         SessionQueryRequest queryRequest = (SessionQueryRequest) request;
         SessionQueryResult queryResult = (SessionQueryResult) result;
 

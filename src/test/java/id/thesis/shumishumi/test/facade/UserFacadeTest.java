@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.test.facade;
 
+import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.FunctionUtil;
@@ -11,9 +12,11 @@ import id.thesis.shumishumi.dalgen.service.RoleDAO;
 import id.thesis.shumishumi.dalgen.service.SessionDAO;
 import id.thesis.shumishumi.dalgen.service.UserDAO;
 import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
+import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
 import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
 import id.thesis.shumishumi.rest.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.rest.result.user.UserLoginResult;
+import id.thesis.shumishumi.rest.result.user.UserQueryResult;
 import id.thesis.shumishumi.rest.result.user.UserRegisterResult;
 import id.thesis.shumishumi.rest.result.user.UserUpdateResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
@@ -202,6 +205,34 @@ public class UserFacadeTest {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.USER_ALREADY_EXIST.getErrorCode());
+    }
+
+    @Test
+    public void userQueryTest_SUCCESS() {
+        UserQueryRequest request = new UserQueryRequest();
+        request.setIdentifier(DatabaseConst.EMAIL);
+        request.setKey("email@email.com");
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("test"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserQueryResult result = userFacade.query(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+
+    }
+
+    @Test
+    public void userQueryTest_FAILED_user_not_found() {
+        UserQueryRequest request = new UserQueryRequest();
+        request.setIdentifier(DatabaseConst.EMAIL);
+        request.setKey("email@email.com");
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
+
+        UserQueryResult result = userFacade.query(request);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.USER_NOT_FOUND.getErrorCode());
     }
 
     private UserDO mockUserDO(String password) {

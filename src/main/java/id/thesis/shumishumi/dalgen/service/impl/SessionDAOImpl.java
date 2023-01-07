@@ -40,7 +40,7 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
-    public void create(SessionDAORequest request) throws ShumishumiException {
+    public void create(SessionDAORequest request) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.SESSION_ID)
                 .addValueStatement(DatabaseConst.USER_ID)
@@ -66,7 +66,7 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
-    public void logout(SessionDAORequest request) throws ShumishumiException {
+    public void logout(SessionDAORequest request) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
@@ -88,7 +88,7 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
-    public void refreshSession(SessionDAORequest request) throws ShumishumiException {
+    public void refreshSession(SessionDAORequest request) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.SESSION_DT)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)

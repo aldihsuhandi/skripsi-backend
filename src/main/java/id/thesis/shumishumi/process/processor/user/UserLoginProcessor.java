@@ -1,6 +1,5 @@
 package id.thesis.shumishumi.process.processor.user;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.request.session.SessionCreateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
@@ -24,7 +23,7 @@ public class UserLoginProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         UserLoginRequest loginRequest = (UserLoginRequest) request;
         UserLoginResult loginResult = (UserLoginResult) result;
 

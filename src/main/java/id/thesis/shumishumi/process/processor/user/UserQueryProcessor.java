@@ -5,8 +5,9 @@
 package id.thesis.shumishumi.process.processor.user;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;
@@ -25,10 +26,12 @@ public class UserQueryProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         UserQueryRequest queryRequest = (UserQueryRequest) request;
         UserQueryResult queryResult = (UserQueryResult) result;
-        queryResult.setUserVO(query(queryRequest.getKey(), queryRequest.getIdentifier()));
+        UserVO userVO = query(queryRequest.getKey(), queryRequest.getIdentifier());
+        AssertUtil.isNotNull(userVO, "userVO", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+        queryResult.setUserVO(userVO);
     }
 
     private UserVO query(String key, String identifier) {

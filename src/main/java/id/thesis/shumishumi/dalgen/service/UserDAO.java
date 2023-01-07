@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.dalgen.service;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
@@ -15,11 +14,11 @@ import java.util.List;
  * @version $Id: UserDAO.java, v 0.1 2022‐12‐26 7:28 AM Aldih Suhandi Exp $$
  */
 public interface UserDAO {
-    void create(UserDAORequest daoRequest) throws ShumishumiException;
+    void create(UserDAORequest daoRequest);
 
-    void update(UserDAORequest daoRequest) throws ShumishumiException;
+    void update(UserDAORequest daoRequest);
 
-    void updateProfilePicture(UserDAORequest daoRequest) throws ShumishumiException;
+    void updateProfilePicture(UserDAORequest daoRequest);
 
     UserDO queryById(UserDAORequest daoRequest);
 

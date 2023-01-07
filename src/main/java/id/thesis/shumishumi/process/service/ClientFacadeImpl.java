@@ -28,7 +28,7 @@ public class ClientFacadeImpl extends ProcessFacade implements ClientFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });

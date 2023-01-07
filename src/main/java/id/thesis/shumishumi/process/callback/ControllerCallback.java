@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.process.callback;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.rest.result.BaseResult;
 
 /**
@@ -13,7 +12,7 @@ import id.thesis.shumishumi.rest.result.BaseResult;
  */
 public interface ControllerCallback {
 
-    void authCheck() throws ShumishumiException;
+    void authCheck();
 
     BaseResult initResult();
 

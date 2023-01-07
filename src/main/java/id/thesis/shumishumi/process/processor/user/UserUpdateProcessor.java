@@ -36,7 +36,7 @@ public class UserUpdateProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         UserUpdateRequest updateRequest = (UserUpdateRequest) request;
         UserVO userVO = queryUserFromSession(updateRequest.getSessionId());
         UserUpdateContext updateContext = updateRequest.getUserUpdateContext();

@@ -1,6 +1,5 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.process.callback.ControllerCallback;
 import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
@@ -32,7 +31,7 @@ public class UserController extends BaseController {
         return (UserRegisterResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
 
             @Override
-            public void authCheck() throws ShumishumiException {
+            public void authCheck() {
                 authenticate(request.getHead());
             }
 
@@ -52,7 +51,7 @@ public class UserController extends BaseController {
     public UserLoginResult login(@RequestBody HtmlRequest<UserLoginRequest> request) {
         return (UserLoginResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
             @Override
-            public void authCheck() throws ShumishumiException {
+            public void authCheck() {
                 authenticate(request.getHead());
             }
 
@@ -72,7 +71,7 @@ public class UserController extends BaseController {
     public UserUpdateResult update(@RequestBody HtmlRequest<UserUpdateRequest> request) {
         return (UserUpdateResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
             @Override
-            public void authCheck() throws ShumishumiException {
+            public void authCheck() {
                 authenticate(request.getHead());
             }
 
@@ -92,7 +91,7 @@ public class UserController extends BaseController {
     public UserQueryResult query(@RequestBody HtmlRequest<UserQueryRequest> request) {
         return (UserQueryResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
             @Override
-            public void authCheck() throws ShumishumiException {
+            public void authCheck() {
                 authenticate(request.getHead());
             }
 

@@ -25,7 +25,7 @@ public class ProcessFacade {
     @Autowired
     private SessionService sessionService;
 
-    public void doProcess(final BaseRequest request, final BaseResult result, final ProcessTypeEnum processType) throws Exception {
+    public void doProcess(final BaseRequest request, final BaseResult result, final ProcessTypeEnum processType) {
         authenticationAndRefresh(request, processType);
 
         validators.get(processType.getValidatorName()).validate(request);
@@ -33,7 +33,7 @@ public class ProcessFacade {
         processors.get(processType.getProcessorName()).doProcess(result, request);
     }
 
-    private void authenticationAndRefresh(final BaseRequest request, final ProcessTypeEnum processType) throws ShumishumiException {
+    private void authenticationAndRefresh(final BaseRequest request, final ProcessTypeEnum processType) {
         if (!processType.isNeedAuthentication()) {
             return;
         }

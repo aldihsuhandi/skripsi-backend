@@ -30,7 +30,7 @@ public class SessionFacadeImpl extends ProcessFacade implements SessionFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });
@@ -45,7 +45,7 @@ public class SessionFacadeImpl extends ProcessFacade implements SessionFacade {
             }
 
             @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+            public void process(ProcessTypeEnum processType, BaseResult result) {
                 doProcess(request, result, processType);
             }
         });

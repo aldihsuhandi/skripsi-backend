@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void create(UserDAORequest daoRequest) throws ShumishumiException {
+    public void create(UserDAORequest daoRequest) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.USER_ID)
                 .addValueStatement(DatabaseConst.EMAIL)
@@ -61,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(UserDAORequest daoRequest) throws ShumishumiException {
+    public void update(UserDAORequest daoRequest) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.EMAIL)
                 .addSetStatement(DatabaseConst.USERNAME)
@@ -91,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateProfilePicture(UserDAORequest daoRequest) throws ShumishumiException {
+    public void updateProfilePicture(UserDAORequest daoRequest) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.PROFILE_PICTURE)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)

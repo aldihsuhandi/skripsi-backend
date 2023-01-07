@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.process.processor.session;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;
@@ -22,7 +21,7 @@ public class SessionLogoutProcessor implements BaseProcessor {
     private SessionService sessionService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         SessionLogoutRequest logoutRequest = (SessionLogoutRequest) request;
         sessionService.logout(logoutRequest.getSessionId());
     }

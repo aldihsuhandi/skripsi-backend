@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.core.validator.session;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
@@ -17,7 +16,7 @@ import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
  */
 public class SessionQueryValidator implements BaseValidator {
     @Override
-    public void validate(BaseRequest baseRequest) throws ShumishumiException {
+    public void validate(BaseRequest baseRequest) {
         ParamChecker.isNotNull(baseRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
         ParamChecker.isExpected(baseRequest instanceof SessionQueryRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 

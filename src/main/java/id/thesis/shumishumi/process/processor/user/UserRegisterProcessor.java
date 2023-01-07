@@ -23,7 +23,7 @@ public class UserRegisterProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         UserRegisterRequest registerRequest = (UserRegisterRequest) request;
 
         checkExistingUser(registerRequest);

@@ -4,7 +4,6 @@
  */
 package id.thesis.shumishumi.process.processor.client;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
 import id.thesis.shumishumi.common.util.AssertUtil;
@@ -25,7 +24,7 @@ public class ClientAuthProcessor implements BaseProcessor {
     private ClientService clientService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) throws ShumishumiException {
+    public void doProcess(BaseResult result, BaseRequest request) {
         ClientAuthRequest authRequest = (ClientAuthRequest) request;
         ClientVO clientVO = clientService.queryById(authRequest.getClientId());
         AssertUtil.isNotNull(clientVO, "there is not client with that clientId", ShumishumiErrorCodeEnum.OAUTH_ERROR);

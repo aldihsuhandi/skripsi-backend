@@ -1,7 +1,6 @@
 package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.request.session.SessionCreateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
@@ -34,7 +33,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public String create(SessionCreateInnerRequest request) throws ShumishumiException {
+    public String create(SessionCreateInnerRequest request) {
         Date sessionDt = Date.from(LocalDateTime.now().plus(Duration.
                 of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
         String sessionId = FunctionUtil.generateUUID();
@@ -49,7 +48,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void refreshSession(String sessionId) throws ShumishumiException {
+    public void refreshSession(String sessionId) {
         Date sessionDt = Date.from(LocalDateTime.now().plus(Duration.
                 of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
 
@@ -59,7 +58,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void logout(String sessionId) throws ShumishumiException {
+    public void logout(String sessionId) {
         SessionDAORequest daoRequest = SessionDAORequestConverter.toDAORequest(sessionId);
         sessionDAO.logout(daoRequest);
     }

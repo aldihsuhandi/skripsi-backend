@@ -6,7 +6,6 @@ package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
@@ -41,19 +40,19 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Override
-    public void register(UserCreateInnerRequest request) throws ShumishumiException {
+    public void register(UserCreateInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.create(daoRequest);
     }
 
     @Override
-    public void update(UserUpdateInnerRequest request) throws ShumishumiException {
+    public void update(UserUpdateInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.update(daoRequest);
     }
 
     @Override
-    public void updateProfilePicture(UserUpdateInnerRequest request) throws ShumishumiException {
+    public void updateProfilePicture(UserUpdateInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.updateProfilePicture(daoRequest);
     }

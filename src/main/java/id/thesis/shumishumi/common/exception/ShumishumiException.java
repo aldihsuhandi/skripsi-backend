@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ShumishumiException extends Exception{
+public class ShumishumiException extends RuntimeException {
     private ShumishumiErrorCodeEnum errorCode;
 
     public ShumishumiException(String message, ShumishumiErrorCodeEnum errorCodeEnum) {
