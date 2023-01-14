@@ -11,4 +11,6 @@ public interface SessionDAO {
     void logout(SessionDAORequest request);
 
     void refreshSession(SessionDAORequest request);
+
+    void deactivateExpiredSession(SessionDAORequest request);
 }

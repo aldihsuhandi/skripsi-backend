@@ -108,4 +108,26 @@ public class SessionDAOImpl implements SessionDAO {
 
         AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
+
+    @Override
+    public void deactivateExpiredSession(SessionDAORequest request) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_DT, DatabaseConst.COMPARATOR_LESSER)
+                .buildStatement();
+
+
+        try {
+            jdbcTemplate.update(statement, ps -> {
+                ps.setBoolean(1, request.isActive());
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setTimestamp(3, new Timestamp(request.getSessionDt().getTime()));
+
+                System.out.println("statement: " + ps.toString());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
 }

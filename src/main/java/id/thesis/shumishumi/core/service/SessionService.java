@@ -11,4 +11,6 @@ public interface SessionService {
     void refreshSession(String sessionId);
 
     void logout(String sessionId);
+
+    void deactivateExpiredSession();
 }

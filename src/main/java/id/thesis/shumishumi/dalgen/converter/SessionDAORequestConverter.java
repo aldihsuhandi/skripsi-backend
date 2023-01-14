@@ -34,4 +34,13 @@ public class SessionDAORequestConverter {
 
         return daoRequest;
     }
+
+     public static SessionDAORequest toDAORequest(Date sessionDt) {
+         SessionDAORequest daoRequest = new SessionDAORequest();
+         daoRequest.setSessionDt(sessionDt);
+         daoRequest.setGmtModified(new Date());
+         daoRequest.setActive(false);
+
+         return daoRequest;
+     }
 }
