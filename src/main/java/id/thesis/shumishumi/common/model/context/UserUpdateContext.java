@@ -23,4 +23,6 @@ public class UserUpdateContext {
     private String phoneNumber;
     private Blob profilePicture;
     private String password;
+    private Boolean isDeleted;
+    private Boolean isActive;
 }

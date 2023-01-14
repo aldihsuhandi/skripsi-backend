@@ -114,7 +114,9 @@ public class SessionDAOImpl implements SessionDAO {
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_DT, DatabaseConst.COMPARATOR_LESSER)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_DT, DatabaseConst.COMPARATOR_LESSER_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_ACTIVE, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_REMEMBERED, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
 
@@ -123,8 +125,8 @@ public class SessionDAOImpl implements SessionDAO {
                 ps.setBoolean(1, request.isActive());
                 ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
                 ps.setTimestamp(3, new Timestamp(request.getSessionDt().getTime()));
-
-                System.out.println("statement: " + ps.toString());
+                ps.setBoolean(4, true);
+                ps.setBoolean(5, false);
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);

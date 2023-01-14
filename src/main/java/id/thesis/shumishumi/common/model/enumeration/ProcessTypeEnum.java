@@ -10,11 +10,16 @@ public enum ProcessTypeEnum {
     USER_LOGIN("USER_LOGIN", "userLoginValidator", "userLoginProcessor", false),
     USER_UPDATE("USER_UPDATE", "userUpdateValidator", "userUpdateProcessor", true),
     USER_QUERY("USER_QUERY", "userQueryValidator", "userQueryProcessor", false),
+    USER_ACTIVATE("USER_ACTIVATE", "userActivateValidator", "userActivateProcessor", false),
+    FORGOT_PASSWORD("FORGOT_PASSWORD", "userForgotPasswordValidator", "userForgotPasswordProcessor", false),
 
     SESSION_QUERY("SESSION_QUERY", "sessionQueryValidator", "sessionQueryProcessor", true),
     SESSION_LOGOUT("SESSION_LOGOUT", "sessionLogoutValidator", "sessionLogoutProcessor", true),
 
-    CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false);
+    CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false),
+
+    OTP_SEND("OTP_SEND", "otpSendValidator", "otpSendProcessor", false);
+
     private final String processName;
     private final String validatorName;
     private final String processorName;

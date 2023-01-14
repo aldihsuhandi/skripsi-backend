@@ -47,21 +47,9 @@ public class UserUpdateProcessor implements BaseProcessor {
         validateEmail(updateContext.getEmail(), userVO.getEmail());
         validatePhoneNumber(updateContext.getPhoneNumber(), userVO.getPhoneNumber());
 
-        fillEmptyUpdateContext(updateContext, userVO);
+        FunctionUtil.fillEmptyUpdateContext(updateContext, userVO);
         userService.update(UserRequestConverter.toInnerRequest(userVO.getUserId(), updateContext));
         userService.refreshCache(new ArrayList<>(Collections.singletonList(userVO.getUserId())), false);
-    }
-
-    private void fillEmptyUpdateContext(UserUpdateContext updateContext, UserVO userVO) {
-        updateContext.setEmail(checkIfNotEmpty(updateContext.getEmail()) ? updateContext.getEmail() : userVO.getEmail());
-        updateContext.setPassword(checkIfNotEmpty(updateContext.getPassword()) ?
-                FunctionUtil.hashPassword(updateContext.getPassword()) : userVO.getPassword());
-        updateContext.setUsername(checkIfNotEmpty(updateContext.getUsername()) ?
-                updateContext.getUsername() : userVO.getUsername());
-        updateContext.setPhoneNumber(checkIfNotEmpty(updateContext.getPhoneNumber()) ?
-                updateContext.getPhoneNumber() : userVO.getPhoneNumber());
-        updateContext.setProfilePicture(updateContext.getProfilePicture() != null ?
-                updateContext.getProfilePicture() : userVO.getProfilePicture());
     }
 
     private void validateEmail(String email, String currentEmail) throws ShumishumiException {
@@ -70,7 +58,7 @@ public class UserUpdateProcessor implements BaseProcessor {
         }
 
         UserVO userVO = userService.queryByEmail(email, true);
-        AssertUtil.isNull(userVO, "email is already taken", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
+        AssertUtil.isExpected(userVO == null || !userVO.isActive(), "email already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
     }
 
     private void validatePhoneNumber(String phoneNumber, String currentPhoneNumber) throws ShumishumiException {
@@ -79,11 +67,7 @@ public class UserUpdateProcessor implements BaseProcessor {
         }
 
         UserVO userVO = userService.queryByPhoneNumber(phoneNumber, true);
-        AssertUtil.isNull(userVO, "phoneNumber already belong to another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
-    }
-
-    private boolean checkIfNotEmpty(String s) {
-        return s != null && !s.isEmpty();
+        AssertUtil.isExpected(userVO == null || !userVO.isActive(), "phone number already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
     }
 
     private UserVO queryUserFromSession(String sessionId) {

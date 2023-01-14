@@ -26,6 +26,8 @@ public class UserDOMapper implements RowMapper<UserDO> {
         userDO.setProfilePicture(rs.getBlob(DatabaseConst.PROFILE_PICTURE));
         userDO.setRoleId(rs.getString(DatabaseConst.ROLE_ID));
         userDO.setPassword(rs.getString(DatabaseConst.PASSWORD));
+        userDO.setDeleted(rs.getBoolean(DatabaseConst.IS_DELETED));
+        userDO.setActive(rs.getBoolean(DatabaseConst.IS_ACTIVE));
         userDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         userDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 

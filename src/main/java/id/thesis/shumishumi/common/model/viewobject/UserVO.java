@@ -23,6 +23,8 @@ public class UserVO extends BaseVO {
     private String email;
     private String phoneNumber;
     private Blob profilePicture;
+    private boolean isActive;
+    private boolean isDeleted;
     private String password;
     private RoleVO roleVO;
 }

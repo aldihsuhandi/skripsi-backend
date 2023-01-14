@@ -4,11 +4,14 @@
  */
 package id.thesis.shumishumi.common.converter;
 
+import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
+import id.thesis.shumishumi.common.model.viewobject.OtpVO;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
+import id.thesis.shumishumi.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
@@ -30,6 +33,8 @@ public class ViewObjectConverter {
         userVO.setEmail(userDO.getEmail());
         userVO.setPhoneNumber(userDO.getPhoneNumber());
         userVO.setProfilePicture(userDO.getProfilePicture());
+        userVO.setDeleted(userDO.isDeleted());
+        userVO.setActive(userDO.isActive());
         userVO.setGmtCreate(userDO.getGmtCreate());
         userVO.setGmtModified(userDO.getGmtModified());
 
@@ -77,5 +82,19 @@ public class ViewObjectConverter {
         roleVO.setGmtModified(roleDO.getGmtModified());
 
         return roleVO;
+    }
+
+    public static OtpVO toViewObject(OtpDO otpDO) {
+        OtpVO otpVO = new OtpVO();
+        otpVO.setOtpId(otpDO.getOtpId());
+        otpVO.setOtpDt(otpDO.getOtpDt());
+        otpVO.setOtp(otpDO.getOtp());
+        otpVO.setOtpType(OTPTypeEnum.findById(otpDO.getTypeId()).getName());
+        otpVO.setActive(otpDO.isActive());
+        otpVO.setEmail(otpDO.getEmail());
+        otpVO.setGmtCreate(otpDO.getGmtCreate());
+        otpVO.setGmtModified(otpDO.getGmtModified());
+
+        return otpVO;
     }
 }

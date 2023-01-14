@@ -23,6 +23,8 @@ public class UserDO extends BaseDO {
     private String email;
     private String phoneNumber;
     private String roleId;
+    private boolean isActive;
+    private boolean isDeleted;
     private Blob profilePicture;
     private String password;
 }

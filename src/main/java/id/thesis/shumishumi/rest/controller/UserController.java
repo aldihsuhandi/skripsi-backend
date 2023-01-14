@@ -4,11 +4,15 @@ import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.process.callback.ControllerCallback;
 import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
+import id.thesis.shumishumi.rest.request.user.UserActivateRequest;
+import id.thesis.shumishumi.rest.request.user.UserForgotPasswordRequest;
 import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
 import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
 import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
 import id.thesis.shumishumi.rest.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
+import id.thesis.shumishumi.rest.result.user.UserActivateResult;
+import id.thesis.shumishumi.rest.result.user.UserForgotPasswordResult;
 import id.thesis.shumishumi.rest.result.user.UserLoginResult;
 import id.thesis.shumishumi.rest.result.user.UserQueryResult;
 import id.thesis.shumishumi.rest.result.user.UserRegisterResult;
@@ -103,6 +107,46 @@ public class UserController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return userFacade.query(request.getBody());
+            }
+        });
+    }
+
+    @PostMapping("/activate")
+    public UserActivateResult activate(@RequestBody HtmlRequest<UserActivateRequest> request) {
+        return (UserActivateResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new UserActivateResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return userFacade.activate(request.getBody());
+            }
+        });
+    }
+
+    @PostMapping("/forgot")
+    public UserForgotPasswordResult forgotPassword(@RequestBody HtmlRequest<UserForgotPasswordRequest> request) {
+        return (UserForgotPasswordResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new UserForgotPasswordResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return userFacade.forgotPassword(request.getBody());
             }
         });
     }

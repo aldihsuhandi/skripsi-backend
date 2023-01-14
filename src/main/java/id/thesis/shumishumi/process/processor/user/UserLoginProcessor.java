@@ -30,6 +30,10 @@ public class UserLoginProcessor implements BaseProcessor {
         UserVO userVO = userService.queryByEmail(loginRequest.getEmail(), true);
         AssertUtil.isNotNull(userVO, "User not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
 
+        AssertUtil.isExpected(!userVO.isDeleted(), "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+
+        AssertUtil.isExpected(userVO.isActive(), "User is not active", ShumishumiErrorCodeEnum.USER_NOT_ACTIVE);
+
         AssertUtil.isExpected(FunctionUtil.verifyHash(loginRequest.getPassword(), userVO.getPassword()),
                 "password doesn't match", ShumishumiErrorCodeEnum.AUTHENTICATION_FAILED);
 

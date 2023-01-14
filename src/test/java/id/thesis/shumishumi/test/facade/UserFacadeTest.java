@@ -240,6 +240,7 @@ public class UserFacadeTest {
         String hashPassword = FunctionUtil.hashPassword(password);
         user.setUserId("userId");
         user.setEmail("email");
+        user.setActive(true);
         user.setPassword(hashPassword);
 
         return user;
