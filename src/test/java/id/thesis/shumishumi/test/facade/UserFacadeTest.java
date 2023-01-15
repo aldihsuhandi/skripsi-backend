@@ -8,9 +8,6 @@ import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
-import id.thesis.shumishumi.dalgen.service.RoleDAO;
-import id.thesis.shumishumi.dalgen.service.SessionDAO;
-import id.thesis.shumishumi.dalgen.service.UserDAO;
 import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
 import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
 import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
@@ -23,24 +20,12 @@ import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
 
-@SpringBootTest
-public class UserFacadeTest {
+public class UserFacadeTest extends TestBase {
     @Autowired
     private UserFacade userFacade;
-
-    @MockBean
-    private UserDAO userDAO;
-
-    @MockBean
-    private RoleDAO roleDAO;
-
-    @MockBean
-    private SessionDAO sessionDAO;
 
     @Test
     public void userRegisterTest_SUCCESS() {

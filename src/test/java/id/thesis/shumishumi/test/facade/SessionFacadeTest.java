@@ -3,24 +3,17 @@ package id.thesis.shumishumi.test.facade;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.core.facade.SessionFacade;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.service.SessionDAO;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringBootTest
-public class SessionFacadeTest {
+public class SessionFacadeTest extends TestBase {
 
     @Autowired
     private SessionFacade sessionFacade;
-
-    @MockBean
-    private SessionDAO sessionDAO;
 
     @Test
     public void sessionLogoutTest_SUCCESS() {
