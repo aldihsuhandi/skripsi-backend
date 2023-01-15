@@ -18,7 +18,8 @@ public enum ProcessTypeEnum {
 
     CLIENT_AUTH("CLIENT_AUTH", "clientAuthValidator", "clientAuthProcessor", false),
 
-    OTP_SEND("OTP_SEND", "otpSendValidator", "otpSendProcessor", false);
+    OTP_SEND("OTP_SEND", "otpSendValidator", "otpSendProcessor", false),
+    OTP_VALIDATE("OTP_VALIDATE", "otpValidateValidator", "otpValidateProcessor", false);
 
     private final String processName;
     private final String validatorName;

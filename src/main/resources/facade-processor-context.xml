@@ -26,6 +26,7 @@
 
     <!--otp-->
     <bean id="otpSendProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpSendProcessor"/>
+    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpValidateProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -61,6 +62,9 @@
         <entry key="OTP_SEND">
             <ref bean="otpSendProcessor"/>
         </entry>
+        <entry key="OTP_VALIDATE">
+            <ref bean="otpValidateProcessor"/>
+        </entry>
     </util:map>
 
     <!--validators-->
@@ -82,6 +86,7 @@
 
     <!--otp-->
     <bean id="otpSendValidator" class="id.thesis.shumishumi.core.validator.otp.OtpSendValidator"/>
+    <bean id="otpValidateValidator" class="id.thesis.shumishumi.core.validator.otp.OtpValidateValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -116,6 +121,9 @@
 
         <entry key="OTP_SEND">
             <ref bean="otpSendValidator"/>
+        </entry>
+        <entry key="OTP_VALIDATOR">
+            <ref bean="otpValidateValidator"/>
         </entry>
     </util:map>
 </beans>

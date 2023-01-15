@@ -9,7 +9,9 @@ import id.thesis.shumishumi.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.rest.request.otp.OTPSendRequest;
+import id.thesis.shumishumi.rest.request.otp.OTPValidateRequest;
 import id.thesis.shumishumi.rest.result.otp.OTPSendResult;
+import id.thesis.shumishumi.rest.result.otp.OTPValidateResult;
 import id.thesis.shumishumi.test.TestBase;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.internet.MimeMessage;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class OTPFacadeTest extends TestBase {
@@ -41,7 +47,7 @@ public class OTPFacadeTest extends TestBase {
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", true));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
-        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO());
+        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(new Date(), true));
         Mockito.when(contentDAO.queryContent(Mockito.any())).thenReturn(mockContentDO("%s %s"));
         Mockito.when(javaMailSender.createMimeMessage()).thenReturn(message);
 
@@ -58,13 +64,34 @@ public class OTPFacadeTest extends TestBase {
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", true));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
-        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO());
+        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(new Date(), true));
         Mockito.when(contentDAO.queryContent(Mockito.any())).thenReturn(mockContentDO("%s %s"));
         Mockito.when(javaMailSender.createMimeMessage()).thenReturn(message);
 
         OTPSendResult result = otpFacade.sendOtp(request);
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
-        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
+    }
+
+    @Test
+    public void validateOTPTest_SUCCESS() {
+        OTPValidateRequest request = new OTPValidateRequest();
+        request.setEmail("email@email.com");
+        request.setOtp("1234567890");
+        request.setOtpType(OTPTypeEnum.USER_ACTIVATION.getName());
+
+
+        Date otpDt = Date.from(LocalDateTime.now().plus(Duration.
+                of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
+
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", true));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(otpDt, true));
+
+        OTPValidateResult result = otpFacade.validateOtp(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
     }
 
     private ContentDO mockContentDO(String content) {
@@ -75,11 +102,12 @@ public class OTPFacadeTest extends TestBase {
         return contentDO;
     }
 
-    private OtpDO mockOTPDO() {
+    private OtpDO mockOTPDO(Date otpDt, boolean isActive) {
         OtpDO otpDO = new OtpDO();
         otpDO.setOtpId("otpId");
         otpDO.setOtp(FunctionUtil.generateOtp(10, true, true));
-        otpDO.setOtpDt(new Date());
+        otpDO.setActive(true);
+        otpDO.setOtpDt(otpDt);
         otpDO.setTypeId(OTPTypeEnum.FORGOT_PASSWORD.getId());
 
         return otpDO;
