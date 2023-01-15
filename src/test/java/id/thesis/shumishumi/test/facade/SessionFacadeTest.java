@@ -5,6 +5,7 @@ import id.thesis.shumishumi.core.facade.SessionFacade;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.test.TestBase;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

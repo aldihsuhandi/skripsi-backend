@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.process.processor.otp;
 
+import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.request.otp.OTPSendInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
@@ -34,10 +35,15 @@ public class OtpSendProcessor implements BaseProcessor {
 
         AssertUtil.isNotNull(userVO, "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
         AssertUtil.isExpected(!userVO.isDeleted(), "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
-        AssertUtil.isExpected(!userVO.isActive(), "user is already active", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        AssertUtil.isExpected(checkActiveUser(sendRequest.getOtpType(), userVO.isActive()), "user is already active", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         otpService.insert(sendRequest.getEmail(), sendRequest.getOtpType(), otp);
         emailService.sendOtpEmail(composeInnerRequest(sendRequest, otp));
+    }
+
+    private boolean checkActiveUser(String otpType, boolean isActive) {
+        return (OTPTypeEnum.FORGOT_PASSWORD.getName().equals(otpType) && isActive) ||
+                (OTPTypeEnum.USER_ACTIVATION.getName().equals(otpType) && !isActive);
     }
 
     private OTPSendInnerRequest composeInnerRequest(OTPSendRequest sendRequest, String otp) {

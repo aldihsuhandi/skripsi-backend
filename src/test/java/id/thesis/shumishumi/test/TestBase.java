@@ -1,4 +1,4 @@
-package id.thesis.shumishumi.test.facade;
+package id.thesis.shumishumi.test;
 
 import id.thesis.shumishumi.dalgen.service.ClientDAO;
 import id.thesis.shumishumi.dalgen.service.ContentDAO;
