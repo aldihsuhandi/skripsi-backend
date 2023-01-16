@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;
@@ -30,8 +31,9 @@ public class UserQueryProcessor implements BaseProcessor {
         UserQueryRequest queryRequest = (UserQueryRequest) request;
         UserQueryResult queryResult = (UserQueryResult) result;
         UserVO userVO = query(queryRequest.getKey(), queryRequest.getIdentifier());
+        userVO.setPassword(FunctionUtil.hideString(userVO.getUserId()));
         AssertUtil.isNotNull(userVO, "userVO", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
-        queryResult.setUserVO(userVO);
+        queryResult.setUserInfo(userVO);
     }
 
     private UserVO query(String key, String identifier) {

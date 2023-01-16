@@ -47,6 +47,9 @@ public class FunctionUtil {
                 updateContext.getIsActive() : userVO.isActive());
     }
 
+    public static String hideString(String field) {
+        return "*".repeat(field.length());
+    }
 
     private static boolean checkIfNotEmpty(String s) {
         return s != null && !s.isEmpty();

@@ -18,5 +18,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserQueryResult extends BaseResult {
-    private UserVO userVO;
+    private UserVO userInfo;
 }
