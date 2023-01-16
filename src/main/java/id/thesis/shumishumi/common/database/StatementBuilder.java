@@ -2,6 +2,7 @@ package id.thesis.shumishumi.common.database;
 
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.datastructure.Pair;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class StatementBuilder {
     private final List<String> setList;
     private final List<Pair<String, Pair<String, String>>> whereList;
     private final List<String> valueList;
+    private PagingContext pagingContext;
 
     public StatementBuilder(String tableName, String statementType) {
         this.statementType = statementType;
@@ -23,6 +25,7 @@ public class StatementBuilder {
         setList = new ArrayList<>();
         whereList = new ArrayList<>();
         valueList = new ArrayList<>();
+        pagingContext = null;
     }
 
     public String buildStatement() {
@@ -30,6 +33,7 @@ public class StatementBuilder {
         buildValueStatement();
         buildSetStatement();
         buildWhereStatement();
+        buildLimitStatement();
         return statementBuilder.toString();
     }
 
@@ -134,6 +138,16 @@ public class StatementBuilder {
         }
     }
 
+    private void buildLimitStatement() {
+        if (pagingContext == null) {
+            return;
+        }
+
+        int offset = (pagingContext.getPageNumber() - 1) * pagingContext.getNumberOfItem();
+        int numberOfItem = pagingContext.getNumberOfItem();
+        statementBuilder.append(String.format(" LIMIT %s,%s ", offset, numberOfItem));
+    }
+
     public StatementBuilder addSelectStatement(String value) {
         selectList.add(value);
         return this;
@@ -151,6 +165,11 @@ public class StatementBuilder {
 
     public StatementBuilder addSetStatement(String key) {
         setList.add(key);
+        return this;
+    }
+
+    public StatementBuilder addLimitStatement(PagingContext pagingContext) {
+        this.pagingContext = pagingContext;
         return this;
     }
 }
