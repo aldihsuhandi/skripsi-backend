@@ -15,9 +15,9 @@ public class ProcessCallbackSupport {
             callback.process(processType, result);
 
             resultContext.setSuccess(true);
-            resultContext.setResultCode("SUCCESS");
-            resultContext.setResultMsg("SUCCESS");
-        } catch (Exception e) {
+            resultContext.setResultCode(ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+            resultContext.setResultMsg(ShumishumiErrorCodeEnum.SUCCESS.getErrorMsg());
+        } catch (RuntimeException e) {
             e.printStackTrace();
             resultContext.setSuccess(false);
             resultContext.setResultCode(ShumishumiErrorCodeEnum.SYSTEM_ERROR.getErrorCode());
@@ -25,7 +25,7 @@ public class ProcessCallbackSupport {
 
             if (e instanceof ShumishumiException) {
                 ShumishumiException se = (ShumishumiException) e;
-                resultContext.setResultMsg(se.getErrorCode().getErrorMsg());
+                resultContext.setResultMsg(se.getMessage());
                 resultContext.setResultCode(se.getErrorCode().getErrorCode());
             }
         }

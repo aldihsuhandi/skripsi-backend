@@ -4,7 +4,7 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.core.service.session.SessionService;
+import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.validator.BaseValidator;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;
@@ -25,7 +25,7 @@ public class ProcessFacade {
     @Autowired
     private SessionService sessionService;
 
-    public void doProcess(final BaseRequest request, final BaseResult result, final ProcessTypeEnum processType) throws Exception {
+    public void doProcess(final BaseRequest request, final BaseResult result, final ProcessTypeEnum processType) {
         authenticationAndRefresh(request, processType);
 
         validators.get(processType.getValidatorName()).validate(request);
@@ -33,7 +33,7 @@ public class ProcessFacade {
         processors.get(processType.getProcessorName()).doProcess(result, request);
     }
 
-    private void authenticationAndRefresh(final BaseRequest request, final ProcessTypeEnum processType) throws ShumishumiException {
+    private void authenticationAndRefresh(final BaseRequest request, final ProcessTypeEnum processType) {
         if (!processType.isNeedAuthentication()) {
             return;
         }
@@ -41,10 +41,10 @@ public class ProcessFacade {
         String sessionId = request.getSessionId();
         SessionVO sessionVO = sessionService.query(sessionId);
 
-        if (sessionVO == null || !sessionVO.isActive()
-                || sessionVO.getSessionDt().before(new Date())) {
+        if (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
+                || sessionVO.getSessionDt().before(new Date())))) {
             throw new ShumishumiException("Session Expired",
-                    ShumishumiErrorCodeEnum.AUTHENTICATION_ERROR);
+                    ShumishumiErrorCodeEnum.SESSION_EXPIRED);
         }
 
         sessionService.refreshSession(sessionId);

@@ -6,5 +6,5 @@ import id.thesis.shumishumi.rest.result.BaseResult;
 public interface ProcessCallback {
     BaseResult initResult();
 
-    void process(ProcessTypeEnum processType, BaseResult result) throws Exception;
+    void process(ProcessTypeEnum processType, BaseResult result);
 }

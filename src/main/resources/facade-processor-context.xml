@@ -10,25 +10,120 @@
     <!--processors-->
     <!--user-->
     <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
+    <bean id="userLoginProcessor" class="id.thesis.shumishumi.process.processor.user.UserLoginProcessor"/>
+    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userQueryProcessor" class="id.thesis.shumishumi.process.processor.user.UserQueryProcessor"/>
+    <bean id="userActivateProcessor" class="id.thesis.shumishumi.process.processor.user.UserActivateProcessor"/>
+    <bean id="userForgotPasswordProcessor"
+          class="id.thesis.shumishumi.process.processor.user.UserForgotPasswordProcessor"/>
+
+    <!--session-->
+    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.process.processor.session.SessionQueryProcessor"/>
+    <bean id="sessionLogoutProcessor" class="id.thesis.shumishumi.process.processor.session.SessionLogoutProcessor"/>
+
+    <!--client-->
+    <bean id="clientAuthProcessor" class="id.thesis.shumishumi.process.processor.client.ClientAuthProcessor"/>
+
+    <!--otp-->
+    <bean id="otpSendProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpSendProcessor"/>
+    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpValidateProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
             <ref bean="userRegisterProcessor"/>
+        </entry>
+        <entry key="USER_LOGIN">
+            <ref bean="userLoginProcessor"/>
+        </entry>
+        <entry key="USER_UPDATE">
+            <ref bean="userUpdateProcessor"/>
+        </entry>
+        <entry key="USER_QUERY">
+            <ref bean="userQueryProcessor"/>
+        </entry>
+        <entry key="USER_ACTIVATE">
+            <ref bean="userActivateProcessor"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD">
+            <ref bean="userForgotPasswordProcessor"/>
+        </entry>
+
+        <entry key="SESSION_QUERY">
+            <ref bean="sessionQueryProcessor"/>
+        </entry>
+        <entry key="SESSION_LOGOUT">
+            <ref bean="sessionLogoutProcessor"/>
+        </entry>
+
+        <entry key="CLIENT_AUTH">
+            <ref bean="clientAuthProcessor"/>
+        </entry>
+
+        <entry key="OTP_SEND">
+            <ref bean="otpSendProcessor"/>
+        </entry>
+        <entry key="OTP_VALIDATE">
+            <ref bean="otpValidateProcessor"/>
         </entry>
     </util:map>
 
     <!--validators-->
     <!--user-->
     <bean id="userRegisterValidator" class="id.thesis.shumishumi.core.validator.user.UserRegisterValidator"/>
+    <bean id="userLoginValidator" class="id.thesis.shumishumi.core.validator.user.UserLoginValidator"/>
+    <bean id="userUpdateValidator" class="id.thesis.shumishumi.core.validator.user.UserUpdateValidator"/>
+    <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
+    <bean id="userActivateValidator" class="id.thesis.shumishumi.core.validator.user.UserActivateValidator"/>
+    <bean id="userForgotPasswordValidator"
+          class="id.thesis.shumishumi.core.validator.user.UserForgotPasswordValidator"/>
+
+    <!--session-->
+    <bean id="sessionQueryValidator" class="id.thesis.shumishumi.core.validator.session.SessionQueryValidator"/>
+    <bean id="sessionLogoutValidator" class="id.thesis.shumishumi.core.validator.session.SessionLogoutValidator"/>
+
+    <!--client-->
+    <bean id="clientAuthValidator" class="id.thesis.shumishumi.core.validator.client.ClientAuthValidator"/>
+
+    <!--otp-->
+    <bean id="otpSendValidator" class="id.thesis.shumishumi.core.validator.otp.OtpSendValidator"/>
+    <bean id="otpValidateValidator" class="id.thesis.shumishumi.core.validator.otp.OtpValidateValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
             <ref bean="userRegisterValidator"/>
         </entry>
-    </util:map>
+        <entry key="USER_LOGIN">
+            <ref bean="userLoginValidator"/>
+        </entry>
+        <entry key="USER_UPDATE">
+            <ref bean="userUpdateValidator"/>
+        </entry>
+        <entry key="USER_QUERY">
+            <ref bean="userQueryValidator"/>
+        </entry>
+        <entry key="USER_ACTIVATE">
+            <ref bean="userActivateValidator"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD">
+            <ref bean="userForgotPasswordValidator"/>
+        </entry>
 
-    <bean id="processFacade" class="id.thesis.shumishumi.process.service.ProcessFacade">
-        <property name="processors" ref="processorMap"/>
-        <property name="validators" ref="validatorMap"/>
-    </bean>
+        <entry key="SESSION_QUERY">
+            <ref bean="sessionQueryValidator"/>
+        </entry>
+        <entry key="SESSION_LOGOUT">
+            <ref bean="sessionLogoutValidator"/>
+        </entry>
+
+        <entry key="CLIENT_AUTH">
+            <ref bean="clientAuthValidator"/>
+        </entry>
+
+        <entry key="OTP_SEND">
+            <ref bean="otpSendValidator"/>
+        </entry>
+        <entry key="OTP_VALIDATOR">
+            <ref bean="otpValidateValidator"/>
+        </entry>
+    </util:map>
 </beans>

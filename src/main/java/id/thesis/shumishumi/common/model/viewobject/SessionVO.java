@@ -15,6 +15,4 @@ public class SessionVO extends BaseVO {
     private Date sessionDt;
     private boolean isRemembered;
     private boolean isActive;
-    private Date gmtCreate;
-    private Date gmtModified;
 }
