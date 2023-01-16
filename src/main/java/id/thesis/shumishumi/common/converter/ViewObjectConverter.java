@@ -75,6 +75,9 @@ public class ViewObjectConverter {
     }
 
     public static RoleVO toViewObject(RoleDO roleDO) {
+        if (roleDO == null) {
+            return null;
+        }
         RoleVO roleVO = new RoleVO();
         roleVO.setRoleId(roleDO.getRoleId());
         roleVO.setRoleName(roleDO.getRoleName());
@@ -85,6 +88,10 @@ public class ViewObjectConverter {
     }
 
     public static OtpVO toViewObject(OtpDO otpDO) {
+        if (otpDO == null) {
+            return null;
+        }
+
         OtpVO otpVO = new OtpVO();
         otpVO.setOtpId(otpDO.getOtpId());
         otpVO.setOtpDt(otpDO.getOtpDt());

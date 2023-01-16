@@ -28,6 +28,9 @@
     <bean id="otpSendProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpSendProcessor"/>
     <bean id="otpValidateProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpValidateProcessor"/>
 
+    <!--item-->
+    <bean id="createItemProcessor" class="id.thesis.shumishumi.process.processor.item.CreateItemProcessor"/>
+
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
             <ref bean="userRegisterProcessor"/>
@@ -65,6 +68,10 @@
         <entry key="OTP_VALIDATE">
             <ref bean="otpValidateProcessor"/>
         </entry>
+
+        <entry key="ITEM_CREATE">
+            <ref bean="createItemProcessor"/>
+        </entry>
     </util:map>
 
     <!--validators-->
@@ -87,6 +94,9 @@
     <!--otp-->
     <bean id="otpSendValidator" class="id.thesis.shumishumi.core.validator.otp.OtpSendValidator"/>
     <bean id="otpValidateValidator" class="id.thesis.shumishumi.core.validator.otp.OtpValidateValidator"/>
+
+    <!--item-->
+    <bean id="createItemValidator" class="id.thesis.shumishumi.core.validator.item.CreateItemValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -124,6 +134,10 @@
         </entry>
         <entry key="OTP_VALIDATOR">
             <ref bean="otpValidateValidator"/>
+        </entry>
+
+        <entry key="ITEM_CREATE">
+            <ref bean="createItemValidator"/>
         </entry>
     </util:map>
 </beans>
