@@ -31,6 +31,7 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_ITEM = "items";
     public static final String TABLE_ITEM_CATEGORIES = "item_categories";
     public static final String TABLE_HOBBIES = "hobbies";
+    public static final String TABLE_INTEREST_LEVEL = "interest_level";
 
     // General
     public static final String GMT_CREATE = "gmt_create";
@@ -79,6 +80,7 @@ public class DatabaseConst implements Serializable {
     public static final String ITEM_DESCRIPTION = "item_description";
     public static final String ITEM_QUANTITY = "item_quantity";
     public static final String MERCHANT_LEVEL_ID = "merchant_level_id";
+    public static final String USER_LEVEL_ID = "user_level_id";
 
     // item category
     public static final String CATEGORY_ID = "category_id";
@@ -87,4 +89,8 @@ public class DatabaseConst implements Serializable {
     // Hobby
     public static final String HOBBY_ID = "hobby_id";
     public static final String HOBBY_NAME = "hobby_name";
+
+    // Interest Level
+    public static final String INTEREST_LEVEL_ID = "interest_level_id";
+    public static final String INTEREST_LEVEL_NAME = "level_name";
 }

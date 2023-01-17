@@ -20,6 +20,8 @@ public class ItemDO extends BaseDO {
     private Integer itemQuantity;
     private String categoryId;
     private String hobbyId;
+    private String merchantId;
     private String merchantLevelId;
+    private String userLevelId;
     private List<Blob> itemImages;
 }

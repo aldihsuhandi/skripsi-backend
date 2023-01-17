@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Statement;
 import java.util.List;
 
 @Service
@@ -43,7 +42,7 @@ public class ItemDAOImpl implements ItemDAO {
         List<ItemDO> itemDOS = jdbcTemplate.query(statement, ps ->
                 ps.setString(1, request.getItemId()), new ItemDOMapper());
 
-        if(itemDOS.isEmpty()) {
+        if (itemDOS.isEmpty()) {
             return null;
         }
 
@@ -79,6 +78,11 @@ public class ItemDAOImpl implements ItemDAO {
                     DatabaseConst.MERCHANT_LEVEL_ID, DatabaseConst.COMPARATOR_EQUAL);
         }
 
+        if (StringUtils.isNotEmpty(request.getUserLevelId())) {
+            builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND,
+                    DatabaseConst.USER_LEVEL_ID, DatabaseConst.COMPARATOR_EQUAL);
+        }
+
         if (request.getMinPrice() != null) {
             builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND,
                     DatabaseConst.ITEM_PRICE, DatabaseConst.COMPARATOR_GREATER_EQUAL);
@@ -92,7 +96,7 @@ public class ItemDAOImpl implements ItemDAO {
         builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND,
                 DatabaseConst.ITEM_QUANTITY, DatabaseConst.COMPARATOR_GREATER);
 
-        List<ItemDO> itemDOS = jdbcTemplate.query(builder.buildStatement(), ps -> {
+        return jdbcTemplate.query(builder.buildStatement(), ps -> {
             int indx = 1;
             if (StringUtils.isNotEmpty(request.getItemName())) {
                 ps.setString(indx++, request.getItemName());
@@ -114,6 +118,10 @@ public class ItemDAOImpl implements ItemDAO {
                 ps.setString(indx++, request.getMerchantLevelId());
             }
 
+            if (StringUtils.isNotEmpty(request.getUserLevelId())) {
+                ps.setString(indx++, request.getUserLevelId());
+            }
+
             if (request.getMinPrice() != null) {
                 ps.setLong(indx++, request.getMinPrice());
             }
@@ -124,8 +132,6 @@ public class ItemDAOImpl implements ItemDAO {
 
             ps.setLong(indx++, 0);
         }, new ItemDOMapper());
-
-        return itemDOS;
     }
 
     @Override

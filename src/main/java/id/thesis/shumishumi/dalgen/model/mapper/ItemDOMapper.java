@@ -17,7 +17,9 @@ public class ItemDOMapper implements RowMapper<ItemDO> {
         itemDO.setItemPrice(rs.getLong(DatabaseConst.ITEM_PRICE));
         itemDO.setItemQuantity(rs.getInt(DatabaseConst.ITEM_QUANTITY));
         itemDO.setCategoryId(rs.getString(DatabaseConst.CATEGORY_ID));
+        itemDO.setMerchantId(rs.getString(DatabaseConst.MERCHANT_ID));
         itemDO.setMerchantLevelId(rs.getString(DatabaseConst.MERCHANT_LEVEL_ID));
+        itemDO.setUserLevelId(rs.getString(DatabaseConst.USER_LEVEL_ID));
         itemDO.setHobbyId(rs.getString(DatabaseConst.HOBBY_ID));
         itemDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         itemDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
