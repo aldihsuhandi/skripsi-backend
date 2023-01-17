@@ -6,6 +6,8 @@ package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.core.service.ItemService;
+import id.thesis.shumishumi.dalgen.service.ItemDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
+
+    @Autowired
+    private ItemDAO itemDAO;
+
     @Override
     public void create(CreateItemInnerRequest request) {
     }

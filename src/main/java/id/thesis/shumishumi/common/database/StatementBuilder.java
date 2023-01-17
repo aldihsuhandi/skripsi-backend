@@ -12,7 +12,7 @@ public class StatementBuilder {
     private final StringBuilder statementBuilder = new StringBuilder();
     private final String statementType;
     private final String tableName;
-    private final List<String> selectList;
+    private final List<Pair<String, String>> selectList;
     private final List<String> setList;
     private final List<Pair<String, Pair<String, String>>> whereList;
     private final List<String> valueList;
@@ -54,12 +54,15 @@ public class StatementBuilder {
         statementBuilder.append("select ");
 
         boolean needComma = false;
-        for (String select : selectList) {
+        for (Pair<String, String> select : selectList) {
             if (needComma) {
                 statementBuilder.append(", ");
             }
 
-            statementBuilder.append(select);
+            statementBuilder.append(select.getFirst());
+            if(!"-".equalsIgnoreCase(select.getSecond())) {
+                statementBuilder.append(String.format(" as %s", select.getSecond()));
+            }
             needComma = true;
         }
 
@@ -149,7 +152,11 @@ public class StatementBuilder {
     }
 
     public StatementBuilder addSelectStatement(String value) {
-        selectList.add(value);
+        return addSelectStatement(value, "-");
+    }
+
+    public StatementBuilder addSelectStatement(String value, String as) {
+        selectList.add(new Pair<String, String>(value, as));
         return this;
     }
 

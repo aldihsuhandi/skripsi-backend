@@ -8,6 +8,8 @@ import java.util.List;
 public interface ItemDAO {
     List<ItemDO> queryAll(ItemDAORequest request);
 
+    ItemDO queryById(ItemDAORequest request) ;
+
     List<ItemDO> query(ItemDAORequest request);
 
     int count();

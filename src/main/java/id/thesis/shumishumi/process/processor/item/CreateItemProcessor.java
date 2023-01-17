@@ -49,7 +49,7 @@ public class CreateItemProcessor implements BaseProcessor {
         AssertUtil.isExpected(UserRolesEnum.MERCHANT.getUserRoleName().
                 equals(userVO.getRoleVO().getRoleName()), "user is not a merchant", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
-        CreateItemInnerRequest innerRequest = ItemRequestConverter.toInnerRequest(itemRequest, userVO.getUserId());
-        itemService.create(innerRequest);
+//        CreateItemInnerRequest innerRequest = ItemRequestConverter.toInnerRequest(itemRequest, userVO.getUserId());
+//        itemService.create(innerRequest);
     }
 }

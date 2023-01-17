@@ -19,11 +19,14 @@ public class ItemDAORequest implements Serializable {
     private String itemId;
     private String itemName;
     private Long itemPrice;
+    private Long minPrice;
+    private Long maxPrice;
     private String itemDescription;
     private Integer itemQuantity;
-    private String categoryName;
-    private String hobbyName;
-    private String merchantInterestLeve;
+    private String categoryId;
+    private String hobbyId;
+    private String merchantId;
+    private String merchantLevelId;
     private List<Blob> itemImages;
     private Date gmtCreate;
     private Date gmtModified;

@@ -27,9 +27,9 @@ public class CreateItemInnerRequest extends BaseInnerRequest {
     private Long itemPrice;
     private String itemDescription;
     private Integer itemQuantity;
-    private String categoryName;
-    private String hobbyName;
-    private String merchantInterestLeve;
+    private String categoryId;
+    private String hobbyId;
+    private String merchantLevelId;
     private List<Blob> itemImages;
     private String merchantId;
 }

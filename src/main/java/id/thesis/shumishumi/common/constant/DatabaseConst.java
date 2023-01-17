@@ -10,7 +10,9 @@ public class DatabaseConst implements Serializable {
     public static final String STATEMENT_INSERT = "insert";
     public static final String STATEMENT_SELECT = "select";
     public static final String DATABASE_SELECT_ALL = "*";
+    public static final String DATABASE_SELECT_COUNT = "COUNT(*)";
     public static final String COMPARATOR_EQUAL = "=";
+    public static final String COMPARATOR_LIKE = "LIKE";
     public static final String COMPARATOR_GREATER = ">";
     public static final String COMPARATOR_LESSER = "<";
     public static final String COMPARATOR_GREATER_EQUAL = ">=";
@@ -36,6 +38,7 @@ public class DatabaseConst implements Serializable {
     public static final String IS_DELETED = "is_deleted";
     public static final String IS_ACTIVE = "is_active";
     public static final String MERCHANT_ID = "merchant_id";
+    public static final String COUNT = "count";
 
     // User
     public static final String USER_ID = "user_id";

@@ -13,7 +13,8 @@ import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
  * @version $Id: ItemRequestConverter.java, v 0.1 2023‐01‐16 5:05 PM Aldih Suhandi Exp $$
  */
 public class ItemRequestConverter {
-    public static CreateItemInnerRequest toInnerRequest(CreateItemRequest request, String merchantId) {
+    public static CreateItemInnerRequest toInnerRequest(CreateItemRequest request,
+                                                        String merchantId, String categoryId, String hobbyId, String merchantLevelId) {
         if (request == null) {
             return null;
         }
@@ -25,9 +26,9 @@ public class ItemRequestConverter {
         innerRequest.setItemImages(request.getItemImages());
         innerRequest.setItemPrice(request.getItemPrice());
         innerRequest.setItemQuantity(request.getItemQuantity());
-        innerRequest.setCategoryName(request.getCategoryName());
-        innerRequest.setHobbyName(request.getHobbyName());
-        innerRequest.setMerchantInterestLeve(request.getMerchantInterestLeve());
+        innerRequest.setCategoryId(categoryId);
+        innerRequest.setHobbyId(hobbyId);
+        innerRequest.setMerchantLevelId(merchantLevelId);
         innerRequest.setMerchantId(merchantId);
 
         return innerRequest;
