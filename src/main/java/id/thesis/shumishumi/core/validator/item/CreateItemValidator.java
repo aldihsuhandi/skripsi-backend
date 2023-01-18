@@ -30,7 +30,7 @@ public class CreateItemValidator implements BaseValidator {
 
         ParamChecker.isNotNull(request.getItemQuantity(), "Quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
-        ParamChecker.isNotNull(InterestLevelEnum.findByName(request.getMerchantInterestLeve()), "merchantInterestLevel", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isNotNull(InterestLevelEnum.findByName(request.getMerchantInterestLevel()), "merchantInterestLevel", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         ParamChecker.isNotEmpty(request.getHobbyName(), "hobbyName", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 

@@ -5,6 +5,9 @@
 package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
+import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+
+import java.util.List;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -12,4 +15,8 @@ import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
  */
 public interface ItemService {
     void create(CreateItemInnerRequest request);
+
+    ItemVO queryById(String itemId, boolean useCache);
+
+    void refreshCache(List<String> itemIds, boolean refreshAll);
 }

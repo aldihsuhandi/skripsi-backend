@@ -35,6 +35,8 @@ public class UserRegisterProcessor implements BaseProcessor {
         userService.register(innerRequest);
 
         insertProfilePicture(registerRequest.getProfilePicture(), userId);
+
+        userService.queryById(userId, false);
     }
 
     private void checkExistingUser(UserRegisterRequest registerRequest) throws ShumishumiException {

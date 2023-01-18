@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ItemFacadeService {
+public class ItemFetchService {
     private final Map<String, ItemVO> itemCache = new HashMap<>();
 
     public void putToCache(ItemVO itemVO) {

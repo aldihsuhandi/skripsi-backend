@@ -28,6 +28,6 @@ public class CreateItemRequest extends BaseRequest {
     private Integer itemQuantity;
     private String categoryName;
     private String hobbyName;
-    private String merchantInterestLeve;
+    private String merchantInterestLevel;
     private List<Blob> itemImages;
 }

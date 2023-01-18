@@ -6,11 +6,20 @@ package id.thesis.shumishumi.common.converter;
 
 import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
+import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
+import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
+import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
+import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.OtpVO;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.core.service.InterestLevelService;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
+import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
+import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
+import id.thesis.shumishumi.dalgen.model.result.ItemCategoryDO;
+import id.thesis.shumishumi.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
@@ -103,5 +112,78 @@ public class ViewObjectConverter {
         otpVO.setGmtModified(otpDO.getGmtModified());
 
         return otpVO;
+    }
+
+    public static InterestLevelVO toViewObject(InterestLevelDO interestLevelDO) {
+        if (interestLevelDO == null) {
+            return null;
+        }
+
+        InterestLevelVO interestLevelVO = new InterestLevelVO();
+        interestLevelVO.setInterestLevelId(interestLevelDO.getInterestLevelId());
+        interestLevelVO.setInterestLevelName(interestLevelDO.getInterestLevelName());
+        interestLevelVO.setGmtCreate(interestLevelDO.getGmtCreate());
+        interestLevelVO.setGmtModified(interestLevelDO.getGmtModified());
+
+        return interestLevelVO;
+    }
+
+    public static HobbyVO toViewObject(HobbyDO hobbyDO) {
+        if (hobbyDO == null) {
+            return null;
+        }
+
+        HobbyVO hobbyVO = new HobbyVO();
+        hobbyVO.setHobbyName(hobbyVO.getHobbyName());
+        hobbyVO.setHobbyId(hobbyVO.getHobbyId());
+        hobbyVO.setGmtCreate(hobbyVO.getGmtCreate());
+        hobbyVO.setGmtModified(hobbyVO.getGmtModified());
+
+        return hobbyVO;
+    }
+
+    public static ItemCategoryVO toViewObject(ItemCategoryDO itemCategoryDO) {
+        if (itemCategoryDO == null) {
+            return null;
+        }
+
+        ItemCategoryVO itemCategoryVO = new ItemCategoryVO();
+        itemCategoryVO.setCategoryId(itemCategoryDO.getCategoryId());
+        itemCategoryVO.setCategoryName(itemCategoryDO.getCategoryName());
+        itemCategoryVO.setGmtCreate(itemCategoryDO.getGmtCreate());
+        itemCategoryVO.setGmtModified(itemCategoryDO.getGmtModified());
+
+        return itemCategoryVO;
+    }
+
+    public static ItemVO toViewObject(ItemDO itemDO) {
+        if (itemDO == null) {
+            return null;
+        }
+
+        UserVO merchantInfo = new UserVO();
+        HobbyVO hobby = new HobbyVO();
+        ItemCategoryVO itemCategoryVO = new ItemCategoryVO();
+        InterestLevelVO merchantLevel = new InterestLevelVO();
+        InterestLevelVO userLevel = new InterestLevelVO();
+
+        merchantInfo.setUserId(itemDO.getMerchantId());
+        hobby.setHobbyId(itemDO.getHobbyId());
+        itemCategoryVO.setCategoryId(itemDO.getCategoryId());
+        merchantLevel.setInterestLevelId(itemDO.getMerchantLevelId());
+        userLevel.setInterestLevelId(itemDO.getUserLevelId());
+
+        ItemVO itemVO = new ItemVO();
+        itemVO.setItemId(itemDO.getItemId());
+        itemVO.setItemName(itemDO.getItemName());
+        itemVO.setItemPrice(itemDO.getItemPrice());
+        itemVO.setItemDescription(itemDO.getItemDescription());
+        itemVO.setItemQuantity(itemDO.getItemQuantity());
+        itemVO.setItemCategory(itemCategoryVO);
+        itemVO.setMerchantInfo(merchantInfo);
+        itemVO.setMerchantLevel(merchantLevel);
+        itemVO.setUserLevel(userLevel);
+
+        return itemVO;
     }
 }

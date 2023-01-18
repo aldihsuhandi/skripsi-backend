@@ -21,7 +21,11 @@ public enum ProcessTypeEnum {
     OTP_SEND("OTP_SEND", "otpSendValidator", "otpSendProcessor", false),
     OTP_VALIDATE("OTP_VALIDATE", "otpValidateValidator", "otpValidateProcessor", false),
 
-    ITEM_CREATE("ITEM_CREATE", "itemCreateValidator", "itemCreateProcessor", true);
+    ITEM_CREATE("ITEM_CREATE", "itemCreateValidator", "itemCreateProcessor", true),
+
+    ITEM_QUERY("ITEM_QUERY", "itemQueryValidator", "itemQueryProcessor", false),
+
+    ;
 
     private final String processName;
     private final String validatorName;

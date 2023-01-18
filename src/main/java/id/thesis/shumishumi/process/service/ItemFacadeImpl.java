@@ -9,8 +9,10 @@ import id.thesis.shumishumi.core.facade.ItemFacade;
 import id.thesis.shumishumi.process.callback.ProcessCallback;
 import id.thesis.shumishumi.process.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
+import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
+import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +27,21 @@ public class ItemFacadeImpl extends ProcessFacade implements ItemFacade {
             @Override
             public BaseResult initResult() {
                 return new CreateItemResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public QueryItemResult query(QueryItemRequest request) {
+        return (QueryItemResult) ProcessCallbackSupport.process(ProcessTypeEnum.ITEM_QUERY, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new QueryItemResult();
             }
 
             @Override

@@ -13,7 +13,11 @@ public class StartupRunner {
     private UserService userService;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void fillUserCache() {
+    public void refreshUserCache() {
         userService.refreshCache(null, true);
+    }
+
+    public void refreshItemCache() {
+        ;
     }
 }

@@ -28,7 +28,6 @@ public class ItemDAORequest implements Serializable {
     private String merchantId;
     private String merchantLevelId;
     private String userLevelId;
-    private List<Blob> itemImages;
     private Date gmtCreate;
     private Date gmtModified;
 

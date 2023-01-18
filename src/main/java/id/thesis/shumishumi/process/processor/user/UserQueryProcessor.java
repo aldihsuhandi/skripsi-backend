@@ -31,8 +31,10 @@ public class UserQueryProcessor implements BaseProcessor {
         UserQueryRequest queryRequest = (UserQueryRequest) request;
         UserQueryResult queryResult = (UserQueryResult) result;
         UserVO userVO = query(queryRequest.getKey(), queryRequest.getIdentifier());
-        userVO.setPassword(FunctionUtil.hideString(userVO.getUserId()));
         AssertUtil.isNotNull(userVO, "userVO", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+
+        userVO.setPassword(FunctionUtil.hideString(userVO.getPassword()));
+
         queryResult.setUserInfo(userVO);
     }
 
