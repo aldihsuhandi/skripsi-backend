@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.configuration;
 
+import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -12,12 +13,16 @@ public class StartupRunner {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ItemService itemService;
+
     @EventListener(ApplicationReadyEvent.class)
     public void refreshUserCache() {
         userService.refreshCache(null, true);
     }
 
+    @EventListener(ApplicationReadyEvent.class)
     public void refreshItemCache() {
-        ;
+        itemService.refreshCache(null, true);
     }
 }

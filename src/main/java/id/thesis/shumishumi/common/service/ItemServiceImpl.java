@@ -6,6 +6,7 @@ package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -76,7 +78,16 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void refreshCache(List<String> itemIds, boolean refreshAll) {
+        List<ItemVO> itemVOS = queryAllItem(refreshAll);
+        if (itemVOS == null) {
+            itemVOS = itemIds.stream().map(itemId -> {
+                ItemDAORequest daoRequest = new ItemDAORequest();
+                daoRequest.setItemId(itemId);
+                return ViewObjectConverter.toViewObject(itemDAO.queryById(daoRequest));
+            }).collect(Collectors.toList());
+        }
 
+        itemVOS.forEach(itemVO -> itemFetchService.putToCache(itemVO));
     }
 
     private void composeNecessaryInfo(ItemVO itemVO) {
@@ -95,5 +106,21 @@ public class ItemServiceImpl implements ItemService {
         itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
+    }
+
+    private List<ItemVO> queryAllItem(boolean refreshAll) {
+        if (!refreshAll) {
+            return null;
+        }
+        int count = itemDAO.count();
+        ItemDAORequest daoRequest = new ItemDAORequest();
+        PagingContext pagingContext = new PagingContext();
+        pagingContext.setNumberOfItem(count);
+        pagingContext.setPageNumber(1);
+
+        daoRequest.setPagingContext(pagingContext);
+
+        return itemDAO.queryAll(daoRequest).stream()
+                .map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
     }
 }
