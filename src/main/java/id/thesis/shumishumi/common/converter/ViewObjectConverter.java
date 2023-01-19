@@ -5,6 +5,7 @@
 package id.thesis.shumishumi.common.converter;
 
 import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
+import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
 import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
@@ -13,8 +14,9 @@ import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.OtpVO;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
+import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.core.service.InterestLevelService;
+import id.thesis.shumishumi.dalgen.model.result.ActivityDO;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
 import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
 import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
@@ -23,6 +25,7 @@ import id.thesis.shumishumi.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
+import id.thesis.shumishumi.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
 /**
@@ -185,5 +188,40 @@ public class ViewObjectConverter {
         itemVO.setUserLevel(userLevel);
 
         return itemVO;
+    }
+
+    public static UserActivityVO toViewObject(UserActivityDO userActivityDO) {
+        if (userActivityDO == null) {
+            return null;
+        }
+
+        UserActivityVO userActivityVO = new UserActivityVO();
+        ActivityVO activityVO = new ActivityVO();
+
+        activityVO.setActivityId(userActivityVO.getUserActivityId());
+
+        userActivityVO.setItemId(userActivityDO.getItemId());
+        userActivityVO.setUserActivityId(userActivityDO.getUserActivityId());
+        userActivityVO.setUserId(userActivityDO.getUserId());
+        userActivityVO.setActivityInfo(activityVO);
+        userActivityVO.setGmtCreate(userActivityDO.getGmtCreate());
+        userActivityVO.setGmtModified(userActivityDO.getGmtModified());
+
+        return userActivityVO;
+    }
+
+    public static ActivityVO toViewObject(ActivityDO activityDO) {
+        if (activityDO == null) {
+            return null;
+        }
+
+        ActivityVO activityVO = new ActivityVO();
+        activityVO.setActivityId(activityVO.getActivityName());
+        activityVO.setActivityName(activityDO.getActivityName());
+        activityVO.setPoint(activityDO.getPoint());
+        activityVO.setGmtCreate(activityDO.getGmtCreate());
+        activityVO.setGmtModified(activityDO.getGmtModified());
+
+        return activityVO;
     }
 }

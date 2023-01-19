@@ -27,6 +27,9 @@ import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
  * @version $Id: CreateItemProcessor.java, v 0.1 2023‐01‐16 4:27 PM Aldih Suhandi Exp $$
@@ -81,6 +84,6 @@ public class CreateItemProcessor implements BaseProcessor {
         CreateItemInnerRequest innerRequest = ItemRequestConverter.toInnerRequest(itemRequest, merchant.getUserId(),
                 itemCategoryVO.getCategoryId(), hobbyVO.getHobbyId(), interestLevelVO.getInterestLevelId());
         itemService.create(innerRequest);
-        itemService.queryById(innerRequest.getItemId(), false);
+        itemService.refreshCache(new ArrayList<>(Collections.singletonList(innerRequest.getItemId())), false);
     }
 }

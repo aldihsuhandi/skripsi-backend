@@ -146,7 +146,7 @@ public class StatementBuilder {
             return;
         }
 
-        int offset = (pagingContext.getPageNumber() - 1) * pagingContext.getNumberOfItem();
+        int offset = pagingContext.calculateOffset();
         int numberOfItem = pagingContext.getNumberOfItem();
         statementBuilder.append(String.format(" LIMIT %s,%s ", offset, numberOfItem));
     }

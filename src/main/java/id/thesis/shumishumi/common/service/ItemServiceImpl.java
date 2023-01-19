@@ -90,6 +90,11 @@ public class ItemServiceImpl implements ItemService {
         itemVOS.forEach(itemVO -> itemFetchService.putToCache(itemVO));
     }
 
+    @Override
+    public int count(boolean useCache) {
+        return itemDAO.count();
+    }
+
     private void composeNecessaryInfo(ItemVO itemVO) {
         if (itemVO == null) {
             return;

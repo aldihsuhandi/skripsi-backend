@@ -19,4 +19,6 @@ public interface ItemService {
     ItemVO queryById(String itemId, boolean useCache);
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
+
+    int count(boolean useCache);
 }

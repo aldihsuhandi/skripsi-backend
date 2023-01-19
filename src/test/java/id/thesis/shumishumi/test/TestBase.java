@@ -2,6 +2,10 @@ package id.thesis.shumishumi.test;
 
 import id.thesis.shumishumi.dalgen.service.ClientDAO;
 import id.thesis.shumishumi.dalgen.service.ContentDAO;
+import id.thesis.shumishumi.dalgen.service.HobbyDAO;
+import id.thesis.shumishumi.dalgen.service.InterestLevelDAO;
+import id.thesis.shumishumi.dalgen.service.ItemCategoryDAO;
+import id.thesis.shumishumi.dalgen.service.ItemDAO;
 import id.thesis.shumishumi.dalgen.service.OtpDAO;
 import id.thesis.shumishumi.dalgen.service.RoleDAO;
 import id.thesis.shumishumi.dalgen.service.SessionDAO;
@@ -23,4 +27,16 @@ public class TestBase {
     protected RoleDAO roleDAO;
     @MockBean
     protected ClientDAO clientDAO;
+
+    @MockBean
+    protected ItemDAO itemDAO;
+
+    @MockBean
+    protected HobbyDAO hobbyDAO;
+
+    @MockBean
+    protected InterestLevelDAO interestLevelDAO;
+
+    @MockBean
+    protected ItemCategoryDAO itemCategoryDAO;
 }
