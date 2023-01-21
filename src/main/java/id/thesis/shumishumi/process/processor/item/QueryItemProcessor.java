@@ -33,7 +33,7 @@ public class QueryItemProcessor implements BaseProcessor {
     @Autowired
     private ActivityService activityService;
 
-    @Autowire
+    @Autowired
     private ItemService itemService;
 
     @Autowired
