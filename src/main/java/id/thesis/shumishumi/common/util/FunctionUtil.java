@@ -4,7 +4,9 @@
  */
 package id.thesis.shumishumi.common.util;
 
+import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
+import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,6 +47,48 @@ public class FunctionUtil {
                 updateContext.getIsDeleted() : userVO.isDeleted());
         updateContext.setIsActive(updateContext.getIsActive() != null ?
                 updateContext.getIsActive() : userVO.isActive());
+    }
+
+    public static boolean itemFilter(ItemVO itemVO, ItemFilterContext filterContext) {
+        boolean result = true;
+        if (checkIfNotEmpty(filterContext.getItemName())) {
+            result = itemVO.getItemName().contains(filterContext.getItemName());
+        }
+
+        if (checkIfNotEmpty(filterContext.getItemCategory())) {
+            result = result && filterContext.getItemCategory().
+                    equalsIgnoreCase(itemVO.getItemCategory().getCategoryName());
+        }
+
+        if (checkIfNotEmpty(filterContext.getHobby())) {
+            result = result && filterContext.getHobby().
+                    equalsIgnoreCase(itemVO.getHobby().getHobbyName());
+        }
+
+        if (checkIfNotEmpty(filterContext.getUserInterestLevel())) {
+            result = result && filterContext.getUserInterestLevel().
+                    equalsIgnoreCase(itemVO.getUserLevel().getInterestLevelName());
+        }
+
+        if (checkIfNotEmpty(filterContext.getMerchantInterestLevel())) {
+            result = result && filterContext.getMerchantInterestLevel().
+                    equalsIgnoreCase(itemVO.getUserLevel().getInterestLevelName());
+        }
+
+        if (checkIfNotEmpty(filterContext.getMerchantId())) {
+            result = result && filterContext.getMerchantId().
+                    equalsIgnoreCase(itemVO.getMerchantInfo().getUserId());
+        }
+
+        if (filterContext.getMinItemPrice() != null) {
+            result = result && (filterContext.getMinItemPrice() <= itemVO.getItemPrice());
+        }
+
+        if(filterContext.getMaxItemPrice() != null) {
+            result = result && (filterContext.getMaxItemPrice() >= itemVO.getItemPrice());
+        }
+
+        return result;
     }
 
     public static String hideString(String field) {

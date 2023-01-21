@@ -4,6 +4,7 @@
  */
 package id.thesis.shumishumi.core.service;
 
+import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 
@@ -17,6 +18,9 @@ public interface ItemService {
     void create(CreateItemInnerRequest request);
 
     ItemVO queryById(String itemId, boolean useCache);
+
+    List<ItemVO> queryList(ItemFilterContext itemFilterContext,
+                           int page, int numberOfItem, boolean useCache);
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
 

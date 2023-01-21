@@ -6,21 +6,20 @@ package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
-import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.common.model.viewobject.*;
+import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
-import id.thesis.shumishumi.core.service.HobbyService;
-import id.thesis.shumishumi.core.service.InterestLevelService;
-import id.thesis.shumishumi.core.service.ItemCategoryService;
-import id.thesis.shumishumi.core.service.ItemService;
-import id.thesis.shumishumi.core.service.UserService;
+import id.thesis.shumishumi.core.service.*;
 import id.thesis.shumishumi.dalgen.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
 import id.thesis.shumishumi.dalgen.service.ItemDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,6 +75,41 @@ public class ItemServiceImpl implements ItemService {
         return itemVO;
     }
 
+
+    @Override
+    public List<ItemVO> queryList(ItemFilterContext itemFilterContext,
+                                  int page, int numberOfItem, boolean useCache) {
+        List<ItemVO> itemVOS = new ArrayList<>();
+        UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
+
+        itemFilterContext.setMerchantId(merchantInfo.getUserId());
+
+        if (useCache) {
+            return queryListFromCache(itemFilterContext, page, numberOfItem);
+        }
+
+        ItemCategoryVO category = itemCategoryService.query(itemFilterContext.getItemCategory(), DatabaseConst.CATEGORY_NAME);
+        InterestLevelVO merchantLevel = interestLevelService.query(itemFilterContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
+        InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
+        HobbyVO hobby = hobbyService.query(itemFilterContext.getHobby(), DatabaseConst.HOBBY_NAME);
+
+        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(itemFilterContext, category.getCategoryId(),
+                hobby.getHobbyId(), merchantLevel.getInterestLevelId(), userLevel.getInterestLevelId());
+
+        PagingContext pagingContext = new PagingContext();
+        pagingContext.setNumberOfItem(numberOfItem);
+        pagingContext.setPageNumber(page);
+
+        daoRequest.setPagingContext(pagingContext);
+
+        return itemDAO.query(daoRequest).stream().map(itemDO -> {
+            ItemVO itemVO = ViewObjectConverter.toViewObject(itemDO);
+            itemFetchService.putToCache(itemVO);
+
+            return itemVO;
+        }).collect(Collectors.toList());
+    }
+
     @Override
     public void refreshCache(List<String> itemIds, boolean refreshAll) {
         List<ItemVO> itemVOS = queryAllItem(refreshAll);
@@ -127,5 +161,28 @@ public class ItemServiceImpl implements ItemService {
 
         return itemDAO.queryAll(daoRequest).stream()
                 .map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+    }
+
+    private List<ItemVO> queryListFromCache(ItemFilterContext itemFilterContext, int page, int numberOfItems) {
+        List<ItemVO> itemVOS = itemFetchService.fetchAll().
+                stream().filter(itemVO -> {
+                    return FunctionUtil.itemFilter(itemVO, itemFilterContext);
+                }).collect(Collectors.toList());
+
+        PagingContext pagingContext = new PagingContext();
+        pagingContext.setPageNumber(page);
+        pagingContext.setNumberOfItem(numberOfItems);
+
+        List<ItemVO> result = new ArrayList<>();
+        if (itemVOS.size() < pagingContext.calculateOffset()) {
+            return new ArrayList<>();
+        }
+
+        for (int i = pagingContext.calculateOffset() - 1;
+             i < pagingContext.getNumberOfItem() + pagingContext.calculateOffset(); ++i) {
+            result.add(itemVOS.get(i));
+        }
+
+        return result;
     }
 }

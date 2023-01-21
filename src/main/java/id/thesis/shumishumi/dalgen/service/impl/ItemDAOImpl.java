@@ -93,8 +93,7 @@ public class ItemDAOImpl implements ItemDAO {
                     DatabaseConst.ITEM_PRICE, DatabaseConst.COMPARATOR_LESSER_EQUAL);
         }
 
-        builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND,
-                DatabaseConst.ITEM_QUANTITY, DatabaseConst.COMPARATOR_GREATER);
+        builder = builder.addLimitStatement(request.getPagingContext());
 
         return jdbcTemplate.query(builder.buildStatement(), ps -> {
             int indx = 1;
@@ -129,8 +128,6 @@ public class ItemDAOImpl implements ItemDAO {
             if (request.getMaxPrice() != null) {
                 ps.setLong(indx++, request.getMaxPrice());
             }
-
-            ps.setLong(indx++, 0);
         }, new ItemDOMapper());
     }
 

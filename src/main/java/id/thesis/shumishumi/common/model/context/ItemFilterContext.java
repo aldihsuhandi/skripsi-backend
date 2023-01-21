@@ -22,6 +22,8 @@ public class ItemFilterContext {
     private Long maxItemPrice;
     private String merchantInterestLevel;
     private String userInterestLevel;
+    private String merchantEmail;
+    private String merchantId;
     private String hobby;
     private String itemCategory;
 }

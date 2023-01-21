@@ -5,6 +5,7 @@
 package id.thesis.shumishumi.process.processor.item;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.enumeration.ActivityEnum;
 import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
@@ -32,7 +33,7 @@ public class QueryItemProcessor implements BaseProcessor {
     @Autowired
     private ActivityService activityService;
 
-    @Autowired
+    @Autowire
     private ItemService itemService;
 
     @Autowired
@@ -47,21 +48,31 @@ public class QueryItemProcessor implements BaseProcessor {
         queryById(queryRequest, itemVOS);
 
         if (!itemVOS.isEmpty()) {
-            ;
+            int page = queryRequest.getPageNumber();
+            int numberOfItems = queryRequest.getNumberOfItem();
+
+            queryItemList(queryRequest, itemVOS, page, numberOfItems);
         }
 
+        composeResult(queryRequest, queryResult, itemVOS);
     }
 
     private void composeResult(QueryItemRequest request,
                                QueryItemResult result, List<ItemVO> itemVOS) {
+        int count = itemService.count(true);
+
         PagingContext pagingContext = new PagingContext();
         pagingContext.setPageNumber(request.getPageNumber());
         pagingContext.setNumberOfItem(request.getNumberOfItem());
-
-        int count = itemService.count(true);
-
+        pagingContext.checkHasNext(count, itemVOS.size());
 
         result.setItems(itemVOS);
+        result.setPagingContext(pagingContext);
+    }
+
+    private void queryItemList(QueryItemRequest request, List<ItemVO> itemVOS, int page, int numberOfItems) {
+        ItemFilterContext filterContext = request.getItemFilterContext();
+        itemVOS = itemService.queryList(filterContext, page, numberOfItems, true);
     }
 
     private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {
@@ -70,7 +81,10 @@ public class QueryItemProcessor implements BaseProcessor {
             return;
         }
 
-//        ItemVO itemVO =
+        ItemFilterContext filterContext = request.getItemFilterContext();
+
+        ItemVO itemVO = itemService.queryById(filterContext.getItemId(), true);
+        itemVOS.add(itemVO);
 
         createUserActivity(request.getSessionId(), request.getItemFilterContext().getItemId());
     }
