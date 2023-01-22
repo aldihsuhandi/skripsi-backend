@@ -12,6 +12,7 @@ import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.core.service.ActivityService;
+import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
@@ -38,6 +39,9 @@ public class QueryItemProcessor implements BaseProcessor {
 
     @Autowired
     private SessionService sessionService;
+
+    @Autowired
+    private ItemImageService itemImageService;
 
     @Override
     public void doProcess(BaseResult result, BaseRequest request) {

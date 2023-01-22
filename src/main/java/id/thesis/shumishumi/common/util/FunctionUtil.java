@@ -5,6 +5,7 @@
 package id.thesis.shumishumi.common.util;
 
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
+import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
@@ -19,7 +20,7 @@ import java.util.UUID;
  */
 public class FunctionUtil {
 
-    private static BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public static String generateUUID() {
         return UUID.randomUUID().toString();
@@ -47,6 +48,9 @@ public class FunctionUtil {
                 updateContext.getIsDeleted() : userVO.isDeleted());
         updateContext.setIsActive(updateContext.getIsActive() != null ?
                 updateContext.getIsActive() : userVO.isActive());
+    }
+
+    public static void fillEmptyUpdateContext(ItemUpdateContext updateContext, ItemVO itemVO) {
     }
 
     public static boolean itemFilter(ItemVO itemVO, ItemFilterContext filterContext) {
@@ -84,7 +88,7 @@ public class FunctionUtil {
             result = result && (filterContext.getMinItemPrice() <= itemVO.getItemPrice());
         }
 
-        if(filterContext.getMaxItemPrice() != null) {
+        if (filterContext.getMaxItemPrice() != null) {
             result = result && (filterContext.getMaxItemPrice() >= itemVO.getItemPrice());
         }
 

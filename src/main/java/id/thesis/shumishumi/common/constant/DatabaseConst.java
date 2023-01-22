@@ -29,6 +29,7 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_CONTENT = "contents";
     public static final String TABLE_OTPS = "otps";
     public static final String TABLE_ITEM = "items";
+    public static final String TABLE_ITEM_IMAGES = "item_images";
     public static final String TABLE_ITEM_CATEGORIES = "item_categories";
     public static final String TABLE_HOBBIES = "hobbies";
     public static final String TABLE_INTEREST_LEVEL = "interest_level";
@@ -83,6 +84,10 @@ public class DatabaseConst implements Serializable {
     public static final String ITEM_QUANTITY = "item_quantity";
     public static final String MERCHANT_LEVEL_ID = "merchant_level_id";
     public static final String USER_LEVEL_ID = "user_level_id";
+
+    // item images
+    public static final String ITEM_IMAGE_ID = "item_image_id";
+    public static final String ITEM_IMAGE = "item_image";
 
     // item category
     public static final String CATEGORY_ID = "category_id";

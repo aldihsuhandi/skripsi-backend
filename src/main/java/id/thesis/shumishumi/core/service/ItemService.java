@@ -5,6 +5,7 @@
 package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
+import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 
@@ -21,6 +22,8 @@ public interface ItemService {
 
     List<ItemVO> queryList(ItemFilterContext itemFilterContext,
                            int page, int numberOfItem, boolean useCache);
+
+    void update(String itemId, ItemUpdateContext itemUpdateContext);
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
 

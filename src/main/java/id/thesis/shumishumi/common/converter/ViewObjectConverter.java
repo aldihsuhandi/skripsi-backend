@@ -5,28 +5,8 @@
 package id.thesis.shumishumi.common.converter;
 
 import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
-import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
-import id.thesis.shumishumi.common.model.viewobject.ClientVO;
-import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
-import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
-import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
-import id.thesis.shumishumi.common.model.viewobject.ItemVO;
-import id.thesis.shumishumi.common.model.viewobject.OtpVO;
-import id.thesis.shumishumi.common.model.viewobject.RoleVO;
-import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
-import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.dalgen.model.result.ActivityDO;
-import id.thesis.shumishumi.dalgen.model.result.ClientDO;
-import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
-import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
-import id.thesis.shumishumi.dalgen.model.result.ItemCategoryDO;
-import id.thesis.shumishumi.dalgen.model.result.ItemDO;
-import id.thesis.shumishumi.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.dalgen.model.result.RoleDO;
-import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.model.result.UserActivityDO;
-import id.thesis.shumishumi.dalgen.model.result.UserDO;
+import id.thesis.shumishumi.common.model.viewobject.*;
+import id.thesis.shumishumi.dalgen.model.result.*;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -188,6 +168,22 @@ public class ViewObjectConverter {
         itemVO.setUserLevel(userLevel);
 
         return itemVO;
+    }
+
+    public static ItemImageVO toViewObject(ItemImageDO imageDO) {
+        if (imageDO == null) {
+            return null;
+        }
+
+        ItemImageVO imageVO = new ItemImageVO();
+        imageVO.setItemImageId(imageVO.getItemImageId());
+        imageVO.setItemImage(imageDO.getItemImage());
+        imageVO.setItemId(imageDO.getItemId());
+        imageVO.setDeleted(imageDO.isDeleted());
+        imageVO.setGmtCreate(imageDO.getGmtCreate());
+        imageVO.setGmtModified(imageDO.getGmtModified());
+
+        return imageVO;
     }
 
     public static UserActivityVO toViewObject(UserActivityDO userActivityDO) {

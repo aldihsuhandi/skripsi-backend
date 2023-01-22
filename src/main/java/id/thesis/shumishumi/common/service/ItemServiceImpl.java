@@ -7,6 +7,7 @@ package id.thesis.shumishumi.common.service;
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
+import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.*;
@@ -108,6 +109,11 @@ public class ItemServiceImpl implements ItemService {
 
             return itemVO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void update(String itemId, ItemUpdateContext itemUpdateContext) {
+        ItemVO itemVO = this.queryById(itemId, true);
     }
 
     @Override

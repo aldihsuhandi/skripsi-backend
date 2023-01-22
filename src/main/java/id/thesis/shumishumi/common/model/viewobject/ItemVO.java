@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
 import java.util.List;
 
 @Getter
@@ -23,5 +22,5 @@ public class ItemVO extends BaseVO {
     private UserVO merchantInfo;
     private InterestLevelVO merchantLevel;
     private InterestLevelVO userLevel;
-    private List<Blob> itemImages;
+    private List<ItemImageVO> itemImages;
 }

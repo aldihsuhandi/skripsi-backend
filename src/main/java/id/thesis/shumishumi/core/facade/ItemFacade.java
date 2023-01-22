@@ -6,8 +6,10 @@ package id.thesis.shumishumi.core.facade;
 
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
+import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
+import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -17,4 +19,6 @@ public interface ItemFacade {
     CreateItemResult create(CreateItemRequest request);
 
     QueryItemResult query(QueryItemRequest request);
+
+    UpdateItemResult update(UpdateItemRequest request);
 }
