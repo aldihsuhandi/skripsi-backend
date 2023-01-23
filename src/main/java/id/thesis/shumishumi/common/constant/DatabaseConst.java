@@ -84,6 +84,7 @@ public class DatabaseConst implements Serializable {
     public static final String ITEM_QUANTITY = "item_quantity";
     public static final String MERCHANT_LEVEL_ID = "merchant_level_id";
     public static final String USER_LEVEL_ID = "user_level_id";
+    public static final String IS_APPROVED = "is_approved";
 
     // item images
     public static final String ITEM_IMAGE_ID = "item_image_id";

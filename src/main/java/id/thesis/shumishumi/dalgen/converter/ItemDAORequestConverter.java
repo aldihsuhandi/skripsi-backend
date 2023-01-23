@@ -5,9 +5,12 @@
 package id.thesis.shumishumi.dalgen.converter;
 
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
+import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
+
+import java.util.Date;
 
 /**
  * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
@@ -40,6 +43,32 @@ public class ItemDAORequestConverter {
         itemDAORequest.setMinPrice(filterContext.getMinItemPrice());
         itemDAORequest.setMaxPrice(filterContext.getMaxItemPrice());
         itemDAORequest.setMerchantId(filterContext.getMerchantId());
+        itemDAORequest.setDeleted(filterContext.isDeleted());
+        itemDAORequest.setApproved(filterContext.isApproved());
+
+        return itemDAORequest;
+    }
+
+    public static ItemDAORequest toDAORequest(ItemUpdateContext updateContext, String categoryId,
+                                              String hobbyId, String merchantLevelId, String itemId) {
+        ItemDAORequest itemDAORequest = new ItemDAORequest();
+        itemDAORequest.setItemId(itemId);
+        itemDAORequest.setItemName(updateContext.getItemName());
+        itemDAORequest.setItemPrice(updateContext.getItemPrice());
+        itemDAORequest.setItemDescription(updateContext.getItemDescription());
+        itemDAORequest.setItemQuantity(updateContext.getItemQuantity());
+        itemDAORequest.setCategoryId(categoryId);
+        itemDAORequest.setHobbyId(hobbyId);
+        itemDAORequest.setMerchantLevelId(merchantLevelId);
+        itemDAORequest.setGmtModified(new Date());
+
+        return itemDAORequest;
+    }
+
+    public static ItemDAORequest toDAORequest(String itemId) {
+        ItemDAORequest itemDAORequest = new ItemDAORequest();
+        itemDAORequest.setItemId(itemId);
+        itemDAORequest.setGmtModified(new Date());
 
         return itemDAORequest;
     }

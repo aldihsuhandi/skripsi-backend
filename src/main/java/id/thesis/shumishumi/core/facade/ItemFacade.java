@@ -5,9 +5,11 @@
 package id.thesis.shumishumi.core.facade;
 
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
+import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
+import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 
@@ -21,4 +23,6 @@ public interface ItemFacade {
     QueryItemResult query(QueryItemRequest request);
 
     UpdateItemResult update(UpdateItemRequest request);
+
+    ItemApprovalResult approve(ItemApprovalRequest request);
 }

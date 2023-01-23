@@ -26,9 +26,13 @@ public class ItemImageDAOImpl implements ItemImageDAO {
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM_IMAGES, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_DELETED, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
-        return jdbcTemplate.query(statement, ps -> ps.setString(1, itemId), new ItemImageDOMapper());
+        return jdbcTemplate.query(statement, ps -> {
+            ps.setString(1, itemId);
+            ps.setBoolean(2, false);
+        }, new ItemImageDOMapper());
     }
 
     @Override

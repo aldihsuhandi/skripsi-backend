@@ -18,5 +18,6 @@ public class ItemUpdateContext {
     private String categoryName;
     private String hobbyName;
     private String merchantInterestLevel;
-    private List<Blob> itemImages;
+    private List<Blob> addedItemImages;
+    private List<String> removedItemImages;
 }

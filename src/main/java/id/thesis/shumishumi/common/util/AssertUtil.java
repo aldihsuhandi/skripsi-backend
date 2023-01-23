@@ -10,6 +10,12 @@ public class AssertUtil {
         }
     }
 
+    public static void isExpected(Object value, Object comp, String msg, ShumishumiErrorCodeEnum errorCode) {
+        if (!value.equals(comp)) {
+            throwError(msg, errorCode);
+        }
+    }
+
     public static void isExpected(boolean val, String msg, ShumishumiErrorCodeEnum errorCodeEnum) {
         if (!val) {
             throwError(msg, errorCodeEnum);

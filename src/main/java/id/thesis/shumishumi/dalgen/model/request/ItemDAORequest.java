@@ -6,9 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +26,8 @@ public class ItemDAORequest implements Serializable {
     private String merchantId;
     private String merchantLevelId;
     private String userLevelId;
+    private boolean isDeleted;
+    private boolean isApproved;
     private Date gmtCreate;
     private Date gmtModified;
 

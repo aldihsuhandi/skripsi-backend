@@ -5,10 +5,12 @@ import id.thesis.shumishumi.process.callback.ControllerCallback;
 import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
+import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
+import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,26 @@ public class ItemController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return null;
+            }
+        });
+    }
+
+    @PostMapping("/approve")
+    public ItemApprovalResult approve(@RequestBody HtmlRequest<ItemApprovalRequest> request) {
+        return (ItemApprovalResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new ItemApprovalResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return itemFacade.approve(request.getBody());
             }
         });
     }

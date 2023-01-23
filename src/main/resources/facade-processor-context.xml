@@ -31,6 +31,8 @@
     <!--item-->
     <bean id="createItemProcessor" class="id.thesis.shumishumi.process.processor.item.CreateItemProcessor"/>
     <bean id="queryItemProcessor" class="id.thesis.shumishumi.process.processor.item.QueryItemProcessor"/>
+    <bean id="updateItemProcessor" class="id.thesis.shumishumi.process.processor.item.UpdateItemProcessor"/>
+    <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.process.processor.item.ItemApprovalProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -76,6 +78,12 @@
         <entry key="ITEM_QUERY">
             <ref bean="queryItemProcessor"/>
         </entry>
+        <entry key="ITEM_UPDATE">
+            <ref bean="updateItemProcessor"/>
+        </entry>
+        <entry key="ITEM_APPROVAL">
+            <ref bean="itemApprovalProcessor"/>
+        </entry>
     </util:map>
 
     <!--validators-->
@@ -102,6 +110,8 @@
     <!--item-->
     <bean id="createItemValidator" class="id.thesis.shumishumi.core.validator.item.CreateItemValidator"/>
     <bean id="queryItemValidator" class="id.thesis.shumishumi.core.validator.item.QueryItemValidator"/>
+    <bean id="updateItemValidator" class="id.thesis.shumishumi.core.validator.item.UpdateItemValidator"/>
+    <bean id="itemApprovalValidator" class="id.thesis.shumishumi.core.validator.item.ItemApprovalValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -146,6 +156,12 @@
         </entry>
         <entry key="ITEM_QUERY">
             <ref bean="queryItemValidator"/>
+        </entry>
+        <entry key="ITEM_UPDATE">
+            <ref bean="updateItemValidator"/>
+        </entry>
+        <entry key="ITEM_APPROVAL">
+            <ref bean="itemApprovalValidator"/>
         </entry>
     </util:map>
 </beans>

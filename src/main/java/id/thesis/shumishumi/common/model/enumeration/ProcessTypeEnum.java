@@ -27,6 +27,8 @@ public enum ProcessTypeEnum {
 
     ITEM_UPDATE("ITEM_UPDATE", "itemUpdateValidator", "itemUpdateProcessor", true),
 
+    ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
+
     ;
 
     private final String processName;

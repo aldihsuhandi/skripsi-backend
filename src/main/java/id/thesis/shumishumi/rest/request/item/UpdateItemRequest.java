@@ -12,5 +12,5 @@ import lombok.ToString;
 public class UpdateItemRequest extends BaseRequest {
     private static final long serialVersionUID = -1269091453999434483L;
     private String itemId;
-    private ItemUpdateContext updateContext;
+    private ItemUpdateContext itemUpdateContext;
 }

@@ -5,9 +5,11 @@
 package id.thesis.shumishumi.process.processor.item;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.enumeration.ActivityEnum;
+import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
@@ -23,6 +25,7 @@ import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,6 +103,12 @@ public class QueryItemProcessor implements BaseProcessor {
 
         SessionVO sessionVO = sessionService.query(sessionId);
         ActivityVO activityVO = activityService.queryActivity(ActivityEnum.BUY.getName(), DatabaseConst.ACTIVITY_NAME);
+        if (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
+                || sessionVO.getSessionDt().before(new Date())))) {
+            throw new ShumishumiException("Session Expired",
+                    ShumishumiErrorCodeEnum.SESSION_EXPIRED);
+        }
+
 
         activityService.createUserActivity(sessionVO.getUserId(), itemId, activityVO.getActivityId());
     }

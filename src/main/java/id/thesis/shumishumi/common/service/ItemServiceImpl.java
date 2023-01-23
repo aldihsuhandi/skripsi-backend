@@ -10,10 +10,19 @@ import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
-import id.thesis.shumishumi.common.model.viewobject.*;
+import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
+import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
+import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
+import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
-import id.thesis.shumishumi.core.service.*;
+import id.thesis.shumishumi.core.service.HobbyService;
+import id.thesis.shumishumi.core.service.InterestLevelService;
+import id.thesis.shumishumi.core.service.ItemCategoryService;
+import id.thesis.shumishumi.core.service.ItemImageService;
+import id.thesis.shumishumi.core.service.ItemService;
+import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.dalgen.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
 import id.thesis.shumishumi.dalgen.service.ItemDAO;
@@ -42,6 +51,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemCategoryService itemCategoryService;
+
+    @Autowired
+    private ItemImageService itemImageService;
 
     @Autowired
     private HobbyService hobbyService;
@@ -80,7 +92,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemVO> queryList(ItemFilterContext itemFilterContext,
                                   int page, int numberOfItem, boolean useCache) {
-        List<ItemVO> itemVOS = new ArrayList<>();
         UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
 
         itemFilterContext.setMerchantId(merchantInfo.getUserId());
@@ -105,6 +116,7 @@ public class ItemServiceImpl implements ItemService {
 
         return itemDAO.query(daoRequest).stream().map(itemDO -> {
             ItemVO itemVO = ViewObjectConverter.toViewObject(itemDO);
+            composeNecessaryInfo(itemVO);
             itemFetchService.putToCache(itemVO);
 
             return itemVO;
@@ -112,8 +124,22 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void update(String itemId, ItemUpdateContext itemUpdateContext) {
-        ItemVO itemVO = this.queryById(itemId, true);
+    public void update(ItemVO itemVO, ItemUpdateContext updateContext) {
+        FunctionUtil.fillEmptyUpdateContext(updateContext, itemVO);
+
+        HobbyVO hobby = hobbyService.query(updateContext.getHobbyName(), DatabaseConst.HOBBY_NAME);
+        ItemCategoryVO category = itemCategoryService.query(updateContext.getCategoryName(), DatabaseConst.CATEGORY_NAME);
+        InterestLevelVO merchantLevel = interestLevelService.query(updateContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
+
+        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(updateContext, category.getCategoryId(),
+                hobby.getHobbyId(), merchantLevel.getInterestLevelId(), itemVO.getItemId());
+        itemDAO.update(daoRequest);
+    }
+
+    @Override
+    public void approveItem(String itemId) {
+        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(itemId);
+        itemDAO.approve(daoRequest);
     }
 
     @Override
@@ -123,7 +149,11 @@ public class ItemServiceImpl implements ItemService {
             itemVOS = itemIds.stream().map(itemId -> {
                 ItemDAORequest daoRequest = new ItemDAORequest();
                 daoRequest.setItemId(itemId);
-                return ViewObjectConverter.toViewObject(itemDAO.queryById(daoRequest));
+
+                ItemVO itemVO = ViewObjectConverter.toViewObject(itemDAO.queryById(daoRequest));
+                composeNecessaryInfo(itemVO);
+
+                return itemVO;
             }).collect(Collectors.toList());
         }
 
@@ -140,6 +170,7 @@ public class ItemServiceImpl implements ItemService {
             return;
         }
 
+        String itemId = itemVO.getItemId();
         String merchantId = itemVO.getMerchantInfo().getUserId();
         String hobbyId = itemVO.getHobby().getHobbyId();
         String categoryId = itemVO.getItemCategory().getCategoryId();
@@ -151,6 +182,7 @@ public class ItemServiceImpl implements ItemService {
         itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
+        itemVO.setItemImages(itemImageService.queryByItemId(itemId));
     }
 
     private List<ItemVO> queryAllItem(boolean refreshAll) {
@@ -166,14 +198,17 @@ public class ItemServiceImpl implements ItemService {
         daoRequest.setPagingContext(pagingContext);
 
         return itemDAO.queryAll(daoRequest).stream()
-                .map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+                .map(itemDO -> {
+                    ItemVO itemVO = ViewObjectConverter.toViewObject(itemDO);
+                    composeNecessaryInfo(itemVO);
+
+                    return itemVO;
+                }).collect(Collectors.toList());
     }
 
     private List<ItemVO> queryListFromCache(ItemFilterContext itemFilterContext, int page, int numberOfItems) {
-        List<ItemVO> itemVOS = itemFetchService.fetchAll().
-                stream().filter(itemVO -> {
-                    return FunctionUtil.itemFilter(itemVO, itemFilterContext);
-                }).collect(Collectors.toList());
+        List<ItemVO> itemVOS = itemFetchService.fetchAll().stream().
+                filter(itemVO -> FunctionUtil.itemFilter(itemVO, itemFilterContext)).collect(Collectors.toList());
 
         PagingContext pagingContext = new PagingContext();
         pagingContext.setPageNumber(page);

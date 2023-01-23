@@ -18,6 +18,9 @@ public enum ShumishumiErrorCodeEnum {
     OTP_NOT_EXIST("OTP_NOT_EXIST", "otp code not exist"),
     OTP_VALIDATION_ERROR("OTP_VALIDATION_ERROR", "otp validation error"),
 
+    ITEM_NOT_FOUND("ITEM_NOT_FOUND", "item not found"),
+    ITEM_ALREADY_APPROVED("ITEM_ALREADY_APPROVED", "item already approved"),
+
     OAUTH_ERROR("OAUTH_ERROR", "API Authentication error");
     private final String errorCode;
     private final String errorMsg;

@@ -51,6 +51,20 @@ public class FunctionUtil {
     }
 
     public static void fillEmptyUpdateContext(ItemUpdateContext updateContext, ItemVO itemVO) {
+        updateContext.setItemName(checkIfNotEmpty(updateContext.getItemName()) ?
+                updateContext.getItemName() : itemVO.getItemName());
+        updateContext.setItemDescription(checkIfNotEmpty(updateContext.getItemDescription()) ?
+                updateContext.getItemDescription() : itemVO.getItemDescription());
+        updateContext.setItemPrice(updateContext.getItemPrice() != null ? updateContext.getItemPrice() :
+                itemVO.getItemPrice());
+        updateContext.setItemQuantity(updateContext.getItemQuantity() != null ? updateContext.getItemQuantity() :
+                itemVO.getItemQuantity());
+        updateContext.setHobbyName(checkIfNotEmpty(updateContext.getHobbyName()) ?
+                updateContext.getHobbyName() : itemVO.getHobby().getHobbyName());
+        updateContext.setCategoryName(checkIfNotEmpty(updateContext.getCategoryName()) ?
+                updateContext.getHobbyName() : itemVO.getItemCategory().getCategoryName());
+        updateContext.setMerchantInterestLevel(checkIfNotEmpty(updateContext.getMerchantInterestLevel()) ?
+                updateContext.getMerchantInterestLevel() : itemVO.getMerchantLevel().getInterestLevelName());
     }
 
     public static boolean itemFilter(ItemVO itemVO, ItemFilterContext filterContext) {
@@ -91,6 +105,9 @@ public class FunctionUtil {
         if (filterContext.getMaxItemPrice() != null) {
             result = result && (filterContext.getMaxItemPrice() >= itemVO.getItemPrice());
         }
+
+        result = result && (filterContext.isApproved() == itemVO.isApproved());
+        result = result && (filterContext.isDeleted() == itemVO.isDeleted());
 
         return result;
     }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -93,6 +94,11 @@ public class ItemDAOImpl implements ItemDAO {
                     DatabaseConst.ITEM_PRICE, DatabaseConst.COMPARATOR_LESSER_EQUAL);
         }
 
+        builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_DELETED,
+                DatabaseConst.COMPARATOR_EQUAL);
+        builder = builder.addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_APPROVED,
+                DatabaseConst.COMPARATOR_EQUAL);
+
         builder = builder.addLimitStatement(request.getPagingContext());
 
         return jdbcTemplate.query(builder.buildStatement(), ps -> {
@@ -128,6 +134,9 @@ public class ItemDAOImpl implements ItemDAO {
             if (request.getMaxPrice() != null) {
                 ps.setLong(indx++, request.getMaxPrice());
             }
+
+            ps.setBoolean(indx++, request.isDeleted());
+            ps.setBoolean(indx++, request.isApproved());
         }, new ItemDOMapper());
     }
 
@@ -142,7 +151,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public void create(ItemDAORequest request) {
-        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.ITEM_NAME)
+        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.ITEM_ID)
                 .addValueStatement(DatabaseConst.ITEM_NAME)
                 .addValueStatement(DatabaseConst.ITEM_PRICE)
@@ -176,15 +185,15 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public void update(ItemDAORequest request) {
-        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.ITEM_NAME)
-                .addValueStatement(DatabaseConst.ITEM_NAME)
-                .addValueStatement(DatabaseConst.ITEM_PRICE)
-                .addValueStatement(DatabaseConst.ITEM_DESCRIPTION)
-                .addValueStatement(DatabaseConst.ITEM_QUANTITY)
-                .addValueStatement(DatabaseConst.CATEGORY_ID)
-                .addValueStatement(DatabaseConst.HOBBY_ID)
-                .addValueStatement(DatabaseConst.MERCHANT_ID)
-                .addValueStatement(DatabaseConst.MERCHANT_LEVEL_ID)
+        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.ITEM_NAME)
+                .addSetStatement(DatabaseConst.ITEM_PRICE)
+                .addSetStatement(DatabaseConst.ITEM_DESCRIPTION)
+                .addSetStatement(DatabaseConst.ITEM_QUANTITY)
+                .addSetStatement(DatabaseConst.CATEGORY_ID)
+                .addSetStatement(DatabaseConst.HOBBY_ID)
+                .addSetStatement(DatabaseConst.MERCHANT_LEVEL_ID)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
@@ -197,9 +206,31 @@ public class ItemDAOImpl implements ItemDAO {
                 ps.setInt(4, request.getItemQuantity());
                 ps.setString(5, request.getCategoryId());
                 ps.setString(6, request.getHobbyId());
-                ps.setString(7, request.getMerchantId());
-                ps.setString(8, request.getMerchantLevelId());
+                ps.setString(7, request.getMerchantLevelId());
+                ps.setTimestamp(8, new Timestamp(request.getGmtModified().getTime()));
                 ps.setString(9, request.getItemId());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
+    public void approve(ItemDAORequest request) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_APPROVED)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setBoolean(1, true);
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getItemId());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);

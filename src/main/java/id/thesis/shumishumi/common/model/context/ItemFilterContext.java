@@ -25,5 +25,7 @@ public class ItemFilterContext {
     private String merchantEmail;
     private String merchantId;
     private String hobby;
+    private boolean isDeleted = false;
+    private boolean isApproved = true;
     private String itemCategory;
 }

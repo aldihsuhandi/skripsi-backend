@@ -8,7 +8,7 @@ import java.util.List;
 public interface ItemDAO {
     List<ItemDO> queryAll(ItemDAORequest request);
 
-    ItemDO queryById(ItemDAORequest request) ;
+    ItemDO queryById(ItemDAORequest request);
 
     List<ItemDO> query(ItemDAORequest request);
 
@@ -17,4 +17,6 @@ public interface ItemDAO {
     void create(ItemDAORequest request);
 
     void update(ItemDAORequest request);
+
+    void approve(ItemDAORequest request);
 }

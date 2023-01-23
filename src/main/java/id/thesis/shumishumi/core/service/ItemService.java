@@ -23,7 +23,9 @@ public interface ItemService {
     List<ItemVO> queryList(ItemFilterContext itemFilterContext,
                            int page, int numberOfItem, boolean useCache);
 
-    void update(String itemId, ItemUpdateContext itemUpdateContext);
+    void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext);
+
+    void approveItem(String itemId);
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
