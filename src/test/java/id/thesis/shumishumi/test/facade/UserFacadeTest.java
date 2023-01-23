@@ -7,9 +7,6 @@ import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.dalgen.model.result.RoleDO;
-import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.rest.request.user.UserActivateRequest;
 import id.thesis.shumishumi.rest.request.user.UserForgotPasswordRequest;
 import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
@@ -22,7 +19,6 @@ import id.thesis.shumishumi.rest.result.user.UserLoginResult;
 import id.thesis.shumishumi.rest.result.user.UserQueryResult;
 import id.thesis.shumishumi.rest.result.user.UserRegisterResult;
 import id.thesis.shumishumi.rest.result.user.UserUpdateResult;
-import id.thesis.shumishumi.test.TestBase;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -34,7 +30,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-public class UserFacadeTest extends TestBase {
+public class UserFacadeTest extends FacadeTestBase {
     @Autowired
     private UserFacade userFacade;
 
@@ -299,36 +295,6 @@ public class UserFacadeTest extends TestBase {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.OTP_VALIDATION_ERROR.getErrorCode());
-    }
-
-    private UserDO mockUserDO(String password) {
-        UserDO user = new UserDO();
-        String hashPassword = FunctionUtil.hashPassword(password);
-        user.setUserId("userId");
-        user.setEmail("email");
-        user.setActive(true);
-        user.setPassword(hashPassword);
-
-        return user;
-    }
-
-    private RoleDO mockRoleDO() {
-        RoleDO roleDO = new RoleDO();
-        roleDO.setRoleId("roleId");
-        roleDO.setRoleName("roleName");
-        roleDO.setGmtCreate(new Date());
-        roleDO.setGmtModified(new Date());
-
-        return roleDO;
-    }
-
-    private SessionDO mockSessionDO() {
-        SessionDO sessionDO = new SessionDO();
-        sessionDO.setUserId("userId");
-        sessionDO.setRemembered(true);
-        sessionDO.setActive(true);
-
-        return sessionDO;
     }
 
     private OtpDO mockOTPDO(Date otpDt, boolean isActive) {

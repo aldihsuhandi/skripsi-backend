@@ -2,18 +2,16 @@ package id.thesis.shumishumi.test.facade;
 
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
 import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
 import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
-import id.thesis.shumishumi.test.TestBase;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SessionFacadeTest extends TestBase {
+public class SessionFacadeTest extends FacadeTestBase {
 
     @Autowired
     private SessionFacade sessionFacade;
@@ -57,14 +55,5 @@ public class SessionFacadeTest extends TestBase {
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
-    }
-
-    private SessionDO mockSessionDO() {
-        SessionDO sessionDO = new SessionDO();
-        sessionDO.setUserId("userId");
-        sessionDO.setRemembered(true);
-        sessionDO.setActive(true);
-
-        return sessionDO;
     }
 }

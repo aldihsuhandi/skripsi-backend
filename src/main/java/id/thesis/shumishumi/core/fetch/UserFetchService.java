@@ -49,4 +49,10 @@ public class UserFetchService {
 
         return userCache.get(userId);
     }
+
+    public void clearCache() {
+        userCache.clear();
+        emailMap.clear();
+        phoneNumberMap.clear();
+    }
 }

@@ -22,6 +22,10 @@ public class ItemImageServiceImpl implements ItemImageService {
 
     @Override
     public void create(List<Blob> image, String itemId) {
+        if (image == null || image.isEmpty()) {
+            return;
+        }
+
         image.forEach(img -> {
             String itemImageId = FunctionUtil.generateUUID();
             ItemImageDAORequest daoRequest = new ItemImageDAORequest();
@@ -41,6 +45,10 @@ public class ItemImageServiceImpl implements ItemImageService {
 
     @Override
     public void delete(List<String> imageIds) {
+        if (imageIds == null || imageIds.isEmpty()) {
+            return;
+        }
+
         StringBuilder idsBuilder = new StringBuilder();
         boolean needComma = false;
         for (String imageId : imageIds) {

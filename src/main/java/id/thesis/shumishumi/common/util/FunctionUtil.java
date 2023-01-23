@@ -113,6 +113,9 @@ public class FunctionUtil {
     }
 
     public static String hideString(String field) {
+        if (field == null || field.isEmpty()) {
+            return "";
+        }
         return "*".repeat(field.length());
     }
 

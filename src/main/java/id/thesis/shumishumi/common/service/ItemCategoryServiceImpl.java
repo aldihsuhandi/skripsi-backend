@@ -41,7 +41,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
                     itemCategoryDAO.queryById(key));
         } else if (DatabaseConst.CATEGORY_NAME.equalsIgnoreCase(identifier)) {
             return ViewObjectConverter.toViewObject(
-                    itemCategoryDAO.queryById(key));
+                    itemCategoryDAO.queryByName(key));
         }
         throw new ShumishumiException("wrong identifier", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }

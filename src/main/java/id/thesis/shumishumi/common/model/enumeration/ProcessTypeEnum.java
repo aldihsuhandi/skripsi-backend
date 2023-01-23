@@ -21,11 +21,11 @@ public enum ProcessTypeEnum {
     OTP_SEND("OTP_SEND", "otpSendValidator", "otpSendProcessor", false),
     OTP_VALIDATE("OTP_VALIDATE", "otpValidateValidator", "otpValidateProcessor", false),
 
-    ITEM_CREATE("ITEM_CREATE", "itemCreateValidator", "itemCreateProcessor", true),
+    ITEM_CREATE("ITEM_CREATE", "createItemValidator", "createItemProcessor", true),
 
-    ITEM_QUERY("ITEM_QUERY", "itemQueryValidator", "itemQueryProcessor", false),
+    ITEM_QUERY("ITEM_QUERY", "queryItemValidator", "queryItemProcessor", false),
 
-    ITEM_UPDATE("ITEM_UPDATE", "itemUpdateValidator", "itemUpdateProcessor", true),
+    ITEM_UPDATE("ITEM_UPDATE", "updateItemValidator", "updateItemProcessor", true),
 
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
 

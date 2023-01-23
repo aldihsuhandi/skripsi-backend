@@ -54,11 +54,11 @@ public class QueryItemProcessor implements BaseProcessor {
         List<ItemVO> itemVOS = new ArrayList<>();
         queryById(queryRequest, itemVOS);
 
-        if (!itemVOS.isEmpty()) {
+        if (itemVOS.isEmpty()) {
             int page = queryRequest.getPageNumber();
             int numberOfItems = queryRequest.getNumberOfItem();
 
-            queryItemList(queryRequest, itemVOS, page, numberOfItems);
+            itemVOS = queryItemList(queryRequest, page, numberOfItems);
         }
 
         composeResult(queryRequest, queryResult, itemVOS);
@@ -77,9 +77,9 @@ public class QueryItemProcessor implements BaseProcessor {
         result.setPagingContext(pagingContext);
     }
 
-    private void queryItemList(QueryItemRequest request, List<ItemVO> itemVOS, int page, int numberOfItems) {
+    private List<ItemVO> queryItemList(QueryItemRequest request, int page, int numberOfItems) {
         ItemFilterContext filterContext = request.getItemFilterContext();
-        itemVOS = itemService.queryList(filterContext, page, numberOfItems, true);
+        return itemService.queryList(filterContext, page, numberOfItems, true);
     }
 
     private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {

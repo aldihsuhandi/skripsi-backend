@@ -3,7 +3,7 @@ package id.thesis.shumishumi.test.util;
 public class ResultAssert {
     public static void isSuccess(boolean bool) {
         if (!bool) {
-            throw new RuntimeException();
+            throw new RuntimeException("success value is not expected");
         }
     }
 

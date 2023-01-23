@@ -30,4 +30,8 @@ public class ItemFetchService {
         return new ArrayList<>(itemCache.values()).stream().
                 sorted(new ItemVOGmtCreateComparator()).collect(Collectors.toList());
     }
+
+    public void clearCache() {
+        itemCache.clear();
+    }
 }

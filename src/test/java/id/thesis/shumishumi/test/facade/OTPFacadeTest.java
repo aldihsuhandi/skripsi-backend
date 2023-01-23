@@ -6,13 +6,10 @@ import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.facade.OTPFacade;
 import id.thesis.shumishumi.dalgen.model.result.ContentDO;
 import id.thesis.shumishumi.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.dalgen.model.result.RoleDO;
-import id.thesis.shumishumi.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.rest.request.otp.OTPSendRequest;
 import id.thesis.shumishumi.rest.request.otp.OTPValidateRequest;
 import id.thesis.shumishumi.rest.result.otp.OTPSendResult;
 import id.thesis.shumishumi.rest.result.otp.OTPValidateResult;
-import id.thesis.shumishumi.test.TestBase;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,7 +25,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-public class OTPFacadeTest extends TestBase {
+public class OTPFacadeTest extends FacadeTestBase {
 
     @Autowired
     private OTPFacade otpFacade;
@@ -111,26 +108,5 @@ public class OTPFacadeTest extends TestBase {
         otpDO.setTypeId(OTPTypeEnum.FORGOT_PASSWORD.getId());
 
         return otpDO;
-    }
-
-    private UserDO mockUserDO(String password, boolean isActive) {
-        UserDO user = new UserDO();
-        String hashPassword = FunctionUtil.hashPassword(password);
-        user.setUserId("userId");
-        user.setEmail("email");
-        user.setActive(isActive);
-        user.setPassword(hashPassword);
-
-        return user;
-    }
-
-    private RoleDO mockRoleDO() {
-        RoleDO roleDO = new RoleDO();
-        roleDO.setRoleId("roleId");
-        roleDO.setRoleName("roleName");
-        roleDO.setGmtCreate(new Date());
-        roleDO.setGmtModified(new Date());
-
-        return roleDO;
     }
 }

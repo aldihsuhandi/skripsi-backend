@@ -41,13 +41,13 @@ public class HobbyServiceImpl implements HobbyService {
                     hobbyDAO.queryById(key));
         } else if (DatabaseConst.HOBBY_NAME.equalsIgnoreCase(identifier)) {
             return ViewObjectConverter.toViewObject(
-                    hobbyDAO.queryById(key));
+                    hobbyDAO.queryByName(key));
         }
         throw new ShumishumiException("wrong identifier", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
     public void create(String hobbyName) {
-        hobbyDAO.create(FunctionUtil.generateUUID(),hobbyName);
+        hobbyDAO.create(FunctionUtil.generateUUID(), hobbyName);
     }
 }

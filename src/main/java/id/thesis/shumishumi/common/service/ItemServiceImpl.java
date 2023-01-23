@@ -97,7 +97,10 @@ public class ItemServiceImpl implements ItemService {
         itemFilterContext.setMerchantId(merchantInfo.getUserId());
 
         if (useCache) {
-            return queryListFromCache(itemFilterContext, page, numberOfItem);
+            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, page, numberOfItem);
+            if (!itemVOS.isEmpty()) {
+                return itemVOS;
+            }
         }
 
         ItemCategoryVO category = itemCategoryService.query(itemFilterContext.getItemCategory(), DatabaseConst.CATEGORY_NAME);
@@ -215,7 +218,7 @@ public class ItemServiceImpl implements ItemService {
         pagingContext.setNumberOfItem(numberOfItems);
 
         List<ItemVO> result = new ArrayList<>();
-        if (itemVOS.size() < pagingContext.calculateOffset()) {
+        if (itemVOS.size() < pagingContext.calculateOffset() || itemVOS.isEmpty()) {
             return new ArrayList<>();
         }
 
