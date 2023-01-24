@@ -17,7 +17,6 @@ import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.dalgen.model.result.ActivityDO;
 import id.thesis.shumishumi.dalgen.model.result.ClientDO;
 import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
@@ -43,10 +42,10 @@ public class ViewObjectConverter {
 
         UserVO userVO = new UserVO();
         userVO.setUserId(userDO.getUserId());
-        userVO.setPassword(FunctionUtil.hideString(userDO.getPassword()));
+        userVO.setPassword(userDO.getPassword());
         userVO.setUsername(userDO.getUsername());
         userVO.setEmail(userDO.getEmail());
-        userVO.setPhoneNumber(FunctionUtil.hideString(userDO.getPhoneNumber()));
+        userVO.setPhoneNumber(userDO.getPhoneNumber());
         userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setDeleted(userDO.isDeleted());
         userVO.setActive(userDO.isActive());
