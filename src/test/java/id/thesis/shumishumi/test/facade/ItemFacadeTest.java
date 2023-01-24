@@ -11,9 +11,11 @@ import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
 import id.thesis.shumishumi.dalgen.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
+import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
+import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
@@ -161,6 +163,41 @@ public class ItemFacadeTest extends FacadeTestBase {
         QueryItemResult result = itemFacade.query(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void approvalItemTest_SUCCESS() {
+        ItemApprovalRequest request = new ItemApprovalRequest();
+        request.setItemId("itemId");
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.ADMIN.getUserRoleName()));
+        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(false));
+
+        ItemApprovalResult result = itemFacade.approve(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void approvalItemTest_FAILED_itemAlreadyApproved() {
+        ItemApprovalRequest request = new ItemApprovalRequest();
+        request.setItemId("itemId");
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.ADMIN.getUserRoleName()));
+        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        ItemApprovalResult result = itemFacade.approve(request);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.ITEM_ALREADY_APPROVED.getErrorCode());
     }
 
     private HobbyDO mockHobbyDO() {
