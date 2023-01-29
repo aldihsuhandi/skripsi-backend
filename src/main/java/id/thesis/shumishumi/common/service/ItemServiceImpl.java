@@ -164,7 +164,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public int count(boolean useCache) {
+    public int count(ItemFilterContext itemFilterContext, boolean useCache) {
+        if (useCache) {
+            return countWithFilter(itemFilterContext);
+        }
         return itemDAO.count();
     }
 
@@ -228,5 +231,12 @@ public class ItemServiceImpl implements ItemService {
         }
 
         return result;
+    }
+
+    private int countWithFilter(ItemFilterContext itemFilterContext) {
+        List<ItemVO> itemVOS = itemFetchService.fetchAll().stream().
+                filter(itemVO -> FunctionUtil.itemFilter(itemVO, itemFilterContext)).collect(Collectors.toList());
+
+        return itemVOS.size();
     }
 }

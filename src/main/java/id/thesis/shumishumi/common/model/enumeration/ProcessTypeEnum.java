@@ -29,6 +29,10 @@ public enum ProcessTypeEnum {
 
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
 
+    WISHLIST_ADD("WISHLIST_ADD", "wishlistAddValidator", "wishlistAddProcessor", true),
+    WISHLIST_REMOVE("WISHLIST_REMOVE", "wishlistRemoveValidator", "wishlistRemoveProcessor", true),
+    WISHLIST_QUERY("WISHLIST_QUERY", "wishlistQueryValidator", "wishlistQueryProcessor", true),
+
     ;
 
     private final String processName;

@@ -29,5 +29,5 @@ public interface ItemService {
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
-    int count(boolean useCache);
+    int count(ItemFilterContext itemFilterContext, boolean useCache);
 }
