@@ -1,0 +1,124 @@
+package id.thesis.shumishumi.test.facade;
+
+import id.thesis.shumishumi.common.model.enumeration.UserRolesEnum;
+import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.foundation.model.result.ActivityDO;
+import id.thesis.shumishumi.foundation.model.result.RoleDO;
+import id.thesis.shumishumi.foundation.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.service.ActivityDAO;
+import id.thesis.shumishumi.foundation.service.ClientDAO;
+import id.thesis.shumishumi.foundation.service.ContentDAO;
+import id.thesis.shumishumi.foundation.service.HobbyDAO;
+import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
+import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
+import id.thesis.shumishumi.foundation.service.ItemDAO;
+import id.thesis.shumishumi.foundation.service.ItemImageDAO;
+import id.thesis.shumishumi.foundation.service.OtpDAO;
+import id.thesis.shumishumi.foundation.service.RoleDAO;
+import id.thesis.shumishumi.foundation.service.SessionDAO;
+import id.thesis.shumishumi.foundation.service.UserDAO;
+import id.thesis.shumishumi.service.fetch.ItemFetchService;
+import id.thesis.shumishumi.service.fetch.UserFetchService;
+import id.thesis.shumishumi.test.TestBase;
+import org.junit.jupiter.api.AfterEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Date;
+
+public class FacadeTestBase extends TestBase {
+    @MockBean
+    protected UserDAO userDAO;
+    @MockBean
+    protected ContentDAO contentDAO;
+    @MockBean
+    protected OtpDAO otpDAO;
+    @MockBean
+    protected SessionDAO sessionDAO;
+    @MockBean
+    protected RoleDAO roleDAO;
+    @MockBean
+    protected ClientDAO clientDAO;
+    @MockBean
+    protected ItemDAO itemDAO;
+    @MockBean
+    protected HobbyDAO hobbyDAO;
+    @MockBean
+    protected InterestLevelDAO interestLevelDAO;
+    @MockBean
+    protected ItemCategoryDAO itemCategoryDAO;
+    @MockBean
+    protected ItemImageDAO itemImageDAO;
+    @MockBean
+    protected ActivityDAO activityDAO;
+
+    @Autowired
+    protected UserFetchService userFetchService;
+
+    @Autowired
+    protected ItemFetchService itemFetchService;
+
+    @AfterEach
+    public void cleanUp() {
+        itemFetchService.clearCache();
+        userFetchService.clearCache();
+    }
+
+    protected SessionDO mockSessionDO() {
+        SessionDO sessionDO = new SessionDO();
+        sessionDO.setUserId("userId");
+        sessionDO.setRemembered(true);
+        sessionDO.setActive(true);
+
+        return sessionDO;
+    }
+
+
+    protected UserDO mockUserDO(String password) {
+        UserDO user = new UserDO();
+        String hashPassword = FunctionUtil.hashPassword(password);
+        user.setUserId("userId");
+        user.setEmail("email");
+        user.setActive(true);
+        user.setPassword(hashPassword);
+
+        return user;
+    }
+
+    protected UserDO mockUserDO(String password, boolean isActive) {
+        UserDO user = new UserDO();
+        String hashPassword = FunctionUtil.hashPassword(password);
+        user.setUserId("userId");
+        user.setEmail("email");
+        user.setActive(isActive);
+        user.setPassword(hashPassword);
+
+        return user;
+    }
+
+    protected RoleDO mockRoleDO() {
+        return mockRoleDO(UserRolesEnum.USER.getUserRoleName());
+    }
+
+    protected RoleDO mockRoleDO(String roleName) {
+        RoleDO roleDO = new RoleDO();
+        roleDO.setRoleId(UserRolesEnum.valueOf(roleName).getUserRoleId());
+        roleDO.setRoleName(UserRolesEnum.valueOf(roleName).getUserRoleName());
+        roleDO.setGmtCreate(new Date());
+        roleDO.setGmtModified(new Date());
+
+        return roleDO;
+    }
+
+    protected ActivityDO mockActivityDO() {
+        ActivityDO activityDO = new ActivityDO();
+        activityDO.setActivityId("activityId");
+        activityDO.setActivityName("activityName");
+        activityDO.setGmtCreate(new Date());
+        activityDO.setGmtModified(new Date());
+
+        return activityDO;
+    }
+
+}
