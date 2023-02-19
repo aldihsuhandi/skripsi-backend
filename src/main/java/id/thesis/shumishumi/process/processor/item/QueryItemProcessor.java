@@ -4,16 +4,9 @@
  */
 package id.thesis.shumishumi.process.processor.item;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
-import id.thesis.shumishumi.common.model.enumeration.ActivityEnum;
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
-import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.core.service.ActivityService;
 import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.SessionService;
@@ -25,7 +18,6 @@ import id.thesis.shumishumi.rest.result.item.QueryItemResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,9 +25,6 @@ import java.util.List;
  * @version $Id: QueryItemProcessor.java, v 0.1 2023‐01‐19 9:09 AM Aldih Suhandi Exp $$
  */
 public class QueryItemProcessor implements BaseProcessor {
-
-    @Autowired
-    private ActivityService activityService;
 
     @Autowired
     private ItemService itemService;
@@ -64,8 +53,7 @@ public class QueryItemProcessor implements BaseProcessor {
         composeResult(queryRequest, queryResult, itemVOS);
     }
 
-    private void composeResult(QueryItemRequest request,
-                               QueryItemResult result, List<ItemVO> itemVOS) {
+    private void composeResult(QueryItemRequest request, QueryItemResult result, List<ItemVO> itemVOS) {
         int count = itemService.count(request.getItemFilterContext(), true);
 
         PagingContext pagingContext = new PagingContext();
@@ -83,8 +71,7 @@ public class QueryItemProcessor implements BaseProcessor {
     }
 
     private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {
-        if (request.getItemFilterContext().getItemId() == null ||
-                request.getItemFilterContext().getItemId().isEmpty()) {
+        if (request.getItemFilterContext().getItemId() == null || request.getItemFilterContext().getItemId().isEmpty()) {
             return;
         }
 
@@ -92,24 +79,5 @@ public class QueryItemProcessor implements BaseProcessor {
 
         ItemVO itemVO = itemService.queryById(filterContext.getItemId(), true);
         itemVOS.add(itemVO);
-
-        createUserActivity(request.getSessionId(), request.getItemFilterContext().getItemId());
-    }
-
-    private void createUserActivity(String sessionId, String itemId) {
-        if (sessionId == null || sessionId.isEmpty()) {
-            return;
-        }
-
-        SessionVO sessionVO = sessionService.query(sessionId);
-        ActivityVO activityVO = activityService.queryActivity(ActivityEnum.BUY.getName(), DatabaseConst.ACTIVITY_NAME);
-        if (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
-                || sessionVO.getSessionDt().before(new Date())))) {
-            throw new ShumishumiException("Session Expired",
-                    ShumishumiErrorCodeEnum.SESSION_EXPIRED);
-        }
-
-
-        activityService.createUserActivity(sessionVO.getUserId(), itemId, activityVO.getActivityId());
     }
 }

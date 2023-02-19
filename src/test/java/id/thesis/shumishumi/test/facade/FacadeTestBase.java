@@ -8,7 +8,6 @@ import id.thesis.shumishumi.dalgen.model.result.ActivityDO;
 import id.thesis.shumishumi.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
-import id.thesis.shumishumi.dalgen.service.ActivityDAO;
 import id.thesis.shumishumi.dalgen.service.ClientDAO;
 import id.thesis.shumishumi.dalgen.service.ContentDAO;
 import id.thesis.shumishumi.dalgen.service.HobbyDAO;
@@ -50,8 +49,6 @@ public class FacadeTestBase extends TestBase {
     protected ItemCategoryDAO itemCategoryDAO;
     @MockBean
     protected ItemImageDAO itemImageDAO;
-    @MockBean
-    protected ActivityDAO activityDAO;
 
     @Autowired
     protected UserFetchService userFetchService;
