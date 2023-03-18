@@ -22,12 +22,10 @@ public enum ProcessTypeEnum {
     OTP_VALIDATE("OTP_VALIDATE", "otpValidateValidator", "otpValidateProcessor", false),
 
     ITEM_CREATE("ITEM_CREATE", "createItemValidator", "createItemProcessor", true),
-
     ITEM_QUERY("ITEM_QUERY", "queryItemValidator", "queryItemProcessor", false),
-
     ITEM_UPDATE("ITEM_UPDATE", "updateItemValidator", "updateItemProcessor", true),
-
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
+    RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", false),
 
     WISHLIST_ADD("WISHLIST_ADD", "wishlistAddValidator", "wishlistAddProcessor", true),
     WISHLIST_REMOVE("WISHLIST_REMOVE", "wishlistRemoveValidator", "wishlistRemoveProcessor", true),

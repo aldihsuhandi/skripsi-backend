@@ -21,8 +21,8 @@ public class SessionLogoutProcessor implements BaseProcessor {
     private SessionService sessionService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        SessionLogoutRequest logoutRequest = (SessionLogoutRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        SessionLogoutRequest logoutRequest = (SessionLogoutRequest) baseRequest;
         sessionService.logout(logoutRequest.getSessionId());
     }
 }

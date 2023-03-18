@@ -7,10 +7,12 @@ package id.thesis.shumishumi.core.facade;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
+import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
+import id.thesis.shumishumi.rest.result.item.RecommendResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 
 /**
@@ -25,4 +27,6 @@ public interface ItemFacade {
     UpdateItemResult update(UpdateItemRequest request);
 
     ItemApprovalResult approve(ItemApprovalRequest request);
+
+    RecommendResult recommend(RecommendRequest request);
 }

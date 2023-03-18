@@ -27,8 +27,8 @@ public class OtpSendProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        OTPSendRequest sendRequest = (OTPSendRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        OTPSendRequest sendRequest = (OTPSendRequest) baseRequest;
         String otp = FunctionUtil.generateOtp(10, true, true);
 
         UserVO userVO = userService.queryByEmail(sendRequest.getEmail(), true);

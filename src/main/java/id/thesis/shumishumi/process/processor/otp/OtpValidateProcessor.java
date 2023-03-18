@@ -24,9 +24,9 @@ public class OtpValidateProcessor implements BaseProcessor {
     private OTPService otpService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        OTPValidateRequest validateRequest = (OTPValidateRequest) request;
-        OTPValidateResult validateResult = (OTPValidateResult) result;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        OTPValidateRequest validateRequest = (OTPValidateRequest) baseRequest;
+        OTPValidateResult validateResult = (OTPValidateResult) baseResult;
         UserVO userVO = userService.queryByEmail(validateRequest.getEmail(), true);
         AssertUtil.isNotNull(userVO, "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
 

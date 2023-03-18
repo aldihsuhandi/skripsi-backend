@@ -27,9 +27,9 @@ public class UserQueryProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UserQueryRequest queryRequest = (UserQueryRequest) request;
-        UserQueryResult queryResult = (UserQueryResult) result;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UserQueryRequest queryRequest = (UserQueryRequest) baseRequest;
+        UserQueryResult queryResult = (UserQueryResult) baseResult;
         UserVO userVO = query(queryRequest.getKey(), queryRequest.getIdentifier());
         AssertUtil.isNotNull(userVO, "userVO", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
 

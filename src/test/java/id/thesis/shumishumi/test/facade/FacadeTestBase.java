@@ -10,6 +10,7 @@ import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.dalgen.service.ClientDAO;
 import id.thesis.shumishumi.dalgen.service.ContentDAO;
+import id.thesis.shumishumi.dalgen.service.CrowdDAO;
 import id.thesis.shumishumi.dalgen.service.HobbyDAO;
 import id.thesis.shumishumi.dalgen.service.InterestLevelDAO;
 import id.thesis.shumishumi.dalgen.service.ItemCategoryDAO;
@@ -20,6 +21,7 @@ import id.thesis.shumishumi.dalgen.service.RoleDAO;
 import id.thesis.shumishumi.dalgen.service.SessionDAO;
 import id.thesis.shumishumi.dalgen.service.UserDAO;
 import id.thesis.shumishumi.test.TestBase;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -49,6 +51,8 @@ public class FacadeTestBase extends TestBase {
     protected ItemCategoryDAO itemCategoryDAO;
     @MockBean
     protected ItemImageDAO itemImageDAO;
+    @MockBean
+    protected CrowdDAO crowdDAO;
 
     @Autowired
     protected UserFetchService userFetchService;
@@ -67,6 +71,7 @@ public class FacadeTestBase extends TestBase {
         sessionDO.setUserId("userId");
         sessionDO.setRemembered(true);
         sessionDO.setActive(true);
+        sessionDO.setSessionDt(DateUtils.addHours(new Date(), 2));
 
         return sessionDO;
     }

@@ -35,8 +35,8 @@ public class UpdateItemProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UpdateItemRequest updateRequest = (UpdateItemRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UpdateItemRequest updateRequest = (UpdateItemRequest) baseRequest;
 
         ItemVO itemVO = itemService.queryById(updateRequest.getItemId(), true);
         SessionVO sessionVO = sessionService.query(updateRequest.getSessionId());

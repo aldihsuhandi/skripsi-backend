@@ -35,6 +35,10 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_INTEREST_LEVEL = "interest_level";
     public static final String TABLE_ACTIVITY = "activities";
     public static final String TABLE_USER_ACTIVITY = "user_activities";
+    public static final String TABLE_CROWD = "crowds";
+    public static final String TABLE_CROWD_RULE = "crowd_rules";
+    public static final String TABLE_USER_CROWD = "user_crowds";
+    public static final String TABLE_ITEM_CROWD = "item_crowds";
 
     // General
     public static final String GMT_CREATE = "gmt_create";
@@ -110,4 +114,11 @@ public class DatabaseConst implements Serializable {
     // User Activity
     public static final String USER_ACTIVITY_ID = "user_activity_id";
 
+    // crowd
+    public static final String CROWD_ID = "crowd_id";
+
+    // crowd rule
+    public static final String CROWD_RULE_ID = "rule_id";
+    public static final String CROWD_RULE_TYPE = "rule_type";
+    public static final String CROWD_RULE_VALUE = "rule_value";
 }

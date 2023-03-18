@@ -24,8 +24,8 @@ public class ClientAuthProcessor implements BaseProcessor {
     private ClientService clientService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        ClientAuthRequest authRequest = (ClientAuthRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        ClientAuthRequest authRequest = (ClientAuthRequest) baseRequest;
         ClientVO clientVO = clientService.queryById(authRequest.getClientId());
         AssertUtil.isNotNull(clientVO, "there is not client with that clientId", ShumishumiErrorCodeEnum.OAUTH_ERROR);
 

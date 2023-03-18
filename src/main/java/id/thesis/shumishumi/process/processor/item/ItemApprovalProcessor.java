@@ -27,8 +27,8 @@ public class ItemApprovalProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        ItemApprovalRequest approvalRequest = (ItemApprovalRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        ItemApprovalRequest approvalRequest = (ItemApprovalRequest) baseRequest;
 
         SessionVO sessionVO = sessionService.query(approvalRequest.getSessionId());
         UserVO userVO = userService.queryById(sessionVO.getUserId(), true);

@@ -7,11 +7,13 @@ import id.thesis.shumishumi.rest.request.HtmlRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
+import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
+import id.thesis.shumishumi.rest.result.item.RecommendResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,6 +105,25 @@ public class ItemController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return itemFacade.approve(request.getBody());
+            }
+        });
+    }
+
+    public RecommendResult recommend(@RequestBody HtmlRequest<RecommendRequest> request) {
+        return (RecommendResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new RecommendResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return itemFacade.recommend(request.getBody());
             }
         });
     }

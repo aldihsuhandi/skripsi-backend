@@ -36,9 +36,9 @@ public class QueryItemProcessor implements BaseProcessor {
     private ItemImageService itemImageService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        QueryItemRequest queryRequest = (QueryItemRequest) request;
-        QueryItemResult queryResult = (QueryItemResult) result;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        QueryItemRequest queryRequest = (QueryItemRequest) baseRequest;
+        QueryItemResult queryResult = (QueryItemResult) baseResult;
 
         List<ItemVO> itemVOS = new ArrayList<>();
         queryById(queryRequest, itemVOS);

@@ -29,8 +29,8 @@ public class UserActivateProcessor implements BaseProcessor {
     private OTPService otpService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UserActivateRequest activateRequest = (UserActivateRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UserActivateRequest activateRequest = (UserActivateRequest) baseRequest;
 
         OtpVO otpVO = otpService.query(activateRequest.getEmail(), OTPTypeEnum.USER_ACTIVATION.getName(), activateRequest.getOtp());
         UserVO userVO = userService.queryByEmail(activateRequest.getEmail(), true);

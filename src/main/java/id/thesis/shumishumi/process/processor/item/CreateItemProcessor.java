@@ -59,8 +59,8 @@ public class CreateItemProcessor implements BaseProcessor {
     private InterestLevelService interestLevelService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        CreateItemRequest itemRequest = (CreateItemRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        CreateItemRequest itemRequest = (CreateItemRequest) baseRequest;
 
         SessionVO sessionVO = sessionService.query(itemRequest.getSessionId());
         AssertUtil.isNotNull(sessionVO, "session not exist", ShumishumiErrorCodeEnum.SESSION_EXPIRED);

@@ -23,9 +23,9 @@ public class SessionQueryProcessor implements BaseProcessor {
     private SessionService sessionService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        SessionQueryRequest queryRequest = (SessionQueryRequest) request;
-        SessionQueryResult queryResult = (SessionQueryResult) result;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        SessionQueryRequest queryRequest = (SessionQueryRequest) baseRequest;
+        SessionQueryResult queryResult = (SessionQueryResult) baseResult;
 
         SessionVO sessionVO = sessionService.query(queryRequest.getSessionId());
 

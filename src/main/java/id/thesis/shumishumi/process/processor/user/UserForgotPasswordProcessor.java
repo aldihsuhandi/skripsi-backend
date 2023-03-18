@@ -29,8 +29,8 @@ public class UserForgotPasswordProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UserForgotPasswordRequest forgotPasswordRequest = (UserForgotPasswordRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UserForgotPasswordRequest forgotPasswordRequest = (UserForgotPasswordRequest) baseRequest;
         UserVO userVO = userService.queryByEmail(forgotPasswordRequest.getEmail(), true);
         OtpVO otpVO = otpService.query(forgotPasswordRequest.getPassword(),
                 OTPTypeEnum.FORGOT_PASSWORD.getName(), forgotPasswordRequest.getOtp());

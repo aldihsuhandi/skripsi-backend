@@ -23,9 +23,9 @@ public class UserLoginProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UserLoginRequest loginRequest = (UserLoginRequest) request;
-        UserLoginResult loginResult = (UserLoginResult) result;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UserLoginRequest loginRequest = (UserLoginRequest) baseRequest;
+        UserLoginResult loginResult = (UserLoginResult) baseResult;
 
         UserVO userVO = userService.queryByEmail(loginRequest.getEmail(), true);
         AssertUtil.isNotNull(userVO, "User not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);

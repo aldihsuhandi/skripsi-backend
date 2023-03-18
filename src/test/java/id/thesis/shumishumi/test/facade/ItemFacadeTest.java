@@ -13,10 +13,12 @@ import id.thesis.shumishumi.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
+import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
+import id.thesis.shumishumi.rest.result.item.RecommendResult;
 import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
@@ -194,6 +196,17 @@ public class ItemFacadeTest extends FacadeTestBase {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.ITEM_ALREADY_APPROVED.getErrorCode());
+    }
+
+    @Test
+    public void recommendTest_SUCCESS() {
+        RecommendRequest request = new RecommendRequest();
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+
+        RecommendResult result = itemFacade.recommend(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
     }
 
     private HobbyDO mockHobbyDO() {

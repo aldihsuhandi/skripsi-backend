@@ -36,8 +36,8 @@ public class UserUpdateProcessor implements BaseProcessor {
     private UserService userService;
 
     @Override
-    public void doProcess(BaseResult result, BaseRequest request) {
-        UserUpdateRequest updateRequest = (UserUpdateRequest) request;
+    public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
+        UserUpdateRequest updateRequest = (UserUpdateRequest) baseRequest;
         UserVO userVO = queryUserFromSession(updateRequest.getSessionId());
         UserUpdateContext updateContext = updateRequest.getUserUpdateContext();
 

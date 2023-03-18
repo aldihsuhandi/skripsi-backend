@@ -5,5 +5,5 @@ import id.thesis.shumishumi.rest.request.BaseRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
 
 public interface BaseProcessor {
-    void doProcess(final BaseResult result, final BaseRequest request);
+    void doProcess(final BaseResult baseResult, final BaseRequest baseRequest);
 }
