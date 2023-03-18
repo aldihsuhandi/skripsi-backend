@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.service;
@@ -14,7 +14,7 @@ import id.thesis.shumishumi.rest.result.client.ClientAuthResult;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: ClientFacadeImpl.java, v 0.1 2022‐12‐26 3:27 PM Aldih Suhandi Exp $$
  */
 @Service

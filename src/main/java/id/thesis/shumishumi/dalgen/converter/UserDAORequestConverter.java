@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.converter;
@@ -12,7 +12,7 @@ import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
 import java.util.Date;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserDAORequestConverter.java, v 0.1 2022‐12‐26 7:48 AM Aldih Suhandi Exp $$
  */
 public class UserDAORequestConverter {

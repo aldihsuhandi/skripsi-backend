@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.model.request;
@@ -13,7 +13,7 @@ import java.sql.Blob;
 import java.util.Date;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserDAORequest.java, v 0.1 2022‐12‐26 7:29 AM Aldih Suhandi Exp $$
  */
 @Getter

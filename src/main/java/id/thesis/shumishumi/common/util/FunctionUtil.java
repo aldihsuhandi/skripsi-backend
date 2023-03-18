@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.util;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.UUID;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: FunctionUtil.java, v 0.1 2022‐12‐26 7:51 AM Aldih Suhandi Exp $$
  */
 public class FunctionUtil {

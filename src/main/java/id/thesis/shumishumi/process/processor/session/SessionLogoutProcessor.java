@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.processor.session;
@@ -12,7 +12,7 @@ import id.thesis.shumishumi.rest.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: SessionLogoutProcessor.java, v 0.1 2022‐12‐27 7:50 AM Aldih Suhandi Exp $$
  */
 public class SessionLogoutProcessor implements BaseProcessor {

@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.model.context;
@@ -11,7 +11,7 @@ import lombok.ToString;
 import java.sql.Blob;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserUpdateContext.java, v 0.1 2022‐12‐26 8:23 AM Aldih Suhandi Exp $$
  */
 @Getter

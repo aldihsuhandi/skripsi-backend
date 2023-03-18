@@ -1,13 +1,13 @@
 /**
- * Dana.id
- * Copyright (c) 2017‐2023 All Rights Reserved.
+ * 
+ *
  */
 package id.thesis.shumishumi.common.model.enumeration;
 
 import lombok.Getter;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: InterestLevelEnum.java, v 0.1 2023‐01‐16 4:34 PM Aldih Suhandi Exp $$
  */
 @Getter

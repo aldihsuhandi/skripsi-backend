@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.processor.session;
@@ -14,7 +14,7 @@ import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: SessionQueryProcessor.java, v 0.1 2022‐12‐30 1:14 PM Aldih Suhandi Exp $$
  */
 public class SessionQueryProcessor implements BaseProcessor {

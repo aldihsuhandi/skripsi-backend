@@ -1,6 +1,6 @@
 /**
- * Dana.id
- * Copyright (c) 2017‐2023 All Rights Reserved.
+ * 
+ *
  */
 package id.thesis.shumishumi.rest.result.item;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: CreateItemResult.java, v 0.1 2023‐01‐16 4:22 PM Aldih Suhandi Exp $$
  */
 @Getter

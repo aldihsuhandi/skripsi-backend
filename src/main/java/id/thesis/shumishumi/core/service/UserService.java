@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.service;
@@ -11,7 +11,7 @@ import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import java.util.List;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserService.java, v 0.1 2022‐12‐26 7:09 AM Aldih Suhandi Exp $$
  */
 public interface UserService {

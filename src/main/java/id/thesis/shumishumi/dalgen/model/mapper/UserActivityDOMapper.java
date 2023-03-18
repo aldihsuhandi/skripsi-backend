@@ -1,6 +1,6 @@
 /**
- * Dana.id
- * Copyright (c) 2017‐2023 All Rights Reserved.
+ * 
+ *
  */
 package id.thesis.shumishumi.dalgen.model.mapper;
 
@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserActivityDOMapper.java, v 0.1 2023‐01‐19 9:33 AM Aldih Suhandi Exp $$
  */
 public class UserActivityDOMapper implements RowMapper<UserActivityDO> {

@@ -1,6 +1,6 @@
 /**
- * Dana.id
- * Copyright (c) 2017‐2023 All Rights Reserved.
+ * 
+ *
  */
 package id.thesis.shumishumi.rest.result.item;
 
@@ -15,7 +15,7 @@ import org.apache.catalina.LifecycleState;
 import java.util.List;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: QueryItemResult.java, v 0.1 2023‐01‐18 11:39 Aldih Suhandi Exp $$
  */
 @Getter

@@ -1,6 +1,6 @@
 /**
- * Dana.id
- * Copyright (c) 2017‐2023 All Rights Reserved.
+ * 
+ *
  */
 package id.thesis.shumishumi.common.model.viewobject;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: ActivityVO.java, v 0.1 2023‐01‐19 9:54 AM Aldih Suhandi Exp $$
  */
 @Getter

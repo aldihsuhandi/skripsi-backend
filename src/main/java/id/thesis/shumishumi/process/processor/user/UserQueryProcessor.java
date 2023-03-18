@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.processor.user;
@@ -18,7 +18,7 @@ import id.thesis.shumishumi.rest.result.user.UserQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserQueryProcessor.java, v 0.1 2022‐12‐28 9:25 AM Aldih Suhandi Exp $$
  */
 public class UserQueryProcessor implements BaseProcessor {

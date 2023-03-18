@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.model.mapper;
@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: ClientDOMapper.java, v 0.1 2022‐12‐26 3:31 PM Aldih Suhandi Exp $$
  */
 public class ClientDOMapper implements RowMapper<ClientDO> {

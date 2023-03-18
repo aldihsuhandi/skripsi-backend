@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.converter;
@@ -31,7 +31,7 @@ import id.thesis.shumishumi.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.dalgen.model.result.UserDO;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: ViewObjectConverter.java, v 0.1 2022‐12‐26 2:31 PM Aldih Suhandi Exp $$
  */
 public class ViewObjectConverter {

@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.validator.user;
@@ -12,7 +12,7 @@ import id.thesis.shumishumi.rest.request.BaseRequest;
 import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserQueryValidator.java, v 0.1 2022‐12‐28 9:21 AM Aldih Suhandi Exp $$
  */
 public class UserQueryValidator implements BaseValidator {

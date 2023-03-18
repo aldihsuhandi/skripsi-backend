@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.validator.session;
@@ -11,7 +11,7 @@ import id.thesis.shumishumi.rest.request.BaseRequest;
 import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: SessionQueryValidator.java, v 0.1 2022‐12‐30 1:11 PM Aldih Suhandi Exp $$
  */
 public class SessionQueryValidator implements BaseValidator {

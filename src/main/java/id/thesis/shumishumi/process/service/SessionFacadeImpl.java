@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.service;
@@ -16,7 +16,7 @@ import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: SessionFacadeImpl.java, v 0.1 2022‐12‐27 7:46 AM Aldih Suhandi Exp $$
  */
 @Service

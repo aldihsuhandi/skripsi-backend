@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.process.processor.user;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserUpdateProcessor.java, v 0.1 2022‐12‐27 1:51 PM Aldih Suhandi Exp $$
  */
 public class UserUpdateProcessor implements BaseProcessor {

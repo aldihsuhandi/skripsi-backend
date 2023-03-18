@@ -1,5 +1,5 @@
 /**
- * Dana.id
+ * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.converter;
@@ -12,7 +12,7 @@ import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
 import java.sql.Blob;
 
 /**
- * @author Aldih Suhandi (i-aldih.suhandi@dana.id)
+ * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserRequestConverter.java, v 0.1 2022‐12‐26 8:16 AM Aldih Suhandi Exp $$
  */
 public class UserRequestConverter {
