@@ -138,7 +138,6 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.USER.getUserRoleName()));
-        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
 
         QueryItemResult result = itemFacade.query(request);
@@ -157,7 +156,6 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.USER.getUserRoleName()));
-        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
         Mockito.when(itemDAO.query(Mockito.any())).thenReturn(mockItemDOList(10));
 
         QueryItemResult result = itemFacade.query(request);
@@ -174,7 +172,6 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.ADMIN.getUserRoleName()));
-        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(false));
 
         ItemApprovalResult result = itemFacade.approve(request);
@@ -191,7 +188,6 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.ADMIN.getUserRoleName()));
-        Mockito.when(activityDAO.queryActivityByName(Mockito.any())).thenReturn(mockActivityDO());
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
 
         ItemApprovalResult result = itemFacade.approve(request);
