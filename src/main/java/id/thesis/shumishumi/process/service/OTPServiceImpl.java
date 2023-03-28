@@ -1,7 +1,9 @@
 package id.thesis.shumishumi.process.service;
 
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.model.request.otp.OTPSendInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.OtpVO;
+import id.thesis.shumishumi.core.service.EmailService;
 import id.thesis.shumishumi.core.service.OTPService;
 import id.thesis.shumishumi.dalgen.converter.OTPDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.OTPDAORequest;
@@ -15,10 +17,15 @@ public class OTPServiceImpl implements OTPService {
     @Autowired
     private OtpDAO otpDAO;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
-    public void insert(String email, String type, String otp) {
+    public void send(String email, String type, String otp) {
         OTPDAORequest otpdaoRequest = OTPDAORequestConverter.toDAORequest(email, otp, type);
         otpDAO.insert(otpdaoRequest);
+
+        emailService.sendOtpEmail(composeEmailRequest(email, type, otp));
     }
 
     @Override
@@ -36,5 +43,14 @@ public class OTPServiceImpl implements OTPService {
     @Override
     public void deactivate() {
         otpDAO.deactivate();
+    }
+
+    private OTPSendInnerRequest composeEmailRequest(String email, String type, String otp) {
+        OTPSendInnerRequest request = new OTPSendInnerRequest();
+        request.setOtp(otp);
+        request.setOtpType(type);
+        request.setEmail(email);
+
+        return request;
     }
 }
