@@ -2,6 +2,7 @@ package id.thesis.shumishumi.process.processor.user;
 
 import id.thesis.shumishumi.common.converter.UserRequestConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
@@ -41,6 +42,7 @@ public class UserRegisterProcessor implements BaseProcessor {
         insertProfilePicture(registerRequest.getProfilePicture(), userId);
 
         userService.queryById(userId, false);
+        otpService.send(registerRequest.getEmail(), OTPTypeEnum.USER_ACTIVATION.getName());
     }
 
     private void checkExistingUser(UserRegisterRequest registerRequest) throws ShumishumiException {

@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.model.request;
@@ -26,6 +25,8 @@ public class UserDAORequest implements Serializable {
     private String phoneNumber;
     private Blob profilePicture;
     private String password;
+    private boolean isActive;
+    private boolean isDeleted;
     private Date gmtCreate;
     private Date gmtModified;
 }

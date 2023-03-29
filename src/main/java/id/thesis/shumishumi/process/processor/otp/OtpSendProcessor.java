@@ -4,7 +4,6 @@ import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.AssertUtil;
-import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.OTPService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
@@ -24,7 +23,6 @@ public class OtpSendProcessor implements BaseProcessor {
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         OTPSendRequest sendRequest = (OTPSendRequest) baseRequest;
-        String otp = FunctionUtil.generateOtp(10, true, true);
 
         UserVO userVO = userService.queryByEmail(sendRequest.getEmail(), true);
 
@@ -32,7 +30,7 @@ public class OtpSendProcessor implements BaseProcessor {
         AssertUtil.isExpected(!userVO.isDeleted(), "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
         AssertUtil.isExpected(checkActiveUser(sendRequest.getOtpType(), userVO.isActive()), "user is already active", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
-        otpService.send(sendRequest.getEmail(), sendRequest.getOtpType(), otp);
+        otpService.send(sendRequest.getEmail(), sendRequest.getOtpType());
     }
 
     private boolean checkActiveUser(String otpType, boolean isActive) {

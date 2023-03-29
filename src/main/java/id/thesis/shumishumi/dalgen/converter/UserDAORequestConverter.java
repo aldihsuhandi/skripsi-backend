@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.converter;
@@ -36,6 +35,8 @@ public class UserDAORequestConverter {
         userDAORequest.setUsername(updateContext.getUsername());
         userDAORequest.setPassword(updateContext.getPassword());
         userDAORequest.setProfilePicture(updateContext.getProfilePicture());
+        userDAORequest.setActive(updateContext.getIsActive());
+        userDAORequest.setDeleted(updateContext.getIsDeleted());
         userDAORequest.setGmtModified(new Date());
 
         return userDAORequest;

@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.dalgen.service.impl;
@@ -68,6 +67,8 @@ public class UserDAOImpl implements UserDAO {
                 .addSetStatement(DatabaseConst.PHONE_NUMBER)
                 .addSetStatement(DatabaseConst.PROFILE_PICTURE)
                 .addSetStatement(DatabaseConst.PASSWORD)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.IS_DELETED)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
@@ -80,8 +81,10 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(3, daoRequest.getPhoneNumber());
                 ps.setBlob(4, daoRequest.getProfilePicture());
                 ps.setString(5, daoRequest.getPassword());
-                ps.setTimestamp(6, new Timestamp(daoRequest.getGmtModified().getTime()));
-                ps.setString(7, daoRequest.getUserId());
+                ps.setBoolean(6, daoRequest.isActive());
+                ps.setBoolean(7, daoRequest.isDeleted());
+                ps.setTimestamp(8, new Timestamp(daoRequest.getGmtModified().getTime()));
+                ps.setString(9, daoRequest.getUserId());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
