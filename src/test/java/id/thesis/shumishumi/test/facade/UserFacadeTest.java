@@ -236,7 +236,7 @@ public class UserFacadeTest extends FacadeTestBase {
         Date otpDt = Date.from(LocalDateTime.now().plus(Duration.
                 of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
 
-        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", false, false));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
         Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(otpDt, true));
 

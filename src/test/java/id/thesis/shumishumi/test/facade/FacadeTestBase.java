@@ -78,11 +78,16 @@ public class FacadeTestBase extends TestBase {
 
 
     protected UserDO mockUserDO(String password) {
+        return mockUserDO(password, true, false);
+    }
+
+    protected UserDO mockUserDO(String password, boolean isActive, boolean isDeleted) {
         UserDO user = new UserDO();
         String hashPassword = FunctionUtil.hashPassword(password);
         user.setUserId("userId");
         user.setEmail("email");
-        user.setActive(true);
+        user.setActive(isActive);
+        user.setDeleted(isDeleted);
         user.setPassword(hashPassword);
 
         return user;
