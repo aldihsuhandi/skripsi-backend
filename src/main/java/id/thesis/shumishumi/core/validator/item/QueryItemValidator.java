@@ -11,5 +11,8 @@ public class QueryItemValidator implements BaseValidator {
     public void validate(BaseRequest baseRequest) {
         ParamChecker.isNotNull(baseRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
         ParamChecker.isExpected(baseRequest instanceof QueryItemRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+
+        QueryItemRequest request = (QueryItemRequest) baseRequest;
+        ParamChecker.isNotNull(request.getItemFilterContext(), "itemFilterContext", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 }

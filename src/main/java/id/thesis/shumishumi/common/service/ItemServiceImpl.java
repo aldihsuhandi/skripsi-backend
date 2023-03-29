@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.common.service;
@@ -26,6 +25,7 @@ import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.dalgen.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
 import id.thesis.shumishumi.dalgen.service.ItemDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,9 +92,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemVO> queryList(ItemFilterContext itemFilterContext,
                                   int page, int numberOfItem, boolean useCache) {
-        UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
-
-        itemFilterContext.setMerchantId(merchantInfo.getUserId());
+        if (StringUtils.isNotEmpty(itemFilterContext.getMerchantEmail())) {
+            UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
+            itemFilterContext.setMerchantId(merchantInfo.getUserId());
+        }
 
         if (useCache) {
             List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, page, numberOfItem);
@@ -108,8 +109,13 @@ public class ItemServiceImpl implements ItemService {
         InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
         HobbyVO hobby = hobbyService.query(itemFilterContext.getHobby(), DatabaseConst.HOBBY_NAME);
 
-        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(itemFilterContext, category.getCategoryId(),
-                hobby.getHobbyId(), merchantLevel.getInterestLevelId(), userLevel.getInterestLevelId());
+        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(
+                itemFilterContext,
+                category == null ? "" : category.getCategoryId(),
+                hobby == null ? "" : hobby.getHobbyId(),
+                merchantLevel == null ? "" : merchantLevel.getInterestLevelId(),
+                userLevel == null ? "" : userLevel.getInterestLevelId()
+        );
 
         PagingContext pagingContext = new PagingContext();
         pagingContext.setNumberOfItem(numberOfItem);
