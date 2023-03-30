@@ -50,7 +50,7 @@ public class UserActivateProcessor implements BaseProcessor {
     private void validateUser(UserVO userVO) {
         AssertUtil.isNotNull(userVO, "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
         AssertUtil.isExpected(!userVO.isDeleted(), "user not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
-        AssertUtil.isExpected(userVO.isActive(), "user already active", ShumishumiErrorCodeEnum.OTP_VALIDATION_ERROR);
+        AssertUtil.isExpected(!userVO.isActive(), "user already active", ShumishumiErrorCodeEnum.OTP_VALIDATION_ERROR);
     }
 
     private void validateOtp(OtpVO otpVO) {

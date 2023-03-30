@@ -2,12 +2,14 @@ package id.thesis.shumishumi.process.processor.user;
 
 import id.thesis.shumishumi.common.converter.UserRequestConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.core.service.OTPService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.process.processor.BaseProcessor;
 import id.thesis.shumishumi.rest.request.BaseRequest;
@@ -21,6 +23,9 @@ public class UserRegisterProcessor implements BaseProcessor {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OTPService otpService;
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
@@ -37,6 +42,7 @@ public class UserRegisterProcessor implements BaseProcessor {
         insertProfilePicture(registerRequest.getProfilePicture(), userId);
 
         userService.queryById(userId, false);
+        otpService.send(registerRequest.getEmail(), OTPTypeEnum.USER_ACTIVATION.getName());
     }
 
     private void checkExistingUser(UserRegisterRequest registerRequest) throws ShumishumiException {
