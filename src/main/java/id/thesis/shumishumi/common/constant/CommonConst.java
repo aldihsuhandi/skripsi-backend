@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.common.constant;
@@ -18,5 +17,7 @@ public class CommonConst {
     public static String MAIL_SMTP_PORT = "mail.smtp.port";
 
     public static String OTP_EMAIL = "OTP_EMAIL";
+
+    public static String TRACE_PREPEND = "0a358";
 
 }

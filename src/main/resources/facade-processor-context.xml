@@ -9,31 +9,32 @@
 
     <!--processors-->
     <!--user-->
-    <bean id="userRegisterProcessor" class="id.thesis.shumishumi.process.processor.user.UserRegisterProcessor"/>
-    <bean id="userLoginProcessor" class="id.thesis.shumishumi.process.processor.user.UserLoginProcessor"/>
-    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.process.processor.user.UserUpdateProcessor"/>
-    <bean id="userQueryProcessor" class="id.thesis.shumishumi.process.processor.user.UserQueryProcessor"/>
-    <bean id="userActivateProcessor" class="id.thesis.shumishumi.process.processor.user.UserActivateProcessor"/>
+    <bean id="userRegisterProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserRegisterProcessor"/>
+    <bean id="userLoginProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserLoginProcessor"/>
+    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userQueryProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserQueryProcessor"/>
+    <bean id="userActivateProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserActivateProcessor"/>
     <bean id="userForgotPasswordProcessor"
-          class="id.thesis.shumishumi.process.processor.user.UserForgotPasswordProcessor"/>
+          class="id.thesis.shumishumi.core.process.processor.user.UserForgotPasswordProcessor"/>
 
     <!--session-->
-    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.process.processor.session.SessionQueryProcessor"/>
-    <bean id="sessionLogoutProcessor" class="id.thesis.shumishumi.process.processor.session.SessionLogoutProcessor"/>
+    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.core.process.processor.session.SessionQueryProcessor"/>
+    <bean id="sessionLogoutProcessor"
+          class="id.thesis.shumishumi.core.process.processor.session.SessionLogoutProcessor"/>
 
     <!--client-->
-    <bean id="clientAuthProcessor" class="id.thesis.shumishumi.process.processor.client.ClientAuthProcessor"/>
+    <bean id="clientAuthProcessor" class="id.thesis.shumishumi.core.process.processor.client.ClientAuthProcessor"/>
 
     <!--otp-->
-    <bean id="otpSendProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpSendProcessor"/>
-    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.process.processor.otp.OtpValidateProcessor"/>
+    <bean id="otpSendProcessor" class="id.thesis.shumishumi.core.process.processor.otp.OtpSendProcessor"/>
+    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.core.process.processor.otp.OtpValidateProcessor"/>
 
     <!--item-->
-    <bean id="createItemProcessor" class="id.thesis.shumishumi.process.processor.item.CreateItemProcessor"/>
-    <bean id="queryItemProcessor" class="id.thesis.shumishumi.process.processor.item.QueryItemProcessor"/>
-    <bean id="updateItemProcessor" class="id.thesis.shumishumi.process.processor.item.UpdateItemProcessor"/>
-    <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.process.processor.item.ItemApprovalProcessor"/>
-    <bean id="recommendProcessor" class="id.thesis.shumishumi.process.processor.item.RecommendProcessor"/>
+    <bean id="createItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.CreateItemProcessor"/>
+    <bean id="queryItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.QueryItemProcessor"/>
+    <bean id="updateItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.UpdateItemProcessor"/>
+    <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.core.process.processor.item.ItemApprovalProcessor"/>
+    <bean id="recommendProcessor" class="id.thesis.shumishumi.core.process.processor.item.RecommendProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">

@@ -1,17 +1,20 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.dalgen.service.impl;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.dalgen.model.mapper.HobbyDOMapper;
 import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
 import id.thesis.shumishumi.dalgen.service.HobbyDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,12 @@ import java.util.List;
 @Service
 public class HobbyDAOImpl implements HobbyDAO {
 
+    private static final Logger DALGEN_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DALGEN_LOGGER);
+
+    private static final Logger DAO_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DAO_LOGGER);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -34,15 +43,26 @@ public class HobbyDAOImpl implements HobbyDAO {
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .buildStatement();
 
-        return jdbcTemplate.query(statement, new HobbyDOMapper());
+        LogUtil.info(DAO_LOGGER, "statement", statement);
+
+        List<HobbyDO> result = jdbcTemplate.query(statement, new HobbyDOMapper());
+
+        LogUtil.info(DALGEN_LOGGER, result);
+
+        return result;
     }
 
     @Override
     public HobbyDO queryById(String hobbyId) {
+
+        LogUtil.info(DALGEN_LOGGER, hobbyId);
+
         String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.HOBBY_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         List<HobbyDO> hobbyDOS = jdbcTemplate.query(statement,
                 ps -> ps.setString(1, hobbyId), new HobbyDOMapper());
@@ -51,15 +71,22 @@ public class HobbyDAOImpl implements HobbyDAO {
             return null;
         }
 
+        LogUtil.info(DALGEN_LOGGER, hobbyDOS.get(0));
+
         return hobbyDOS.get(0);
     }
 
     @Override
     public HobbyDO queryByName(String hobbyName) {
+
+        LogUtil.info(DALGEN_LOGGER, hobbyName);
+
         String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.HOBBY_NAME, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         List<HobbyDO> hobbyDOS = jdbcTemplate.query(statement,
                 ps -> ps.setString(1, hobbyName), new HobbyDOMapper());
@@ -68,15 +95,22 @@ public class HobbyDAOImpl implements HobbyDAO {
             return null;
         }
 
+        LogUtil.info(DALGEN_LOGGER, hobbyDOS.get(0));
+
         return hobbyDOS.get(0);
     }
 
     @Override
     public void create(String hobbyId, String hobbyName) {
+
+        LogUtil.info(DALGEN_LOGGER, hobbyId + ", " + hobbyName);
+
         String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
                 .addValueStatement(DatabaseConst.HOBBY_ID)
                 .addValueStatement(DatabaseConst.HOBBY_NAME)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
         try {

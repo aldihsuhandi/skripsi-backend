@@ -1,14 +1,18 @@
 package id.thesis.shumishumi.dalgen.service.impl;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.dalgen.model.mapper.SessionDOMapper;
 import id.thesis.shumishumi.dalgen.model.request.SessionDAORequest;
 import id.thesis.shumishumi.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.dalgen.service.SessionDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -19,28 +23,40 @@ import java.util.List;
 @Service
 public class SessionDAOImpl implements SessionDAO {
 
+    private static final Logger DALGEN_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DALGEN_LOGGER);
+
+    private static final Logger DAO_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DAO_LOGGER);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public SessionDO query(SessionDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
+        LogUtil.info(DAO_LOGGER, "statement", statement);
+
         List<SessionDO> sessionDOs = jdbcTemplate.query(statement, ps ->
                 ps.setString(1, request.getSessionId()), new SessionDOMapper());
 
         if (sessionDOs.isEmpty()) {
+            LogUtil.info(DALGEN_LOGGER, "result[]");
             return null;
         }
 
+        LogUtil.info(DALGEN_LOGGER, "result", sessionDOs.get(0));
         return sessionDOs.get(0);
     }
 
     @Override
     public void create(SessionDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.SESSION_ID)
                 .addValueStatement(DatabaseConst.USER_ID)
@@ -48,6 +64,8 @@ public class SessionDAOImpl implements SessionDAO {
                 .addValueStatement(DatabaseConst.IS_ACTIVE)
                 .addValueStatement(DatabaseConst.IS_REMEMBERED)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
         try {
@@ -67,11 +85,14 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void logout(SessionDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
         try {
@@ -89,11 +110,14 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void refreshSession(SessionDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.SESSION_DT)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
+
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
         try {
@@ -111,6 +135,7 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void deactivateExpiredSession(SessionDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
@@ -119,6 +144,7 @@ public class SessionDAOImpl implements SessionDAO {
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_REMEMBERED, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         try {
             jdbcTemplate.update(statement, ps -> {
