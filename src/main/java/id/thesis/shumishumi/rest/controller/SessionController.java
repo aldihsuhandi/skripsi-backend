@@ -1,13 +1,12 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.rest.controller;
 
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.process.callback.ControllerCallback;
-import id.thesis.shumishumi.process.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.core.process.callback.ControllerCallback;
+import id.thesis.shumishumi.core.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
 import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;

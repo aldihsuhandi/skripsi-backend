@@ -1,14 +1,18 @@
 package id.thesis.shumishumi.dalgen.service.impl;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.dalgen.model.mapper.OTPDOMapper;
 import id.thesis.shumishumi.dalgen.model.request.OTPDAORequest;
 import id.thesis.shumishumi.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.dalgen.service.OtpDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -20,11 +24,18 @@ import java.util.List;
 @Service
 public class OtpDAOImpl implements OtpDAO {
 
+    private static final Logger DALGEN_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DALGEN_LOGGER);
+
+    private static final Logger DAO_LOGGER = LoggerFactory.
+            getLogger(LogConstant.DAO_LOGGER);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public void insert(OTPDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, "request", request);
         String statement = new StatementBuilder(DatabaseConst.TABLE_OTPS, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.OTP_ID)
                 .addValueStatement(DatabaseConst.OTP)
@@ -32,6 +43,7 @@ public class OtpDAOImpl implements OtpDAO {
                 .addValueStatement(DatabaseConst.OTP_DT)
                 .addValueStatement(DatabaseConst.EMAIL)
                 .buildStatement();
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
         try {
@@ -51,12 +63,14 @@ public class OtpDAOImpl implements OtpDAO {
 
     @Override
     public OtpDO query(OTPDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, "request", request);
         String statement = new StatementBuilder(DatabaseConst.TABLE_OTPS, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.EMAIL, DatabaseConst.COMPARATOR_EQUAL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.OTP_TYPE_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.OTP, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
+        LogUtil.info(DAO_LOGGER, "statement", statement);
 
         List<OtpDO> otpDOS = jdbcTemplate.query(statement, ps -> {
             ps.setString(1, request.getEmail());
@@ -65,8 +79,11 @@ public class OtpDAOImpl implements OtpDAO {
         }, new OTPDOMapper());
 
         if (otpDOS.isEmpty()) {
+            LogUtil.info(DALGEN_LOGGER, "result[]");
             return null;
         }
+
+        LogUtil.info(DALGEN_LOGGER, "result", otpDOS.get(0));
 
         return otpDOS.get(0);
     }

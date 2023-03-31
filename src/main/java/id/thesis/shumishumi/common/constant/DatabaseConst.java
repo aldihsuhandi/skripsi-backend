@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class DatabaseConst implements Serializable {
     private static final long serialVersionUID = 775139837861759190L;
 
-    public static final String STATEMENT_UPDATE = "update";
-    public static final String STATEMENT_DELETE = "delete";
-    public static final String STATEMENT_INSERT = "insert";
-    public static final String STATEMENT_SELECT = "select";
+    public static final String STATEMENT_UPDATE = "UPDATE";
+    public static final String STATEMENT_DELETE = "DELETE";
+    public static final String STATEMENT_INSERT = "INSERT";
+    public static final String STATEMENT_SELECT = "SELECT";
     public static final String DATABASE_SELECT_ALL = "*";
     public static final String DATABASE_SELECT_COUNT = "COUNT(*)";
     public static final String COMPARATOR_EQUAL = "=";
@@ -17,9 +17,9 @@ public class DatabaseConst implements Serializable {
     public static final String COMPARATOR_LESSER = "<";
     public static final String COMPARATOR_GREATER_EQUAL = ">=";
     public static final String COMPARATOR_LESSER_EQUAL = "<=";
-    public static final String COMPARATOR_IN = "in";
-    public static final String APPEND_OPERATOR_AND = "and";
-    public static final String APPEND_OPERATOR_OR = "or";
+    public static final String COMPARATOR_IN = "IN";
+    public static final String APPEND_OPERATOR_AND = "AND";
+    public static final String APPEND_OPERATOR_OR = "OR";
 
     // table
     public static final String TABLE_SESSION = "sessions";
