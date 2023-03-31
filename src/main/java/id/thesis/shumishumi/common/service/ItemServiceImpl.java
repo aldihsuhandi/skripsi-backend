@@ -177,6 +177,19 @@ public class ItemServiceImpl implements ItemService {
         return itemDAO.count();
     }
 
+    @Override
+    public List<String> autocomplete(String itemName, boolean useCache) {
+        if (useCache) {
+            return itemFetchService.fetchAll().stream().map(ItemVO::getItemName).
+                    filter(name -> name.contains(itemName)).collect(Collectors.toList());
+        }
+
+        ItemDAORequest request = new ItemDAORequest();
+        request.setItemName(itemName);
+
+        return itemDAO.autocomplete(request);
+    }
+
     private void composeNecessaryInfo(ItemVO itemVO) {
         if (itemVO == null) {
             return;

@@ -7,12 +7,14 @@ import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.core.facade.ItemFacade;
 import id.thesis.shumishumi.core.process.callback.ProcessCallback;
 import id.thesis.shumishumi.core.process.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
+import id.thesis.shumishumi.rest.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
@@ -92,6 +94,21 @@ public class ItemFacadeImpl extends ProcessFacade implements ItemFacade {
             @Override
             public BaseResult initResult() {
                 return new RecommendResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public AutocompleteItemResult autocomplete(AutocompleteItemRequest request) {
+        return (AutocompleteItemResult) ProcessCallbackSupport.process(ProcessTypeEnum.AUTOCOMPLETE, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new AutocompleteItemResult();
             }
 
             @Override

@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.core.service;
@@ -30,4 +29,6 @@ public interface ItemService {
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
     int count(ItemFilterContext itemFilterContext, boolean useCache);
+
+    List<String> autocomplete(String itemName, boolean useCache);
 }
