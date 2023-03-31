@@ -19,4 +19,6 @@ public interface ItemDAO {
     void update(ItemDAORequest request);
 
     void approve(ItemDAORequest request);
+
+    List<String> autocomplete(ItemDAORequest request);
 }

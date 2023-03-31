@@ -26,6 +26,7 @@ public enum ProcessTypeEnum {
     ITEM_UPDATE("ITEM_UPDATE", "updateItemValidator", "updateItemProcessor", true),
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
     RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", false),
+    AUTOCOMPLETE("ITEM_AUTOCOMPLETE", "autocompleteItemValidator", "autocompleteItemProcessor", false),
 
     WISHLIST_ADD("WISHLIST_ADD", "wishlistAddValidator", "wishlistAddProcessor", true),
     WISHLIST_REMOVE("WISHLIST_REMOVE", "wishlistRemoveValidator", "wishlistRemoveProcessor", true),

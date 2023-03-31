@@ -1,14 +1,15 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.core.facade;
 
+import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.rest.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
@@ -29,4 +30,6 @@ public interface ItemFacade {
     ItemApprovalResult approve(ItemApprovalRequest request);
 
     RecommendResult recommend(RecommendRequest request);
+
+    AutocompleteItemResult autocomplete(AutocompleteItemRequest request);
 }

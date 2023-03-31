@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemDAOImpl implements ItemDAO {
@@ -271,7 +272,6 @@ public class ItemDAOImpl implements ItemDAO {
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
-
         LogUtil.info(DAO_LOGGER, "statement", statement);
 
         int result;
@@ -286,5 +286,25 @@ public class ItemDAOImpl implements ItemDAO {
         }
 
         AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
+    public List<String> autocomplete(ItemDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.ITEM_NAME)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_NAME, DatabaseConst.COMPARATOR_LIKE)
+                .buildStatement();
+        LogUtil.info(DAO_LOGGER, "statement", statement);
+
+        String itemName = "%" + request.getItemName() + "%";
+
+        List<String> result = jdbcTemplate.query(statement, ps
+                        -> ps.setString(1, itemName), new ItemDOMapper())
+                .stream().map(ItemDO::getItemName).collect(Collectors.toList());
+
+        LogUtil.info(DALGEN_LOGGER, String.format("result=%s", result));
+
+        return result;
     }
 }

@@ -10,11 +10,13 @@ import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
 import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
 import id.thesis.shumishumi.dalgen.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.dalgen.model.result.ItemDO;
+import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.rest.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
@@ -206,6 +208,15 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
 
         RecommendResult result = itemFacade.recommend(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+    }
+
+    @Test
+    public void autocompleteTest_SUCCESS() {
+        AutocompleteItemRequest request = new AutocompleteItemRequest();
+        request.setAutocomplete("item");
+
+        AutocompleteItemResult result = itemFacade.autocomplete(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
     }
 
