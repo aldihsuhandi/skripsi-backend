@@ -6,7 +6,7 @@ import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.facade.UserFacade;
-import id.thesis.shumishumi.dalgen.model.result.OtpDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.rest.request.user.UserActivateRequest;
 import id.thesis.shumishumi.rest.request.user.UserForgotPasswordRequest;
 import id.thesis.shumishumi.rest.request.user.UserLoginRequest;

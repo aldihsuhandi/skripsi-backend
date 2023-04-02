@@ -5,10 +5,10 @@ import id.thesis.shumishumi.common.model.request.session.SessionCreateInnerReque
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.SessionService;
-import id.thesis.shumishumi.dalgen.converter.SessionDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.SessionDAORequest;
-import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.service.SessionDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.SessionDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.SessionDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.dalgen.service.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

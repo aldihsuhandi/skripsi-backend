@@ -4,8 +4,8 @@ import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.ItemImageService;
-import id.thesis.shumishumi.dalgen.model.request.ItemImageDAORequest;
-import id.thesis.shumishumi.dalgen.service.ItemImageDAO;
+import id.thesis.shumishumi.foundation.dalgen.model.request.ItemImageDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.service.ItemImageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

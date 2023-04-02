@@ -1,9 +1,9 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.service;
 
+import id.thesis.shumishumi.common.model.request.user.RoleChangeInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
@@ -18,6 +18,8 @@ public interface UserService {
     void register(UserCreateInnerRequest request);
 
     void update(UserUpdateInnerRequest request);
+
+    void roleChange(RoleChangeInnerRequest request);
 
     void updateProfilePicture(UserUpdateInnerRequest request);
 

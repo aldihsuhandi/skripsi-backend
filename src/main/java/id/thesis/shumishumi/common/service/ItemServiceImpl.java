@@ -22,9 +22,9 @@ import id.thesis.shumishumi.core.service.ItemCategoryService;
 import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.dalgen.converter.ItemDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
-import id.thesis.shumishumi.dalgen.service.ItemDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.ItemDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.service.ItemDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -199,12 +199,10 @@ public class ItemServiceImpl implements ItemService {
         String merchantId = itemVO.getMerchantInfo().getUserId();
         String hobbyId = itemVO.getHobby().getHobbyId();
         String categoryId = itemVO.getItemCategory().getCategoryId();
-        String userLevel = itemVO.getUserLevel().getInterestLevelId();
         String merchantLevel = itemVO.getMerchantLevel().getInterestLevelId();
 
         itemVO.setMerchantInfo(userService.queryById(merchantId, true));
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
-        itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
         itemVO.setItemImages(itemImageService.queryByItemId(itemId));

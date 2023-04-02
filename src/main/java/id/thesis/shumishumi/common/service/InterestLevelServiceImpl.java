@@ -10,7 +10,7 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.core.service.InterestLevelService;
-import id.thesis.shumishumi.dalgen.service.InterestLevelDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.InterestLevelDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

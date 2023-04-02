@@ -1,11 +1,11 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.model.request.user.RoleChangeInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
@@ -13,10 +13,10 @@ import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.core.service.RoleService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.dalgen.converter.UserDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.UserDAORequest;
-import id.thesis.shumishumi.dalgen.model.result.UserDO;
-import id.thesis.shumishumi.dalgen.service.UserDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.UserDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.UserDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
+import id.thesis.shumishumi.foundation.dalgen.service.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
     public void update(UserUpdateInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.update(daoRequest);
+    }
+
+    @Override
+    public void roleChange(RoleChangeInnerRequest request) {
+        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
+        userDAO.changeRole(daoRequest);
     }
 
     @Override
