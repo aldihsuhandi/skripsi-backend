@@ -304,7 +304,7 @@ public class ItemDAOImpl implements ItemDAO {
                 .buildStatement();
         LogUtil.info(DAO_LOGGER, "statement", statement);
 
-        String itemName = "%" + request.getItemName() + "%";
+        String itemName = "%" + StringUtils.lowerCase(request.getItemName()) + "%";
 
         List<String> result = jdbcTemplate.query(statement, ps
                         -> ps.setString(1, itemName), new ItemDOMapper())

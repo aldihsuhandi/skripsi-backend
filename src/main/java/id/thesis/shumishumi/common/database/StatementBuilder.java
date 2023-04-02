@@ -60,7 +60,7 @@ public class StatementBuilder {
             }
 
             statementBuilder.append(select.getFirst());
-            if(!"-".equalsIgnoreCase(select.getSecond())) {
+            if (!"-".equalsIgnoreCase(select.getSecond())) {
                 statementBuilder.append(String.format(" as %s", select.getSecond()));
             }
             needComma = true;
@@ -161,6 +161,12 @@ public class StatementBuilder {
     }
 
     public StatementBuilder addWhereStatement(String appendOperator, String key, String comparator) {
+        whereList.add(new Pair<>(key, new Pair<>(appendOperator, comparator)));
+        return this;
+    }
+
+    public StatementBuilder addWhereCaseInsensitiveStatement(String appendOperator, String key, String comparator) {
+        key = String.format("LOWER(%s)", key);
         whereList.add(new Pair<>(key, new Pair<>(appendOperator, comparator)));
         return this;
     }

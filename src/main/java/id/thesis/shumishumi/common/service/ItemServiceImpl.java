@@ -181,7 +181,7 @@ public class ItemServiceImpl implements ItemService {
     public List<String> autocomplete(String itemName, boolean useCache) {
         if (useCache) {
             return itemFetchService.fetchAll().stream().map(ItemVO::getItemName).
-                    filter(name -> name.contains(itemName)).collect(Collectors.toList());
+                    filter(name -> name.toLowerCase().contains(StringUtils.lowerCase(itemName))).collect(Collectors.toList());
         }
 
         ItemDAORequest request = new ItemDAORequest();
