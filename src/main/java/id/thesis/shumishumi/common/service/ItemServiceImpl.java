@@ -242,8 +242,9 @@ public class ItemServiceImpl implements ItemService {
             return new ArrayList<>();
         }
 
-        for (int i = pagingContext.calculateOffset() - 1;
-             i < pagingContext.getNumberOfItem() + pagingContext.calculateOffset(); ++i) {
+        int sz = Math.min(pagingContext.getNumberOfItem(), itemVOS.size());
+        for (int i = Math.max(pagingContext.calculateOffset() - 1, 0);
+             i < sz + pagingContext.calculateOffset(); ++i) {
             result.add(itemVOS.get(i));
         }
 

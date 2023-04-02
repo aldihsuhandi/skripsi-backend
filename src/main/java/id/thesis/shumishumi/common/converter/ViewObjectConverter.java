@@ -188,6 +188,8 @@ public class ViewObjectConverter {
         itemVO.setMerchantLevel(merchantLevel);
         itemVO.setDeleted(itemDO.isDeleted());
         itemVO.setApproved(itemDO.isApproved());
+        itemVO.setGmtCreate(itemDO.getGmtCreate());
+        itemVO.setGmtModified(itemDO.getGmtModified());
 
         return itemVO;
     }
