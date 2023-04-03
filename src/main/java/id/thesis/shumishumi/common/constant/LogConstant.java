@@ -14,4 +14,6 @@ public class LogConstant {
     public static final String DALGEN_LOGGER = "DALGEN-LOGGER";
 
     public static final String DAO_LOGGER = "DAO-LOGGER";
+
+    public static final String SEEDERS_LOGGER = "SEEDERS-LOGGER";
 }

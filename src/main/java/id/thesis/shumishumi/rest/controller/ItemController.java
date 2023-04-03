@@ -4,12 +4,14 @@ import id.thesis.shumishumi.core.facade.ItemFacade;
 import id.thesis.shumishumi.core.process.callback.ControllerCallback;
 import id.thesis.shumishumi.core.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.rest.request.HtmlRequest;
+import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
 import id.thesis.shumishumi.rest.request.item.RecommendRequest;
 import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.rest.result.BaseResult;
+import id.thesis.shumishumi.rest.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.rest.result.item.CreateItemResult;
 import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.rest.result.item.QueryItemResult;
@@ -109,6 +111,7 @@ public class ItemController extends BaseController {
         });
     }
 
+    @PostMapping("/recommend")
     public RecommendResult recommend(@RequestBody HtmlRequest<RecommendRequest> request) {
         return (RecommendResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
             @Override
@@ -124,6 +127,26 @@ public class ItemController extends BaseController {
             @Override
             public BaseResult doProcess() {
                 return itemFacade.recommend(request.getBody());
+            }
+        });
+    }
+
+    @PostMapping("/autocomplete")
+    public AutocompleteItemResult autocomplete(@RequestBody HtmlRequest<AutocompleteItemRequest> request) {
+        return (AutocompleteItemResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+            @Override
+            public void authCheck() {
+                authenticate(request.getHead());
+            }
+
+            @Override
+            public BaseResult initResult() {
+                return new AutocompleteItemResult();
+            }
+
+            @Override
+            public BaseResult doProcess() {
+                return itemFacade.autocomplete(request.getBody());
             }
         });
     }

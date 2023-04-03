@@ -26,6 +26,7 @@ public class ControllerCallbackSupport {
 
     public static BaseResult process(final Headers headers, final BaseRequest baseRequest, final ControllerCallback controllerCallback) {
         try {
+            TracerContext.removeTracer();
             TracerContext.initialize();
 
             LogUtil.info(LOGGER, String.format("controller invoke request[headers=%s,body=%s]"
@@ -42,12 +43,13 @@ public class ControllerCallbackSupport {
 
             return baseResult;
         } catch (ShumishumiException e) {
-            e.printStackTrace();
             BaseResult baseResult = controllerCallback.initResult();
             ResultContext resultContext = new ResultContext();
             resultContext.setSuccess(false);
             resultContext.setResultMsg(e.getMessage());
             resultContext.setResultCode(e.getErrorCode().getErrorCode());
+
+            LogUtil.exception(resultContext.getResultMsg(), e);
 
             baseResult.setResultContext(resultContext);
             baseResult.setTraceId(TracerContext.getTraceId());
@@ -56,8 +58,6 @@ public class ControllerCallbackSupport {
                     , baseResult));
 
             return baseResult;
-        } finally {
-            TracerContext.removeTracer();
         }
     }
 

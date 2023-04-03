@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.util;
@@ -83,14 +82,9 @@ public class FunctionUtil {
                     equalsIgnoreCase(itemVO.getHobby().getHobbyName());
         }
 
-        if (checkIfNotEmpty(filterContext.getUserInterestLevel())) {
-            result = result && filterContext.getUserInterestLevel().
-                    equalsIgnoreCase(itemVO.getUserLevel().getInterestLevelName());
-        }
-
         if (checkIfNotEmpty(filterContext.getMerchantInterestLevel())) {
             result = result && filterContext.getMerchantInterestLevel().
-                    equalsIgnoreCase(itemVO.getUserLevel().getInterestLevelName());
+                    equalsIgnoreCase(itemVO.getMerchantLevel().getInterestLevelName());
         }
 
         if (checkIfNotEmpty(filterContext.getMerchantId())) {

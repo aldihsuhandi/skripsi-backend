@@ -3,9 +3,9 @@ package id.thesis.shumishumi.common.service;
 import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.core.service.RoleService;
-import id.thesis.shumishumi.dalgen.converter.RoleDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.RoleDAORequest;
-import id.thesis.shumishumi.dalgen.service.RoleDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.RoleDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.RoleDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.service.RoleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

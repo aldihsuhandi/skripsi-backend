@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.common.service;
 
 import id.thesis.shumishumi.core.service.CrowdService;
-import id.thesis.shumishumi.dalgen.model.request.ItemCrowdDAORequest;
-import id.thesis.shumishumi.dalgen.model.request.UserCrowdDAORequest;
-import id.thesis.shumishumi.dalgen.model.result.ItemCrowdDO;
-import id.thesis.shumishumi.dalgen.model.result.UserCrowdDO;
-import id.thesis.shumishumi.dalgen.service.CrowdDAO;
+import id.thesis.shumishumi.foundation.dalgen.model.request.ItemCrowdDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.model.request.UserCrowdDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemCrowdDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.UserCrowdDO;
+import id.thesis.shumishumi.foundation.dalgen.service.CrowdDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -11,7 +11,7 @@ import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.ItemCategoryService;
-import id.thesis.shumishumi.dalgen.service.ItemCategoryDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.ItemCategoryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

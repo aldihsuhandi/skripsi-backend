@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.converter;
@@ -17,18 +16,18 @@ import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.dalgen.model.result.ActivityDO;
-import id.thesis.shumishumi.dalgen.model.result.ClientDO;
-import id.thesis.shumishumi.dalgen.model.result.HobbyDO;
-import id.thesis.shumishumi.dalgen.model.result.InterestLevelDO;
-import id.thesis.shumishumi.dalgen.model.result.ItemCategoryDO;
-import id.thesis.shumishumi.dalgen.model.result.ItemDO;
-import id.thesis.shumishumi.dalgen.model.result.ItemImageDO;
-import id.thesis.shumishumi.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.dalgen.model.result.RoleDO;
-import id.thesis.shumishumi.dalgen.model.result.SessionDO;
-import id.thesis.shumishumi.dalgen.model.result.UserActivityDO;
-import id.thesis.shumishumi.dalgen.model.result.UserDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ActivityDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ClientDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.HobbyDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.InterestLevelDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemCategoryDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemImageDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.RoleDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.UserActivityDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -139,10 +138,10 @@ public class ViewObjectConverter {
         }
 
         HobbyVO hobbyVO = new HobbyVO();
-        hobbyVO.setHobbyName(hobbyVO.getHobbyName());
-        hobbyVO.setHobbyId(hobbyVO.getHobbyId());
-        hobbyVO.setGmtCreate(hobbyVO.getGmtCreate());
-        hobbyVO.setGmtModified(hobbyVO.getGmtModified());
+        hobbyVO.setHobbyName(hobbyDO.getHobbyName());
+        hobbyVO.setHobbyId(hobbyDO.getHobbyId());
+        hobbyVO.setGmtCreate(hobbyDO.getGmtCreate());
+        hobbyVO.setGmtModified(hobbyDO.getGmtModified());
 
         return hobbyVO;
     }
@@ -176,7 +175,6 @@ public class ViewObjectConverter {
         hobbyVO.setHobbyId(itemDO.getHobbyId());
         itemCategoryVO.setCategoryId(itemDO.getCategoryId());
         merchantLevel.setInterestLevelId(itemDO.getMerchantLevelId());
-        userLevel.setInterestLevelId(itemDO.getUserLevelId());
 
         ItemVO itemVO = new ItemVO();
         itemVO.setItemId(itemDO.getItemId());
@@ -188,9 +186,10 @@ public class ViewObjectConverter {
         itemVO.setHobby(hobbyVO);
         itemVO.setMerchantInfo(merchantInfo);
         itemVO.setMerchantLevel(merchantLevel);
-        itemVO.setUserLevel(userLevel);
         itemVO.setDeleted(itemDO.isDeleted());
         itemVO.setApproved(itemDO.isApproved());
+        itemVO.setGmtCreate(itemDO.getGmtCreate());
+        itemVO.setGmtModified(itemDO.getGmtModified());
 
         return itemVO;
     }

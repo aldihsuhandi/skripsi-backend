@@ -22,9 +22,9 @@ import id.thesis.shumishumi.core.service.ItemCategoryService;
 import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.dalgen.converter.ItemDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.ItemDAORequest;
-import id.thesis.shumishumi.dalgen.service.ItemDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.ItemDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.service.ItemDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -181,7 +181,7 @@ public class ItemServiceImpl implements ItemService {
     public List<String> autocomplete(String itemName, boolean useCache) {
         if (useCache) {
             return itemFetchService.fetchAll().stream().map(ItemVO::getItemName).
-                    filter(name -> name.contains(itemName)).collect(Collectors.toList());
+                    filter(name -> name.toLowerCase().contains(StringUtils.lowerCase(itemName))).collect(Collectors.toList());
         }
 
         ItemDAORequest request = new ItemDAORequest();
@@ -199,12 +199,10 @@ public class ItemServiceImpl implements ItemService {
         String merchantId = itemVO.getMerchantInfo().getUserId();
         String hobbyId = itemVO.getHobby().getHobbyId();
         String categoryId = itemVO.getItemCategory().getCategoryId();
-        String userLevel = itemVO.getUserLevel().getInterestLevelId();
         String merchantLevel = itemVO.getMerchantLevel().getInterestLevelId();
 
         itemVO.setMerchantInfo(userService.queryById(merchantId, true));
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
-        itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
         itemVO.setItemImages(itemImageService.queryByItemId(itemId));
@@ -244,8 +242,9 @@ public class ItemServiceImpl implements ItemService {
             return new ArrayList<>();
         }
 
-        for (int i = pagingContext.calculateOffset() - 1;
-             i < pagingContext.getNumberOfItem() + pagingContext.calculateOffset(); ++i) {
+        int sz = Math.min(pagingContext.getNumberOfItem(), itemVOS.size());
+        for (int i = Math.max(pagingContext.calculateOffset() - 1, 0);
+             i < sz + pagingContext.calculateOffset(); ++i) {
             result.add(itemVOS.get(i));
         }
 

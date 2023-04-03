@@ -11,7 +11,7 @@ import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.HobbyService;
-import id.thesis.shumishumi.dalgen.service.HobbyDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.HobbyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

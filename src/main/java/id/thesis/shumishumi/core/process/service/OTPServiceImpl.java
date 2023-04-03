@@ -6,9 +6,9 @@ import id.thesis.shumishumi.common.model.viewobject.OtpVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.service.EmailService;
 import id.thesis.shumishumi.core.service.OTPService;
-import id.thesis.shumishumi.dalgen.converter.OTPDAORequestConverter;
-import id.thesis.shumishumi.dalgen.model.request.OTPDAORequest;
-import id.thesis.shumishumi.dalgen.service.OtpDAO;
+import id.thesis.shumishumi.foundation.dalgen.converter.OTPDAORequestConverter;
+import id.thesis.shumishumi.foundation.dalgen.model.request.OTPDAORequest;
+import id.thesis.shumishumi.foundation.dalgen.service.OtpDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
