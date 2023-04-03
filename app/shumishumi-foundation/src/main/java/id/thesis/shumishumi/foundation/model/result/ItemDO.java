@@ -22,7 +22,6 @@ public class ItemDO extends BaseDO {
     private String hobbyId;
     private String merchantId;
     private String merchantLevelId;
-    private String userLevelId;
     private boolean isDeleted;
     private boolean isApproved;
     private List<Blob> itemImages;

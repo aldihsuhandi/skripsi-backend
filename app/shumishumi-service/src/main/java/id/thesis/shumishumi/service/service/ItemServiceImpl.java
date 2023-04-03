@@ -16,7 +16,6 @@ import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
-import id.thesis.shumishumi.service.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.service.HobbyService;
 import id.thesis.shumishumi.core.service.InterestLevelService;
 import id.thesis.shumishumi.core.service.ItemCategoryService;
@@ -26,6 +25,7 @@ import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.foundation.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
+import id.thesis.shumishumi.service.fetch.ItemFetchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -180,12 +180,10 @@ public class ItemServiceImpl implements ItemService {
         String merchantId = itemVO.getMerchantInfo().getUserId();
         String hobbyId = itemVO.getHobby().getHobbyId();
         String categoryId = itemVO.getItemCategory().getCategoryId();
-        String userLevel = itemVO.getUserLevel().getInterestLevelId();
         String merchantLevel = itemVO.getMerchantLevel().getInterestLevelId();
 
         itemVO.setMerchantInfo(userService.queryById(merchantId, true));
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
-        itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
         itemVO.setItemImages(itemImageService.queryByItemId(itemId));

@@ -19,7 +19,6 @@ public class ItemDOMapper implements RowMapper<ItemDO> {
         itemDO.setCategoryId(rs.getString(DatabaseConst.CATEGORY_ID));
         itemDO.setMerchantId(rs.getString(DatabaseConst.MERCHANT_ID));
         itemDO.setMerchantLevelId(rs.getString(DatabaseConst.MERCHANT_LEVEL_ID));
-        itemDO.setUserLevelId(rs.getString(DatabaseConst.USER_LEVEL_ID));
         itemDO.setHobbyId(rs.getString(DatabaseConst.HOBBY_ID));
         itemDO.setApproved(rs.getBoolean(DatabaseConst.IS_APPROVED));
         itemDO.setDeleted(rs.getBoolean(DatabaseConst.IS_DELETED));

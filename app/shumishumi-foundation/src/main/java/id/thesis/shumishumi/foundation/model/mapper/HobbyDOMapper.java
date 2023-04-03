@@ -19,8 +19,8 @@ public class HobbyDOMapper implements RowMapper<HobbyDO> {
     @Override
     public HobbyDO mapRow(ResultSet rs, int rowNum) throws SQLException {
         HobbyDO hobbyDO = new HobbyDO();
-        hobbyDO.setHobbyId(rs.getString(DatabaseConst.CATEGORY_ID));
-        hobbyDO.setHobbyName(rs.getString(DatabaseConst.CATEGORY_NAME));
+        hobbyDO.setHobbyId(rs.getString(DatabaseConst.HOBBY_ID));
+        hobbyDO.setHobbyName(rs.getString(DatabaseConst.HOBBY_NAME));
         hobbyDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         hobbyDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 

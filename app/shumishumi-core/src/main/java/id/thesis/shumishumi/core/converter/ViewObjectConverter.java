@@ -170,13 +170,11 @@ public class ViewObjectConverter {
         HobbyVO hobbyVO = new HobbyVO();
         ItemCategoryVO itemCategoryVO = new ItemCategoryVO();
         InterestLevelVO merchantLevel = new InterestLevelVO();
-        InterestLevelVO userLevel = new InterestLevelVO();
 
         merchantInfo.setUserId(itemDO.getMerchantId());
         hobbyVO.setHobbyId(itemDO.getHobbyId());
         itemCategoryVO.setCategoryId(itemDO.getCategoryId());
         merchantLevel.setInterestLevelId(itemDO.getMerchantLevelId());
-        userLevel.setInterestLevelId(itemDO.getUserLevelId());
 
         ItemVO itemVO = new ItemVO();
         itemVO.setItemId(itemDO.getItemId());
@@ -188,7 +186,6 @@ public class ViewObjectConverter {
         itemVO.setHobby(hobbyVO);
         itemVO.setMerchantInfo(merchantInfo);
         itemVO.setMerchantLevel(merchantLevel);
-        itemVO.setUserLevel(userLevel);
         itemVO.setDeleted(itemDO.isDeleted());
         itemVO.setApproved(itemDO.isApproved());
 
