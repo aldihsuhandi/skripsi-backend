@@ -139,10 +139,10 @@ public class ViewObjectConverter {
         }
 
         HobbyVO hobbyVO = new HobbyVO();
-        hobbyVO.setHobbyName(hobbyVO.getHobbyName());
-        hobbyVO.setHobbyId(hobbyVO.getHobbyId());
-        hobbyVO.setGmtCreate(hobbyVO.getGmtCreate());
-        hobbyVO.setGmtModified(hobbyVO.getGmtModified());
+        hobbyVO.setHobbyName(hobbyDO.getHobbyName());
+        hobbyVO.setHobbyId(hobbyDO.getHobbyId());
+        hobbyVO.setGmtCreate(hobbyDO.getGmtCreate());
+        hobbyVO.setGmtModified(hobbyDO.getGmtModified());
 
         return hobbyVO;
     }
