@@ -42,6 +42,7 @@ public class ProcessCallbackSupport {
             LogUtil.info(LOGGER, "facade invoke result", result);
         }
 
+        result.setSessionId(request.getSessionId());
         result.setResultContext(resultContext);
 
 

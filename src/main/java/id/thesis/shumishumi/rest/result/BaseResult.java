@@ -15,4 +15,5 @@ public class BaseResult implements Serializable {
 
     private ResultContext resultContext;
     private String traceId;
+    private String sessionId;
 }
