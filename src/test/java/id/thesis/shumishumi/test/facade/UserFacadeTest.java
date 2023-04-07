@@ -60,7 +60,7 @@ public class UserFacadeTest extends FacadeTestBase {
         registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
 
-        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", false, false));
         Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
 
