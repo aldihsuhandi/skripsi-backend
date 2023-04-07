@@ -34,20 +34,18 @@ public class ProcessFacade {
     }
 
     private void authenticationAndRefresh(final BaseRequest request, final ProcessTypeEnum processType) {
-        if (!processType.isNeedAuthentication()) {
-            return;
-        }
-
         String sessionId = request.getSessionId();
         SessionVO sessionVO = sessionService.query(sessionId);
 
-        if (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
-                || sessionVO.getSessionDt().before(new Date())))) {
+        if (processType.isNeedAuthentication() && (sessionVO == null || (!sessionVO.isRemembered() && (!sessionVO.isActive()
+                || sessionVO.getSessionDt().before(new Date()))))) {
             throw new ShumishumiException("Session Expired",
                     ShumishumiErrorCodeEnum.SESSION_EXPIRED);
         }
 
-        sessionService.refreshSession(sessionId);
+        if (sessionVO != null) {
+            sessionService.refreshSession(sessionId);
+        }
     }
 
     public void setProcessors(Map<String, BaseProcessor> processors) {
