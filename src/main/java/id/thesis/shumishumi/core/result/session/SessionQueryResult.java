@@ -1,11 +1,10 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.result.session;
 
-import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.rest.summary.SessionSummary;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +17,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SessionQueryResult extends BaseResult {
-    private SessionVO sessionVO;
+    private SessionSummary sessionSummary;
 }

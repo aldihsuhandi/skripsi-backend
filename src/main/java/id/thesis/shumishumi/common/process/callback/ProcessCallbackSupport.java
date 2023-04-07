@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.common.process.callback;
 
-import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.ResultContext;
 import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 import org.slf4j.Logger;
@@ -39,7 +39,6 @@ public class ProcessCallbackSupport {
 
             LogUtil.exception(resultContext.getResultMsg(), e);
         } finally {
-            result.setSessionId(request.getSessionId());
             result.setResultContext(resultContext);
             LogUtil.info(LOGGER, "facade invoke result", result);
         }

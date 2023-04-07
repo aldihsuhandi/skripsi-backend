@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.rest.controller;
@@ -28,6 +27,18 @@ public class BaseController {
         ClientAuthRequest request = new ClientAuthRequest();
         request.setClientId(headers.getClientId());
         request.setClientSecret(headers.getClientSecret());
+
+        ClientAuthResult result = clientFacade.authenticate(request);
+
+        if (!result.getResultContext().isSuccess()) {
+            throw new ShumishumiException("API Authentication failed", ShumishumiErrorCodeEnum.OAUTH_ERROR);
+        }
+    }
+
+    public void authenticate(String clientId, String clientSecret) throws ShumishumiException {
+        ClientAuthRequest request = new ClientAuthRequest();
+        request.setClientId(clientId);
+        request.setClientSecret(clientSecret);
 
         ClientAuthResult result = clientFacade.authenticate(request);
 

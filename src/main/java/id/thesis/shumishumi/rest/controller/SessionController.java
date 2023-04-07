@@ -3,19 +3,21 @@
  */
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
+import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
+import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.common.process.callback.ControllerCallback;
-import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.core.request.HtmlRequest;
 import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.session.SessionLogoutResult;
 import id.thesis.shumishumi.core.result.session.SessionQueryResult;
+import id.thesis.shumishumi.rest.form.session.SessionLogoutForm;
+import id.thesis.shumishumi.rest.form.session.SessionQueryForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,41 +33,47 @@ public class SessionController extends BaseController {
     private SessionFacade sessionFacade;
 
     @PostMapping("/logout")
-    public SessionLogoutResult logout(@RequestBody HtmlRequest<SessionLogoutRequest> request) {
-        return (SessionLogoutResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<SessionLogoutResult> logout(@RequestHeader HttpHeaders headers, @RequestBody SessionLogoutForm form) {
+        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<SessionLogoutResult, SessionLogoutRequest>() {
             @Override
-            public void authCheck() throws ShumishumiException {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new SessionLogoutResult();
+            public SessionLogoutRequest composeRequest() {
+                SessionLogoutRequest request = new SessionLogoutRequest();
+                request.setSessionId(form.getSessionId());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return sessionFacade.logout(request.getBody());
+            public SessionLogoutResult doProcess(SessionLogoutRequest request) {
+                return sessionFacade.logout(request);
             }
         });
     }
 
     @PostMapping("/info")
-    public SessionQueryResult query(@RequestBody HtmlRequest<SessionQueryRequest> request) {
-        return (SessionQueryResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<SessionQueryResult> query(@RequestHeader HttpHeaders headers, @RequestBody SessionQueryForm form) {
+        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<SessionQueryResult, SessionQueryRequest>() {
             @Override
-            public void authCheck() throws ShumishumiException {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new SessionQueryResult();
+            public SessionQueryRequest composeRequest() {
+                SessionQueryRequest request = new SessionQueryRequest();
+                request.setSessionId(form.getSessionId());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return null;
+            public SessionQueryResult doProcess(SessionQueryRequest request) {
+                return sessionFacade.query(request);
             }
         });
     }
