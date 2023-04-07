@@ -49,6 +49,7 @@ public class SessionFacadeTest extends FacadeTestBase {
         request.setSessionId("sessionId");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
 
         SessionQueryResult result = sessionFacade.query(request);
 
