@@ -2,7 +2,6 @@ package id.thesis.shumishumi.rest.controller;
 
 import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.util.LogUtil;
-import id.thesis.shumishumi.rest.request.HtmlRequest;
 import id.thesis.shumishumi.rest.request.TestBlobRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,7 @@ public class HelloController {
     }
 
     @PostMapping("/blob")
-    public String sendBlob(@ModelAttribute HtmlRequest<TestBlobRequest> request) {
+    public String sendBlob(@ModelAttribute TestBlobRequest request) {
         LogUtil.info(LOGGER, String.format("controller invoke request: %s", request.toString()));
         return "is successful";
     }
