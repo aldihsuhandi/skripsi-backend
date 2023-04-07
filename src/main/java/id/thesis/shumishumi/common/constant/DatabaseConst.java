@@ -31,6 +31,7 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_ITEM = "items";
     public static final String TABLE_ITEM_IMAGES = "item_images";
     public static final String TABLE_ITEM_CATEGORIES = "item_categories";
+    public static final String TABLE_ITEM_WISHLIST = "wishlists";
     public static final String TABLE_HOBBIES = "hobbies";
     public static final String TABLE_INTEREST_LEVEL = "interest_level";
     public static final String TABLE_ACTIVITY = "activities";

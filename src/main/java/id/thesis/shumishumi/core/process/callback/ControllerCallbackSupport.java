@@ -26,7 +26,6 @@ public class ControllerCallbackSupport {
 
     public static BaseResult process(final Headers headers, final BaseRequest baseRequest, final ControllerCallback controllerCallback) {
         try {
-            TracerContext.removeTracer();
             TracerContext.initialize();
 
             LogUtil.info(LOGGER, String.format("controller invoke request[headers=%s,body=%s]"
@@ -58,6 +57,8 @@ public class ControllerCallbackSupport {
                     , baseResult));
 
             return baseResult;
+        } finally {
+            TracerContext.removeTracer();
         }
     }
 

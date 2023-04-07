@@ -38,6 +38,14 @@
     <bean id="autocompleteItemProcessor"
           class="id.thesis.shumishumi.core.process.processor.item.AutocompleteItemProcessor"/>
 
+    <!--item wishlist-->
+    <bean id="wishlistAddProcessor"
+          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistAddProcessor"/>
+    <bean id="wishlistRemoveProcessor"
+          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistRemoveProcessor"/>
+    <bean id="wishlistQueryProcessor"
+          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistQueryProcessor"/>
+
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
             <ref bean="userRegisterProcessor"/>
@@ -88,6 +96,15 @@
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalProcessor"/>
         </entry>
+        <entry key="WISHLIST_ADD">
+            <ref bean="wishlistAddProcessor"/>
+        </entry>
+        <entry key="WISHLIST_REMOVE">
+            <ref bean="wishlistRemoveProcessor"/>
+        </entry>
+        <entry key="WISHLIST_QUERY">
+            <ref bean="wishlistQueryProcessor"/>
+        </entry>
         <entry key="RECOMMEND">
             <ref bean="recommendProcessor"/>
         </entry>
@@ -124,6 +141,12 @@
     <bean id="itemApprovalValidator" class="id.thesis.shumishumi.core.validator.item.ItemApprovalValidator"/>
     <bean id="recommendValidator" class="id.thesis.shumishumi.core.validator.item.RecommendValidator"/>
     <bean id="autocompleteItemValidator" class="id.thesis.shumishumi.core.validator.item.AutocompleteItemValidator"/>
+
+    <!--item wishlist-->
+    <bean id="wishlistAddValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistAddValidator"/>
+    <bean id="wishlistRemoveValidator"
+          class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistRemoveValidator"/>
+    <bean id="wishlistQueryValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistQueryValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -174,6 +197,15 @@
         </entry>
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalValidator"/>
+        </entry>
+        <entry key="WISHLIST_ADD">
+            <ref bean="wishlistAddValidator"/>
+        </entry>
+        <entry key="WISHLIST_REMOVE">
+            <ref bean="wishlistRemoveValidator"/>
+        </entry>
+        <entry key="WISHLIST_QUERY">
+            <ref bean="wishlistQueryValidator"/>
         </entry>
         <entry key="RECOMMEND">
             <ref bean="recommendValidator"/>

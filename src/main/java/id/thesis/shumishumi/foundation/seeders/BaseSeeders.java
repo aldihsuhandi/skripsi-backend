@@ -3,6 +3,7 @@ package id.thesis.shumishumi.foundation.seeders;
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
+import id.thesis.shumishumi.common.model.context.TracerContext;
 import id.thesis.shumishumi.common.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public abstract class BaseSeeders {
     }
 
     public void execute() {
+        TracerContext.initialize();
         this.tableName = setTableName();
         this.seedersName = setSeedersName();
 
@@ -52,5 +54,7 @@ public abstract class BaseSeeders {
         deleteAllData();
 
         seeds();
+
+        TracerContext.removeTracer();
     }
 }
