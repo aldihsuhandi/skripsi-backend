@@ -39,11 +39,10 @@ public class ProcessCallbackSupport {
 
             LogUtil.exception(resultContext.getResultMsg(), e);
         } finally {
+            result.setSessionId(request.getSessionId());
+            result.setResultContext(resultContext);
             LogUtil.info(LOGGER, "facade invoke result", result);
         }
-
-        result.setSessionId(request.getSessionId());
-        result.setResultContext(resultContext);
 
 
         return result;

@@ -6,10 +6,6 @@ import id.thesis.shumishumi.common.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.core.facade.ItemFacade;
-import id.thesis.shumishumi.foundation.dalgen.model.result.HobbyDO;
-import id.thesis.shumishumi.foundation.dalgen.model.result.InterestLevelDO;
-import id.thesis.shumishumi.foundation.dalgen.model.result.ItemCategoryDO;
-import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
 import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
@@ -27,10 +23,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class ItemFacadeTest extends FacadeTestBase {
     @Autowired
@@ -220,61 +212,4 @@ public class ItemFacadeTest extends FacadeTestBase {
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
     }
 
-    private HobbyDO mockHobbyDO() {
-        HobbyDO hobbyDO = new HobbyDO();
-        hobbyDO.setHobbyId("hobbyid");
-        hobbyDO.setHobbyName("hobby name");
-        hobbyDO.setGmtCreate(new Date());
-        hobbyDO.setGmtModified(new Date());
-
-        return hobbyDO;
-    }
-
-    private ItemCategoryDO mockCategoryDO() {
-        ItemCategoryDO categoryDO = new ItemCategoryDO();
-        categoryDO.setCategoryId("categoryId");
-        categoryDO.setCategoryName("categoryName");
-        categoryDO.setGmtCreate(new Date());
-        categoryDO.setGmtModified(new Date());
-
-        return categoryDO;
-    }
-
-    private InterestLevelDO mockInterestLevelDO() {
-        InterestLevelDO levelDO = new InterestLevelDO();
-        levelDO.setInterestLevelName("BEGINNER");
-        levelDO.setInterestLevelId("id");
-        levelDO.setGmtCreate(new Date());
-        levelDO.setGmtModified(new Date());
-
-        return levelDO;
-    }
-
-    private List<ItemDO> mockItemDOList(int n) {
-        List<ItemDO> itemDOS = new ArrayList<>();
-        for (int i = 0; i < n; ++i) {
-            itemDOS.add(mockItemDO(true));
-        }
-
-        return itemDOS;
-    }
-
-    private ItemDO mockItemDO(boolean isApproved) {
-        ItemDO itemDO = new ItemDO();
-        itemDO.setItemId("itemId");
-        itemDO.setItemName("itemName");
-        itemDO.setItemPrice(10000L);
-        itemDO.setItemDescription("item description");
-        itemDO.setMerchantId("userId");
-        itemDO.setHobbyId("hobbyId");
-        itemDO.setCategoryId("categoryId");
-        itemDO.setMerchantLevelId(InterestLevelEnum.BEGINNER.getLevel());
-        itemDO.setItemQuantity(100);
-        itemDO.setDeleted(false);
-        itemDO.setApproved(isApproved);
-        itemDO.setGmtCreate(new Date());
-        itemDO.setGmtModified(new Date());
-
-        return itemDO;
-    }
 }

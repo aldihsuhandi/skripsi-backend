@@ -15,6 +15,7 @@ import id.thesis.shumishumi.core.service.ItemCategoryService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @Priority(10)
 @Component
+@Profile("!test")
 public class ItemSeeders extends BaseSeeders {
     @Override
     String setTableName() {
