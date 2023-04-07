@@ -43,6 +43,14 @@ public class TracerContext {
     }
 
     public static void removeTracer() {
+        if (instance == null) {
+            synchronized (TracerContext.class) {
+                if (instance == null) {
+                    String traceId = generateTraceId();
+                    instance = new TracerContext(traceId);
+                }
+            }
+        }
         instance = null;
     }
 

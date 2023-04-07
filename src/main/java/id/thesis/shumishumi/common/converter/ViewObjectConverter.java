@@ -11,6 +11,7 @@ import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.common.model.viewobject.ItemWishlistVO;
 import id.thesis.shumishumi.common.model.viewobject.OtpVO;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
@@ -23,6 +24,7 @@ import id.thesis.shumishumi.foundation.dalgen.model.result.InterestLevelDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemImageDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemWishlistDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
@@ -243,5 +245,19 @@ public class ViewObjectConverter {
         activityVO.setGmtModified(activityDO.getGmtModified());
 
         return activityVO;
+    }
+
+    public static ItemWishlistVO toViewObject(ItemWishlistDO wishlistDo) {
+        if (wishlistDo == null) {
+            return null;
+        }
+
+        ItemWishlistVO vo = new ItemWishlistVO();
+        vo.setUserId(wishlistDo.getUserId());
+        vo.setItemId(wishlistDo.getItemId());
+        vo.setGmtCreate(wishlistDo.getGmtCreate());
+        vo.setGmtModified(wishlistDo.getGmtModified());
+
+        return vo;
     }
 }

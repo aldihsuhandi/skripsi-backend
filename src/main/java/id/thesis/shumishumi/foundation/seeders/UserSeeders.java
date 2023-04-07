@@ -13,6 +13,7 @@ import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Priority(1)
 @Component
+@Profile("!test")
 public class UserSeeders extends BaseSeeders {
     @Autowired
     private UserService userService;

@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.rest.request.item;
@@ -20,7 +19,7 @@ import lombok.ToString;
 public class QueryItemRequest extends BaseRequest {
     private static final long serialVersionUID = -2932956834568197652L;
 
-    private ItemFilterContext itemFilterContext;
+    private ItemFilterContext itemFilterContext = new ItemFilterContext();
     private int pageNumber = 1;
     private int numberOfItem = 10;
 }

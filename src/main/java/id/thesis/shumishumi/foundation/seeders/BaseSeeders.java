@@ -3,10 +3,12 @@ package id.thesis.shumishumi.foundation.seeders;
 import id.thesis.shumishumi.common.constant.DatabaseConst;
 import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
+import id.thesis.shumishumi.common.model.context.TracerContext;
 import id.thesis.shumishumi.common.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import javax.annotation.Priority;
 
 @Priority(1)
 @Component
+@Profile("!test")
 public abstract class BaseSeeders {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(LogConstant.SEEDERS_LOGGER);
@@ -44,6 +47,7 @@ public abstract class BaseSeeders {
     }
 
     public void execute() {
+        TracerContext.initialize();
         this.tableName = setTableName();
         this.seedersName = setSeedersName();
 
@@ -52,5 +56,7 @@ public abstract class BaseSeeders {
         deleteAllData();
 
         seeds();
+
+        TracerContext.removeTracer();
     }
 }

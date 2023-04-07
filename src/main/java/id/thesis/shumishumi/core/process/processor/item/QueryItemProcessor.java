@@ -55,9 +55,7 @@ public class QueryItemProcessor implements BaseProcessor {
     private void composeResult(QueryItemRequest request, QueryItemResult result, List<ItemVO> itemVOS) {
         int count = itemService.count(request.getItemFilterContext(), true);
 
-        PagingContext pagingContext = new PagingContext();
-        pagingContext.setPageNumber(request.getPageNumber());
-        pagingContext.setNumberOfItem(request.getNumberOfItem());
+        PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) count);
         pagingContext.checkHasNext(count, itemVOS.size());
 
         result.setItems(itemVOS);

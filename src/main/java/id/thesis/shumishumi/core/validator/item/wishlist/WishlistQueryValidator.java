@@ -1,15 +1,15 @@
-package id.thesis.shumishumi.core.validator.item;
+package id.thesis.shumishumi.core.validator.item.wishlist;
 
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
 import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
+import id.thesis.shumishumi.rest.request.item.wishlist.QueryWishlistRequest;
 
-public class QueryItemValidator implements BaseValidator {
+public class WishlistQueryValidator implements BaseValidator {
     @Override
     public void validate(BaseRequest baseRequest) {
         ParamChecker.isNotNull(baseRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-        ParamChecker.isExpected(baseRequest instanceof QueryItemRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isExpected(baseRequest instanceof QueryWishlistRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 }
