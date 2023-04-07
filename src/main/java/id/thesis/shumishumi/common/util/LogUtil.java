@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.common.util;
 
-import id.thesis.shumishumi.common.constant.LogConstant;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.model.context.TracerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

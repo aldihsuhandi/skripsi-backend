@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.core.service.RoleService;
 import id.thesis.shumishumi.foundation.dalgen.converter.RoleDAORequestConverter;

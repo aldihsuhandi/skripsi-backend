@@ -3,8 +3,8 @@ package id.thesis.shumishumi.core.validator.item;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
 
 public class UpdateItemValidator implements BaseValidator {
     @Override

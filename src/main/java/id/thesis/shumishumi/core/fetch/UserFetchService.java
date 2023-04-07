@@ -4,7 +4,7 @@
  */
 package id.thesis.shumishumi.core.fetch;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import org.springframework.stereotype.Service;
 

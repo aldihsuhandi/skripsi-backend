@@ -8,8 +8,8 @@ import id.thesis.shumishumi.common.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.item.CreateItemRequest;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

@@ -4,12 +4,12 @@
  */
 package id.thesis.shumishumi.core.validator.user;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.user.UserQueryRequest;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

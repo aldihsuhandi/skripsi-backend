@@ -3,8 +3,8 @@ package id.thesis.shumishumi.core.validator.item.wishlist;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.item.wishlist.RemoveWishlistRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.item.wishlist.RemoveWishlistRequest;
 
 public class WishlistRemoveValidator implements BaseValidator {
     @Override

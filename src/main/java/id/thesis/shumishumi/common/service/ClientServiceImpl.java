@@ -4,7 +4,7 @@
  */
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
 import id.thesis.shumishumi.core.service.ClientService;
 import id.thesis.shumishumi.foundation.dalgen.converter.ClientDAORequestConverter;

@@ -27,7 +27,7 @@
     </bean>
 
 
-    <bean id="processFacade" class="id.thesis.shumishumi.core.process.service.ProcessFacade">
+    <bean id="processFacade" class="id.thesis.shumishumi.common.process.service.ProcessFacade">
         <property name="processors" ref="processorMap"/>
         <property name="validators" ref="validatorMap"/>
     </bean>

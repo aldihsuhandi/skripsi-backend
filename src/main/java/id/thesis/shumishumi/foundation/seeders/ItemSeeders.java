@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.foundation.seeders;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.HobbyVO;

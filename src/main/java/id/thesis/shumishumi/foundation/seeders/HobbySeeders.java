@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.foundation.seeders;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.service.HobbyService;
 import org.springframework.beans.factory.annotation.Autowired;

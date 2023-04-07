@@ -8,8 +8,8 @@ import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.Headers;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.core.facade.ClientFacade;
-import id.thesis.shumishumi.rest.request.client.ClientAuthRequest;
-import id.thesis.shumishumi.rest.result.client.ClientAuthResult;
+import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.core.result.client.ClientAuthResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

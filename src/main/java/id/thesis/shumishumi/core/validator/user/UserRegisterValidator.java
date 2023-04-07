@@ -3,8 +3,8 @@ package id.thesis.shumishumi.core.validator.user;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.user.UserRegisterRequest;
 import org.apache.commons.lang3.StringUtils;
 
 public class UserRegisterValidator implements BaseValidator {

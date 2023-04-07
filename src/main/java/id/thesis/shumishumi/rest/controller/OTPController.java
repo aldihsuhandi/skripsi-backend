@@ -1,14 +1,14 @@
 package id.thesis.shumishumi.rest.controller;
 
 import id.thesis.shumishumi.core.facade.OTPFacade;
-import id.thesis.shumishumi.core.process.callback.ControllerCallback;
-import id.thesis.shumishumi.core.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.rest.request.HtmlRequest;
-import id.thesis.shumishumi.rest.request.otp.OTPSendRequest;
-import id.thesis.shumishumi.rest.request.otp.OTPValidateRequest;
-import id.thesis.shumishumi.rest.result.BaseResult;
-import id.thesis.shumishumi.rest.result.otp.OTPSendResult;
-import id.thesis.shumishumi.rest.result.otp.OTPValidateResult;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.core.request.HtmlRequest;
+import id.thesis.shumishumi.core.request.otp.OTPSendRequest;
+import id.thesis.shumishumi.core.request.otp.OTPValidateRequest;
+import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.core.result.otp.OTPSendResult;
+import id.thesis.shumishumi.core.result.otp.OTPValidateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

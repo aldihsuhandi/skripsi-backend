@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.common.model.context;
 
-import id.thesis.shumishumi.common.constant.CommonConst;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 
 import java.util.UUID;
 

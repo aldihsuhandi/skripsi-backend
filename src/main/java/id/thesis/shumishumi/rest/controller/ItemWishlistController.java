@@ -1,16 +1,16 @@
 package id.thesis.shumishumi.rest.controller;
 
 import id.thesis.shumishumi.core.facade.ItemWishlistFacade;
-import id.thesis.shumishumi.core.process.callback.ControllerCallback;
-import id.thesis.shumishumi.core.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.rest.request.HtmlRequest;
-import id.thesis.shumishumi.rest.request.item.wishlist.AddWishlistRequest;
-import id.thesis.shumishumi.rest.request.item.wishlist.QueryWishlistRequest;
-import id.thesis.shumishumi.rest.request.item.wishlist.RemoveWishlistRequest;
-import id.thesis.shumishumi.rest.result.BaseResult;
-import id.thesis.shumishumi.rest.result.item.wishlist.AddWishlistResult;
-import id.thesis.shumishumi.rest.result.item.wishlist.QueryWishlistResult;
-import id.thesis.shumishumi.rest.result.item.wishlist.RemoveWishlistResult;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.core.request.HtmlRequest;
+import id.thesis.shumishumi.core.request.item.wishlist.AddWishlistRequest;
+import id.thesis.shumishumi.core.request.item.wishlist.QueryWishlistRequest;
+import id.thesis.shumishumi.core.request.item.wishlist.RemoveWishlistRequest;
+import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.core.result.item.wishlist.AddWishlistResult;
+import id.thesis.shumishumi.core.result.item.wishlist.QueryWishlistResult;
+import id.thesis.shumishumi.core.result.item.wishlist.RemoveWishlistResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
