@@ -40,6 +40,7 @@ public class UserFacadeTest extends FacadeTestBase {
         registerRequest.setUsername("username");
         registerRequest.setEmail("email@email.com");
         registerRequest.setPassword("password");
+        registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
@@ -56,6 +57,7 @@ public class UserFacadeTest extends FacadeTestBase {
         registerRequest.setUsername("username");
         registerRequest.setEmail("email@email.com");
         registerRequest.setPassword("password");
+        registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
@@ -66,6 +68,24 @@ public class UserFacadeTest extends FacadeTestBase {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.USER_ALREADY_EXIST.getErrorCode());
+    }
+
+    @Test
+    public void userRegisterTest_FAILED_confirmPasswordEmpty() {
+        UserRegisterRequest registerRequest = new UserRegisterRequest();
+        registerRequest.setUsername("username");
+        registerRequest.setEmail("email@email.com");
+        registerRequest.setPassword("password");
+        registerRequest.setPhoneNumber("12345");
+
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserRegisterResult result = userFacade.register(registerRequest);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
     }
 
     @Test

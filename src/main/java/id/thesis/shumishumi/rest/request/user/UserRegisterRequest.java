@@ -16,4 +16,5 @@ public class UserRegisterRequest extends BaseRequest {
     private String phoneNumber;
     private Blob profilePicture;
     private String password;
+    private String confirmPassword;
 }
