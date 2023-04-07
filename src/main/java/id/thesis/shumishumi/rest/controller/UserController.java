@@ -1,8 +1,11 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.common.process.callback.ControllerCallback;
 import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
+import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
+import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.core.request.HtmlRequest;
 import id.thesis.shumishumi.core.request.user.UserActivateRequest;
 import id.thesis.shumishumi.core.request.user.UserForgotPasswordRequest;
@@ -17,9 +20,14 @@ import id.thesis.shumishumi.core.result.user.UserLoginResult;
 import id.thesis.shumishumi.core.result.user.UserQueryResult;
 import id.thesis.shumishumi.core.result.user.UserRegisterResult;
 import id.thesis.shumishumi.core.result.user.UserUpdateResult;
+import id.thesis.shumishumi.rest.form.user.UserRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,22 +39,29 @@ public class UserController extends BaseController {
     private UserFacade userFacade;
 
     @PostMapping("/register")
-    public UserRegisterResult register(@RequestBody HtmlRequest<UserRegisterRequest> request) {
-        return (UserRegisterResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
-
+    public ResponseEntity<UserRegisterResult> register(@RequestHeader HttpHeaders headers, @ModelAttribute UserRegisterForm form) {
+        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<UserRegisterResult, UserRegisterRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new UserRegisterResult();
+            public UserRegisterRequest composeRequest() {
+                UserRegisterRequest request = new UserRegisterRequest();
+                request.setUsername(form.getUsername());
+                request.setEmail(form.getEmail());
+                request.setPhoneNumber(form.getPhoneNumber());
+                request.setProfilePicture(FunctionUtil.convertToBlob(form.getProfilePicture()));
+                request.setPassword(form.getPassword());
+                request.setConfirmPassword(form.getConfirmPassword());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return userFacade.register(request.getBody());
+            public UserRegisterResult doProcess(UserRegisterRequest request) {
+                return userFacade.register(request);
             }
         });
     }

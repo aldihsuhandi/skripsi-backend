@@ -3,14 +3,19 @@
  */
 package id.thesis.shumishumi.common.util;
 
+import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
+import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
 import java.util.UUID;
 
 /**
@@ -119,5 +124,17 @@ public class FunctionUtil {
 
     public static boolean verifyHash(String password, String hash) {
         return bCryptPasswordEncoder.matches(password, hash);
+    }
+
+    public static Blob convertToBlob(MultipartFile multipartFile) {
+        if (multipartFile == null) {
+            return null;
+        }
+
+        try {
+            return new SerialBlob(multipartFile.getBytes());
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
     }
 }
