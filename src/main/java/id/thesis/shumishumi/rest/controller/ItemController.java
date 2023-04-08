@@ -34,7 +34,6 @@ public class ItemController extends BaseController {
     @Autowired
     private ItemFacade itemFacade;
 
-
     @PostMapping("/create")
     public ResponseEntity<CreateItemResult> create(@RequestHeader HttpHeaders headers, @RequestBody CreateItemForm form) {
         return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<CreateItemResult, CreateItemRequest>() {
