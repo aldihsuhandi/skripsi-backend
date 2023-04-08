@@ -32,7 +32,6 @@ public class SessionControllerTest extends ControllerTestBase {
         // mock result
         SessionLogoutResult result = new SessionLogoutResult();
         result.setResultContext(mockResultContext(ShumishumiErrorCodeEnum.SUCCESS));
-        result.setSessionId("sessionId");
 
         Mockito.when(sessionFacade.logout(Mockito.any())).thenReturn(result);
 
