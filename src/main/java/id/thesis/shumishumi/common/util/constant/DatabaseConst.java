@@ -40,6 +40,7 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_CROWD_RULE = "crowd_rules";
     public static final String TABLE_USER_CROWD = "user_crowds";
     public static final String TABLE_ITEM_CROWD = "item_crowds";
+    public static final String TABLE_IMAGE = "images";
 
     // General
     public static final String GMT_CREATE = "gmt_create";
@@ -122,4 +123,10 @@ public class DatabaseConst implements Serializable {
     public static final String CROWD_RULE_ID = "rule_id";
     public static final String CROWD_RULE_TYPE = "rule_type";
     public static final String CROWD_RULE_VALUE = "rule_value";
+
+    // images
+    public static final String IMAGE_ID = "image_id";
+    public static final String IMAGE_NAME = "image_name";
+    public static final String IMAGE_EXT = "image_ext";
+    public static final String IMAGE = "image";
 }

@@ -8,8 +8,6 @@ import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.core.request.user.UserRegisterRequest;
 
-import java.sql.Blob;
-
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserRequestConverter.java, v 0.1 2022‐12‐26 8:16 AM Aldih Suhandi Exp $$
@@ -26,7 +24,7 @@ public class UserRequestConverter {
         return innerRequest;
     }
 
-    public static UserUpdateInnerRequest toInnerRequest(String userId, Blob profilePicture) {
+    public static UserUpdateInnerRequest toInnerRequest(String userId, String profilePicture) {
         UserUpdateInnerRequest innerRequest = new UserUpdateInnerRequest();
         UserUpdateContext userUpdateContext = new UserUpdateContext();
 

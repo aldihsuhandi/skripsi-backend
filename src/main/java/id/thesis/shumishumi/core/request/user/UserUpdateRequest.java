@@ -1,14 +1,13 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.request.user;
 
-import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -18,6 +17,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserUpdateRequest extends BaseRequest {
+    private static final long serialVersionUID = -6612537427015638235L;
+
+    private String oldPassword;
+    private String username;
+    private String email;
+    private String phoneNumber;
+    private MultipartFile profilePicture;
     private String password;
-    private UserUpdateContext userUpdateContext;
+    private String confirmPassword;
+    private boolean isDeleted;
+    private boolean isActive;
 }

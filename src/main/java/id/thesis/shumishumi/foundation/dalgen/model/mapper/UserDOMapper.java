@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.foundation.dalgen.model.mapper;
@@ -23,7 +22,7 @@ public class UserDOMapper implements RowMapper<UserDO> {
         userDO.setUsername(rs.getString(DatabaseConst.USERNAME));
         userDO.setPhoneNumber(rs.getString(DatabaseConst.PHONE_NUMBER));
         userDO.setEmail(rs.getString(DatabaseConst.EMAIL));
-        userDO.setProfilePicture(rs.getBlob(DatabaseConst.PROFILE_PICTURE));
+        userDO.setProfilePicture(rs.getString(DatabaseConst.PROFILE_PICTURE));
         userDO.setRoleId(rs.getString(DatabaseConst.ROLE_ID));
         userDO.setPassword(rs.getString(DatabaseConst.PASSWORD));
         userDO.setDeleted(rs.getBoolean(DatabaseConst.IS_DELETED));

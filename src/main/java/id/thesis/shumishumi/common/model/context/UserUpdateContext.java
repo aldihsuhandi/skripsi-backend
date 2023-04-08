@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.model.context;
@@ -7,8 +6,6 @@ package id.thesis.shumishumi.common.model.context;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Blob;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -21,7 +18,7 @@ public class UserUpdateContext {
     private String username;
     private String email;
     private String phoneNumber;
-    private Blob profilePicture;
+    private String profilePicture;
     private String password;
     private Boolean isDeleted;
     private Boolean isActive;

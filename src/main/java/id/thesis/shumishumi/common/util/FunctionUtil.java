@@ -46,7 +46,7 @@ public class FunctionUtil {
                 updateContext.getUsername() : userVO.getUsername());
         updateContext.setPhoneNumber(checkIfNotEmpty(updateContext.getPhoneNumber()) ?
                 updateContext.getPhoneNumber() : userVO.getPhoneNumber());
-        updateContext.setProfilePicture(updateContext.getProfilePicture() != null ?
+        updateContext.setProfilePicture(checkIfNotEmpty(updateContext.getProfilePicture()) ?
                 updateContext.getProfilePicture() : userVO.getProfilePicture());
         updateContext.setIsDeleted(updateContext.getIsDeleted() != null ?
                 updateContext.getIsDeleted() : userVO.isDeleted());

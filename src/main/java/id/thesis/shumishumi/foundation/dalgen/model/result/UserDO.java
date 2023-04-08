@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.foundation.dalgen.model.result;
@@ -7,8 +6,6 @@ package id.thesis.shumishumi.foundation.dalgen.model.result;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Blob;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -25,6 +22,6 @@ public class UserDO extends BaseDO {
     private String roleId;
     private boolean isActive;
     private boolean isDeleted;
-    private Blob profilePicture;
+    private String profilePicture;
     private String password;
 }

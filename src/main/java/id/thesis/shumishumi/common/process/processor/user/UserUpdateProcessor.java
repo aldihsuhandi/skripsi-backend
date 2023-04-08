@@ -3,21 +3,24 @@
  */
 package id.thesis.shumishumi.common.process.processor.user;
 
-import id.thesis.shumishumi.common.util.converter.UserRequestConverter;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.common.model.viewobject.ImageVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.process.processor.BaseProcessor;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.common.process.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.SessionService;
-import id.thesis.shumishumi.core.service.UserService;
+import id.thesis.shumishumi.common.util.converter.UserRequestConverter;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.core.service.ImageService;
+import id.thesis.shumishumi.core.service.SessionService;
+import id.thesis.shumishumi.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,21 +37,49 @@ public class UserUpdateProcessor implements BaseProcessor {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ImageService imageService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         UserUpdateRequest updateRequest = (UserUpdateRequest) baseRequest;
         UserVO userVO = queryUserFromSession(updateRequest.getSessionId());
-        UserUpdateContext updateContext = updateRequest.getUserUpdateContext();
+        UserUpdateContext updateContext = composeUpdateContext(updateRequest);
 
-        AssertUtil.isExpected(FunctionUtil.verifyHash(updateRequest.getPassword(), userVO.getPassword())
+        AssertUtil.isExpected(FunctionUtil.verifyHash(updateRequest.getOldPassword(), userVO.getPassword())
                 , "password", ShumishumiErrorCodeEnum.AUTHENTICATION_FAILED);
 
         validateEmail(updateContext.getEmail(), userVO.getEmail());
         validatePhoneNumber(updateContext.getPhoneNumber(), userVO.getPhoneNumber());
 
+        changeProfilePicture(updateRequest.getProfilePicture(), updateContext);
+
         FunctionUtil.fillEmptyUpdateContext(updateContext, userVO);
         userService.update(UserRequestConverter.toInnerRequest(userVO.getUserId(), updateContext));
         userService.refreshCache(new ArrayList<>(Collections.singletonList(userVO.getUserId())), false);
+    }
+
+    private UserUpdateContext composeUpdateContext(UserUpdateRequest request) {
+        UserUpdateContext context = new UserUpdateContext();
+        context.setIsDeleted(request.isDeleted());
+        context.setPassword(request.getPassword());
+        context.setUsername(request.getUsername());
+        context.setEmail(request.getEmail());
+        context.setPhoneNumber(request.getPhoneNumber());
+        context.setIsActive(request.isActive());
+
+        return context;
+    }
+
+    private void changeProfilePicture(MultipartFile profilePicture, UserUpdateContext context) {
+        if (profilePicture == null) {
+            return;
+        }
+
+        ImageVO image = new ImageVO(profilePicture);
+        imageService.upload(image);
+
+        context.setProfilePicture(image.getImageId());
     }
 
     private void validateEmail(String email, String currentEmail) throws ShumishumiException {

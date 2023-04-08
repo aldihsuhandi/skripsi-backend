@@ -24,7 +24,7 @@ public class StartupRunner {
         TracerContext.removeTracer();
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //    @EventListener(ApplicationReadyEvent.class)
     public void refreshItemCache() {
         TracerContext.initialize();
         itemService.refreshCache(null, true);

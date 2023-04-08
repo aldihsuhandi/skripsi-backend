@@ -1,9 +1,7 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.process.callback.ControllerCallback;
 import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.core.request.user.UserActivateRequest;
 import id.thesis.shumishumi.core.request.user.UserForgotPasswordRequest;
@@ -54,7 +52,7 @@ public class UserController extends BaseController {
                 request.setUsername(form.getUsername());
                 request.setEmail(form.getEmail());
                 request.setPhoneNumber(form.getPhoneNumber());
-                request.setProfilePicture(FunctionUtil.convertToBlob(form.getProfilePicture()));
+                request.setProfilePicture(form.getProfilePicture());
                 request.setPassword(form.getPassword());
                 request.setConfirmPassword(form.getConfirmPassword());
 
@@ -103,18 +101,17 @@ public class UserController extends BaseController {
 
             @Override
             public UserUpdateRequest composeRequest() {
-                UserUpdateContext context = new UserUpdateContext();
-                context.setUsername(form.getUsername());
-                context.setEmail(form.getEmail());
-                context.setPhoneNumber(form.getPhoneNumber());
-                context.setPassword(form.getPassword());
-                context.setProfilePicture(FunctionUtil.convertToBlob(form.getProfilePicture()));
-                context.setIsActive(form.isActive());
-                context.setIsDeleted(form.isDeleted());
 
                 UserUpdateRequest request = new UserUpdateRequest();
-                request.setPassword(form.getOldPassword());
-                request.setUserUpdateContext(context);
+                request.setOldPassword(form.getOldPassword());
+                request.setUsername(form.getUsername());
+                request.setEmail(form.getEmail());
+                request.setPhoneNumber(form.getPhoneNumber());
+                request.setPassword(form.getPassword());
+                request.setConfirmPassword(form.getConfirmPassword());
+                request.setProfilePicture(form.getProfilePicture());
+                request.setActive(form.isActive());
+                request.setDeleted(form.isDeleted());
 
                 return request;
             }

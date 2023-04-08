@@ -1,5 +1,4 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.common.model.viewobject;
@@ -7,8 +6,6 @@ package id.thesis.shumishumi.common.model.viewobject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Blob;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -22,7 +19,7 @@ public class UserVO extends BaseVO {
     private String username;
     private String email;
     private String phoneNumber;
-    private Blob profilePicture;
+    private String profilePicture;
     private boolean isActive;
     private boolean isDeleted;
     private String password;
