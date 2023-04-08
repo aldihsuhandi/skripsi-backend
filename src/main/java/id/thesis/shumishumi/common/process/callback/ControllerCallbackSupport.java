@@ -43,7 +43,6 @@ public class ControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
-            headers.setContentType(contentType);
 
             T result = callback.doProcess(request);
 
@@ -62,7 +61,6 @@ public class ControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
-            headers.setContentType(contentType);
 
             LogUtil.exception(resultContext.getResultMsg(), e);
 

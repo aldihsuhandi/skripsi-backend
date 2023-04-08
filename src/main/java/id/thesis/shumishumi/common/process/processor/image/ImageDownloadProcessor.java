@@ -12,8 +12,6 @@ import id.thesis.shumishumi.core.result.image.ImageDownloadResult;
 import id.thesis.shumishumi.core.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-
 public class ImageDownloadProcessor implements BaseProcessor {
 
     @Autowired
@@ -28,10 +26,6 @@ public class ImageDownloadProcessor implements BaseProcessor {
         AssertUtil.isNotNull(imageVO, ShumishumiErrorCodeEnum.IMAGE_NOT_FOUND.getErrorMsg(), ShumishumiErrorCodeEnum.IMAGE_NOT_FOUND);
 
         BlobMultipartFile image = new BlobMultipartFile(imageVO.getImageName(), imageVO.getImageExt(), imageVO.getImage());
-        try {
-            result.setImage(image.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        result.setImage(image);
     }
 }
