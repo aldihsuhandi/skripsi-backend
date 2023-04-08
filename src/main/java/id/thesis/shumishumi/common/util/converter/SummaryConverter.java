@@ -38,6 +38,7 @@ public class SummaryConverter {
         UserSummary userSummary = new UserSummary();
         userSummary.setEmail(vo.getEmail());
         userSummary.setUsername(vo.getUsername());
+        userSummary.setProfilePicture(vo.getProfilePicture());
         userSummary.setPhoneNumber(vo.getPhoneNumber());
         userSummary.setRole(vo.getRoleVO().getRoleName());
         userSummary.setGmtCreate(vo.getGmtCreate());

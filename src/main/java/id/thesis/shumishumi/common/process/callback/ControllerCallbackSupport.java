@@ -26,7 +26,7 @@ public class ControllerCallbackSupport {
     private static final String CONTENT_TYPE = "Content-Type";
 
     public static <T extends BaseResult, R extends BaseRequest>
-    ResponseEntity<T> process(HttpHeaders httpHeaders, BaseForm baseForm, ControllerCallback<T, R> callback) {
+    ResponseEntity<T> process(HttpHeaders httpHeaders, BaseForm baseForm, MediaType contentType, ControllerCallback<T, R> callback) {
         TracerContext.initialize();
 
         LogUtil.info(LOGGER, String.format("controller invoke request[form=%s]", baseForm));
@@ -43,7 +43,7 @@ public class ControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setContentType(contentType);
 
             T result = callback.doProcess(request);
 
@@ -62,7 +62,7 @@ public class ControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setContentType(contentType);
 
             LogUtil.exception(resultContext.getResultMsg(), e);
 

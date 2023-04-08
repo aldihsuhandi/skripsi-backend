@@ -21,6 +21,8 @@ public enum ShumishumiErrorCodeEnum {
     ITEM_NOT_FOUND("ITEM_NOT_FOUND", "item not found"),
     ITEM_ALREADY_APPROVED("ITEM_ALREADY_APPROVED", "item already approved"),
 
+    IMAGE_NOT_FOUND("IMAGE_NOT_FOUND", "cannot found the image you trying to download"),
+
     OAUTH_ERROR("OAUTH_ERROR", "API Authentication error");
     private final String errorCode;
     private final String errorMsg;

@@ -18,7 +18,8 @@
           class="id.thesis.shumishumi.common.process.processor.user.UserForgotPasswordProcessor"/>
 
     <!--session-->
-    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.common.process.processor.session.SessionQueryProcessor"/>
+    <bean id="sessionQueryProcessor"
+          class="id.thesis.shumishumi.common.process.processor.session.SessionQueryProcessor"/>
     <bean id="sessionLogoutProcessor"
           class="id.thesis.shumishumi.common.process.processor.session.SessionLogoutProcessor"/>
 
@@ -45,6 +46,10 @@
           class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistRemoveProcessor"/>
     <bean id="wishlistQueryProcessor"
           class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistQueryProcessor"/>
+
+    <!--image-->
+    <bean id="imageDownloadProcessor"
+          class="id.thesis.shumishumi.common.process.processor.image.ImageDownloadProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -111,6 +116,10 @@
         <entry key="ITEM_AUTOCOMPLETE">
             <ref bean="autocompleteItemProcessor"/>
         </entry>
+
+        <entry key="IMAGE_DOWNLOAD">
+            <ref bean="imageDownloadProcessor"/>
+        </entry>
     </util:map>
 
     <!--validators-->
@@ -147,6 +156,8 @@
     <bean id="wishlistRemoveValidator"
           class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistRemoveValidator"/>
     <bean id="wishlistQueryValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistQueryValidator"/>
+
+    <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -212,6 +223,10 @@
         </entry>
         <entry key="ITEM_AUTOCOMPLETE">
             <ref bean="recommendValidator"/>
+        </entry>
+
+        <entry key="IMAGE_DOWNLOAD">
+            <ref bean="imageDownloadValidator"/>
         </entry>
     </util:map>
 </beans>

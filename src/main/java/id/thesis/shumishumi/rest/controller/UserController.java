@@ -23,6 +23,7 @@ import id.thesis.shumishumi.rest.form.user.UserRegisterForm;
 import id.thesis.shumishumi.rest.form.user.UserUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResult> register(@RequestHeader HttpHeaders headers, @ModelAttribute UserRegisterForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserRegisterResult, UserRegisterRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserRegisterResult, UserRegisterRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -68,7 +69,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @RequestBody UserLoginForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -93,7 +94,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/update")
     public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @RequestBody UserUpdateForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -125,7 +126,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/info")
     public ResponseEntity<UserQueryResult> query(@RequestHeader HttpHeaders headers, @RequestBody UserInfoForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserQueryResult, UserQueryRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserQueryResult, UserQueryRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -149,7 +150,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/activate")
     public ResponseEntity<UserActivateResult> activate(@RequestHeader HttpHeaders headers, @RequestBody UserActivateForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserActivateResult, UserActivateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserActivateResult, UserActivateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -173,7 +174,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/forgot")
     public ResponseEntity<UserForgotPasswordResult> forgotPassword(@RequestHeader HttpHeaders headers, @RequestBody UserForgotPasswordForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserForgotPasswordResult, UserForgotPasswordRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserForgotPasswordResult, UserForgotPasswordRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

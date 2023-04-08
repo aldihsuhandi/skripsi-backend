@@ -14,6 +14,7 @@ import id.thesis.shumishumi.rest.form.session.SessionLogoutForm;
 import id.thesis.shumishumi.rest.form.session.SessionQueryForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class SessionController extends BaseController {
 
     @PostMapping("/logout")
     public ResponseEntity<SessionLogoutResult> logout(@RequestHeader HttpHeaders headers, @RequestBody SessionLogoutForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<SessionLogoutResult, SessionLogoutRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<SessionLogoutResult, SessionLogoutRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -57,7 +58,7 @@ public class SessionController extends BaseController {
 
     @PostMapping("/info")
     public ResponseEntity<SessionQueryResult> query(@RequestHeader HttpHeaders headers, @RequestBody SessionQueryForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<SessionQueryResult, SessionQueryRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<SessionQueryResult, SessionQueryRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

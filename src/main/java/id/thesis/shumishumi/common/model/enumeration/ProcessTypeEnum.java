@@ -32,6 +32,8 @@ public enum ProcessTypeEnum {
     WISHLIST_REMOVE("WISHLIST_REMOVE", "wishlistRemoveValidator", "wishlistRemoveProcessor", true),
     WISHLIST_QUERY("WISHLIST_QUERY", "wishlistQueryValidator", "wishlistQueryProcessor", true),
 
+    IMAGE_DOWNLOAD("IMAGE_DOWNLOAD", "imageDownloadValidator", "imageDownloadProcessor", false),
+
     ;
 
     private final String processName;

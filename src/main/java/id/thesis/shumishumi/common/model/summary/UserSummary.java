@@ -13,6 +13,7 @@ public class UserSummary extends BaseSummary {
 
     private String email;
     private String phoneNumber;
+    private String profilePicture;
     private String username;
     private String role;
 }

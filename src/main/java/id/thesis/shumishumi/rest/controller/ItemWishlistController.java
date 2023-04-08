@@ -14,6 +14,7 @@ import id.thesis.shumishumi.rest.form.item.wishlist.QueryWishlistForm;
 import id.thesis.shumishumi.rest.form.item.wishlist.RemoveWishlistForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/add")
     public ResponseEntity<AddWishlistResult> addWishlist(@RequestHeader HttpHeaders headers, @RequestBody AddWishlistForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<AddWishlistResult, AddWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<AddWishlistResult, AddWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -52,7 +53,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/remove")
     public ResponseEntity<RemoveWishlistResult> removeWishlist(@RequestHeader HttpHeaders headers, @RequestBody RemoveWishlistForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<RemoveWishlistResult, RemoveWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<RemoveWishlistResult, RemoveWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -75,7 +76,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/query")
     public ResponseEntity<QueryWishlistResult> queryWishlist(@RequestHeader HttpHeaders headers, @RequestBody QueryWishlistForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<QueryWishlistResult, QueryWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<QueryWishlistResult, QueryWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
