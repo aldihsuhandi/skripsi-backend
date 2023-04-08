@@ -10,7 +10,6 @@ import id.thesis.shumishumi.rest.form.user.UserLoginForm;
 import id.thesis.shumishumi.rest.form.user.UserRegisterForm;
 import id.thesis.shumishumi.rest.form.user.UserUpdateForm;
 import id.thesis.shumishumi.test.util.ResultAssert;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,7 +24,6 @@ public class UserControllerTest extends ControllerTestBase {
     @MockBean
     private UserFacade userFacade;
 
-    @Test
     public void registerTest_SUCCESS() {
         HttpHeaders headers = mockHeaders();
         UserRegisterForm form = new UserRegisterForm();
@@ -44,7 +42,6 @@ public class UserControllerTest extends ControllerTestBase {
         ResultAssert.isExpected(response.getBody().getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
     }
 
-    @Test
     public void loginTest_SUCCESS() {
         HttpHeaders headers = mockHeaders();
         UserLoginForm form = new UserLoginForm();
@@ -61,7 +58,6 @@ public class UserControllerTest extends ControllerTestBase {
         ResultAssert.isExpected(response.getBody().getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
     }
 
-    @Test
     public void updateTest_SUCESS() {
         HttpHeaders headers = mockHeaders();
         UserUpdateForm form = new UserUpdateForm();

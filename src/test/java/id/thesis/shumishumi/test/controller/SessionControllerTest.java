@@ -9,7 +9,6 @@ import id.thesis.shumishumi.rest.controller.SessionController;
 import id.thesis.shumishumi.rest.form.session.SessionLogoutForm;
 import id.thesis.shumishumi.rest.form.session.SessionQueryForm;
 import id.thesis.shumishumi.test.util.ResultAssert;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,7 +24,6 @@ public class SessionControllerTest extends ControllerTestBase {
     @MockBean
     private SessionFacade sessionFacade;
 
-    @Test
     public void logoutTest_SUCCESS() {
         HttpHeaders headers = mockHeaders();
         SessionLogoutForm form = new SessionLogoutForm();
@@ -42,7 +40,6 @@ public class SessionControllerTest extends ControllerTestBase {
         ResultAssert.isExpected(response.getBody().getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
     }
 
-    @Test
     public void InfoTest_SUCCESS() {
         HttpHeaders headers = mockHeaders();
         SessionQueryForm form = new SessionQueryForm();

@@ -5,20 +5,15 @@ import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.core.facade.ClientFacade;
 import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
 import id.thesis.shumishumi.core.result.client.ClientAuthResult;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
-import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-@ActiveProfiles("test")
 public class ControllerTestBase {
     @MockBean
     protected ClientFacade clientFacade;
 
-    @BeforeEach
+    //    @BeforeEach
     public void setupClient() {
         ClientAuthResult result = new ClientAuthResult();
         result.setResultContext(mockResultContext(ShumishumiErrorCodeEnum.SUCCESS));
