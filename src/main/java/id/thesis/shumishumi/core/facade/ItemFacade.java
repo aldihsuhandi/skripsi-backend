@@ -27,6 +27,7 @@ public interface ItemFacade {
 
     UpdateItemResult update(UpdateItemRequest request);
 
+    @Deprecated
     ItemApprovalResult approve(ItemApprovalRequest request);
 
     RecommendResult recommend(RecommendRequest request);
