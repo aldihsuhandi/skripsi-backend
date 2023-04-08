@@ -1,19 +1,12 @@
-/**
- * Copyright (c) 2017‐2022 All Rights Reserved.
- */
 package id.thesis.shumishumi.common.process.callback;
 
+import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 
-/**
- * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
- * @version $Id: ControllerCallback.java, v 0.1 2022‐12‐26 3:13 PM Aldih Suhandi Exp $$
- */
-public interface ControllerCallback {
+public interface ControllerCallback<T extends BaseResult, R extends BaseRequest> {
+    void authCheck(String clientId, String clientSecret);
 
-    void authCheck();
+    R composeRequest();
 
-    BaseResult initResult();
-
-    BaseResult doProcess();
+    T doProcess(R request);
 }

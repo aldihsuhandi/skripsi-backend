@@ -3,8 +3,8 @@
  */
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
-import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.SessionFacade;
 import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
 import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
@@ -34,7 +34,7 @@ public class SessionController extends BaseController {
 
     @PostMapping("/logout")
     public ResponseEntity<SessionLogoutResult> logout(@RequestHeader HttpHeaders headers, @RequestBody SessionLogoutForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<SessionLogoutResult, SessionLogoutRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<SessionLogoutResult, SessionLogoutRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -57,7 +57,7 @@ public class SessionController extends BaseController {
 
     @PostMapping("/info")
     public ResponseEntity<SessionQueryResult> query(@RequestHeader HttpHeaders headers, @RequestBody SessionQueryForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<SessionQueryResult, SessionQueryRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<SessionQueryResult, SessionQueryRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

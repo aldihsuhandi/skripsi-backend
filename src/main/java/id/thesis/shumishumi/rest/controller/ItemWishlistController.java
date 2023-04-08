@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
-import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.ItemWishlistFacade;
 import id.thesis.shumishumi.core.request.item.wishlist.AddWishlistRequest;
 import id.thesis.shumishumi.core.request.item.wishlist.QueryWishlistRequest;
@@ -29,7 +29,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/add")
     public ResponseEntity<AddWishlistResult> addWishlist(@RequestHeader HttpHeaders headers, @RequestBody AddWishlistForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<AddWishlistResult, AddWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<AddWishlistResult, AddWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -52,7 +52,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/remove")
     public ResponseEntity<RemoveWishlistResult> removeWishlist(@RequestHeader HttpHeaders headers, @RequestBody RemoveWishlistForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<RemoveWishlistResult, RemoveWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<RemoveWishlistResult, RemoveWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -75,7 +75,7 @@ public class ItemWishlistController extends BaseController {
 
     @PostMapping("/query")
     public ResponseEntity<QueryWishlistResult> queryWishlist(@RequestHeader HttpHeaders headers, @RequestBody QueryWishlistForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<QueryWishlistResult, QueryWishlistRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<QueryWishlistResult, QueryWishlistRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

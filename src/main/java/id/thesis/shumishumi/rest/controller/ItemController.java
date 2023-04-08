@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
-import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.ItemFacade;
 import id.thesis.shumishumi.core.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.core.request.item.CreateItemRequest;
@@ -36,7 +36,7 @@ public class ItemController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<CreateItemResult> create(@RequestHeader HttpHeaders headers, @RequestBody CreateItemForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<CreateItemResult, CreateItemRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<CreateItemResult, CreateItemRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -65,7 +65,7 @@ public class ItemController extends BaseController {
 
     @PostMapping("/query")
     public ResponseEntity<QueryItemResult> query(@RequestHeader HttpHeaders headers, @RequestBody QueryItemForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<QueryItemResult, QueryItemRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<QueryItemResult, QueryItemRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -90,7 +90,7 @@ public class ItemController extends BaseController {
 
     @PostMapping("/update")
     public ResponseEntity<UpdateItemResult> update(@RequestHeader HttpHeaders headers, @RequestBody UpdateItemForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<UpdateItemResult, UpdateItemRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UpdateItemResult, UpdateItemRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -114,7 +114,7 @@ public class ItemController extends BaseController {
 
     @PostMapping("/recommend")
     public ResponseEntity<RecommendResult> recommend(@RequestHeader HttpHeaders headers, @RequestBody RecommendForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<RecommendResult, RecommendRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<RecommendResult, RecommendRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -134,7 +134,7 @@ public class ItemController extends BaseController {
 
     @PostMapping("/autocomplete")
     public ResponseEntity<AutocompleteItemResult> autocomplete(@RequestHeader HttpHeaders headers, @RequestBody ItemAutocompleteForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<AutocompleteItemResult, AutocompleteItemRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<AutocompleteItemResult, AutocompleteItemRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

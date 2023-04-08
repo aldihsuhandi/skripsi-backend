@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.process.callback.NewControllerCallback;
-import id.thesis.shumishumi.common.process.callback.NewControllerCallbackSupport;
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.OTPFacade;
 import id.thesis.shumishumi.core.request.otp.OTPSendRequest;
 import id.thesis.shumishumi.core.request.otp.OTPValidateRequest;
@@ -26,7 +26,7 @@ public class OTPController extends BaseController {
 
     @PostMapping("/send")
     public ResponseEntity<OTPSendResult> send(@RequestHeader HttpHeaders headers, @RequestBody OTPSendForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<OTPSendResult, OTPSendRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<OTPSendResult, OTPSendRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -50,7 +50,7 @@ public class OTPController extends BaseController {
 
     @PostMapping("/validate")
     public ResponseEntity<OTPValidateResult> validate(@RequestHeader HttpHeaders headers, @RequestBody OTPValidateForm form) {
-        return NewControllerCallbackSupport.process(headers, form, new NewControllerCallback<OTPValidateResult, OTPValidateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<OTPValidateResult, OTPValidateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
