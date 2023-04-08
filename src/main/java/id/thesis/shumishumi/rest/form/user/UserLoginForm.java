@@ -13,5 +13,5 @@ public class UserLoginForm extends BaseForm {
 
     private String email;
     private String password;
-    private boolean isRemembered;
+    private boolean isRemembered = false;
 }

@@ -1,10 +1,10 @@
 package id.thesis.shumishumi.common.util.converter;
 
+import id.thesis.shumishumi.common.model.summary.ItemSummary;
+import id.thesis.shumishumi.common.model.summary.UserSummary;
 import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.rest.summary.ItemSummary;
-import id.thesis.shumishumi.rest.summary.UserSummary;
 
 import java.util.stream.Collectors;
 

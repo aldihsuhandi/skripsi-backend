@@ -2,6 +2,7 @@ package id.thesis.shumishumi.common.process.processor.item.wishlist;
 
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.common.model.summary.ItemSummary;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemWishlistVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
@@ -18,7 +19,6 @@ import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.ItemWishlistService;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.rest.summary.ItemSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

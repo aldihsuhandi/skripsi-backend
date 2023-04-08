@@ -1,8 +1,8 @@
 package id.thesis.shumishumi.core.result.item.wishlist;
 
 import id.thesis.shumishumi.common.model.context.PagingContext;
+import id.thesis.shumishumi.common.model.summary.ItemSummary;
 import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.rest.summary.ItemSummary;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

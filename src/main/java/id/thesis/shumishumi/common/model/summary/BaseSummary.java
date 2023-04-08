@@ -1,4 +1,4 @@
-package id.thesis.shumishumi.rest.summary;
+package id.thesis.shumishumi.common.model.summary;
 
 import lombok.Getter;
 import lombok.Setter;

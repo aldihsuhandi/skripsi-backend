@@ -3,8 +3,8 @@
  */
 package id.thesis.shumishumi.core.result.user;
 
+import id.thesis.shumishumi.common.model.summary.UserSummary;
 import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.rest.summary.UserSummary;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

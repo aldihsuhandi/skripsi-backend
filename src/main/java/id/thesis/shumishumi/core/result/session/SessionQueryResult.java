@@ -3,8 +3,8 @@
  */
 package id.thesis.shumishumi.core.result.session;
 
+import id.thesis.shumishumi.common.model.summary.SessionSummary;
 import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.rest.summary.SessionSummary;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -3,6 +3,7 @@
  */
 package id.thesis.shumishumi.common.process.processor.session;
 
+import id.thesis.shumishumi.common.model.summary.SessionSummary;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.process.processor.BaseProcessor;
@@ -12,7 +13,6 @@ import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.session.SessionQueryResult;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.rest.summary.SessionSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
