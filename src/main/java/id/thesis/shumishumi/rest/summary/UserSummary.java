@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
-
 @Getter
 @Setter
 @ToString
@@ -16,6 +14,5 @@ public class UserSummary extends BaseSummary {
     private String email;
     private String phoneNumber;
     private String username;
-    private Blob profilePicture;
     private String role;
 }

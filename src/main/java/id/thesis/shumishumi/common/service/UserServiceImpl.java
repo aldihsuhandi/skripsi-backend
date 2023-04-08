@@ -151,7 +151,12 @@ public class UserServiceImpl implements UserService {
         }
 
         List<UserDO> userDOS = userDAO.queryAll();
-        return userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+        return userDOS.stream().map(userDO -> {
+            UserVO vo = ViewObjectConverter.toViewObject(userDO);
+            composeRoleVO(userDO, vo);
+
+            return vo;
+        }).collect(Collectors.toList());
     }
 
     private void composeRoleVO(UserDO userDO, UserVO userVO) {

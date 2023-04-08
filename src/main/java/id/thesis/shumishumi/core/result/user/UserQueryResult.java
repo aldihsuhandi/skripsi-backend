@@ -1,11 +1,10 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.result.user;
 
-import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.rest.summary.UserSummary;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +17,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserQueryResult extends BaseResult {
-    private UserVO userInfo;
+    private UserSummary userInfo;
 }

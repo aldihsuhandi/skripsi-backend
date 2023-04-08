@@ -11,6 +11,7 @@ import id.thesis.shumishumi.rest.form.BaseForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 
@@ -22,6 +23,7 @@ public class NewControllerCallbackSupport {
     private static final String SESSION_ID = "sessionId";
     private static final String CLIENT_ID = "clientId";
     private static final String CLIENT_SECRET = "clientSecret";
+    private static final String CONTENT_TYPE = "Content-Type";
 
     public static <T extends BaseResult, R extends BaseRequest>
     ResponseEntity<T> process(HttpHeaders httpHeaders, BaseForm baseForm, NewControllerCallback<T, R> callback) {
@@ -41,6 +43,7 @@ public class NewControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
             T result = callback.doProcess(request);
 
@@ -59,6 +62,7 @@ public class NewControllerCallbackSupport {
 
             headers.set(TRACE_ID, TracerContext.getTraceId());
             headers.set(SESSION_ID, sessionId);
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
             LogUtil.exception(resultContext.getResultMsg(), e);
 

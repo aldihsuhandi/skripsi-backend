@@ -18,7 +18,7 @@ public interface UserFacade {
 
     UserLoginResult login(UserLoginRequest request);
 
-    UserUpdateResult update(UserUpdateRequest body);
+    UserUpdateResult update(UserUpdateRequest request);
 
     UserQueryResult query(UserQueryRequest request);
 

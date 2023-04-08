@@ -3,17 +3,18 @@
  */
 package id.thesis.shumishumi.common.process.processor.user;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.process.processor.BaseProcessor;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.common.process.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.UserService;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.converter.SummaryConverter;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.request.user.UserQueryRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.user.UserQueryResult;
+import id.thesis.shumishumi.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -34,7 +35,7 @@ public class UserQueryProcessor implements BaseProcessor {
 
         userVO.setPassword(FunctionUtil.hideString(userVO.getPassword()));
 
-        queryResult.setUserInfo(userVO);
+        queryResult.setUserInfo(SummaryConverter.toSummary(userVO));
     }
 
     private UserVO query(String key, String identifier) {
