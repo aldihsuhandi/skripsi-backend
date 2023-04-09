@@ -38,6 +38,8 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_USER_CROWD = "user_crowds";
     public static final String TABLE_ITEM_CROWD = "item_crowds";
     public static final String TABLE_IMAGE = "images";
+    public static final String TABLE_POST = "posts";
+    public static final String TABLE_POST_UPVOTE = "post_upvotes";
 
     // General
     public static final String GMT_CREATE = "gmt_create";
@@ -123,4 +125,14 @@ public class DatabaseConst implements Serializable {
     public static final String IMAGE_NAME = "image_name";
     public static final String IMAGE_EXT = "image_ext";
     public static final String IMAGE = "image";
+
+    // posts
+    public static final String POST_ID = "post_id";
+    public static final String POST_TITLE = "title";
+    public static final String POST_CONTENT = "content";
+    public static final String POST_IMAGES = "images";
+    public static final String POST_TAGS = "tags";
+
+    // up votes
+    public static final String UPVOTES_VALUE = "value";
 }
