@@ -47,6 +47,12 @@
     <bean id="wishlistQueryProcessor"
           class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistQueryProcessor"/>
 
+    <!--item image-->
+    <bean id="itemAddImageProcessor"
+          class="id.thesis.shumishumi.common.process.processor.item.image.ItemAddImageProcessor"/>
+    <bean id="itemRemoveImageProcessor"
+          class="id.thesis.shumishumi.common.process.processor.item.image.ItemRemoveImageProcessor"/>
+
     <!--image-->
     <bean id="imageDownloadProcessor"
           class="id.thesis.shumishumi.common.process.processor.image.ImageDownloadProcessor"/>
@@ -100,6 +106,12 @@
         </entry>
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalProcessor"/>
+        </entry>
+        <entry key="ITEM_IMAGE_ADD">
+            <ref bean="itemAddImageProcessor"/>
+        </entry>
+        <entry key="ITEM_IMAGE_REMOVE">
+            <ref bean="itemRemoveImageProcessor"/>
         </entry>
         <entry key="WISHLIST_ADD">
             <ref bean="wishlistAddProcessor"/>
@@ -157,6 +169,12 @@
           class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistRemoveValidator"/>
     <bean id="wishlistQueryValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistQueryValidator"/>
 
+    <!--item image-->
+    <bean id="itemAddImageValidator" class="id.thesis.shumishumi.core.validator.item.image.ItemAddImageValidator"/>
+    <bean id="itemRemoveImageValidator"
+          class="id.thesis.shumishumi.core.validator.item.image.ItemRemoveImageValidator"/>
+
+    <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
@@ -208,6 +226,12 @@
         </entry>
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalValidator"/>
+        </entry>
+        <entry key="ITEM_IMAGE_ADD">
+            <ref bean="itemAddImageValidator"/>
+        </entry>
+        <entry key="ITEM_IMAGE_REMOVE">
+            <ref bean="itemRemoveImageValidator"/>
         </entry>
         <entry key="WISHLIST_ADD">
             <ref bean="wishlistAddValidator"/>

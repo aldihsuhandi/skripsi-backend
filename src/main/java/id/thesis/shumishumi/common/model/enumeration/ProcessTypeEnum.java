@@ -28,6 +28,9 @@ public enum ProcessTypeEnum {
     RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", false),
     AUTOCOMPLETE("ITEM_AUTOCOMPLETE", "autocompleteItemValidator", "autocompleteItemProcessor", false),
 
+    ITEM_IMAGE_ADD("ITEM_IMAGE_ADD", "itemAddImageValidator", "itemAddImageProcessor", true),
+    ITEM_IMAGE_REMOVE("ITEM_IMAGE_REMOVE", "itemRemoveImageValidator", "itemRemoveImageProcessor", true),
+
     WISHLIST_ADD("WISHLIST_ADD", "wishlistAddValidator", "wishlistAddProcessor", true),
     WISHLIST_REMOVE("WISHLIST_REMOVE", "wishlistRemoveValidator", "wishlistRemoveProcessor", true),
     WISHLIST_QUERY("WISHLIST_QUERY", "wishlistQueryValidator", "wishlistQueryProcessor", true),

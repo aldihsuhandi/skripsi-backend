@@ -13,6 +13,7 @@ import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
@@ -139,6 +140,20 @@ public class ItemServiceImpl implements ItemService {
         ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(updateContext, category.getCategoryId(),
                 hobby.getHobbyId(), merchantLevel.getInterestLevelId(), itemVO.getItemId());
         itemDAO.update(daoRequest);
+    }
+
+    @Override
+    public void updatePicture(String itemId, List<String> itemImages) {
+
+        StringBuilder imageStr = new StringBuilder();
+        itemImages.forEach(image ->
+                imageStr.append(image).append(CommonConst.SEPARATOR));
+
+        ItemDAORequest daoRequest = new ItemDAORequest();
+        daoRequest.setItemId(itemId);
+        daoRequest.setItemImages(imageStr.substring(0, imageStr.length() - 1));
+
+        itemDAO.updateImage(daoRequest);
     }
 
     @Override
