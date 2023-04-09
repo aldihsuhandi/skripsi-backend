@@ -12,6 +12,7 @@ public enum ShumishumiErrorCodeEnum {
     USER_NOT_FOUND("USER_NOT_FOUND", "cannot find user by that identification"),
     USER_NOT_ACTIVE("USER_NOT_ACTIVE", "user is not active yet, please check your email"),
     USER_ROLE_INVALID("USER_ROLE_INVALID", "user role invalid"),
+    USER_INVALID("USER_INVALID", "the current user is not valid"),
 
     SESSION_EXPIRED("SESSION_EXPIRED", "session expired"),
 

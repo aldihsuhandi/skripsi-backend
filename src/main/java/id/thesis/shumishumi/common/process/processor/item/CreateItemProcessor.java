@@ -46,9 +46,6 @@ public class CreateItemProcessor implements BaseProcessor {
     private ItemService itemService;
 
     @Autowired
-    private ItemImageService itemImageService;
-
-    @Autowired
     private ItemCategoryService itemCategoryService;
 
     @Autowired
@@ -88,7 +85,6 @@ public class CreateItemProcessor implements BaseProcessor {
                 itemCategoryVO.getCategoryId(), hobbyVO.getHobbyId(), interestLevelVO.getInterestLevelId());
 
         itemService.create(innerRequest);
-        itemImageService.create(itemRequest.getItemImages(), innerRequest.getItemId());
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(innerRequest.getItemId())), false);
     }
 }

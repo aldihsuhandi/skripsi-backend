@@ -18,6 +18,7 @@ import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ClientDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.HobbyDO;
@@ -32,6 +33,9 @@ import id.thesis.shumishumi.foundation.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -194,6 +198,10 @@ public class ViewObjectConverter {
         itemVO.setApproved(itemDO.isApproved());
         itemVO.setGmtCreate(itemDO.getGmtCreate());
         itemVO.setGmtModified(itemDO.getGmtModified());
+
+        if (StringUtils.isNotEmpty(itemDO.getItemImages())) {
+            itemVO.setItemImages(List.of(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
 
         return itemVO;
     }

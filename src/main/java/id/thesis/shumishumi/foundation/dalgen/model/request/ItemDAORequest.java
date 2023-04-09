@@ -21,6 +21,7 @@ public class ItemDAORequest implements Serializable {
     private Long maxPrice;
     private String itemDescription;
     private Integer itemQuantity;
+    private String itemImages;
     private String categoryId;
     private String hobbyId;
     private String merchantId;

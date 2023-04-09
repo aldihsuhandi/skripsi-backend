@@ -5,15 +5,15 @@ import id.thesis.shumishumi.common.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.process.processor.BaseProcessor;
+import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.service.UserService;
-import id.thesis.shumishumi.core.request.BaseRequest;
-import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -49,8 +49,6 @@ public class UpdateItemProcessor implements BaseProcessor {
                 "this item is not from this user", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
         itemService.update(itemVO, updateRequest.getItemUpdateContext());
-        itemImageService.create(updateRequest.getItemUpdateContext().getAddedItemImages(), itemVO.getItemId());
-        itemImageService.delete(updateRequest.getItemUpdateContext().getRemovedItemImages());
 
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(itemVO.getItemId())), false);
     }

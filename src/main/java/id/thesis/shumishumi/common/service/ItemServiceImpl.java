@@ -3,8 +3,6 @@
  */
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
-import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
@@ -15,6 +13,8 @@ import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.service.HobbyService;
 import id.thesis.shumishumi.core.service.InterestLevelService;
@@ -205,7 +205,6 @@ public class ItemServiceImpl implements ItemService {
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
-        itemVO.setItemImages(itemImageService.queryByItemId(itemId));
     }
 
     private List<ItemVO> queryAllItem(boolean refreshAll) {
