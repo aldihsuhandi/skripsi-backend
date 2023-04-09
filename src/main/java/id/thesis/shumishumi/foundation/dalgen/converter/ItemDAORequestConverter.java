@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.foundation.dalgen.model.request.ItemDAORequest;
 
 import java.util.Date;
@@ -17,9 +18,19 @@ import java.util.Date;
  */
 public class ItemDAORequestConverter {
     public static ItemDAORequest toDAORequest(CreateItemInnerRequest request) {
+
+        StringBuilder imageBuilder = new StringBuilder();
+        request.getItemImages().forEach(image ->
+                imageBuilder.append(image).append(CommonConst.SEPARATOR));
+        String imageStr = "";
+        if (imageBuilder.length() != 0) {
+            imageStr = imageBuilder.substring(0, imageBuilder.length() - 1);
+        }
+
         ItemDAORequest itemDAORequest = new ItemDAORequest();
         itemDAORequest.setItemId(FunctionUtil.generateUUID());
         itemDAORequest.setItemName(request.getItemName());
+        itemDAORequest.setItemImages(imageStr);
         itemDAORequest.setItemDescription(request.getItemDescription());
         itemDAORequest.setItemPrice(request.getItemPrice());
         itemDAORequest.setItemQuantity(request.getItemQuantity());

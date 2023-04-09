@@ -26,7 +26,7 @@ public class ControllerCallbackSupport {
     private static final String CONTENT_TYPE = "Content-Type";
 
     public static <T extends BaseResult, R extends BaseRequest>
-    ResponseEntity<T> process(HttpHeaders httpHeaders, BaseForm baseForm, MediaType contentType, ControllerCallback<T, R> callback) {
+    ResponseEntity<T> process(HttpHeaders httpHeaders, BaseForm baseForm, MediaType acceptType, ControllerCallback<T, R> callback) {
         TracerContext.initialize();
 
         LogUtil.info(LOGGER, String.format("controller invoke request[form=%s]", baseForm));

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: CreateItemRequest.java, v 0.1 2023‐01‐16 4:22 PM Aldih Suhandi Exp $$
@@ -21,6 +23,7 @@ public class CreateItemRequest extends BaseRequest {
     private String itemName;
     private Long itemPrice;
     private String itemDescription;
+    private List<String> itemImages;
     private Integer itemQuantity;
     private String categoryName;
     private String hobbyName;

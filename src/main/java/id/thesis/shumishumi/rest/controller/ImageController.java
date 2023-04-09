@@ -7,12 +7,16 @@ import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.facade.ImageFacade;
 import id.thesis.shumishumi.core.request.image.ImageDownloadRequest;
+import id.thesis.shumishumi.core.request.image.ImageUploadRequest;
 import id.thesis.shumishumi.core.result.image.ImageDownloadResult;
+import id.thesis.shumishumi.core.result.image.ImageUploadResult;
 import id.thesis.shumishumi.rest.form.image.ImageDownloadForm;
+import id.thesis.shumishumi.rest.form.image.ImageUploadForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -70,5 +74,28 @@ public class ImageController extends BaseController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .headers(respHeaders)
                 .body(image);
+    }
+
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ImageUploadResult> upload(@RequestHeader HttpHeaders headers, @ModelAttribute ImageUploadForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<ImageUploadResult, ImageUploadRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public ImageUploadRequest composeRequest() {
+                ImageUploadRequest request = new ImageUploadRequest();
+                request.setImage(form.getImage());
+
+                return request;
+            }
+
+            @Override
+            public ImageUploadResult doProcess(ImageUploadRequest request) {
+                return imageFacade.upload(request);
+            }
+        });
     }
 }

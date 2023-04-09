@@ -21,6 +21,7 @@ public class ItemRequestConverter {
         CreateItemInnerRequest innerRequest = new CreateItemInnerRequest();
         innerRequest.setItemId(FunctionUtil.generateUUID());
         innerRequest.setItemName(request.getItemName());
+        innerRequest.setItemImages(request.getItemImages());
         innerRequest.setItemDescription(request.getItemDescription());
         innerRequest.setItemPrice(request.getItemPrice());
         innerRequest.setItemQuantity(request.getItemQuantity());

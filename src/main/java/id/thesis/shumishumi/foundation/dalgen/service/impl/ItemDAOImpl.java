@@ -200,6 +200,7 @@ public class ItemDAOImpl implements ItemDAO {
                 .addValueStatement(DatabaseConst.ITEM_ID)
                 .addValueStatement(DatabaseConst.ITEM_NAME)
                 .addValueStatement(DatabaseConst.ITEM_PRICE)
+                .addValueStatement(DatabaseConst.ITEM_IMAGE)
                 .addValueStatement(DatabaseConst.ITEM_DESCRIPTION)
                 .addValueStatement(DatabaseConst.ITEM_QUANTITY)
                 .addValueStatement(DatabaseConst.CATEGORY_ID)
@@ -217,13 +218,14 @@ public class ItemDAOImpl implements ItemDAO {
                 ps.setString(1, request.getItemId());
                 ps.setString(2, request.getItemName());
                 ps.setLong(3, request.getItemPrice());
-                ps.setString(4, request.getItemDescription());
-                ps.setInt(5, request.getItemQuantity());
-                ps.setString(6, request.getCategoryId());
-                ps.setString(7, request.getHobbyId());
-                ps.setString(8, request.getMerchantId());
-                ps.setString(9, request.getMerchantLevelId());
-                ps.setBoolean(10, request.isApproved());
+                ps.setString(4, request.getItemImages());
+                ps.setString(5, request.getItemDescription());
+                ps.setInt(6, request.getItemQuantity());
+                ps.setString(7, request.getCategoryId());
+                ps.setString(8, request.getHobbyId());
+                ps.setString(9, request.getMerchantId());
+                ps.setString(10, request.getMerchantLevelId());
+                ps.setBoolean(11, request.isApproved());
             });
         } catch (Exception e) {
             throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);

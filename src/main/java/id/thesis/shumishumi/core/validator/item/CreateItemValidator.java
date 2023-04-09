@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.core.validator.item;
@@ -7,9 +6,9 @@ package id.thesis.shumishumi.core.validator.item;
 import id.thesis.shumishumi.common.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
-import id.thesis.shumishumi.core.validator.BaseValidator;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.request.item.CreateItemRequest;
+import id.thesis.shumishumi.core.validator.BaseValidator;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -27,6 +26,8 @@ public class CreateItemValidator implements BaseValidator {
         ParamChecker.isNotEmpty(request.getItemName(), "Name", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         ParamChecker.isNotNull(request.getItemPrice(), "Price", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+
+        ParamChecker.isNotEmpty(request.getItemImages(), "images", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         ParamChecker.isNotNull(request.getItemQuantity(), "Quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 

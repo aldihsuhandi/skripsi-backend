@@ -9,16 +9,12 @@ import id.thesis.shumishumi.core.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.core.request.item.QueryItemRequest;
 import id.thesis.shumishumi.core.request.item.RecommendRequest;
 import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.core.request.item.image.ItemImageAddRequest;
-import id.thesis.shumishumi.core.request.item.image.ItemImageRemoveRequest;
 import id.thesis.shumishumi.core.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.core.result.item.CreateItemResult;
 import id.thesis.shumishumi.core.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.core.result.item.QueryItemResult;
 import id.thesis.shumishumi.core.result.item.RecommendResult;
 import id.thesis.shumishumi.core.result.item.UpdateItemResult;
-import id.thesis.shumishumi.core.result.item.image.ItemImageAddResult;
-import id.thesis.shumishumi.core.result.item.image.ItemImageRemoveResult;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -30,10 +26,6 @@ public interface ItemFacade {
     QueryItemResult query(QueryItemRequest request);
 
     UpdateItemResult update(UpdateItemRequest request);
-
-    ItemImageAddResult addImage(ItemImageAddRequest request);
-
-    ItemImageRemoveResult removeImage(ItemImageRemoveRequest request);
 
     @Deprecated
     ItemApprovalResult approve(ItemApprovalRequest request);
