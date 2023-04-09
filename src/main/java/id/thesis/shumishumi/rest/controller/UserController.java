@@ -1,9 +1,7 @@
 package id.thesis.shumishumi.rest.controller;
 
-import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.process.callback.ControllerCallback;
 import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.facade.UserFacade;
 import id.thesis.shumishumi.core.request.user.UserActivateRequest;
 import id.thesis.shumishumi.core.request.user.UserForgotPasswordRequest;
@@ -25,6 +23,7 @@ import id.thesis.shumishumi.rest.form.user.UserRegisterForm;
 import id.thesis.shumishumi.rest.form.user.UserUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +41,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResult> register(@RequestHeader HttpHeaders headers, @ModelAttribute UserRegisterForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserRegisterResult, UserRegisterRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserRegisterResult, UserRegisterRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -54,7 +53,7 @@ public class UserController extends BaseController {
                 request.setUsername(form.getUsername());
                 request.setEmail(form.getEmail());
                 request.setPhoneNumber(form.getPhoneNumber());
-                request.setProfilePicture(FunctionUtil.convertToBlob(form.getProfilePicture()));
+                request.setProfilePicture(form.getProfilePicture());
                 request.setPassword(form.getPassword());
                 request.setConfirmPassword(form.getConfirmPassword());
 
@@ -70,7 +69,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @RequestBody UserLoginForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -95,7 +94,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/update")
     public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @RequestBody UserUpdateForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -103,18 +102,17 @@ public class UserController extends BaseController {
 
             @Override
             public UserUpdateRequest composeRequest() {
-                UserUpdateContext context = new UserUpdateContext();
-                context.setUsername(form.getUsername());
-                context.setEmail(form.getEmail());
-                context.setPhoneNumber(form.getPhoneNumber());
-                context.setPassword(form.getPassword());
-                context.setProfilePicture(FunctionUtil.convertToBlob(form.getProfilePicture()));
-                context.setIsActive(form.isActive());
-                context.setIsDeleted(form.isDeleted());
 
                 UserUpdateRequest request = new UserUpdateRequest();
-                request.setPassword(form.getOldPassword());
-                request.setUserUpdateContext(context);
+                request.setOldPassword(form.getOldPassword());
+                request.setUsername(form.getUsername());
+                request.setEmail(form.getEmail());
+                request.setPhoneNumber(form.getPhoneNumber());
+                request.setPassword(form.getPassword());
+                request.setConfirmPassword(form.getConfirmPassword());
+                request.setProfilePicture(form.getProfilePicture());
+                request.setActive(form.isActive());
+                request.setDeleted(form.isDeleted());
 
                 return request;
             }
@@ -128,7 +126,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/info")
     public ResponseEntity<UserQueryResult> query(@RequestHeader HttpHeaders headers, @RequestBody UserInfoForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserQueryResult, UserQueryRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserQueryResult, UserQueryRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -152,7 +150,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/activate")
     public ResponseEntity<UserActivateResult> activate(@RequestHeader HttpHeaders headers, @RequestBody UserActivateForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserActivateResult, UserActivateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserActivateResult, UserActivateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -176,7 +174,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/forgot")
     public ResponseEntity<UserForgotPasswordResult> forgotPassword(@RequestHeader HttpHeaders headers, @RequestBody UserForgotPasswordForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<UserForgotPasswordResult, UserForgotPasswordRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserForgotPasswordResult, UserForgotPasswordRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

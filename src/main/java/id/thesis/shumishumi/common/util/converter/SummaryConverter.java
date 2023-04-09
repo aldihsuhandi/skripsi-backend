@@ -2,11 +2,8 @@ package id.thesis.shumishumi.common.util.converter;
 
 import id.thesis.shumishumi.common.model.summary.ItemSummary;
 import id.thesis.shumishumi.common.model.summary.UserSummary;
-import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
-
-import java.util.stream.Collectors;
 
 public class SummaryConverter {
     public static ItemSummary toSummary(ItemVO vo) {
@@ -17,14 +14,13 @@ public class SummaryConverter {
         summary.setItemId(vo.getItemId());
         summary.setItemName(vo.getItemName());
         summary.setItemPrice(vo.getItemPrice());
+        summary.setItemImages(vo.getItemImages());
         summary.setItemDescription(vo.getItemDescription());
         summary.setItemQuantity(vo.getItemQuantity());
         summary.setMerchantInfo(toSummary(vo.getMerchantInfo()));
         summary.setMerchantLevel(vo.getMerchantLevel().getInterestLevelName());
         summary.setHobby(vo.getHobby().getHobbyName());
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
-        summary.setItemImages(vo.getItemImages().stream().
-                map(ItemImageVO::getItemImage).collect(Collectors.toList()));
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
 
@@ -38,6 +34,7 @@ public class SummaryConverter {
         UserSummary userSummary = new UserSummary();
         userSummary.setEmail(vo.getEmail());
         userSummary.setUsername(vo.getUsername());
+        userSummary.setProfilePicture(vo.getProfilePicture());
         userSummary.setPhoneNumber(vo.getPhoneNumber());
         userSummary.setRole(vo.getRoleVO().getRoleName());
         userSummary.setGmtCreate(vo.getGmtCreate());

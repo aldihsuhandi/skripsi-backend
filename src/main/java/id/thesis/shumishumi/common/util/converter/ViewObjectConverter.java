@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.ClientVO;
 import id.thesis.shumishumi.common.model.viewobject.HobbyVO;
+import id.thesis.shumishumi.common.model.viewobject.ImageVO;
 import id.thesis.shumishumi.common.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
@@ -17,9 +18,11 @@ import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ClientDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.HobbyDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ImageDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.InterestLevelDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
@@ -30,6 +33,9 @@ import id.thesis.shumishumi.foundation.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -193,6 +199,10 @@ public class ViewObjectConverter {
         itemVO.setGmtCreate(itemDO.getGmtCreate());
         itemVO.setGmtModified(itemDO.getGmtModified());
 
+        if (StringUtils.isNotEmpty(itemDO.getItemImages())) {
+            itemVO.setItemImages(Arrays.asList(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+
         return itemVO;
     }
 
@@ -259,5 +269,20 @@ public class ViewObjectConverter {
         vo.setGmtModified(wishlistDo.getGmtModified());
 
         return vo;
+    }
+
+    public static ImageVO toViewObject(ImageDO imageDO) {
+        if (imageDO == null) {
+            return null;
+        }
+        ImageVO imageVO = new ImageVO();
+        imageVO.setImageId(imageDO.getImageId());
+        imageVO.setImageExt(imageDO.getImageExt());
+        imageVO.setImageName(imageDO.getImageName());
+        imageVO.setImage(imageDO.getImage());
+        imageVO.setGmtCreate(imageDO.getGmtCreate());
+        imageVO.setGmtModified(imageDO.getGmtModified());
+
+        return imageVO;
     }
 }

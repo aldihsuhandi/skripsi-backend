@@ -11,6 +11,7 @@ import id.thesis.shumishumi.rest.form.otp.OTPSendForm;
 import id.thesis.shumishumi.rest.form.otp.OTPValidateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class OTPController extends BaseController {
 
     @PostMapping("/send")
     public ResponseEntity<OTPSendResult> send(@RequestHeader HttpHeaders headers, @RequestBody OTPSendForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<OTPSendResult, OTPSendRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<OTPSendResult, OTPSendRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);
@@ -50,7 +51,7 @@ public class OTPController extends BaseController {
 
     @PostMapping("/validate")
     public ResponseEntity<OTPValidateResult> validate(@RequestHeader HttpHeaders headers, @RequestBody OTPValidateForm form) {
-        return ControllerCallbackSupport.process(headers, form, new ControllerCallback<OTPValidateResult, OTPValidateRequest>() {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<OTPValidateResult, OTPValidateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
                 authenticate(clientId, clientSecret);

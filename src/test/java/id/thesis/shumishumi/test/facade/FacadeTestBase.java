@@ -17,10 +17,10 @@ import id.thesis.shumishumi.foundation.dalgen.service.ClientDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ContentDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.CrowdDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.HobbyDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.ImageDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.InterestLevelDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemCategoryDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemDAO;
-import id.thesis.shumishumi.foundation.dalgen.service.ItemImageDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemWishlistDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.OtpDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.RoleDAO;
@@ -60,9 +60,9 @@ public class FacadeTestBase extends TestBase {
     @MockBean
     protected ItemCategoryDAO itemCategoryDAO;
     @MockBean
-    protected ItemImageDAO itemImageDAO;
-    @MockBean
     protected CrowdDAO crowdDAO;
+    @MockBean
+    protected ImageDAO imageDAO;
 
     @Autowired
     protected UserFetchService userFetchService;

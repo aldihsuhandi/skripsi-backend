@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.common.util.converter;
@@ -23,7 +22,6 @@ public class ItemRequestConverter {
         innerRequest.setItemId(FunctionUtil.generateUUID());
         innerRequest.setItemName(request.getItemName());
         innerRequest.setItemDescription(request.getItemDescription());
-        innerRequest.setItemImages(request.getItemImages());
         innerRequest.setItemPrice(request.getItemPrice());
         innerRequest.setItemQuantity(request.getItemQuantity());
         innerRequest.setCategoryId(categoryId);

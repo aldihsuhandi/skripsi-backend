@@ -1,13 +1,13 @@
 package id.thesis.shumishumi.foundation.dalgen.service.impl;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
-import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.CountMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.ItemDOMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.request.ItemDAORequest;
@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,7 @@ public class ItemDAOImpl implements ItemDAO {
     @Override
     public List<ItemDO> queryAll(ItemDAORequest request) {
 
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[request=%s]", request.toString()));
 
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
@@ -50,14 +51,14 @@ public class ItemDAOImpl implements ItemDAO {
 
         List<ItemDO> result = jdbcTemplate.query(statement, new ItemDOMapper());
 
-        LogUtil.info(DALGEN_LOGGER, "result", result);
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[result=%s]", result));
 
         return result;
     }
 
     @Override
     public ItemDO queryById(ItemDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryById[request=%s]", request.toString()));
 
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
@@ -70,18 +71,18 @@ public class ItemDAOImpl implements ItemDAO {
         LogUtil.info(DAO_LOGGER, "statement", statement);
 
         if (itemDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "result:[]");
+            LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryById[result=[]]"));
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, "result", itemDOS.get(0));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryById[result=%s]", itemDOS.get(0).toString()));
 
         return itemDOS.get(0);
     }
 
     @Override
     public List<ItemDO> query(ItemDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#query[request=%s]", request.toString()));
 
         StatementBuilder builder = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL);
@@ -173,7 +174,7 @@ public class ItemDAOImpl implements ItemDAO {
             ps.setBoolean(indx++, request.isApproved());
         }, new ItemDOMapper());
 
-        LogUtil.info(DALGEN_LOGGER, "result", result);
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#query[result=%s]", result));
 
         return result;
     }
@@ -187,14 +188,14 @@ public class ItemDAOImpl implements ItemDAO {
 
         int result = jdbcTemplate.query(statement, new CountMapper()).get(0);
 
-        LogUtil.info(DALGEN_LOGGER, "result", result);
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#count[result=%d]", result));
 
         return result;
     }
 
     @Override
     public void create(ItemDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#create[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.ITEM_ID)
                 .addValueStatement(DatabaseConst.ITEM_NAME)
@@ -233,7 +234,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public void update(ItemDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#update[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.ITEM_NAME)
                 .addSetStatement(DatabaseConst.ITEM_PRICE)
@@ -269,8 +270,32 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    public void updateImage(ItemDAORequest request) {
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#updateImage[request=%s]", request));
+        String statement = new StatementBuilder(DatabaseConst.TABLE_IMAGE, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.ITEM_IMAGE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+        LogUtil.info(DAO_LOGGER, "statement", statement);
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, request.getItemImages());
+                ps.setTimestamp(2, new Timestamp(new Date().getTime()));
+                ps.setString(3, request.getItemId());
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
     public void approve(ItemDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#approve[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_APPROVED)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_ID, DatabaseConst.COMPARATOR_EQUAL)
@@ -296,7 +321,7 @@ public class ItemDAOImpl implements ItemDAO {
         pagingContext.setPageNumber(1);
         pagingContext.setNumberOfItem(15);
 
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s,pagingContext=%s", request.toString(), pagingContext.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[request=%s,pagingContext=%s]", request.toString(), pagingContext.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_ITEM, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.ITEM_NAME)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.ITEM_NAME, DatabaseConst.COMPARATOR_LIKE)
@@ -310,7 +335,7 @@ public class ItemDAOImpl implements ItemDAO {
                         -> ps.setString(1, itemName), new ItemDOMapper())
                 .stream().map(ItemDO::getItemName).collect(Collectors.toList());
 
-        LogUtil.info(DALGEN_LOGGER, String.format("result=%s", result));
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[result=%s]", result));
 
         return result;
     }

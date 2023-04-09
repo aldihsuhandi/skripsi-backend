@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.core.request.item;
@@ -8,9 +7,6 @@ import id.thesis.shumishumi.core.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Blob;
-import java.util.List;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -29,5 +25,4 @@ public class CreateItemRequest extends BaseRequest {
     private String categoryName;
     private String hobbyName;
     private String merchantInterestLevel;
-    private List<Blob> itemImages;
 }

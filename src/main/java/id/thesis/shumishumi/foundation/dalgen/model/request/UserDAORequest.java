@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -24,7 +23,7 @@ public class UserDAORequest implements Serializable {
     private String email;
     private String username;
     private String phoneNumber;
-    private Blob profilePicture;
+    private String profilePicture;
     private String password;
     private boolean isActive;
     private boolean isDeleted;

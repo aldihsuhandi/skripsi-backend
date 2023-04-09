@@ -12,6 +12,7 @@ public enum ShumishumiErrorCodeEnum {
     USER_NOT_FOUND("USER_NOT_FOUND", "cannot find user by that identification"),
     USER_NOT_ACTIVE("USER_NOT_ACTIVE", "user is not active yet, please check your email"),
     USER_ROLE_INVALID("USER_ROLE_INVALID", "user role invalid"),
+    USER_INVALID("USER_INVALID", "the current user is not valid"),
 
     SESSION_EXPIRED("SESSION_EXPIRED", "session expired"),
 
@@ -20,6 +21,8 @@ public enum ShumishumiErrorCodeEnum {
 
     ITEM_NOT_FOUND("ITEM_NOT_FOUND", "item not found"),
     ITEM_ALREADY_APPROVED("ITEM_ALREADY_APPROVED", "item already approved"),
+
+    IMAGE_NOT_FOUND("IMAGE_NOT_FOUND", "cannot found the image you trying to download"),
 
     OAUTH_ERROR("OAUTH_ERROR", "API Authentication error");
     private final String errorCode;

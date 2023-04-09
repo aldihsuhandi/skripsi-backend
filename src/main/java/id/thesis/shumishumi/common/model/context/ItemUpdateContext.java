@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
@@ -18,6 +15,4 @@ public class ItemUpdateContext {
     private String categoryName;
     private String hobbyName;
     private String merchantInterestLevel;
-    private List<Blob> addedItemImages;
-    private List<String> removedItemImages;
 }

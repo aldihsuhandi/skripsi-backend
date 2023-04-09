@@ -17,11 +17,11 @@ public class ItemVO extends BaseVO {
     private Long itemPrice;
     private String itemDescription;
     private Integer itemQuantity;
+    private List<String> itemImages;
     private ItemCategoryVO itemCategory;
     private HobbyVO hobby;
     private UserVO merchantInfo;
     private InterestLevelVO merchantLevel;
     private boolean isDeleted;
     private boolean isApproved;
-    private List<ItemImageVO> itemImages;
 }
