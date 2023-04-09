@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
@@ -18,11 +15,11 @@ public class ItemDO extends BaseDO {
     private Long itemPrice;
     private String itemDescription;
     private Integer itemQuantity;
+    private String itemImages;
     private String categoryId;
     private String hobbyId;
     private String merchantId;
     private String merchantLevelId;
     private boolean isDeleted;
     private boolean isApproved;
-    private List<Blob> itemImages;
 }

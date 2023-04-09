@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.constant.CommonConst;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.request.otp.OTPSendInnerRequest;

@@ -5,7 +5,7 @@
 package id.thesis.shumishumi.foundation.dalgen.model.mapper;
 
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

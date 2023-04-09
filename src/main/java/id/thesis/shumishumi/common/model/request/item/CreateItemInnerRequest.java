@@ -1,5 +1,4 @@
 /**
- * 
  *
  */
 package id.thesis.shumishumi.common.model.request.item;
@@ -8,9 +7,6 @@ import id.thesis.shumishumi.common.model.request.BaseInnerRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Blob;
-import java.util.List;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -30,6 +26,5 @@ public class CreateItemInnerRequest extends BaseInnerRequest {
     private String categoryId;
     private String hobbyId;
     private String merchantLevelId;
-    private List<Blob> itemImages;
     private String merchantId;
 }

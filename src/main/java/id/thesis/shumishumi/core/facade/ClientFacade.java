@@ -4,8 +4,8 @@
  */
 package id.thesis.shumishumi.core.facade;
 
-import id.thesis.shumishumi.rest.request.client.ClientAuthRequest;
-import id.thesis.shumishumi.rest.result.client.ClientAuthResult;
+import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.core.result.client.ClientAuthResult;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

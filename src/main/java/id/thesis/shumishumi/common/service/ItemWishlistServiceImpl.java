@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.converter.ViewObjectConverter;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.viewobject.ItemWishlistVO;
 import id.thesis.shumishumi.core.service.ItemWishlistService;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemWishlistDAO;

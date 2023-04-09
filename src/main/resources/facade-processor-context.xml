@@ -9,42 +9,53 @@
 
     <!--processors-->
     <!--user-->
-    <bean id="userRegisterProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserRegisterProcessor"/>
-    <bean id="userLoginProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserLoginProcessor"/>
-    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserUpdateProcessor"/>
-    <bean id="userQueryProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserQueryProcessor"/>
-    <bean id="userActivateProcessor" class="id.thesis.shumishumi.core.process.processor.user.UserActivateProcessor"/>
+    <bean id="userRegisterProcessor" class="id.thesis.shumishumi.common.process.processor.user.UserRegisterProcessor"/>
+    <bean id="userLoginProcessor" class="id.thesis.shumishumi.common.process.processor.user.UserLoginProcessor"/>
+    <bean id="userUpdateProcessor" class="id.thesis.shumishumi.common.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userQueryProcessor" class="id.thesis.shumishumi.common.process.processor.user.UserQueryProcessor"/>
+    <bean id="userActivateProcessor" class="id.thesis.shumishumi.common.process.processor.user.UserActivateProcessor"/>
     <bean id="userForgotPasswordProcessor"
-          class="id.thesis.shumishumi.core.process.processor.user.UserForgotPasswordProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.user.UserForgotPasswordProcessor"/>
 
     <!--session-->
-    <bean id="sessionQueryProcessor" class="id.thesis.shumishumi.core.process.processor.session.SessionQueryProcessor"/>
+    <bean id="sessionQueryProcessor"
+          class="id.thesis.shumishumi.common.process.processor.session.SessionQueryProcessor"/>
     <bean id="sessionLogoutProcessor"
-          class="id.thesis.shumishumi.core.process.processor.session.SessionLogoutProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.session.SessionLogoutProcessor"/>
 
     <!--client-->
-    <bean id="clientAuthProcessor" class="id.thesis.shumishumi.core.process.processor.client.ClientAuthProcessor"/>
+    <bean id="clientAuthProcessor" class="id.thesis.shumishumi.common.process.processor.client.ClientAuthProcessor"/>
 
     <!--otp-->
-    <bean id="otpSendProcessor" class="id.thesis.shumishumi.core.process.processor.otp.OtpSendProcessor"/>
-    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.core.process.processor.otp.OtpValidateProcessor"/>
+    <bean id="otpSendProcessor" class="id.thesis.shumishumi.common.process.processor.otp.OtpSendProcessor"/>
+    <bean id="otpValidateProcessor" class="id.thesis.shumishumi.common.process.processor.otp.OtpValidateProcessor"/>
 
     <!--item-->
-    <bean id="createItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.CreateItemProcessor"/>
-    <bean id="queryItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.QueryItemProcessor"/>
-    <bean id="updateItemProcessor" class="id.thesis.shumishumi.core.process.processor.item.UpdateItemProcessor"/>
-    <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.core.process.processor.item.ItemApprovalProcessor"/>
-    <bean id="recommendProcessor" class="id.thesis.shumishumi.core.process.processor.item.RecommendProcessor"/>
+    <bean id="createItemProcessor" class="id.thesis.shumishumi.common.process.processor.item.CreateItemProcessor"/>
+    <bean id="queryItemProcessor" class="id.thesis.shumishumi.common.process.processor.item.QueryItemProcessor"/>
+    <bean id="updateItemProcessor" class="id.thesis.shumishumi.common.process.processor.item.UpdateItemProcessor"/>
+    <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.common.process.processor.item.ItemApprovalProcessor"/>
+    <bean id="recommendProcessor" class="id.thesis.shumishumi.common.process.processor.item.RecommendProcessor"/>
     <bean id="autocompleteItemProcessor"
-          class="id.thesis.shumishumi.core.process.processor.item.AutocompleteItemProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.item.AutocompleteItemProcessor"/>
 
     <!--item wishlist-->
     <bean id="wishlistAddProcessor"
-          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistAddProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistAddProcessor"/>
     <bean id="wishlistRemoveProcessor"
-          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistRemoveProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistRemoveProcessor"/>
     <bean id="wishlistQueryProcessor"
-          class="id.thesis.shumishumi.core.process.processor.item.wishlist.WishlistQueryProcessor"/>
+          class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistQueryProcessor"/>
+
+    <!--item image-->
+    <bean id="itemAddImageProcessor"
+          class="id.thesis.shumishumi.common.process.processor.item.image.ItemAddImageProcessor"/>
+    <bean id="itemRemoveImageProcessor"
+          class="id.thesis.shumishumi.common.process.processor.item.image.ItemRemoveImageProcessor"/>
+
+    <!--image-->
+    <bean id="imageDownloadProcessor"
+          class="id.thesis.shumishumi.common.process.processor.image.ImageDownloadProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -96,6 +107,12 @@
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalProcessor"/>
         </entry>
+        <entry key="ITEM_IMAGE_ADD">
+            <ref bean="itemAddImageProcessor"/>
+        </entry>
+        <entry key="ITEM_IMAGE_REMOVE">
+            <ref bean="itemRemoveImageProcessor"/>
+        </entry>
         <entry key="WISHLIST_ADD">
             <ref bean="wishlistAddProcessor"/>
         </entry>
@@ -110,6 +127,10 @@
         </entry>
         <entry key="ITEM_AUTOCOMPLETE">
             <ref bean="autocompleteItemProcessor"/>
+        </entry>
+
+        <entry key="IMAGE_DOWNLOAD">
+            <ref bean="imageDownloadProcessor"/>
         </entry>
     </util:map>
 
@@ -147,6 +168,14 @@
     <bean id="wishlistRemoveValidator"
           class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistRemoveValidator"/>
     <bean id="wishlistQueryValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistQueryValidator"/>
+
+    <!--item image-->
+    <bean id="itemAddImageValidator" class="id.thesis.shumishumi.core.validator.item.image.ItemAddImageValidator"/>
+    <bean id="itemRemoveImageValidator"
+          class="id.thesis.shumishumi.core.validator.item.image.ItemRemoveImageValidator"/>
+
+    <!--image-->
+    <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -198,6 +227,12 @@
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalValidator"/>
         </entry>
+        <entry key="ITEM_IMAGE_ADD">
+            <ref bean="itemAddImageValidator"/>
+        </entry>
+        <entry key="ITEM_IMAGE_REMOVE">
+            <ref bean="itemRemoveImageValidator"/>
+        </entry>
         <entry key="WISHLIST_ADD">
             <ref bean="wishlistAddValidator"/>
         </entry>
@@ -212,6 +247,10 @@
         </entry>
         <entry key="ITEM_AUTOCOMPLETE">
             <ref bean="recommendValidator"/>
+        </entry>
+
+        <entry key="IMAGE_DOWNLOAD">
+            <ref bean="imageDownloadValidator"/>
         </entry>
     </util:map>
 </beans>

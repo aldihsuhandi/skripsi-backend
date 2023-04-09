@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
 import java.util.List;
 
 @Getter
@@ -22,5 +21,5 @@ public class ItemSummary extends BaseSummary {
     private String hobby;
     private UserSummary merchantInfo;
     private String merchantLevel;
-    private List<Blob> itemImages;
+    private List<String> itemImages;
 }

@@ -4,10 +4,10 @@
  */
 package id.thesis.shumishumi.core.facade;
 
-import id.thesis.shumishumi.rest.request.session.SessionLogoutRequest;
-import id.thesis.shumishumi.rest.request.session.SessionQueryRequest;
-import id.thesis.shumishumi.rest.result.session.SessionLogoutResult;
-import id.thesis.shumishumi.rest.result.session.SessionQueryResult;
+import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
+import id.thesis.shumishumi.core.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.core.result.session.SessionQueryResult;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

@@ -3,14 +3,14 @@
  */
 package id.thesis.shumishumi.foundation.dalgen.service.impl;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.UserDOMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.request.UserDAORequest;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
@@ -96,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(1, daoRequest.getEmail());
                 ps.setString(2, daoRequest.getUsername());
                 ps.setString(3, daoRequest.getPhoneNumber());
-                ps.setBlob(4, daoRequest.getProfilePicture());
+                ps.setString(4, daoRequest.getProfilePicture());
                 ps.setString(5, daoRequest.getPassword());
                 ps.setBoolean(6, daoRequest.isActive());
                 ps.setBoolean(7, daoRequest.isDeleted());
@@ -123,7 +123,7 @@ public class UserDAOImpl implements UserDAO {
         int result;
         try {
             result = jdbcTemplate.update(statement, ps -> {
-                ps.setBlob(1, daoRequest.getProfilePicture());
+                ps.setString(1, daoRequest.getProfilePicture());
                 ps.setString(2, daoRequest.getUserId());
             });
         } catch (Exception e) {

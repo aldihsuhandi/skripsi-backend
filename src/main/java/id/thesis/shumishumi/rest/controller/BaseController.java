@@ -1,15 +1,13 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.rest.controller;
 
 import id.thesis.shumishumi.common.exception.ShumishumiException;
-import id.thesis.shumishumi.common.model.context.Headers;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.core.facade.ClientFacade;
-import id.thesis.shumishumi.rest.request.client.ClientAuthRequest;
-import id.thesis.shumishumi.rest.result.client.ClientAuthResult;
+import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.core.result.client.ClientAuthResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -20,14 +18,10 @@ public class BaseController {
     @Autowired
     private ClientFacade clientFacade;
 
-    public void authenticate(Headers headers) throws ShumishumiException {
-        if (headers == null) {
-            throw new ShumishumiException("API Authentication failed", ShumishumiErrorCodeEnum.OAUTH_ERROR);
-        }
-
+    public void authenticate(String clientId, String clientSecret) throws ShumishumiException {
         ClientAuthRequest request = new ClientAuthRequest();
-        request.setClientId(headers.getClientId());
-        request.setClientSecret(headers.getClientSecret());
+        request.setClientId(clientId);
+        request.setClientSecret(clientSecret);
 
         ClientAuthResult result = clientFacade.authenticate(request);
 

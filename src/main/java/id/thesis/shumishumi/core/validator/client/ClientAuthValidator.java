@@ -7,8 +7,8 @@ package id.thesis.shumishumi.core.validator.client;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

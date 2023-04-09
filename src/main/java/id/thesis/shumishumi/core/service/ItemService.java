@@ -24,6 +24,8 @@ public interface ItemService {
 
     void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext);
 
+    void updatePicture(String itemId, List<String> itemImages);
+
     void approveItem(String itemId);
 
     void refreshCache(List<String> itemIds, boolean refreshAll);

@@ -3,8 +3,6 @@
  */
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
@@ -15,11 +13,13 @@ import id.thesis.shumishumi.common.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.constant.CommonConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.service.HobbyService;
 import id.thesis.shumishumi.core.service.InterestLevelService;
 import id.thesis.shumishumi.core.service.ItemCategoryService;
-import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.foundation.dalgen.converter.ItemDAORequestConverter;
@@ -51,9 +51,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemCategoryService itemCategoryService;
-
-    @Autowired
-    private ItemImageService itemImageService;
 
     @Autowired
     private HobbyService hobbyService;
@@ -146,6 +143,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void updatePicture(String itemId, List<String> itemImages) {
+
+        StringBuilder imageStr = new StringBuilder();
+        itemImages.forEach(image ->
+                imageStr.append(image).append(CommonConst.SEPARATOR));
+
+        String itemImagesStr = "";
+        if (imageStr.length() != 0) {
+            itemImagesStr = imageStr.substring(0, imageStr.length() - 1);
+        }
+
+        ItemDAORequest daoRequest = new ItemDAORequest();
+        daoRequest.setItemId(itemId);
+        daoRequest.setItemImages(itemImagesStr);
+
+        itemDAO.updateImage(daoRequest);
+    }
+
+    @Override
     public void approveItem(String itemId) {
         ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(itemId);
         itemDAO.approve(daoRequest);
@@ -205,7 +221,6 @@ public class ItemServiceImpl implements ItemService {
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
-        itemVO.setItemImages(itemImageService.queryByItemId(itemId));
     }
 
     private List<ItemVO> queryAllItem(boolean refreshAll) {

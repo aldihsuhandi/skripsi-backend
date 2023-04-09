@@ -1,15 +1,14 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.validator.user;
 
-import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.ParamChecker;
+import id.thesis.shumishumi.core.request.BaseRequest;
+import id.thesis.shumishumi.core.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.rest.request.BaseRequest;
-import id.thesis.shumishumi.rest.request.user.UserUpdateRequest;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -23,13 +22,10 @@ public class UserUpdateValidator implements BaseValidator {
 
         UserUpdateRequest updateRequest = (UserUpdateRequest) baseRequest;
 
-        ParamChecker.isNotEmpty(updateRequest.getPassword(), "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-        ParamChecker.isNotNull(updateRequest.getUserUpdateContext(), "userUpdateContext", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-
-        UserUpdateContext updateContext = updateRequest.getUserUpdateContext();
-        checkEmail(updateContext.getEmail());
-        checkPassword(updateContext.getPassword());
-        checkPhoneNumber(updateContext.getPhoneNumber());
+        ParamChecker.isNotEmpty(updateRequest.getOldPassword(), "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        checkEmail(updateRequest.getEmail());
+        checkPassword(updateRequest.getPassword(), updateRequest.getConfirmPassword());
+        checkPhoneNumber(updateRequest.getPhoneNumber());
     }
 
     private void checkEmail(String email) {
@@ -42,13 +38,14 @@ public class UserUpdateValidator implements BaseValidator {
                 "email", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 
-    private void checkPassword(String password) {
+    private void checkPassword(String password, String confirm) {
         if (password == null || password.isEmpty()) {
             return;
         }
 
         ParamChecker.isExpected(password.length() >= 8, "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
         ParamChecker.isExpected(password, "^(?:[\\d,\\/().]*[a-zA-Z][a-zA-Z\\d,\\/().]*)?$", "password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isExpected(StringUtils.equals(password, confirm), "confirm password", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 
     private void checkPhoneNumber(String phoneNumber) {

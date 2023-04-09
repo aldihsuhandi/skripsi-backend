@@ -3,13 +3,13 @@
  */
 package id.thesis.shumishumi.common.service;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.request.user.RoleChangeInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.core.service.RoleService;
 import id.thesis.shumishumi.core.service.UserService;
@@ -59,7 +59,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateProfilePicture(UserUpdateInnerRequest request) {
-        UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
+        UserDAORequest daoRequest = new UserDAORequest();
+        daoRequest.setUserId(request.getUserId());
+        daoRequest.setProfilePicture(request.getUserUpdateContext().getProfilePicture());
+
         userDAO.updateProfilePicture(daoRequest);
     }
 
@@ -148,7 +151,12 @@ public class UserServiceImpl implements UserService {
         }
 
         List<UserDO> userDOS = userDAO.queryAll();
-        return userDOS.stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+        return userDOS.stream().map(userDO -> {
+            UserVO vo = ViewObjectConverter.toViewObject(userDO);
+            composeRoleVO(userDO, vo);
+
+            return vo;
+        }).collect(Collectors.toList());
     }
 
     private void composeRoleVO(UserDO userDO, UserVO userVO) {

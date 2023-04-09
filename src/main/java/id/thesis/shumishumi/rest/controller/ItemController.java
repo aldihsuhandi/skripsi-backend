@@ -1,25 +1,36 @@
 package id.thesis.shumishumi.rest.controller;
 
+import id.thesis.shumishumi.common.process.callback.ControllerCallback;
+import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.core.facade.ItemFacade;
-import id.thesis.shumishumi.core.process.callback.ControllerCallback;
-import id.thesis.shumishumi.core.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.rest.request.HtmlRequest;
-import id.thesis.shumishumi.rest.request.item.AutocompleteItemRequest;
-import id.thesis.shumishumi.rest.request.item.CreateItemRequest;
-import id.thesis.shumishumi.rest.request.item.ItemApprovalRequest;
-import id.thesis.shumishumi.rest.request.item.QueryItemRequest;
-import id.thesis.shumishumi.rest.request.item.RecommendRequest;
-import id.thesis.shumishumi.rest.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.rest.result.BaseResult;
-import id.thesis.shumishumi.rest.result.item.AutocompleteItemResult;
-import id.thesis.shumishumi.rest.result.item.CreateItemResult;
-import id.thesis.shumishumi.rest.result.item.ItemApprovalResult;
-import id.thesis.shumishumi.rest.result.item.QueryItemResult;
-import id.thesis.shumishumi.rest.result.item.RecommendResult;
-import id.thesis.shumishumi.rest.result.item.UpdateItemResult;
+import id.thesis.shumishumi.core.request.item.AutocompleteItemRequest;
+import id.thesis.shumishumi.core.request.item.CreateItemRequest;
+import id.thesis.shumishumi.core.request.item.QueryItemRequest;
+import id.thesis.shumishumi.core.request.item.RecommendRequest;
+import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.core.request.item.image.ItemImageAddRequest;
+import id.thesis.shumishumi.core.request.item.image.ItemImageRemoveRequest;
+import id.thesis.shumishumi.core.result.item.AutocompleteItemResult;
+import id.thesis.shumishumi.core.result.item.CreateItemResult;
+import id.thesis.shumishumi.core.result.item.QueryItemResult;
+import id.thesis.shumishumi.core.result.item.RecommendResult;
+import id.thesis.shumishumi.core.result.item.UpdateItemResult;
+import id.thesis.shumishumi.core.result.item.image.ItemImageAddResult;
+import id.thesis.shumishumi.core.result.item.image.ItemImageRemoveResult;
+import id.thesis.shumishumi.rest.form.item.CreateItemForm;
+import id.thesis.shumishumi.rest.form.item.ItemAutocompleteForm;
+import id.thesis.shumishumi.rest.form.item.QueryItemForm;
+import id.thesis.shumishumi.rest.form.item.RecommendForm;
+import id.thesis.shumishumi.rest.form.item.UpdateItemForm;
+import id.thesis.shumishumi.rest.form.item.image.AddItemImageForm;
+import id.thesis.shumishumi.rest.form.item.image.RemoveItemImageForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,123 +41,171 @@ public class ItemController extends BaseController {
     @Autowired
     private ItemFacade itemFacade;
 
-
     @PostMapping("/create")
-    public CreateItemResult create(@RequestBody HtmlRequest<CreateItemRequest> request) {
-        return (CreateItemResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<CreateItemResult> create(@RequestHeader HttpHeaders headers, @RequestBody CreateItemForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<CreateItemResult, CreateItemRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new CreateItemResult();
+            public CreateItemRequest composeRequest() {
+                CreateItemRequest request = new CreateItemRequest();
+                request.setItemName(form.getItemName());
+                request.setItemPrice(form.getItemPrice());
+                request.setItemDescription(form.getItemDescription());
+                request.setItemQuantity(form.getItemQuantity());
+                request.setCategoryName(form.getCategoryName());
+                request.setHobbyName(form.getHobbyName());
+                request.setMerchantInterestLevel(form.getMerchantInterestLevel());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return itemFacade.create(request.getBody());
+            public CreateItemResult doProcess(CreateItemRequest request) {
+                return itemFacade.create(request);
             }
         });
     }
 
     @PostMapping("/query")
-    public QueryItemResult query(@RequestBody HtmlRequest<QueryItemRequest> request) {
-        return (QueryItemResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<QueryItemResult> query(@RequestHeader HttpHeaders headers, @RequestBody QueryItemForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<QueryItemResult, QueryItemRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new QueryItemResult();
+            public QueryItemRequest composeRequest() {
+                QueryItemRequest request = new QueryItemRequest();
+                request.setItemFilterContext(form.getItemFilterContext());
+                request.setNumberOfItem(form.getNumberOfItem());
+                request.setPageNumber(form.getPageNumber());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return itemFacade.query(request.getBody());
+            public QueryItemResult doProcess(QueryItemRequest request) {
+                return itemFacade.query(request);
             }
         });
     }
 
     @PostMapping("/update")
-    public UpdateItemResult update(@RequestBody HtmlRequest<UpdateItemRequest> request) {
-        return (UpdateItemResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<UpdateItemResult> update(@RequestHeader HttpHeaders headers, @RequestBody UpdateItemForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UpdateItemResult, UpdateItemRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new UpdateItemResult();
+            public UpdateItemRequest composeRequest() {
+                UpdateItemRequest request = new UpdateItemRequest();
+                request.setItemId(form.getItemId());
+                request.setItemUpdateContext(form.getItemUpdateContext());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return null;
+            public UpdateItemResult doProcess(UpdateItemRequest request) {
+                return itemFacade.update(request);
             }
         });
     }
 
-    @PostMapping("/approve")
-    public ItemApprovalResult approve(@RequestBody HtmlRequest<ItemApprovalRequest> request) {
-        return (ItemApprovalResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    @PostMapping("/image/add")
+    public ResponseEntity<ItemImageAddResult> addImage(@RequestHeader HttpHeaders headers, @RequestBody AddItemImageForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<ItemImageAddResult, ItemImageAddRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new ItemApprovalResult();
+            public ItemImageAddRequest composeRequest() {
+                ItemImageAddRequest request = new ItemImageAddRequest();
+                request.setItemId(form.getItemIds());
+                request.setImage(form.getImage());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return itemFacade.approve(request.getBody());
+            public ItemImageAddResult doProcess(ItemImageAddRequest request) {
+                return itemFacade.addImage(request);
+            }
+        });
+    }
+
+    @PostMapping("/image/remove")
+    public ResponseEntity<ItemImageRemoveResult> removeImage(@RequestHeader HttpHeaders headers, @RequestBody RemoveItemImageForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<ItemImageRemoveResult, ItemImageRemoveRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public ItemImageRemoveRequest composeRequest() {
+                ItemImageRemoveRequest request = new ItemImageRemoveRequest();
+                request.setImageIds(form.getImageIds());
+                request.setItemId(form.getItemId());
+
+                return request;
+            }
+
+            @Override
+            public ItemImageRemoveResult doProcess(ItemImageRemoveRequest request) {
+                return itemFacade.removeImage(request);
             }
         });
     }
 
     @PostMapping("/recommend")
-    public RecommendResult recommend(@RequestBody HtmlRequest<RecommendRequest> request) {
-        return (RecommendResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<RecommendResult> recommend(@RequestHeader HttpHeaders headers, @RequestBody RecommendForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<RecommendResult, RecommendRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new RecommendResult();
+            public RecommendRequest composeRequest() {
+                return new RecommendRequest();
             }
 
             @Override
-            public BaseResult doProcess() {
-                return itemFacade.recommend(request.getBody());
+            public RecommendResult doProcess(RecommendRequest request) {
+                return itemFacade.recommend(request);
             }
         });
     }
 
     @PostMapping("/autocomplete")
-    public AutocompleteItemResult autocomplete(@RequestBody HtmlRequest<AutocompleteItemRequest> request) {
-        return (AutocompleteItemResult) ControllerCallbackSupport.process(request.getHead(), request.getBody(), new ControllerCallback() {
+    public ResponseEntity<AutocompleteItemResult> autocomplete(@RequestHeader HttpHeaders headers, @RequestBody ItemAutocompleteForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<AutocompleteItemResult, AutocompleteItemRequest>() {
             @Override
-            public void authCheck() {
-                authenticate(request.getHead());
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
             }
 
             @Override
-            public BaseResult initResult() {
-                return new AutocompleteItemResult();
+            public AutocompleteItemRequest composeRequest() {
+                AutocompleteItemRequest request = new AutocompleteItemRequest();
+                request.setAutocomplete(form.getAutocomplete());
+
+                return request;
             }
 
             @Override
-            public BaseResult doProcess() {
-                return itemFacade.autocomplete(request.getBody());
+            public AutocompleteItemResult doProcess(AutocompleteItemRequest request) {
+                return itemFacade.autocomplete(request);
             }
         });
     }

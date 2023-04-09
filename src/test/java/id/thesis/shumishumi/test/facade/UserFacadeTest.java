@@ -1,24 +1,23 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
-import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.core.facade.UserFacade;
+import id.thesis.shumishumi.core.request.user.UserActivateRequest;
+import id.thesis.shumishumi.core.request.user.UserForgotPasswordRequest;
+import id.thesis.shumishumi.core.request.user.UserLoginRequest;
+import id.thesis.shumishumi.core.request.user.UserQueryRequest;
+import id.thesis.shumishumi.core.request.user.UserRegisterRequest;
+import id.thesis.shumishumi.core.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.core.result.user.UserActivateResult;
+import id.thesis.shumishumi.core.result.user.UserForgotPasswordResult;
+import id.thesis.shumishumi.core.result.user.UserLoginResult;
+import id.thesis.shumishumi.core.result.user.UserQueryResult;
+import id.thesis.shumishumi.core.result.user.UserRegisterResult;
+import id.thesis.shumishumi.core.result.user.UserUpdateResult;
 import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.rest.request.user.UserActivateRequest;
-import id.thesis.shumishumi.rest.request.user.UserForgotPasswordRequest;
-import id.thesis.shumishumi.rest.request.user.UserLoginRequest;
-import id.thesis.shumishumi.rest.request.user.UserQueryRequest;
-import id.thesis.shumishumi.rest.request.user.UserRegisterRequest;
-import id.thesis.shumishumi.rest.request.user.UserUpdateRequest;
-import id.thesis.shumishumi.rest.result.user.UserActivateResult;
-import id.thesis.shumishumi.rest.result.user.UserForgotPasswordResult;
-import id.thesis.shumishumi.rest.result.user.UserLoginResult;
-import id.thesis.shumishumi.rest.result.user.UserQueryResult;
-import id.thesis.shumishumi.rest.result.user.UserRegisterResult;
-import id.thesis.shumishumi.rest.result.user.UserUpdateResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -137,12 +136,11 @@ public class UserFacadeTest extends FacadeTestBase {
     @Test
     public void userUpdateTest_SUCCESS() {
         UserUpdateRequest request = new UserUpdateRequest();
-        UserUpdateContext context = new UserUpdateContext();
-        context.setPassword("password2");
-        context.setUsername("username");
 
-        request.setPassword("password");
-        request.setUserUpdateContext(context);
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
+        request.setOldPassword("password");
         request.setSessionId("sessionId");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
@@ -158,12 +156,11 @@ public class UserFacadeTest extends FacadeTestBase {
     @Test
     public void userUpdateTest_FAILED_session_expired() {
         UserUpdateRequest request = new UserUpdateRequest();
-        UserUpdateContext context = new UserUpdateContext();
-        context.setPassword("password2");
-        context.setUsername("username");
 
         request.setPassword(FunctionUtil.hashPassword("password"));
-        request.setUserUpdateContext(context);
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
         request.setSessionId("sessionId");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(null);
@@ -176,13 +173,12 @@ public class UserFacadeTest extends FacadeTestBase {
     @Test
     public void userUpdateTest_FAILED_authentication_failed() {
         UserUpdateRequest request = new UserUpdateRequest();
-        UserUpdateContext context = new UserUpdateContext();
-        context.setPassword("password");
-        context.setUsername("username");
 
-        request.setPassword("this is a password");
-        request.setUserUpdateContext(context);
+        request.setOldPassword("this is a password");
         request.setSessionId("sessionId");
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("kljasdflkjasdfljk"));
@@ -198,14 +194,13 @@ public class UserFacadeTest extends FacadeTestBase {
     @Test
     public void userUpdateTest_FAILED_user_exist() {
         UserUpdateRequest request = new UserUpdateRequest();
-        UserUpdateContext context = new UserUpdateContext();
-        context.setPassword("password2");
-        context.setUsername("username");
-        context.setEmail("email@email.com");
 
-        request.setPassword("password");
-        request.setUserUpdateContext(context);
+        request.setOldPassword("password");
         request.setSessionId("sessionId");
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setEmail("email@email.com");
+        request.setUsername("username");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));

@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.common.database;
 
 
-import id.thesis.shumishumi.common.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.datastructure.Pair;
 
