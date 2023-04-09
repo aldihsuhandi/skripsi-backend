@@ -5,8 +5,10 @@ import id.thesis.shumishumi.common.process.callback.ProcessCallback;
 import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.core.facade.ImageFacade;
 import id.thesis.shumishumi.core.request.image.ImageDownloadRequest;
+import id.thesis.shumishumi.core.request.image.ImageUploadRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.image.ImageDownloadResult;
+import id.thesis.shumishumi.core.result.image.ImageUploadResult;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +19,21 @@ public class ImageFacadeImpl extends ProcessFacade implements ImageFacade {
             @Override
             public BaseResult initResult() {
                 return new ImageDownloadResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public ImageUploadResult upload(ImageUploadRequest request) {
+        return (ImageUploadResult) ProcessCallbackSupport.process(ProcessTypeEnum.IMAGE_UPLOAD, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new ImageUploadResult();
             }
 
             @Override

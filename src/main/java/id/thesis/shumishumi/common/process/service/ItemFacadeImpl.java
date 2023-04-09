@@ -13,8 +13,6 @@ import id.thesis.shumishumi.core.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.core.request.item.QueryItemRequest;
 import id.thesis.shumishumi.core.request.item.RecommendRequest;
 import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.core.request.item.image.ItemImageAddRequest;
-import id.thesis.shumishumi.core.request.item.image.ItemImageRemoveRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.core.result.item.CreateItemResult;
@@ -22,8 +20,6 @@ import id.thesis.shumishumi.core.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.core.result.item.QueryItemResult;
 import id.thesis.shumishumi.core.result.item.RecommendResult;
 import id.thesis.shumishumi.core.result.item.UpdateItemResult;
-import id.thesis.shumishumi.core.result.item.image.ItemImageAddResult;
-import id.thesis.shumishumi.core.result.item.image.ItemImageRemoveResult;
 import org.springframework.stereotype.Service;
 
 /**
@@ -68,36 +64,6 @@ public class ItemFacadeImpl extends ProcessFacade implements ItemFacade {
             @Override
             public BaseResult initResult() {
                 return new UpdateItemResult();
-            }
-
-            @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) {
-                doProcess(request, result, processType);
-            }
-        });
-    }
-
-    @Override
-    public ItemImageAddResult addImage(ItemImageAddRequest request) {
-        return (ItemImageAddResult) ProcessCallbackSupport.process(ProcessTypeEnum.ITEM_IMAGE_ADD, request, new ProcessCallback() {
-            @Override
-            public BaseResult initResult() {
-                return new ItemImageAddResult();
-            }
-
-            @Override
-            public void process(ProcessTypeEnum processType, BaseResult result) {
-                doProcess(request, result, processType);
-            }
-        });
-    }
-
-    @Override
-    public ItemImageRemoveResult removeImage(ItemImageRemoveRequest request) {
-        return (ItemImageRemoveResult) ProcessCallbackSupport.process(ProcessTypeEnum.ITEM_IMAGE_REMOVE, request, new ProcessCallback() {
-            @Override
-            public BaseResult initResult() {
-                return new ItemImageRemoveResult();
             }
 
             @Override

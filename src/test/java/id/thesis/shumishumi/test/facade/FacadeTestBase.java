@@ -182,6 +182,7 @@ public class FacadeTestBase extends TestBase {
         itemDO.setItemId("itemId");
         itemDO.setItemName("itemName");
         itemDO.setItemPrice(10000L);
+        itemDO.setItemImages("images1|images2|images3");
         itemDO.setItemDescription("item description");
         itemDO.setMerchantId("userId");
         itemDO.setHobbyId("hobbyId");

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -14,6 +16,7 @@ public class CreateItemForm extends BaseForm {
     private String itemName;
     private Long itemPrice;
     private String itemDescription;
+    private List<String> itemImages;
     private Integer itemQuantity;
     private String categoryName;
     private String hobbyName;

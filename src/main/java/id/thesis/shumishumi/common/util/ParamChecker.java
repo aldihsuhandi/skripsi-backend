@@ -3,6 +3,8 @@ package id.thesis.shumishumi.common.util;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 
+import java.util.List;
+
 public class ParamChecker {
     public static void isNotNull(Object value, String param, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
         if (value == null) {
@@ -11,6 +13,12 @@ public class ParamChecker {
     }
 
     public static void isNotEmpty(String value, String param, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
+        if (value == null || value.isEmpty()) {
+            throwsException(String.format("%s cannot be empty", param), errorCode);
+        }
+    }
+
+    public static <T> void isNotEmpty(List<T> value, String param, ShumishumiErrorCodeEnum errorCode) throws ShumishumiException {
         if (value == null || value.isEmpty()) {
             throwsException(String.format("%s cannot be empty", param), errorCode);
         }

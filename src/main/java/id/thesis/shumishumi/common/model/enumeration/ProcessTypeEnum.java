@@ -36,6 +36,7 @@ public enum ProcessTypeEnum {
     WISHLIST_QUERY("WISHLIST_QUERY", "wishlistQueryValidator", "wishlistQueryProcessor", true),
 
     IMAGE_DOWNLOAD("IMAGE_DOWNLOAD", "imageDownloadValidator", "imageDownloadProcessor", false),
+    IMAGE_UPLOAD("IMAGE_UPLOAD", "imageUploadValidator", "imageUploadProcessor", false),
 
     ;
 
