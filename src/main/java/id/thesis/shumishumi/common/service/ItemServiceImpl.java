@@ -19,7 +19,6 @@ import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.service.HobbyService;
 import id.thesis.shumishumi.core.service.InterestLevelService;
 import id.thesis.shumishumi.core.service.ItemCategoryService;
-import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.foundation.dalgen.converter.ItemDAORequestConverter;
@@ -51,9 +50,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemCategoryService itemCategoryService;
-
-    @Autowired
-    private ItemImageService itemImageService;
 
     @Autowired
     private HobbyService hobbyService;

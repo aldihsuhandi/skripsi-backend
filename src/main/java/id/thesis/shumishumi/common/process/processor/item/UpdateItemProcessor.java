@@ -10,7 +10,6 @@ import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.service.ItemImageService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.service.UserService;
@@ -24,9 +23,6 @@ public class UpdateItemProcessor implements BaseProcessor {
 
     @Autowired
     private ItemService itemService;
-
-    @Autowired
-    private ItemImageService itemImageService;
 
     @Autowired
     private SessionService sessionService;

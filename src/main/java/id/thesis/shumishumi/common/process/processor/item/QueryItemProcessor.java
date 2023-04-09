@@ -7,13 +7,12 @@ import id.thesis.shumishumi.common.model.context.ItemFilterContext;
 import id.thesis.shumishumi.common.model.context.PagingContext;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.process.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.ItemImageService;
-import id.thesis.shumishumi.core.service.ItemService;
-import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.core.request.BaseRequest;
 import id.thesis.shumishumi.core.request.item.QueryItemRequest;
 import id.thesis.shumishumi.core.result.BaseResult;
 import id.thesis.shumishumi.core.result.item.QueryItemResult;
+import id.thesis.shumishumi.core.service.ItemService;
+import id.thesis.shumishumi.core.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -30,9 +29,6 @@ public class QueryItemProcessor implements BaseProcessor {
 
     @Autowired
     private SessionService sessionService;
-
-    @Autowired
-    private ItemImageService itemImageService;
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
