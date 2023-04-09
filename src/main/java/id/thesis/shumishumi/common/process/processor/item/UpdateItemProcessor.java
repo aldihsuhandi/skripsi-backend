@@ -55,6 +55,7 @@ public class UpdateItemProcessor implements BaseProcessor {
     private void updateImage(ItemVO itemVO, List<String> addedImage, List<String> removedImage) {
         List<String> currImage = itemVO.getItemImages();
         List<String> images = new ArrayList<>(addedImage);
+
         for (String image : currImage) {
             if (!removedImage.contains(image)) {
                 images.add(image);
