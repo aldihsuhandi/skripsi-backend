@@ -12,17 +12,27 @@ import id.thesis.shumishumi.core.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.core.request.item.QueryItemRequest;
 import id.thesis.shumishumi.core.request.item.RecommendRequest;
 import id.thesis.shumishumi.core.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.core.request.item.image.ItemImageAddRequest;
+import id.thesis.shumishumi.core.request.item.image.ItemImageRemoveRequest;
 import id.thesis.shumishumi.core.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.core.result.item.CreateItemResult;
 import id.thesis.shumishumi.core.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.core.result.item.QueryItemResult;
 import id.thesis.shumishumi.core.result.item.RecommendResult;
 import id.thesis.shumishumi.core.result.item.UpdateItemResult;
+import id.thesis.shumishumi.core.result.item.image.ItemImageAddResult;
+import id.thesis.shumishumi.core.result.item.image.ItemImageRemoveResult;
+import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
+
+import java.util.Collections;
 
 public class ItemFacadeTest extends FacadeTestBase {
     @Autowired
@@ -80,6 +90,74 @@ public class ItemFacadeTest extends FacadeTestBase {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.USER_ROLE_INVALID.getErrorCode());
+    }
+
+    @Test
+    public void itemAddImageTest_SUCCESS() {
+        ItemImageAddRequest request = new ItemImageAddRequest();
+        request.setItemId("itemId");
+        request.setImage(new MockMultipartFile("image", new byte[0]));
+
+        SessionDO sessionDO = mockSessionDO();
+        ItemDO itemDO = mockItemDO(true);
+        UserDO userDO = mockUserDO("password");
+
+        sessionDO.setUserId("userId");
+        userDO.setUserId("userId");
+
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(userDO);
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(sessionDO);
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(itemDO);
+
+        ItemImageAddResult result = itemFacade.addImage(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void itemRemoveImageTest_SUCCESS() {
+        ItemImageRemoveRequest request = new ItemImageRemoveRequest();
+        request.setItemId("itemId");
+        request.setImageIds(Collections.singletonList("imageId"));
+
+        SessionDO sessionDO = mockSessionDO();
+        ItemDO itemDO = mockItemDO(true);
+        UserDO userDO = mockUserDO("password");
+
+        sessionDO.setUserId("userId");
+        userDO.setUserId("userId");
+
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(userDO);
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(sessionDO);
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(itemDO);
+
+        ItemImageRemoveResult result = itemFacade.removeImage(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void itemRemoveImageTest_SUCCESS_withImages() {
+        ItemImageRemoveRequest request = new ItemImageRemoveRequest();
+        request.setItemId("itemId");
+        request.setImageIds(Collections.singletonList("images2"));
+
+        SessionDO sessionDO = mockSessionDO();
+        ItemDO itemDO = mockItemDO(true);
+        UserDO userDO = mockUserDO("password");
+
+        sessionDO.setUserId("userId");
+        userDO.setUserId("userId");
+
+        itemDO.setItemImages("images1|images2|images3|images4");
+
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(userDO);
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(sessionDO);
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(itemDO);
+
+        ItemImageRemoveResult result = itemFacade.removeImage(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
     }
 
     @Test

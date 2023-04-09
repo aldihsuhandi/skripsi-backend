@@ -35,7 +35,7 @@ import id.thesis.shumishumi.foundation.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -200,7 +200,7 @@ public class ViewObjectConverter {
         itemVO.setGmtModified(itemDO.getGmtModified());
 
         if (StringUtils.isNotEmpty(itemDO.getItemImages())) {
-            itemVO.setItemImages(List.of(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+            itemVO.setItemImages(Arrays.asList(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
         }
 
         return itemVO;

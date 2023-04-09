@@ -36,8 +36,17 @@ public class ItemRemoveImageProcessor implements BaseProcessor {
                 , "the current user is not valid for this operation", ShumishumiErrorCodeEnum.USER_INVALID);
 
         List<String> itemImages = itemVO.getItemImages();
-        request.getImageIds().forEach(itemImages::remove);
-        itemService.updatePicture(itemVO.getItemId(), itemImages);
+        if (itemImages == null) {
+            itemImages = new ArrayList<>();
+        }
+
+        List<String> resImageIds = new ArrayList<>();
+        for (String image : itemImages) {
+            if (!request.getImageIds().contains(image)) {
+                resImageIds.add(image);
+            }
+        }
+        itemService.updatePicture(itemVO.getItemId(), resImageIds);
 
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(itemVO.getItemId())), false);
     }

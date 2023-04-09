@@ -44,6 +44,10 @@ public class ItemAddImageProcessor implements BaseProcessor {
         imageService.upload(image);
 
         List<String> itemImages = itemVO.getItemImages();
+        if (itemImages == null) {
+            itemImages = new ArrayList<>();
+        }
+
         itemImages.add(image.getImageId());
         itemService.updatePicture(itemVO.getItemId(), itemImages);
 

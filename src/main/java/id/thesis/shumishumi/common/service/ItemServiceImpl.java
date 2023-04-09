@@ -149,9 +149,14 @@ public class ItemServiceImpl implements ItemService {
         itemImages.forEach(image ->
                 imageStr.append(image).append(CommonConst.SEPARATOR));
 
+        String itemImagesStr = "";
+        if (imageStr.length() != 0) {
+            itemImagesStr = imageStr.substring(0, imageStr.length() - 1);
+        }
+
         ItemDAORequest daoRequest = new ItemDAORequest();
         daoRequest.setItemId(itemId);
-        daoRequest.setItemImages(imageStr.substring(0, imageStr.length() - 1));
+        daoRequest.setItemImages(itemImagesStr);
 
         itemDAO.updateImage(daoRequest);
     }
