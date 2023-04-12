@@ -16,11 +16,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class PostDAOImpl implements PostDAO {
 
     @Autowired
@@ -73,7 +75,7 @@ public class PostDAOImpl implements PostDAO {
         LogUtil.info(DAO, "statement", statement);
 
         int result;
-        try  {
+        try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setString(1, request.getTitle());
                 ps.setString(2, request.getContent());
@@ -100,7 +102,7 @@ public class PostDAOImpl implements PostDAO {
         LogUtil.info(DAO, "statement", statement);
 
         int result;
-        try{
+        try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setBoolean(1, true);
                 ps.setTimestamp(2, new Timestamp(new Date().getTime()));
@@ -145,7 +147,7 @@ public class PostDAOImpl implements PostDAO {
 
 
         List<String> tags = List.of(request.getTags().split(CommonConst.SEPARATOR_SPLIT));
-        for(int i = 0;i < tags.size();++i) {
+        for (int i = 0; i < tags.size(); ++i) {
             sb.addWhereCaseInsensitiveStatement(DatabaseConst.APPEND_OPERATOR_AND,
                     DatabaseConst.POST_TAGS, DatabaseConst.COMPARATOR_LIKE);
         }
@@ -158,7 +160,7 @@ public class PostDAOImpl implements PostDAO {
             ps.setBoolean(1, false);
             ps.setString(2, request.getTitle());
             int cnt = 3;
-            for(String tag: tags) {
+            for (String tag : tags) {
                 ps.setString(cnt, tag);
                 ++cnt;
             }
