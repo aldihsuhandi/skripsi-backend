@@ -7,17 +7,17 @@ import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.util.constant.LogConstant;
+import id.thesis.shumishumi.foundation.dalgen.model.mapper.CountMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.result.PostVoteDO;
 import id.thesis.shumishumi.foundation.dalgen.service.PostVoteDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,7 +32,21 @@ public class PostVoteDAOImpl implements PostVoteDAO {
     @Override
     public int queryVote(String postId, int value) {
         LogUtil.info(DALGEN, String.format("postVoteDAO#queryVote[postId=%s,value=%d]", postId, value));
-        return 0;
+        String statement = new StatementBuilder(DatabaseConst.TABLE_POST_UPVOTE, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_COUNT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.POST_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.UPVOTES_VALUE, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+        LogUtil.info(DAO, "statement", statement);
+
+        int count = jdbcTemplate.query(statement, ps -> {
+            ps.setString(1, postId);
+            ps.setInt(2, value);
+        }, new CountMapper()).get(0);
+
+        LogUtil.info(DALGEN, String.format("postVoteDAO#queryVote[result=%d]", count));
+
+        return count;
     }
 
     @Override
@@ -97,6 +111,28 @@ public class PostVoteDAOImpl implements PostVoteDAO {
 
     @Override
     public void update(String userId, String postId, int value) {
+        LogUtil.info(DALGEN, String.format("postVoteDAO#update[userId=%s,postId=%s,value=%s]"
+                , userId, postId, value));
+        String statement = new StatementBuilder(DatabaseConst.TABLE_POST_UPVOTE, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.UPVOTES_VALUE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.POST_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+        LogUtil.info(DAO, "statement", statement);
 
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setInt(1, value);
+                ps.setTimestamp(2, new Timestamp(new Date().getTime()));
+                ps.setString(3, postId);
+                ps.setString(4, userId);
+            });
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 }
