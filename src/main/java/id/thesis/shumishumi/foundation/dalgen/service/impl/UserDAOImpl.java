@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void create(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#create[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.USER_ID)
                 .addValueStatement(DatabaseConst.EMAIL)
@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void update(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#update[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.EMAIL)
                 .addSetStatement(DatabaseConst.USERNAME)
@@ -112,7 +112,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateProfilePicture(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#updateProfilePicture[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.PROFILE_PICTURE)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
@@ -135,7 +135,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void changeRole(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#changeRole[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.ROLE_ID)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
@@ -159,7 +159,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO queryById(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
@@ -171,17 +171,17 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(1, daoRequest.getUserId()), new UserDOMapper());
 
         if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "result[]");
+            LogUtil.info(DALGEN_LOGGER, "userDAO#queryById[result=null]");
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, "result", userDOS.get(0));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[result=%s]", userDOS.get(0)));
         return userDOS.get(0);
     }
 
     @Override
     public List<UserDO> queryByIds(List<UserDAORequest> userDAORequests) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", userDAORequests.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByIds[request=%s]", userDAORequests.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_IN)
@@ -192,14 +192,14 @@ public class UserDAOImpl implements UserDAO {
         String userIds = userDAORequests.stream().map(UserDAORequest::getUserId).collect(Collectors.joining(", "));
         List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, userIds), new UserDOMapper());
 
-        LogUtil.info(DALGEN_LOGGER, String.format("result=%s", userDOS));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAo#queryByIds[result=%s]", userDOS));
 
         return userDOS;
     }
 
     @Override
     public UserDO queryByEmail(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.EMAIL, DatabaseConst.COMPARATOR_EQUAL)
@@ -211,17 +211,17 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(1, daoRequest.getEmail()), new UserDOMapper());
 
         if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "result[]");
+            LogUtil.info(DALGEN_LOGGER, "userDAO#queryByEmail[result=null]");
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, "result", userDOS.get(0));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[result=%s]", userDOS.get(0)));
         return userDOS.get(0);
     }
 
     @Override
     public UserDO queryByPhoneNumber(UserDAORequest daoRequest) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", daoRequest.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[request=%s]", daoRequest.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.PHONE_NUMBER, DatabaseConst.COMPARATOR_EQUAL)
@@ -233,11 +233,11 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(1, daoRequest.getPhoneNumber()), new UserDOMapper());
 
         if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "result[]");
+            LogUtil.info(DALGEN_LOGGER, "userDAO#queryByPhoneNumber[result=null]");
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, "result", userDOS.get(0));
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[result=%s]", userDOS.get(0).toString()));
         return userDOS.get(0);
     }
 
@@ -250,7 +250,7 @@ public class UserDAOImpl implements UserDAO {
         LogUtil.info(DAO_LOGGER, "statement", statement);
 
         List<UserDO> result = jdbcTemplate.query(statement, new UserDOMapper());
-        LogUtil.info(DALGEN_LOGGER, "result", result);
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryAll[request=%s]", result));
 
         return result;
     }
