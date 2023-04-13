@@ -55,7 +55,7 @@ public class UserFetchService {
         }
 
         UserVO user = userCache.get(userId);
-        LogUtil.info(LOGGER, String.format("userFetchService#fetchFromCache[userVO=%s]", user.toString()));
+        LogUtil.info(LOGGER, String.format("userFetchService#fetchFromCache[userVO=%s]", user));
 
         return user;
     }

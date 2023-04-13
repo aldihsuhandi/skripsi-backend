@@ -32,7 +32,7 @@ public class ItemFetchService {
     public ItemVO fetchFromCache(String itemId) {
         LogUtil.info(LOGGER, String.format("itemFetchService#fetchFromCache[itemId=%s]", itemId));
         ItemVO item = itemCache.get(itemId);
-        LogUtil.info(LOGGER, String.format("itemFetchService#fetchFromCache[result=%s]", item.toString()));
+        LogUtil.info(LOGGER, String.format("itemFetchService#fetchFromCache[result=%s]", item));
 
         return item;
     }
@@ -40,7 +40,7 @@ public class ItemFetchService {
     public List<ItemVO> fetchAll() {
         List<ItemVO> items = new ArrayList<>(itemCache.values()).stream().
                 sorted(new ItemVOGmtCreateComparator()).collect(Collectors.toList());
-        LogUtil.info(LOGGER, String.format("itemFetchService#fetchAll[result=%s]", items.toString()));
+        LogUtil.info(LOGGER, String.format("itemFetchService#fetchAll[result=%s]", items));
 
         return items;
     }
