@@ -1,6 +1,5 @@
 package id.thesis.shumishumi.foundation.seeders;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.datastructure.Pair;
 import id.thesis.shumishumi.common.model.enumeration.UserRolesEnum;
@@ -10,20 +9,18 @@ import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.core.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
 import java.util.ArrayList;
 import java.util.List;
 
-@Priority(1)
-@Component
-@Profile("!test")
+//@Priority(1)
+//@Component
+//@Profile("!test")
 public class UserSeeders extends BaseSeeders {
     @Autowired
     private UserService userService;

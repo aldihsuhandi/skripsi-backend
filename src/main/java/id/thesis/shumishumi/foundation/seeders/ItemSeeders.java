@@ -19,20 +19,17 @@ import id.thesis.shumishumi.core.service.ItemCategoryService;
 import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
-@Priority(10)
-@Component
-@Profile("!test")
+//@Priority(10)
+//@Component
+//@Profile("!test")
 public class ItemSeeders extends BaseSeeders {
     @Override
     String setTableName() {

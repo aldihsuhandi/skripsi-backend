@@ -1,22 +1,18 @@
 package id.thesis.shumishumi.foundation.seeders;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
-import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.model.context.TracerContext;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Priority;
-
-@Priority(1)
-@Component
-@Profile("!test")
+//@Priority(1)
+//@Component
+//@Profile("!test")
 public abstract class BaseSeeders {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(LogConstant.SEEDERS_LOGGER);

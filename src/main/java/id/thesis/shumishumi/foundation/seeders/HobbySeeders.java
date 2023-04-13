@@ -1,20 +1,17 @@
 package id.thesis.shumishumi.foundation.seeders;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.core.service.HobbyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Priority;
 import java.util.ArrayList;
 import java.util.List;
 
-@Priority(1)
-@Component
-@Profile("!test")
+//@Priority(1)
+//@Component
+//@Profile("!test")
 public class HobbySeeders extends BaseSeeders {
     @Override
     String setTableName() {
