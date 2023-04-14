@@ -1,11 +1,14 @@
 /**
- * 
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
 package id.thesis.shumishumi.core.fetch;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,11 +20,14 @@ import java.util.Map;
  */
 @Service
 public class UserFetchService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogConstant.SERVICE_LOGGER);
+
     private final Map<String, UserVO> userCache = new HashMap<>();
     private final Map<String, String> emailMap = new HashMap<>();
     private final Map<String, String> phoneNumberMap = new HashMap<>();
 
     public void putToCache(UserVO userVO) {
+        LogUtil.info(LOGGER, String.format("userFetchService#putToCache[userVO=%s]", userVO));
         if (userVO == null) {
             return;
         }
@@ -36,6 +42,7 @@ public class UserFetchService {
     }
 
     public UserVO fetchFromCache(String value, String identifier) {
+        LogUtil.info(LOGGER, String.format("userFetchService#fetchFromCache[value=%s,identifier=%s]", value, identifier));
         String userId = value;
         if (DatabaseConst.EMAIL.equals(identifier)) {
             userId = emailMap.get(value);
@@ -47,7 +54,10 @@ public class UserFetchService {
             return null;
         }
 
-        return userCache.get(userId);
+        UserVO user = userCache.get(userId);
+        LogUtil.info(LOGGER, String.format("userFetchService#fetchFromCache[userVO=%s]", user));
+
+        return user;
     }
 
     public void clearCache() {

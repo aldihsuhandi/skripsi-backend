@@ -1,12 +1,12 @@
 package id.thesis.shumishumi.foundation.dalgen.service.impl;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
-import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.exception.ShumishumiException;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.SessionDOMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.request.SessionDAORequest;
 import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
@@ -34,7 +34,7 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public SessionDO query(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
@@ -46,17 +46,17 @@ public class SessionDAOImpl implements SessionDAO {
                 ps.setString(1, request.getSessionId()), new SessionDOMapper());
 
         if (sessionDOs.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "result[]");
+            LogUtil.info(DALGEN_LOGGER, "sessionDAO#query[result=null]");
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, "result", sessionDOs.get(0));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[result=%s])", sessionDOs.get(0)));
         return sessionDOs.get(0);
     }
 
     @Override
     public void create(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#create[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
                 .addValueStatement(DatabaseConst.SESSION_ID)
                 .addValueStatement(DatabaseConst.USER_ID)
@@ -85,7 +85,7 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void logout(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#logout[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
@@ -110,7 +110,7 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void refreshSession(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#refreshSession[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.SESSION_DT)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)
@@ -135,7 +135,7 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void deactivateExpiredSession(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("request=%s", request.toString()));
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#deactivateExpiredSession[request=%s]", request.toString()));
         String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.IS_ACTIVE)
                 .addSetStatement(DatabaseConst.GMT_MODIFIED)

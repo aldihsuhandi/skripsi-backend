@@ -3,10 +3,10 @@
  */
 package id.thesis.shumishumi.foundation.dalgen.service.impl;
 
-import id.thesis.shumishumi.common.util.constant.DatabaseConst;
-import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.common.database.StatementBuilder;
 import id.thesis.shumishumi.common.util.LogUtil;
+import id.thesis.shumishumi.common.util.constant.DatabaseConst;
+import id.thesis.shumishumi.common.util.constant.LogConstant;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.ClientDOMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.request.ClientDAORequest;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ClientDO;
@@ -38,7 +38,7 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public ClientDO queryById(ClientDAORequest daoRequest) {
 
-        LogUtil.info(DALGEN_LOGGER, daoRequest);
+        LogUtil.info(DALGEN_LOGGER, String.format("clientDAO#queryById[request=%s]", daoRequest));
 
         String statement = new StatementBuilder(DatabaseConst.TABLE_CLIENT, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
@@ -51,10 +51,11 @@ public class ClientDAOImpl implements ClientDAO {
                 ps.setString(1, daoRequest.getClientId()), new ClientDOMapper());
 
         if (clientDOS.isEmpty()) {
+            LogUtil.info(DALGEN_LOGGER, "clientDAO#queryById[result=null]");
             return null;
         }
 
-        LogUtil.info(DALGEN_LOGGER, clientDOS);
+        LogUtil.info(DALGEN_LOGGER, String.format("clientDAO#queryById[result=%s]", clientDOS.get(0)));
 
         return clientDOS.get(0);
     }
