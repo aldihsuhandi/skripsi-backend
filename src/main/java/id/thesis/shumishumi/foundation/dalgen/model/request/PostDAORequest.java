@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.foundation.dalgen.model.request;
 
+import id.thesis.shumishumi.common.model.context.PagingContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,4 +19,5 @@ public class PostDAORequest implements Serializable {
     private String content;
     private String tags;
     private String images;
+    private PagingContext pagingContext;
 }

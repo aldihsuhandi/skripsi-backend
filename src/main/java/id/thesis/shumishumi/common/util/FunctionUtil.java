@@ -9,9 +9,13 @@ import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.common.model.context.UserUpdateContext;
 import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.common.model.viewobject.PostVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
+import id.thesis.shumishumi.core.request.post.PostEditRequest;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -69,6 +73,24 @@ public class FunctionUtil {
                 updateContext.getHobbyName() : itemVO.getItemCategory().getCategoryName());
         updateContext.setMerchantInterestLevel(checkIfNotEmpty(updateContext.getMerchantInterestLevel()) ?
                 updateContext.getMerchantInterestLevel() : itemVO.getMerchantLevel().getInterestLevelName());
+    }
+
+    public static void updatePostField(PostVO postVO, PostEditRequest request) {
+        if (postVO == null || request == null) {
+            return;
+        }
+        if (!CollectionUtils.isEmpty(request.getTags())) {
+            postVO.setTags(request.getTags());
+        }
+        if (!CollectionUtils.isEmpty(request.getImages())) {
+            postVO.setTags(request.getImages());
+        }
+        if (StringUtils.isNotEmpty(request.getTitle())) {
+            postVO.setTitle(request.getTitle());
+        }
+        if (StringUtils.isNotEmpty(request.getContent())) {
+            postVO.setContent(request.getContent());
+        }
     }
 
     public static boolean itemFilter(ItemVO itemVO, ItemFilterContext filterContext) {

@@ -49,7 +49,7 @@ public class QueryItemProcessor implements BaseProcessor {
     }
 
     private void composeResult(QueryItemRequest request, QueryItemResult result, List<ItemVO> itemVOS) {
-        int count = itemService.count(request.getItemFilterContext(), true);
+        Long count = (long) itemService.count(request.getItemFilterContext(), true);
 
         PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) count);
         pagingContext.checkHasNext(count, itemVOS.size());

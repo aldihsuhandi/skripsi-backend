@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.common.util.constant.CommonConst;
 import id.thesis.shumishumi.common.util.constant.DatabaseConst;
 import id.thesis.shumishumi.common.util.constant.LogConstant;
+import id.thesis.shumishumi.foundation.dalgen.model.mapper.CountMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.mapper.PostDOMapper;
 import id.thesis.shumishumi.foundation.dalgen.model.request.PostDAORequest;
 import id.thesis.shumishumi.foundation.dalgen.model.result.PostDO;
@@ -121,11 +122,13 @@ public class PostDAOImpl implements PostDAO {
         String statement = new StatementBuilder(DatabaseConst.TABLE_POST, DatabaseConst.STATEMENT_SELECT)
                 .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.POST_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_DELETED, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
         LogUtil.info(DAO, "statement", statement);
 
         List<PostDO> posts = jdbcTemplate.query(statement, ps -> {
             ps.setString(1, postId);
+            ps.setBoolean(2, false);
         }, new PostDOMapper());
 
         if (posts.isEmpty()) {
@@ -142,6 +145,8 @@ public class PostDAOImpl implements PostDAO {
     public List<PostDO> query(PostDAORequest request) {
         LogUtil.info(DALGEN, String.format("postDAO#query[request=%s]", request));
         StatementBuilder sb = new StatementBuilder(DatabaseConst.TABLE_POST, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addLimitStatement(request.getPagingContext())
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_DELETED, DatabaseConst.COMPARATOR_EQUAL)
                 .addWhereCaseInsensitiveStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.POST_TITLE, DatabaseConst.COMPARATOR_LIKE);
 
@@ -168,5 +173,35 @@ public class PostDAOImpl implements PostDAO {
 
         LogUtil.info(DALGEN, String.format("postDAO#query[result=%s]", posts));
         return posts;
+    }
+
+    @Override
+    public int countList(PostDAORequest request) {
+        LogUtil.info(DALGEN, String.format("postDAO#countList[request=%s]", request));
+        StatementBuilder sb = new StatementBuilder(DatabaseConst.TABLE_POST, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_COUNT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_DELETED, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereCaseInsensitiveStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.POST_TITLE, DatabaseConst.COMPARATOR_LIKE);
+
+        List<String> tags = List.of(request.getTags().split(CommonConst.SEPARATOR_SPLIT));
+        for (int i = 0; i < tags.size(); ++i) {
+            sb.addWhereCaseInsensitiveStatement(DatabaseConst.APPEND_OPERATOR_AND,
+                    DatabaseConst.POST_TAGS, DatabaseConst.COMPARATOR_LIKE);
+        }
+
+        String statement = sb.buildStatement();
+        LogUtil.info(DAO, "statement", statement);
+
+        int count = jdbcTemplate.query(statement, ps -> {
+            ps.setBoolean(1, false);
+            ps.setString(2, request.getTitle());
+            int cnt = 3;
+            for (String tag : tags) {
+                ps.setString(cnt, tag);
+                ++cnt;
+            }
+        }, new CountMapper()).get(0);
+        LogUtil.info(DALGEN, String.format("postDAO#countList[result=%s]", count));
+        return count;
     }
 }

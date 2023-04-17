@@ -17,6 +17,7 @@ public class PagingContext {
         this.numberOfItem = numberOfItem;
         this.totalItem = totalItem;
         this.totalPage = this.calculateTotalPage(numberOfItem, totalItem);
+        checkHasNext(totalItem, numberOfItem);
     }
 
     public PagingContext() {
@@ -24,12 +25,16 @@ public class PagingContext {
     }
 
 
-    public void checkHasNext(int count, int currentItemNumber) {
+    public void checkHasNext(long count, int currentItemNumber) {
         int offset = this.calculateOffset() + currentItemNumber;
         this.hasNext = !(count == offset);
     }
 
     public int calculateTotalPage(int numberOfItem, Long totalItem) {
+        if (numberOfItem == 0) {
+            return 0;
+        }
+
         int res = (int) (totalItem / (long) numberOfItem);
         if (totalItem % ((long) numberOfItem) != 0) {
             res += 1;

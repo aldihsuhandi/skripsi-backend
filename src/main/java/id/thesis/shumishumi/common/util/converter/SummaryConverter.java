@@ -1,8 +1,10 @@
 package id.thesis.shumishumi.common.util.converter;
 
 import id.thesis.shumishumi.common.model.summary.ItemSummary;
+import id.thesis.shumishumi.common.model.summary.PostSummary;
 import id.thesis.shumishumi.common.model.summary.UserSummary;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.common.model.viewobject.PostVO;
 import id.thesis.shumishumi.common.model.viewobject.UserVO;
 
 public class SummaryConverter {
@@ -41,5 +43,26 @@ public class SummaryConverter {
         userSummary.setGmtModified(vo.getGmtModified());
 
         return userSummary;
+    }
+
+    public static PostSummary toSummary(PostVO vo, int currentUserVote) {
+        if (vo == null) {
+            return null;
+        }
+
+        PostSummary summary = new PostSummary();
+        summary.setPostId(vo.getPostId());
+        summary.setTitle(vo.getTitle());
+        summary.setContent(vo.getContent());
+        summary.setTags(vo.getTags());
+        summary.setImages(vo.getImages());
+        summary.setUpvote(vo.getUpvote());
+        summary.setDownvote(vo.getDownvote());
+        summary.setCurrentUserVote(vo.getCurrentUserVote());
+        summary.setGmtCreate(vo.getGmtCreate());
+        summary.setGmtModified(vo.getGmtModified());
+        summary.setCurrentUserVote(currentUserVote);
+
+        return summary;
     }
 }

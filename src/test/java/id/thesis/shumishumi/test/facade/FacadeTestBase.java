@@ -23,12 +23,15 @@ import id.thesis.shumishumi.foundation.dalgen.service.ItemCategoryDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.ItemWishlistDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.OtpDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.PostDAO;
+import id.thesis.shumishumi.foundation.dalgen.service.PostVoteDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.RoleDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.SessionDAO;
 import id.thesis.shumishumi.foundation.dalgen.service.UserDAO;
 import id.thesis.shumishumi.test.TestBase;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -64,6 +67,12 @@ public class FacadeTestBase extends TestBase {
     @MockBean
     protected ImageDAO imageDAO;
 
+    @MockBean
+    protected PostDAO postDAO;
+
+    @MockBean
+    protected PostVoteDAO postVoteDAO;
+
     @Autowired
     protected UserFetchService userFetchService;
 
@@ -77,13 +86,22 @@ public class FacadeTestBase extends TestBase {
     }
 
     protected SessionDO mockSessionDO() {
+        return mockSessionDO("userId");
+    }
+
+    protected SessionDO mockSessionDO(String userId) {
         SessionDO sessionDO = new SessionDO();
-        sessionDO.setUserId("userId");
+        sessionDO.setUserId(userId);
         sessionDO.setRemembered(true);
         sessionDO.setActive(true);
         sessionDO.setSessionDt(DateUtils.addHours(new Date(), 2));
 
         return sessionDO;
+    }
+
+    protected void mockUserWithRole() {
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO("USER"));
     }
 
 

@@ -1,4 +1,4 @@
-package id.thesis.shumishumi.common.model.viewobject;
+package id.thesis.shumishumi.common.model.summary;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,15 +9,15 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class PostVO extends BaseVO {
-    private static final long serialVersionUID = -5957270056038506994L;
+public class PostSummary extends BaseSummary {
+    private static final long serialVersionUID = 2411258490087889363L;
 
     private String postId;
-    private String userId;
     private String title;
     private String content;
     private List<String> tags;
     private List<String> images;
+    private UserSummary userInfo;
     private int upvote;
     private int downvote;
     private int currentUserVote;
