@@ -14,6 +14,7 @@ import id.thesis.shumishumi.common.model.viewobject.ItemImageVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemVO;
 import id.thesis.shumishumi.common.model.viewobject.ItemWishlistVO;
 import id.thesis.shumishumi.common.model.viewobject.OtpVO;
+import id.thesis.shumishumi.common.model.viewobject.PostVO;
 import id.thesis.shumishumi.common.model.viewobject.RoleVO;
 import id.thesis.shumishumi.common.model.viewobject.SessionVO;
 import id.thesis.shumishumi.common.model.viewobject.UserActivityVO;
@@ -29,13 +30,16 @@ import id.thesis.shumishumi.foundation.dalgen.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemImageDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.ItemWishlistDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
+import id.thesis.shumishumi.foundation.dalgen.model.result.PostDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserActivityDO;
 import id.thesis.shumishumi.foundation.dalgen.model.result.UserDO;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -284,5 +288,33 @@ public class ViewObjectConverter {
         imageVO.setGmtModified(imageDO.getGmtModified());
 
         return imageVO;
+    }
+
+    public static PostVO toViewObject(PostDO postDO) {
+        if (postDO == null) {
+            return null;
+        }
+
+        List<String> tags = new ArrayList<>();
+        List<String> images = new ArrayList<>();
+
+        if (!postDO.getImages().isEmpty()) {
+            images.addAll(List.of(postDO.getImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+        if (!postDO.getTags().isEmpty()) {
+            tags.addAll(Arrays.asList(postDO.getTags().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+
+        PostVO vo = new PostVO();
+        vo.setPostId(postDO.getPostId());
+        vo.setUserId(postDO.getUserId());
+        vo.setTitle(postDO.getTitle());
+        vo.setContent(postDO.getContent());
+        vo.setImages(images);
+        vo.setTags(tags);
+        vo.setGmtCreate(postDO.getGmtCreate());
+        vo.setGmtModified(postDO.getGmtModified());
+
+        return vo;
     }
 }

@@ -38,6 +38,14 @@ public enum ProcessTypeEnum {
     IMAGE_DOWNLOAD("IMAGE_DOWNLOAD", "imageDownloadValidator", "imageDownloadProcessor", false),
     IMAGE_UPLOAD("IMAGE_UPLOAD", "imageUploadValidator", "imageUploadProcessor", false),
 
+    POST_CREATE("POST_CREATE", "postCreateValidator", "postCreateProcessor", true),
+    POST_DELETE("POST_DELETE", "postDeleteValidator", "postDeleteProcessor", true),
+    POST_EDIT("POST_EDIT", "postEditValidator", "postEditProcessor", true),
+    POST_UPVOTE("POST_UPVOTE", "postUpvoteValidator", "postUpvoteProcessor", true),
+    POST_DOWNVOTE("POST_DOWNVOTE", "postDownvoteValidator", "postDownvoteProcessor", true),
+    POST_DETAIL_QUERY("POST_DETAIL_QUERY", "postQueryValidator", "postQueryProcessor", false),
+    POST_QUERY("POST_QUERY", "postQueryListValidator", "postQueryListProcessor", false),
+
     ;
 
     private final String processName;

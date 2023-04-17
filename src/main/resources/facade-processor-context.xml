@@ -47,6 +47,22 @@
     <bean id="wishlistQueryProcessor"
           class="id.thesis.shumishumi.common.process.processor.item.wishlist.WishlistQueryProcessor"/>
 
+    <!--post-->
+    <bean id="postCreateProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostCreateProcessor"/>
+    <bean id="postDeleteProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostDeleteProcessor"/>
+    <bean id="postEditProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostEditProcessor"/>
+    <bean id="postUpvoteProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostUpvoteProcessor"/>
+    <bean id="postDownvoteProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostDownvoteProcessor"/>
+    <bean id="postQueryProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostQueryProcessor"/>
+    <bean id="postQueryListProcessor"
+          class="id.thesis.shumishumi.common.process.processor.post.PostQueryListProcessor"/>
+
     <!--image-->
     <bean id="imageDownloadProcessor"
           class="id.thesis.shumishumi.common.process.processor.image.ImageDownloadProcessor"/>
@@ -119,6 +135,28 @@
             <ref bean="autocompleteItemProcessor"/>
         </entry>
 
+        <entry key="POST_CREATE">
+            <ref bean="postCreateProcessor"/>
+        </entry>
+        <entry key="POST_DELETE">
+            <ref bean="postDeleteProcessor"/>
+        </entry>
+        <entry key="POST_EDIT">
+            <ref bean="postEditProcessor"/>
+        </entry>
+        <entry key="POST_UPVOTE">
+            <ref bean="postUpvoteProcessor"/>
+        </entry>
+        <entry key="POST_DOWNVOTE">
+            <ref bean="postDownvoteProcessor"/>
+        </entry>
+        <entry key="POST_DETAIL_QUERY">
+            <ref bean="postQueryProcessor"/>
+        </entry>
+        <entry key="POST_QUERY">
+            <ref bean="postQueryListProcessor"/>
+        </entry>
+
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadProcessor"/>
         </entry>
@@ -161,6 +199,22 @@
     <bean id="wishlistRemoveValidator"
           class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistRemoveValidator"/>
     <bean id="wishlistQueryValidator" class="id.thesis.shumishumi.core.validator.item.wishlist.WishlistQueryValidator"/>
+
+    <!--post-->
+    <bean id="postCreateValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostCreateValidator"/>
+    <bean id="postDeleteValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostDeleteValidator"/>
+    <bean id="postEditValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostEditValidator"/>
+    <bean id="postUpvoteValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostUpvoteValidator"/>
+    <bean id="postDownvoteValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostDownvoteValidator"/>
+    <bean id="postQueryValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostQueryValidator"/>
+    <bean id="postQueryListValidator"
+          class="id.thesis.shumishumi.core.validator.post.PostQueryListValidator"/>
 
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
@@ -231,6 +285,29 @@
         <entry key="ITEM_AUTOCOMPLETE">
             <ref bean="recommendValidator"/>
         </entry>
+
+        <entry key="POST_CREATE">
+            <ref bean="postCreateValidator"/>
+        </entry>
+        <entry key="POST_DELETE">
+            <ref bean="postDeleteValidator"/>
+        </entry>
+        <entry key="POST_EDIT">
+            <ref bean="postEditValidator"/>
+        </entry>
+        <entry key="POST_UPVOTE">
+            <ref bean="postUpvoteValidator"/>
+        </entry>
+        <entry key="POST_DOWNVOTE">
+            <ref bean="postDownvoteValidator"/>
+        </entry>
+        <entry key="POST_DETAIL_QUERY">
+            <ref bean="postQueryValidator"/>
+        </entry>
+        <entry key="POST_QUERY">
+            <ref bean="postQueryListValidator"/>
+        </entry>
+
 
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadValidator"/>
