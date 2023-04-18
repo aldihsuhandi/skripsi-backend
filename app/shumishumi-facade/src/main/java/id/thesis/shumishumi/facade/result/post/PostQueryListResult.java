@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.facade.result.post;
 
-import id.thesis.shumishumi.common.model.context.PagingContext;
-import id.thesis.shumishumi.common.model.summary.PostSummary;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.summary.PostSummary;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import lombok.Getter;
 import lombok.Setter;

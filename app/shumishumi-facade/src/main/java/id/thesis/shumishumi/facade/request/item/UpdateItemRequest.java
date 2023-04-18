@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.facade.request.item;
 
-import id.thesis.shumishumi.common.model.context.ItemUpdateContext;
+import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;

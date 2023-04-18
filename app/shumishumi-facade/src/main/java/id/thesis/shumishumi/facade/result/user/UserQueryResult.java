@@ -3,7 +3,7 @@
  */
 package id.thesis.shumishumi.facade.result.user;
 
-import id.thesis.shumishumi.common.model.summary.UserSummary;
+import id.thesis.shumishumi.facade.model.summary.UserSummary;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import lombok.Getter;
 import lombok.Setter;

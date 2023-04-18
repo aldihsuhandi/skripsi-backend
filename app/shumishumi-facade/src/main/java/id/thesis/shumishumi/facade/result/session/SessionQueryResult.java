@@ -3,7 +3,7 @@
  */
 package id.thesis.shumishumi.facade.result.session;
 
-import id.thesis.shumishumi.common.model.summary.SessionSummary;
+import id.thesis.shumishumi.facade.model.summary.SessionSummary;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import lombok.Getter;
 import lombok.Setter;

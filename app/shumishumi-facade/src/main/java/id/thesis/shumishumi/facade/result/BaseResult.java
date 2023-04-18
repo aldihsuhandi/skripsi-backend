@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.facade.result;
 
-import id.thesis.shumishumi.common.model.context.ResultContext;
+import id.thesis.shumishumi.facade.model.context.ResultContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

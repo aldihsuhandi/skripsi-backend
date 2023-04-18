@@ -3,8 +3,8 @@
  */
 package id.thesis.shumishumi.facade.result.item;
 
-import id.thesis.shumishumi.common.model.context.PagingContext;
-import id.thesis.shumishumi.common.model.viewobject.ItemVO;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import lombok.Getter;
 import lombok.Setter;

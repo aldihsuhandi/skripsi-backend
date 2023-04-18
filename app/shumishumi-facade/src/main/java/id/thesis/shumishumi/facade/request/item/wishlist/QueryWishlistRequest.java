@@ -1,6 +1,6 @@
 package id.thesis.shumishumi.facade.request.item.wishlist;
 
-import id.thesis.shumishumi.common.model.context.ItemFilterContext;
+import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;

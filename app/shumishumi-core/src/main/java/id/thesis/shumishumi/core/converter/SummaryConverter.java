@@ -1,8 +1,8 @@
 package id.thesis.shumishumi.core.converter;
 
-import id.thesis.shumishumi.common.model.summary.ItemSummary;
-import id.thesis.shumishumi.common.model.summary.PostSummary;
-import id.thesis.shumishumi.common.model.summary.UserSummary;
+import id.thesis.shumishumi.facade.model.summary.ItemSummary;
+import id.thesis.shumishumi.facade.model.summary.PostSummary;
+import id.thesis.shumishumi.facade.model.summary.UserSummary;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
