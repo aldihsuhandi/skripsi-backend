@@ -16,6 +16,9 @@
     <description>Marketplace for hobby</description>
     <modules>
         <module>app/shumishumi-facade</module>
+        <module>app/shumishumi-foundation</module>
+        <module>app/shumishumi-common</module>
+        <module>app/shumishumi-core</module>
     </modules>
     <properties>
         <java.version>11</java.version>
