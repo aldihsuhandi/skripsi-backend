@@ -11,8 +11,12 @@
     <groupId>id.thesis</groupId>
     <artifactId>shumishumi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>shumishumi</name>
     <description>Marketplace for hobby</description>
+    <modules>
+        <module>app/shumishumi-facade</module>
+    </modules>
     <properties>
         <java.version>11</java.version>
     </properties>
