@@ -8,8 +8,8 @@
         <version>2.7.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>id.thesis</groupId>
-    <artifactId>shumishumi</artifactId>
+    <groupId>id.thesis.shumishumi</groupId>
+    <artifactId>shumishumi-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>shumishumi</name>
