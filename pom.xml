@@ -8,18 +8,26 @@
         <version>2.7.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>id.thesis</groupId>
-    <artifactId>shumishumi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>id.thesis.shumishumi</groupId>
+    <artifactId>shumishumi-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
     <name>shumishumi</name>
     <description>Marketplace for hobby</description>
     <properties>
         <java.version>11</java.version>
+        <source.dir>src/main/java</source.dir>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>2.7.6</version>
         </dependency>
 
         <dependency>
@@ -31,16 +39,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
+            <version>2.7.6</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.24</version>
         </dependency>
 
         <!-- security -->
@@ -54,10 +58,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+            <version>8.0.31</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>2.7.6</version>
         </dependency>
 
         <!--email send-->
@@ -86,20 +92,55 @@
         </dependency>
     </dependencies>
 
+    <modules>
+        <module>app/shumishumi-facade</module>
+        <module>app/shumishumi-foundation</module>
+        <module>app/shumishumi-common</module>
+        <module>app/shumishumi-core</module>
+        <module>app/shumishumi-web</module>
+        <module>app/shumishumi-service</module>
+        <module>app/shumishumi-bootstrap</module>
+        <module>app/shumishumi-test</module>
+    </modules>
+
 
     <build>
+        <sourceDirectory>${source.dir}</sourceDirectory>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
+                    <source>11</source>
+                    <target>11</target>
+                    <!-- compile with debug information to support get parameter name using reflection -->
+                    <parameters>true</parameters>
+                    <encoding>UTF-8</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.4.2.Final</version>
+                        </path>
+                        <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                            <version>1.18.24</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
