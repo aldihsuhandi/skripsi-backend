@@ -22,12 +22,12 @@
         </property>
     </bean>
 
-    <bean id="emailService" class="id.thesis.shumishumi.common.service.EmailServiceImpl">
+    <bean id="emailService" class="id.thesis.shumishumi.core.service.EmailServiceImpl">
         <property name="javaMailSender" ref="mailSender"/>
     </bean>
 
 
-    <bean id="processFacade" class="id.thesis.shumishumi.common.process.service.ProcessFacade">
+    <bean id="processFacade" class="id.thesis.shumishumi.service.api.ProcessFacade">
         <property name="processors" ref="processorMap"/>
         <property name="validators" ref="validatorMap"/>
     </bean>

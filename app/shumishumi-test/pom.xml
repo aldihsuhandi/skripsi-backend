@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>shumishumi-service</artifactId>
+    <artifactId>shumishumi-test</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>id.thesis.shumishumi</groupId>
-            <artifactId>shumishumi-core</artifactId>
+            <artifactId>shumishumi-service</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

@@ -11,7 +11,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ShumishumiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShumishumiApplication.class, args);
+        try {
+            SpringApplication.run(ShumishumiApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

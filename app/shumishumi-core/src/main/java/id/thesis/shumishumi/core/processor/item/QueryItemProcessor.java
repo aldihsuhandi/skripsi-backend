@@ -5,6 +5,7 @@ package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -54,7 +56,8 @@ public class QueryItemProcessor implements BaseProcessor {
         PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) count);
         pagingContext.checkHasNext(count, itemVOS.size());
 
-        result.setItems(itemVOS);
+        result.setItems(itemVOS.stream().
+                map(SummaryConverter::toSummary).collect(Collectors.toList()));
         result.setPagingContext(pagingContext);
     }
 
