@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.core.facade.ClientFacade;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.client.ClientAuthResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.ClientFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.client.ClientAuthResult;
 import org.springframework.stereotype.Service;
 
 /**

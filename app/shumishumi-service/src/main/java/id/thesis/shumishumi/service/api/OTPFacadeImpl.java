@@ -1,14 +1,14 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.core.facade.OTPFacade;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.request.otp.OTPSendRequest;
-import id.thesis.shumishumi.core.request.otp.OTPValidateRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.otp.OTPSendResult;
-import id.thesis.shumishumi.core.result.otp.OTPValidateResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.OTPFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.otp.OTPSendRequest;
+import id.thesis.shumishumi.facade.request.otp.OTPValidateRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.otp.OTPSendResult;
+import id.thesis.shumishumi.facade.result.otp.OTPValidateResult;
 import org.springframework.stereotype.Service;
 
 @Service

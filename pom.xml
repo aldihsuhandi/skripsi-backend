@@ -20,6 +20,7 @@
         <module>app/shumishumi-common</module>
         <module>app/shumishumi-core</module>
         <module>app/shumishumi-web</module>
+        <module>app/shumishumi-service</module>
     </modules>
     <properties>
         <java.version>11</java.version>

@@ -1,12 +1,12 @@
 /**
  *
  */
-package id.thesis.shumishumi.common.process.scheduler;
+package id.thesis.shumishumi.service.scheduler;
 
-import id.thesis.shumishumi.common.util.constant.CommonConst;
-import id.thesis.shumishumi.common.process.callback.SchedulerCallback;
-import id.thesis.shumishumi.common.process.callback.SchedulerCallbackSupport;
-import id.thesis.shumishumi.core.service.SessionService;
+import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.core.callback.SchedulerCallback;
+import id.thesis.shumishumi.core.callback.SchedulerCallbackSupport;
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

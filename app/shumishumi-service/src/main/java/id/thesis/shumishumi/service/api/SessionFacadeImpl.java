@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017‐2022 All Rights Reserved.
  */
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
-import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.session.SessionLogoutResult;
-import id.thesis.shumishumi.core.result.session.SessionQueryResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.SessionFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.facade.request.session.SessionQueryRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.facade.result.session.SessionQueryResult;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,24 +1,24 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.facade.PostFacade;
-import id.thesis.shumishumi.core.request.post.PostCreateRequest;
-import id.thesis.shumishumi.core.request.post.PostDeleteRequest;
-import id.thesis.shumishumi.core.request.post.PostDownvoteRequest;
-import id.thesis.shumishumi.core.request.post.PostEditRequest;
-import id.thesis.shumishumi.core.request.post.PostQueryListRequest;
-import id.thesis.shumishumi.core.request.post.PostQueryRequest;
-import id.thesis.shumishumi.core.request.post.PostUpvoteRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.post.PostCreateResult;
-import id.thesis.shumishumi.core.result.post.PostDeleteResult;
-import id.thesis.shumishumi.core.result.post.PostDownvoteResult;
-import id.thesis.shumishumi.core.result.post.PostEditResult;
-import id.thesis.shumishumi.core.result.post.PostQueryListResult;
-import id.thesis.shumishumi.core.result.post.PostQueryResult;
-import id.thesis.shumishumi.core.result.post.PostUpvoteResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.PostFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.post.PostCreateRequest;
+import id.thesis.shumishumi.facade.request.post.PostDeleteRequest;
+import id.thesis.shumishumi.facade.request.post.PostDownvoteRequest;
+import id.thesis.shumishumi.facade.request.post.PostEditRequest;
+import id.thesis.shumishumi.facade.request.post.PostQueryListRequest;
+import id.thesis.shumishumi.facade.request.post.PostQueryRequest;
+import id.thesis.shumishumi.facade.request.post.PostUpvoteRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.post.PostCreateResult;
+import id.thesis.shumishumi.facade.result.post.PostDeleteResult;
+import id.thesis.shumishumi.facade.result.post.PostDownvoteResult;
+import id.thesis.shumishumi.facade.result.post.PostEditResult;
+import id.thesis.shumishumi.facade.result.post.PostQueryListResult;
+import id.thesis.shumishumi.facade.result.post.PostQueryResult;
+import id.thesis.shumishumi.facade.result.post.PostUpvoteResult;
 import org.springframework.stereotype.Service;
 
 @Service

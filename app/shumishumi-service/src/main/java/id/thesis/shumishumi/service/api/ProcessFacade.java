@@ -1,14 +1,14 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.exception.ShumishumiException;
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.common.model.viewobject.SessionVO;
-import id.thesis.shumishumi.common.process.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.SessionService;
+import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.core.validator.BaseValidator;
-import id.thesis.shumishumi.core.request.BaseRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
+import id.thesis.shumishumi.facade.exception.ShumishumiException;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
+import id.thesis.shumishumi.facade.request.BaseRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;

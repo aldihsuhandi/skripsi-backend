@@ -1,14 +1,14 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.core.service;
 
-import id.thesis.shumishumi.common.util.converter.ViewObjectConverter;
 import id.thesis.shumishumi.common.model.request.otp.OTPSendInnerRequest;
-import id.thesis.shumishumi.common.model.viewobject.OtpVO;
+import id.thesis.shumishumi.common.service.EmailService;
+import id.thesis.shumishumi.common.service.OTPService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.core.service.EmailService;
-import id.thesis.shumishumi.core.service.OTPService;
-import id.thesis.shumishumi.foundation.dalgen.converter.OTPDAORequestConverter;
-import id.thesis.shumishumi.foundation.dalgen.model.request.OTPDAORequest;
-import id.thesis.shumishumi.foundation.dalgen.service.OtpDAO;
+import id.thesis.shumishumi.core.converter.ViewObjectConverter;
+import id.thesis.shumishumi.facade.model.viewobject.OtpVO;
+import id.thesis.shumishumi.foundation.converter.OTPDAORequestConverter;
+import id.thesis.shumishumi.foundation.model.request.OTPDAORequest;
+import id.thesis.shumishumi.foundation.service.OtpDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

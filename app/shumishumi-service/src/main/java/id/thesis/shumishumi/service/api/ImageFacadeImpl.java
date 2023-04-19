@@ -1,14 +1,14 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.facade.ImageFacade;
-import id.thesis.shumishumi.core.request.image.ImageDownloadRequest;
-import id.thesis.shumishumi.core.request.image.ImageUploadRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.image.ImageDownloadResult;
-import id.thesis.shumishumi.core.result.image.ImageUploadResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.ImageFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.image.ImageDownloadRequest;
+import id.thesis.shumishumi.facade.request.image.ImageUploadRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.image.ImageDownloadResult;
+import id.thesis.shumishumi.facade.result.image.ImageUploadResult;
 import org.springframework.stereotype.Service;
 
 @Service

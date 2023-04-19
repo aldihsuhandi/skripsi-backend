@@ -1,16 +1,16 @@
-package id.thesis.shumishumi.common.process.service;
+package id.thesis.shumishumi.service.api;
 
-import id.thesis.shumishumi.common.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.core.facade.ItemWishlistFacade;
-import id.thesis.shumishumi.common.process.callback.ProcessCallback;
-import id.thesis.shumishumi.common.process.callback.ProcessCallbackSupport;
-import id.thesis.shumishumi.core.request.item.wishlist.AddWishlistRequest;
-import id.thesis.shumishumi.core.request.item.wishlist.QueryWishlistRequest;
-import id.thesis.shumishumi.core.request.item.wishlist.RemoveWishlistRequest;
-import id.thesis.shumishumi.core.result.BaseResult;
-import id.thesis.shumishumi.core.result.item.wishlist.AddWishlistResult;
-import id.thesis.shumishumi.core.result.item.wishlist.QueryWishlistResult;
-import id.thesis.shumishumi.core.result.item.wishlist.RemoveWishlistResult;
+import id.thesis.shumishumi.core.callback.ProcessCallback;
+import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
+import id.thesis.shumishumi.facade.api.ItemWishlistFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.item.wishlist.AddWishlistRequest;
+import id.thesis.shumishumi.facade.request.item.wishlist.QueryWishlistRequest;
+import id.thesis.shumishumi.facade.request.item.wishlist.RemoveWishlistRequest;
+import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.item.wishlist.AddWishlistResult;
+import id.thesis.shumishumi.facade.result.item.wishlist.QueryWishlistResult;
+import id.thesis.shumishumi.facade.result.item.wishlist.RemoveWishlistResult;
 import org.springframework.stereotype.Service;
 
 @Service

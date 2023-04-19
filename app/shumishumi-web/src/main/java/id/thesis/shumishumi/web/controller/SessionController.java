@@ -3,15 +3,15 @@
  */
 package id.thesis.shumishumi.web.controller;
 
-import id.thesis.shumishumi.common.process.callback.ControllerCallback;
-import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
-import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
-import id.thesis.shumishumi.core.result.session.SessionLogoutResult;
-import id.thesis.shumishumi.core.result.session.SessionQueryResult;
-import id.thesis.shumishumi.rest.form.session.SessionLogoutForm;
-import id.thesis.shumishumi.rest.form.session.SessionQueryForm;
+import id.thesis.shumishumi.common.model.form.session.SessionLogoutForm;
+import id.thesis.shumishumi.common.model.form.session.SessionQueryForm;
+import id.thesis.shumishumi.core.callback.ControllerCallback;
+import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.facade.api.SessionFacade;
+import id.thesis.shumishumi.facade.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.facade.request.session.SessionQueryRequest;
+import id.thesis.shumishumi.facade.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.facade.result.session.SessionQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

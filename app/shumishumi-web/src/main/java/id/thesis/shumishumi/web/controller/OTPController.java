@@ -1,14 +1,14 @@
 package id.thesis.shumishumi.web.controller;
 
-import id.thesis.shumishumi.common.process.callback.ControllerCallback;
-import id.thesis.shumishumi.common.process.callback.ControllerCallbackSupport;
-import id.thesis.shumishumi.core.facade.OTPFacade;
-import id.thesis.shumishumi.core.request.otp.OTPSendRequest;
-import id.thesis.shumishumi.core.request.otp.OTPValidateRequest;
-import id.thesis.shumishumi.core.result.otp.OTPSendResult;
-import id.thesis.shumishumi.core.result.otp.OTPValidateResult;
-import id.thesis.shumishumi.rest.form.otp.OTPSendForm;
-import id.thesis.shumishumi.rest.form.otp.OTPValidateForm;
+import id.thesis.shumishumi.common.model.form.otp.OTPSendForm;
+import id.thesis.shumishumi.common.model.form.otp.OTPValidateForm;
+import id.thesis.shumishumi.core.callback.ControllerCallback;
+import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
+import id.thesis.shumishumi.facade.api.OTPFacade;
+import id.thesis.shumishumi.facade.request.otp.OTPSendRequest;
+import id.thesis.shumishumi.facade.request.otp.OTPValidateRequest;
+import id.thesis.shumishumi.facade.result.otp.OTPSendResult;
+import id.thesis.shumishumi.facade.result.otp.OTPValidateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
