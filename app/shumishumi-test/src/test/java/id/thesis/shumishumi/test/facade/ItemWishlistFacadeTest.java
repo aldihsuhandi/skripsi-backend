@@ -1,13 +1,13 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.core.facade.ItemWishlistFacade;
-import id.thesis.shumishumi.core.request.item.wishlist.AddWishlistRequest;
-import id.thesis.shumishumi.core.request.item.wishlist.QueryWishlistRequest;
-import id.thesis.shumishumi.core.request.item.wishlist.RemoveWishlistRequest;
-import id.thesis.shumishumi.core.result.item.wishlist.AddWishlistResult;
-import id.thesis.shumishumi.core.result.item.wishlist.QueryWishlistResult;
-import id.thesis.shumishumi.core.result.item.wishlist.RemoveWishlistResult;
+import id.thesis.shumishumi.facade.api.ItemWishlistFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.request.item.wishlist.AddWishlistRequest;
+import id.thesis.shumishumi.facade.request.item.wishlist.QueryWishlistRequest;
+import id.thesis.shumishumi.facade.request.item.wishlist.RemoveWishlistRequest;
+import id.thesis.shumishumi.facade.result.item.wishlist.AddWishlistResult;
+import id.thesis.shumishumi.facade.result.item.wishlist.QueryWishlistResult;
+import id.thesis.shumishumi.facade.result.item.wishlist.RemoveWishlistResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

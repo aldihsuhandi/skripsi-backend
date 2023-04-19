@@ -1,15 +1,15 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.common.model.enumeration.OTPTypeEnum;
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.core.facade.OTPFacade;
-import id.thesis.shumishumi.foundation.dalgen.model.result.ContentDO;
-import id.thesis.shumishumi.foundation.dalgen.model.result.OtpDO;
-import id.thesis.shumishumi.core.request.otp.OTPSendRequest;
-import id.thesis.shumishumi.core.request.otp.OTPValidateRequest;
-import id.thesis.shumishumi.core.result.otp.OTPSendResult;
-import id.thesis.shumishumi.core.result.otp.OTPValidateResult;
+import id.thesis.shumishumi.facade.api.OTPFacade;
+import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.request.otp.OTPSendRequest;
+import id.thesis.shumishumi.facade.request.otp.OTPValidateRequest;
+import id.thesis.shumishumi.facade.result.otp.OTPSendResult;
+import id.thesis.shumishumi.facade.result.otp.OTPValidateResult;
+import id.thesis.shumishumi.foundation.model.result.ContentDO;
+import id.thesis.shumishumi.foundation.model.result.OtpDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

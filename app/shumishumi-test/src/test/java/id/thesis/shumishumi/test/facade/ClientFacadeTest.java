@@ -1,10 +1,10 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.core.facade.ClientFacade;
-import id.thesis.shumishumi.foundation.dalgen.model.result.ClientDO;
-import id.thesis.shumishumi.core.request.client.ClientAuthRequest;
-import id.thesis.shumishumi.core.result.client.ClientAuthResult;
+import id.thesis.shumishumi.facade.api.ClientFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.request.client.ClientAuthRequest;
+import id.thesis.shumishumi.facade.result.client.ClientAuthResult;
+import id.thesis.shumishumi.foundation.model.result.ClientDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

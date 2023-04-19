@@ -14,16 +14,6 @@
     <packaging>pom</packaging>
     <name>shumishumi</name>
     <description>Marketplace for hobby</description>
-    <modules>
-        <module>app/shumishumi-facade</module>
-        <module>app/shumishumi-foundation</module>
-        <module>app/shumishumi-common</module>
-        <module>app/shumishumi-core</module>
-        <module>app/shumishumi-web</module>
-        <module>app/shumishumi-service</module>
-        <module>app/shumishumi-bootstrap</module>
-        <module>app/shumishumi-test</module>
-    </modules>
     <properties>
         <java.version>11</java.version>
         <source.dir>src/main/java</source.dir>
@@ -37,6 +27,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <version>2.7.6</version>
         </dependency>
 
         <dependency>
@@ -48,11 +39,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <version>2.7.6</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
+            <version>1.18.24</version>
         </dependency>
 
         <!-- security -->
@@ -66,12 +58,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-            <version>8.0.32</version>
+            <version>8.0.31</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <version>3.0.2</version>
+            <version>2.7.6</version>
         </dependency>
 
         <!--email send-->
@@ -100,6 +92,17 @@
         </dependency>
     </dependencies>
 
+    <modules>
+        <module>app/shumishumi-facade</module>
+        <module>app/shumishumi-foundation</module>
+        <module>app/shumishumi-common</module>
+        <module>app/shumishumi-core</module>
+        <module>app/shumishumi-web</module>
+        <module>app/shumishumi-service</module>
+        <module>app/shumishumi-bootstrap</module>
+        <module>app/shumishumi-test</module>
+    </modules>
+
 
     <build>
         <sourceDirectory>${source.dir}</sourceDirectory>
@@ -122,7 +125,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.16</version>
+                            <version>1.18.24</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

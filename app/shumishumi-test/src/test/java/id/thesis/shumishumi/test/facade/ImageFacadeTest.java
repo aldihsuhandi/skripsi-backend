@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.core.facade.ImageFacade;
-import id.thesis.shumishumi.core.request.image.ImageDownloadRequest;
-import id.thesis.shumishumi.core.request.image.ImageUploadRequest;
-import id.thesis.shumishumi.core.result.image.ImageDownloadResult;
-import id.thesis.shumishumi.core.result.image.ImageUploadResult;
-import id.thesis.shumishumi.foundation.dalgen.model.result.ImageDO;
+import id.thesis.shumishumi.facade.api.ImageFacade;
+import id.thesis.shumishumi.facade.request.image.ImageDownloadRequest;
+import id.thesis.shumishumi.facade.request.image.ImageUploadRequest;
+import id.thesis.shumishumi.facade.result.image.ImageDownloadResult;
+import id.thesis.shumishumi.facade.result.image.ImageUploadResult;
+import id.thesis.shumishumi.foundation.model.result.ImageDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;

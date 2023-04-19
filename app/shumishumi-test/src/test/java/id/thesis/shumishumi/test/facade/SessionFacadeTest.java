@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.test.facade;
 
-import id.thesis.shumishumi.common.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.core.facade.SessionFacade;
-import id.thesis.shumishumi.core.request.session.SessionLogoutRequest;
-import id.thesis.shumishumi.core.request.session.SessionQueryRequest;
-import id.thesis.shumishumi.core.result.session.SessionLogoutResult;
-import id.thesis.shumishumi.core.result.session.SessionQueryResult;
+import id.thesis.shumishumi.facade.api.SessionFacade;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.request.session.SessionLogoutRequest;
+import id.thesis.shumishumi.facade.request.session.SessionQueryRequest;
+import id.thesis.shumishumi.facade.result.session.SessionLogoutResult;
+import id.thesis.shumishumi.facade.result.session.SessionQueryResult;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
