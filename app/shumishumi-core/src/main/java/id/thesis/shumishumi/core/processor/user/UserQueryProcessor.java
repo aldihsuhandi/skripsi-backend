@@ -3,10 +3,10 @@
  */
 package id.thesis.shumishumi.core.processor.user;
 
+import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;

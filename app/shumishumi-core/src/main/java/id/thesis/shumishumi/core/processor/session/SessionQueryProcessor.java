@@ -3,9 +3,9 @@
  */
 package id.thesis.shumishumi.core.processor.session;
 
+import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.SessionService;
-import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.facade.model.summary.SessionSummary;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;

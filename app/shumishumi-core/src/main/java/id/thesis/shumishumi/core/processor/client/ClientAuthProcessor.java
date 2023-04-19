@@ -3,9 +3,9 @@
  */
 package id.thesis.shumishumi.core.processor.client;
 
+import id.thesis.shumishumi.common.service.ClientService;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.ClientService;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ClientVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;

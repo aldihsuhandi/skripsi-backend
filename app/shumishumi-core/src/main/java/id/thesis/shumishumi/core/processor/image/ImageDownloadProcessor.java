@@ -1,8 +1,8 @@
 package id.thesis.shumishumi.core.processor.image;
 
+import id.thesis.shumishumi.common.service.ImageService;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.ImageService;
 import id.thesis.shumishumi.facade.model.context.BlobMultipartFile;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ImageVO;

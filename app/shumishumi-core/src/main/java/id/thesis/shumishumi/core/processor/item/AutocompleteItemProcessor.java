@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
+import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.ItemService;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;

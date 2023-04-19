@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.core.processor.user;
 
+import id.thesis.shumishumi.common.service.OTPService;
+import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.UserRequestConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.OTPService;
-import id.thesis.shumishumi.core.service.UserService;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;

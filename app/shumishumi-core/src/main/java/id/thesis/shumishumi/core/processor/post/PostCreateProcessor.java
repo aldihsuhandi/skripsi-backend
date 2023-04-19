@@ -1,8 +1,8 @@
 package id.thesis.shumishumi.core.processor.post;
 
+import id.thesis.shumishumi.common.service.PostService;
+import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.PostService;
-import id.thesis.shumishumi.core.service.SessionService;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;

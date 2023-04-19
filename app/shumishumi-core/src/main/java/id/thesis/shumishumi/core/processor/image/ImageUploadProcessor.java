@@ -1,7 +1,7 @@
 package id.thesis.shumishumi.core.processor.image;
 
+import id.thesis.shumishumi.common.service.ImageService;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
-import id.thesis.shumishumi.core.service.ImageService;
 import id.thesis.shumishumi.facade.model.viewobject.ImageVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.image.ImageUploadRequest;
