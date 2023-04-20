@@ -65,26 +65,12 @@ public class SessionDAOImpl implements SessionDAO {
     @Override
     public void logout(SessionDAORequest request) {
         LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#logout[request=%s]", request.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
-                .addSetStatement(DatabaseConst.IS_ACTIVE)
-                .addSetStatement(DatabaseConst.GMT_MODIFIED)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setBoolean(1, false);
-                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
-                ps.setString(3, request.getSessionId());
-            });
+            sessionRepository.logout(request.getSessionId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            LogUtil.exception(e.getMessage(), e);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
