@@ -41,8 +41,8 @@ public class SessionServiceImpl implements SessionService {
         request.setSessionId(sessionId);
         request.setSessionDt(sessionDt);
 
-        SessionDAORequest daoRequest = SessionDAORequestConverter.toDAORequest(request);
-        sessionDAO.create(daoRequest);
+        SessionDO sessionDO = SessionDAORequestConverter.toDAORequest(request);
+        sessionDAO.create(sessionDO);
 
         return sessionId;
     }

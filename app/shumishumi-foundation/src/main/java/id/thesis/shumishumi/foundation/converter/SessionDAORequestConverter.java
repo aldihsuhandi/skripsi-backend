@@ -2,6 +2,7 @@ package id.thesis.shumishumi.foundation.converter;
 
 import id.thesis.shumishumi.common.model.request.session.SessionCreateInnerRequest;
 import id.thesis.shumishumi.foundation.model.request.SessionDAORequest;
+import id.thesis.shumishumi.foundation.model.result.SessionDO;
 
 import java.util.Date;
 
@@ -15,8 +16,8 @@ public class SessionDAORequestConverter {
         return daoRequest;
     }
 
-    public static SessionDAORequest toDAORequest(SessionCreateInnerRequest innerRequest) {
-        SessionDAORequest daoRequest = new SessionDAORequest();
+    public static SessionDO toDAORequest(SessionCreateInnerRequest innerRequest) {
+        SessionDO daoRequest = new SessionDO();
         daoRequest.setSessionId(innerRequest.getSessionId());
         daoRequest.setUserId(innerRequest.getUserId());
         daoRequest.setSessionDt(innerRequest.getSessionDt());

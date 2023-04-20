@@ -53,32 +53,13 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
-    public void create(SessionDAORequest request) {
-        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#create[request=%s]", request.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
-                .addValueStatement(DatabaseConst.SESSION_ID)
-                .addValueStatement(DatabaseConst.USER_ID)
-                .addValueStatement(DatabaseConst.SESSION_DT)
-                .addValueStatement(DatabaseConst.IS_ACTIVE)
-                .addValueStatement(DatabaseConst.IS_REMEMBERED)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
+    public void create(SessionDO session) {
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#create[request=%s]", session.toString()));
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, request.getSessionId());
-                ps.setString(2, request.getUserId());
-                ps.setTimestamp(3, new Timestamp(request.getSessionDt().getTime()));
-                ps.setBoolean(4, request.isActive());
-                ps.setBoolean(5, request.isRemembered());
-            });
+            sessionRepository.save(session);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
