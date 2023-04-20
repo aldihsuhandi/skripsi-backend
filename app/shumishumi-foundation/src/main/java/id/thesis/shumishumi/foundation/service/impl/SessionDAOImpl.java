@@ -7,10 +7,11 @@ import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.foundation.model.mapper.SessionDOMapper;
 import id.thesis.shumishumi.foundation.model.request.SessionDAORequest;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.repository.SessionRepository;
 import id.thesis.shumishumi.foundation.service.SessionDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Service
 public class SessionDAOImpl implements SessionDAO {
@@ -32,26 +32,24 @@ public class SessionDAOImpl implements SessionDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
     @Override
     public SessionDO query(SessionDAORequest request) {
         LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[request=%s]", request.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
+        String sessionId = StringUtils.defaultIfBlank(request.getSessionId(), "");
 
-        List<SessionDO> sessionDOs = jdbcTemplate.query(statement, ps ->
-                ps.setString(1, request.getSessionId()), new SessionDOMapper());
-
-        if (sessionDOs.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "sessionDAO#query[result=null]");
-            return null;
+        SessionDO session = null;
+        try {
+            session = sessionRepository.findById(sessionId).orElse(null);
+        } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
         }
 
-        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[result=%s])", sessionDOs.get(0)));
-        return sessionDOs.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[result=%s])", session));
+        return session;
     }
 
     @Override
