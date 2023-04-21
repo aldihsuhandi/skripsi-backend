@@ -65,8 +65,6 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public void deactivateExpiredSession() {
-        Date sessionDt = new Date();
-        SessionDAORequest daoRequest = SessionDAORequestConverter.toDAORequest(sessionDt);
-        sessionDAO.deactivateExpiredSession(daoRequest);
+        sessionDAO.deactivateExpiredSession();
     }
 }
