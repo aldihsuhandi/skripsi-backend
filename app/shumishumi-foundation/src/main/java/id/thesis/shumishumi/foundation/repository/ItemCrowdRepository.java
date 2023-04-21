@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemCrowdRepository extends JpaRepository<ItemCrowdDO, ItemCrowdDOPK> {
     @Query("SELECT ic FROM ItemCrowdDO ic WHERE ic.pk.crowdId = :crowd_id")
-    List<ItemCrowdDO> queryByCrowdId(@Param("crowd_id") String crowdId);
+    Optional<List<ItemCrowdDO>> queryByCrowdId(@Param("crowd_id") String crowdId);
 }

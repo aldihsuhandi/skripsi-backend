@@ -3,20 +3,16 @@
  */
 package id.thesis.shumishumi.foundation.service.impl;
 
-import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
-import id.thesis.shumishumi.common.util.database.StatementBuilder;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
-import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.foundation.model.mapper.HobbyDOMapper;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
+import id.thesis.shumishumi.foundation.repository.HobbyRepository;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,97 +27,65 @@ public class HobbyDAOImpl implements HobbyDAO {
     private static final Logger DALGEN_LOGGER = LoggerFactory.
             getLogger(LogConstant.DALGEN_LOGGER);
 
-    private static final Logger DAO_LOGGER = LoggerFactory.
-            getLogger(LogConstant.DAO_LOGGER);
-
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private HobbyRepository hobbyRepository;
 
     @Override
     public List<HobbyDO> queryAll() {
-        String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .buildStatement();
+        LogUtil.info(DALGEN_LOGGER, "hobbyDAO#queryAll[]");
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
+        List<HobbyDO> result;
+        try {
+            result = hobbyRepository.findAll();
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
 
-        List<HobbyDO> result = jdbcTemplate.query(statement, new HobbyDOMapper());
-
-        LogUtil.info(DALGEN_LOGGER, result);
-
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryAll[result=%s]", result));
         return result;
     }
 
     @Override
     public HobbyDO queryById(String hobbyId) {
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryById[hobbyId=%s]", hobbyId));
 
-        LogUtil.info(DALGEN_LOGGER, hobbyId);
-
-        String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.HOBBY_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<HobbyDO> hobbyDOS = jdbcTemplate.query(statement,
-                ps -> ps.setString(1, hobbyId), new HobbyDOMapper());
-
-        if (hobbyDOS.isEmpty()) {
-            return null;
+        HobbyDO hobby = null;
+        try {
+            hobby = hobbyRepository.findById(hobbyId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, hobbyDOS.get(0));
-
-        return hobbyDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryById[result=%s]", hobby));
+        return hobby;
     }
 
     @Override
     public HobbyDO queryByName(String hobbyName) {
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryByName[hobbyName=%s]", hobbyName));
 
-        LogUtil.info(DALGEN_LOGGER, String.format("hobbyName=%s", hobbyName));
-
-        String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.HOBBY_NAME, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<HobbyDO> hobbyDOS = jdbcTemplate.query(statement,
-                ps -> ps.setString(1, hobbyName), new HobbyDOMapper());
-
-        if (hobbyDOS.isEmpty()) {
-            return null;
+        HobbyDO hobby = null;
+        try {
+            hobby = hobbyRepository.findByHobbyName(hobbyName).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, hobbyDOS.get(0));
-
-        return hobbyDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryByName[result=%s]", hobby));
+        return hobby;
     }
 
     @Override
     public void create(String hobbyId, String hobbyName) {
+        LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#create[hobbyId=%s,hobbyName=%s]", hobbyId, hobbyName));
+        HobbyDO hobbyDO = new HobbyDO();
+        hobbyDO.setHobbyId(hobbyId);
+        hobbyDO.setHobbyName(hobbyName);
 
-        LogUtil.info(DALGEN_LOGGER, String.format("hobbyId=%s,hobbyName=%s", hobbyId, hobbyName));
-
-        String statement = new StatementBuilder(DatabaseConst.TABLE_HOBBIES, DatabaseConst.STATEMENT_INSERT)
-                .addValueStatement(DatabaseConst.HOBBY_ID)
-                .addValueStatement(DatabaseConst.HOBBY_NAME)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, hobbyId);
-                ps.setString(2, hobbyName);
-            });
+            hobbyRepository.save(hobbyDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 }

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +37,7 @@ public class CrowdDAOImpl implements CrowdDAO {
 
         List<ItemCrowdDO> result;
         try {
-            result = itemCrowdRepository.queryByCrowdId(daoRequest.getCrowdId());
+            result = itemCrowdRepository.queryByCrowdId(daoRequest.getCrowdId()).orElse(new ArrayList<>());
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
@@ -52,7 +53,7 @@ public class CrowdDAOImpl implements CrowdDAO {
 
         List<UserCrowdDO> result;
         try {
-            result = userCrowdRepository.queryByUserId(daoRequest.getUserId());
+            result = userCrowdRepository.queryByUserId(daoRequest.getUserId()).orElse(new ArrayList<>());
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }

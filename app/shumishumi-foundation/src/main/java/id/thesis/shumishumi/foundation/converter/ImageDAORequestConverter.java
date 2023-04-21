@@ -2,15 +2,15 @@ package id.thesis.shumishumi.foundation.converter;
 
 
 import id.thesis.shumishumi.facade.model.viewobject.ImageVO;
-import id.thesis.shumishumi.foundation.model.request.ImageDAORequest;
+import id.thesis.shumishumi.foundation.model.result.ImageDO;
 
 public class ImageDAORequestConverter {
-    public static ImageDAORequest toDAORequest(ImageVO imageVO) {
+    public static ImageDO toDAORequest(ImageVO imageVO) {
         if (imageVO == null) {
             return null;
         }
 
-        ImageDAORequest request = new ImageDAORequest();
+        ImageDO request = new ImageDO();
         request.setImageId(imageVO.getImageId());
         request.setImage(imageVO.getImage());
         request.setImageExt(imageVO.getImageExt());

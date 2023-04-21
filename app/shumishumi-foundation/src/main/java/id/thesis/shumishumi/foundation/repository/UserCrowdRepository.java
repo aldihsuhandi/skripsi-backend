@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserCrowdRepository extends JpaRepository<UserCrowdDO, UserCrowdDOPK> {
     @Query("SELECT uc FROM UserCrowdDO uc WHERE uc.pk.userId = :user_id")
-    List<UserCrowdDO> queryByUserId(@Param("user_id") String crowdId);
+    Optional<List<UserCrowdDO>> queryByUserId(@Param("user_id") String crowdId);
 }
