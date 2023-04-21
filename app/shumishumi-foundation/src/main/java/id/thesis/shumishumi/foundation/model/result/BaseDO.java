@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,11 +16,13 @@ public class BaseDO implements Serializable {
     private static final long serialVersionUID = -347896096392840987L;
 
     @CreationTimestamp
-    @Column(name = "gmt_create")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_create", precision = 3)
     private Date gmtCreate;
 
     @UpdateTimestamp
-    @Column(name = "gmt_modified")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "gmt_modified", precision = 3)
     private Date gmtModified;
 
     public Date getGmtCreate() {

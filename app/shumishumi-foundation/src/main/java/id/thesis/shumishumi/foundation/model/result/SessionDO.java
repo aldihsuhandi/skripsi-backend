@@ -1,11 +1,6 @@
 package id.thesis.shumishumi.foundation.model.result;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -20,7 +15,8 @@ public class SessionDO extends BaseDO {
     @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "session_dt")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "session_dt", precision = 3)
     private Date sessionDt;
 
     @Column(name = "is_remembered")
@@ -69,8 +65,4 @@ public class SessionDO extends BaseDO {
         isActive = active;
     }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
 }

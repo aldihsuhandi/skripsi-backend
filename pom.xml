@@ -106,6 +106,12 @@
             <version>5.6.4.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+            <version>5.6.4.Final</version>
+        </dependency>
+
         <!-- Database Driver -->
         <dependency>
             <groupId>com.h2database</groupId>

@@ -11,8 +11,6 @@ public class ItemCrowdDOMapper implements RowMapper<ItemCrowdDO> {
     @Override
     public ItemCrowdDO mapRow(ResultSet rs, int rowNum) throws SQLException {
         ItemCrowdDO itemCrowdDO = new ItemCrowdDO();
-        itemCrowdDO.setItemId(rs.getString(DatabaseConst.ITEM_ID));
-        itemCrowdDO.setCrowdId(rs.getString(DatabaseConst.CROWD_ID));
         itemCrowdDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         itemCrowdDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 

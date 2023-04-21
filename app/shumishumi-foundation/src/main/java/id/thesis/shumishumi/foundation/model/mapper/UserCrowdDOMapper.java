@@ -11,8 +11,8 @@ public class UserCrowdDOMapper implements RowMapper<UserCrowdDO> {
     @Override
     public UserCrowdDO mapRow(ResultSet rs, int rowNum) throws SQLException {
         UserCrowdDO userCrowdDO = new UserCrowdDO();
-        userCrowdDO.setUserId(rs.getString(DatabaseConst.USER_ID));
-        userCrowdDO.setCrowdId(rs.getString(DatabaseConst.CROWD_ID));
+//        userCrowdDO.setUserId(rs.getString(DatabaseConst.USER_ID));
+//        userCrowdDO.setCrowdId(rs.getString(DatabaseConst.CROWD_ID));
         userCrowdDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         userCrowdDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 
