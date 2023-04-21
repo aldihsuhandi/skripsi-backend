@@ -1,11 +1,11 @@
 package id.thesis.shumishumi.foundation.service.impl;
 
 import id.thesis.shumishumi.common.util.LogUtil;
-import id.thesis.shumishumi.common.util.database.StatementBuilder;
-import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
+import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
-import id.thesis.shumishumi.foundation.model.mapper.InterestLevelDOMapper;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
+import id.thesis.shumishumi.foundation.repository.InterestLevelRepository;
 import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,64 +27,51 @@ public class InterestLevelDAOImpl implements InterestLevelDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private InterestLevelRepository interestLevelRepository;
+
     @Override
     public List<InterestLevelDO> queryAll() {
-        String statement = new StatementBuilder(DatabaseConst.TABLE_INTEREST_LEVEL, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .buildStatement();
+        LogUtil.info(DALGEN_LOGGER, "interestLevelDAO#queryAll[]");
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
+        List<InterestLevelDO> result;
+        try {
+            result = interestLevelRepository.findAll();
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
 
-        List<InterestLevelDO> result = jdbcTemplate.query(statement, new InterestLevelDOMapper());
-
-        LogUtil.info(DALGEN_LOGGER, result);
-
+        LogUtil.info(DALGEN_LOGGER, "interestLevelDAO#queryAll[result=%s]", result);
         return result;
     }
 
     @Override
     public InterestLevelDO queryById(String interestLevelId) {
-        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelId=%s", interestLevelId));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_INTEREST_LEVEL, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.INTEREST_LEVEL_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
+        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryById[interestLevelId=%s]", interestLevelId));
 
-        List<InterestLevelDO> interestLevelDOS = jdbcTemplate.query(statement,
-                ps -> ps.setString(1, interestLevelId), new InterestLevelDOMapper());
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        if (interestLevelDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "[]");
-            return null;
+        InterestLevelDO result = null;
+        try {
+            result = interestLevelRepository.findById(interestLevelId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, interestLevelDOS.get(0));
-
-        return interestLevelDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryById[result=%s]", result));
+        return result;
     }
 
     @Override
     public InterestLevelDO queryByName(String interestLevelName) {
-        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelName=%s", interestLevelName));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_INTEREST_LEVEL, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.INTEREST_LEVEL_NAME, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
+        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryByName[interestLevelId=%s]", interestLevelName));
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<InterestLevelDO> interestLevelDOS = jdbcTemplate.query(statement,
-                ps -> ps.setString(1, interestLevelName), new InterestLevelDOMapper());
-
-        if (interestLevelDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "[]");
-            return null;
+        InterestLevelDO result = null;
+        try {
+            result = interestLevelRepository.findByInterestLevelName(interestLevelName).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, interestLevelDOS.get(0));
-
-        return interestLevelDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryByName[result=%s]", result));
+        return result;
     }
 }
