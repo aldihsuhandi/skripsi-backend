@@ -16,7 +16,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,12 +26,6 @@ public class ItemDAOImpl implements ItemDAO {
 
     private static final Logger DALGEN_LOGGER = LoggerFactory.
             getLogger(LogConstant.DALGEN_LOGGER);
-
-    private static final Logger DAO_LOGGER = LoggerFactory.
-            getLogger(LogConstant.DAO_LOGGER);
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private ItemRepository itemRepository;

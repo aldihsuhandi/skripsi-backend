@@ -11,8 +11,6 @@ public class ItemWishlistDOMapper implements RowMapper<ItemWishlistDO> {
     @Override
     public ItemWishlistDO mapRow(ResultSet rs, int rowNum) throws SQLException {
         ItemWishlistDO wishlistDO = new ItemWishlistDO();
-        wishlistDO.setItemId(rs.getString(DatabaseConst.ITEM_ID));
-        wishlistDO.setUserId(rs.getString(DatabaseConst.USER_ID));
         wishlistDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
         wishlistDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 
