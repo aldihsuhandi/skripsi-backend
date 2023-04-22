@@ -14,9 +14,9 @@ public interface ItemDAO {
 
     int count();
 
-    void create(ItemDAORequest request);
+    void create(ItemDO request);
 
-    void update(ItemDAORequest request);
+    void update(ItemDO request);
 
     void updateImage(ItemDAORequest request);
 

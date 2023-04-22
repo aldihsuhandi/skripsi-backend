@@ -32,12 +32,6 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
     private static final Logger DALGEN_LOGGER = LoggerFactory.
             getLogger(LogConstant.DALGEN_LOGGER);
 
-    private static final Logger DAO_LOGGER = LoggerFactory.
-            getLogger(LogConstant.DAO_LOGGER);
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @Autowired
     private ItemCategoryRepository itemCategoryRepository;
 

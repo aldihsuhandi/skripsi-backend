@@ -14,7 +14,7 @@ public class InterestLevelDO extends BaseDO {
     @Column(name = "interest_level_id")
     private String interestLevelId;
 
-    @Column(name = "interest_level_name")
+    @Column(name = "level_name")
     private String interestLevelName;
 
     public String getInterestLevelId() {

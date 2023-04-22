@@ -10,6 +10,7 @@ import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.model.result.ItemDO;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ import java.util.Date;
  * @version $Id: ItemDAORequestConverter.java, v 0.1 2023‐01‐18 11:53 Aldih Suhandi Exp $$
  */
 public class ItemDAORequestConverter {
-    public static ItemDAORequest toDAORequest(CreateItemInnerRequest request) {
+    public static ItemDO toDAORequest(CreateItemInnerRequest request) {
 
         StringBuilder imageBuilder = new StringBuilder();
         request.getItemImages().forEach(image ->
@@ -28,20 +29,20 @@ public class ItemDAORequestConverter {
             imageStr = imageBuilder.substring(0, imageBuilder.length() - 1);
         }
 
-        ItemDAORequest itemDAORequest = new ItemDAORequest();
-        itemDAORequest.setItemId(FunctionUtil.generateUUID());
-        itemDAORequest.setItemName(request.getItemName());
-        itemDAORequest.setItemImages(imageStr);
-        itemDAORequest.setItemDescription(request.getItemDescription());
-        itemDAORequest.setItemPrice(request.getItemPrice());
-        itemDAORequest.setItemQuantity(request.getItemQuantity());
-        itemDAORequest.setCategoryId(request.getCategoryId());
-        itemDAORequest.setHobbyId(request.getHobbyId());
-        itemDAORequest.setMerchantLevelId(request.getMerchantLevelId());
-        itemDAORequest.setMerchantId(request.getMerchantId());
-        itemDAORequest.setApproved(true);
+        ItemDO item = new ItemDO();
+        item.setItemId(FunctionUtil.generateUUID());
+        item.setItemName(request.getItemName());
+        item.setItemImages(imageStr);
+        item.setItemDescription(request.getItemDescription());
+        item.setItemPrice(request.getItemPrice());
+        item.setItemQuantity(request.getItemQuantity());
+        item.setCategoryId(request.getCategoryId());
+        item.setHobbyId(request.getHobbyId());
+        item.setMerchantLevelId(request.getMerchantLevelId());
+        item.setMerchantId(request.getMerchantId());
+        item.setApproved(true);
 
-        return itemDAORequest;
+        return item;
     }
 
     public static ItemDAORequest toDAORequest(ItemFilterContext filterContext, String categoryId,
@@ -61,20 +62,20 @@ public class ItemDAORequestConverter {
         return itemDAORequest;
     }
 
-    public static ItemDAORequest toDAORequest(ItemUpdateContext updateContext, String categoryId,
-                                              String hobbyId, String merchantLevelId, String itemId) {
-        ItemDAORequest itemDAORequest = new ItemDAORequest();
-        itemDAORequest.setItemId(itemId);
-        itemDAORequest.setItemName(updateContext.getItemName());
-        itemDAORequest.setItemPrice(updateContext.getItemPrice());
-        itemDAORequest.setItemDescription(updateContext.getItemDescription());
-        itemDAORequest.setItemQuantity(updateContext.getItemQuantity());
-        itemDAORequest.setCategoryId(categoryId);
-        itemDAORequest.setHobbyId(hobbyId);
-        itemDAORequest.setMerchantLevelId(merchantLevelId);
-        itemDAORequest.setGmtModified(new Date());
+    public static ItemDO toDAORequest(ItemUpdateContext updateContext, String categoryId,
+                                      String hobbyId, String merchantLevelId, String itemId) {
+        ItemDO itemDO = new ItemDO();
+        itemDO.setItemId(itemId);
+        itemDO.setItemName(updateContext.getItemName());
+        itemDO.setItemPrice(updateContext.getItemPrice());
+        itemDO.setItemDescription(updateContext.getItemDescription());
+        itemDO.setItemQuantity(updateContext.getItemQuantity());
+        itemDO.setCategoryId(categoryId);
+        itemDO.setHobbyId(hobbyId);
+        itemDO.setMerchantLevelId(merchantLevelId);
+        itemDO.setGmtModified(new Date());
 
-        return itemDAORequest;
+        return itemDO;
     }
 
     public static ItemDAORequest toDAORequest(String itemId) {
