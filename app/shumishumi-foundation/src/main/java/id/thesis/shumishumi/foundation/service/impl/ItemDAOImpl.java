@@ -176,8 +176,6 @@ public class ItemDAOImpl implements ItemDAO {
 
         Example<ItemDO> exampleObject = Example.of(itemDO, matcher);
 
-        LogUtil.info(DALGEN_LOGGER, String.format("DEBUGGING#autocomplete[itemDOExample=%s]", exampleObject));
-
         List<String> result;
         try {
             result = itemRepository.findAll(exampleObject, pageable).getContent().stream().
