@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OtpRepository extends JpaRepository<OtpDO, String> {
     @Modifying
     @Transactional
-    @Query(value = "UPDATE OtpDO o SET o.isActive = false WHERE o.otpId = :otp_id", nativeQuery = true)
+    @Query(value = "UPDATE OtpDO o SET o.isActive = false WHERE o.otpId = :otp_id")
     void deactivate(@Param("otp_id") String otpId);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE OtpDO o SET o.isActive = false WHERE o.otpDt <= CURRENT_TIMESTAMP() AND o.isActive = true", nativeQuery = true)
+    @Query(value = "UPDATE OtpDO o SET o.isActive = false WHERE o.otpDt <= CURRENT_TIMESTAMP() AND o.isActive = true")
     void deactivate();
 }

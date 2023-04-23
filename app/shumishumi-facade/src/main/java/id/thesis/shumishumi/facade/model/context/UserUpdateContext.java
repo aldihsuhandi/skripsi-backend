@@ -20,6 +20,7 @@ public class UserUpdateContext {
     private String phoneNumber;
     private String profilePicture;
     private String password;
+    private String roleId;
     private Boolean isDeleted;
     private Boolean isActive;
 }

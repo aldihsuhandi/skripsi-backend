@@ -23,5 +23,6 @@ public class UserCreateInnerRequest extends BaseInnerRequest {
     private String email;
     private String phoneNumber;
     private Blob profilePicture;
+    private String roleId;
     private String password;
 }

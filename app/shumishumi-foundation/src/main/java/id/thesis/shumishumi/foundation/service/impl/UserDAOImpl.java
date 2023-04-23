@@ -3,25 +3,19 @@
  */
 package id.thesis.shumishumi.foundation.service.impl;
 
-import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
-import id.thesis.shumishumi.common.util.database.StatementBuilder;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
-import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
-import id.thesis.shumishumi.foundation.model.mapper.UserDOMapper;
 import id.thesis.shumishumi.foundation.model.request.UserDAORequest;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.repository.UserRepository;
 import id.thesis.shumishumi.foundation.service.UserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,162 +29,80 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger DALGEN_LOGGER = LoggerFactory.
             getLogger(LogConstant.DALGEN_LOGGER);
 
-    private static final Logger DAO_LOGGER = LoggerFactory.
-            getLogger(LogConstant.DAO_LOGGER);
-
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private UserRepository userRepository;
 
     @Override
     public void create(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#create[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_INSERT)
-                .addValueStatement(DatabaseConst.USER_ID)
-                .addValueStatement(DatabaseConst.EMAIL)
-                .addValueStatement(DatabaseConst.PHONE_NUMBER)
-                .addValueStatement(DatabaseConst.USERNAME)
-                .addValueStatement(DatabaseConst.ROLE_ID)
-                .addValueStatement(DatabaseConst.PASSWORD)
-                .buildStatement();
+        UserDO userDO = convertFromDAORequest(daoRequest);
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, daoRequest.getUserId());
-                ps.setString(2, daoRequest.getEmail());
-                ps.setString(3, daoRequest.getPhoneNumber());
-                ps.setString(4, daoRequest.getUsername());
-                ps.setString(5, UserRolesEnum.USER.getUserRoleId());
-                ps.setString(6, daoRequest.getPassword());
-            });
+            userRepository.save(userDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
     public void update(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#update[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
-                .addSetStatement(DatabaseConst.EMAIL)
-                .addSetStatement(DatabaseConst.USERNAME)
-                .addSetStatement(DatabaseConst.PHONE_NUMBER)
-                .addSetStatement(DatabaseConst.PROFILE_PICTURE)
-                .addSetStatement(DatabaseConst.PASSWORD)
-                .addSetStatement(DatabaseConst.IS_ACTIVE)
-                .addSetStatement(DatabaseConst.IS_DELETED)
-                .addSetStatement(DatabaseConst.GMT_MODIFIED)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
+        UserDO userDO = convertFromDAORequest(daoRequest);
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, daoRequest.getEmail());
-                ps.setString(2, daoRequest.getUsername());
-                ps.setString(3, daoRequest.getPhoneNumber());
-                ps.setString(4, daoRequest.getProfilePicture());
-                ps.setString(5, daoRequest.getPassword());
-                ps.setBoolean(6, daoRequest.isActive());
-                ps.setBoolean(7, daoRequest.isDeleted());
-                ps.setTimestamp(8, new Timestamp(daoRequest.getGmtModified().getTime()));
-                ps.setString(9, daoRequest.getUserId());
-            });
+            userRepository.save(userDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
     public void updateProfilePicture(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#updateProfilePicture[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
-                .addSetStatement(DatabaseConst.PROFILE_PICTURE)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
-
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, daoRequest.getProfilePicture());
-                ps.setString(2, daoRequest.getUserId());
-            });
+            userRepository.updateProfilePicture(daoRequest.getUserId(), daoRequest.getProfilePicture());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
     public void changeRole(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#changeRole[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
-                .addSetStatement(DatabaseConst.ROLE_ID)
-                .addSetStatement(DatabaseConst.GMT_MODIFIED)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        int result;
         try {
-            result = jdbcTemplate.update(statement, ps -> {
-                ps.setString(1, daoRequest.getRoleId());
-                ps.setTimestamp(2, new Timestamp(daoRequest.getGmtModified().getTime()));
-                ps.setString(3, daoRequest.getUserId());
-            });
+            userRepository.changeRoleUser(daoRequest.getUserId(), daoRequest.getRoleId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getCause().getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
-
-        AssertUtil.isExpected(result, 1, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @Override
     public UserDO queryById(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps ->
-                ps.setString(1, daoRequest.getUserId()), new UserDOMapper());
-
-        if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "userDAO#queryById[result=null]");
-            return null;
+        UserDO result;
+        try {
+            result = userRepository.findById(daoRequest.getUserId()).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[result=%s]", userDOS.get(0)));
-        return userDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[result=%s]", result));
+        return result;
     }
 
     @Override
     public List<UserDO> queryByIds(List<UserDAORequest> userDAORequests) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByIds[request=%s]", userDAORequests.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_IN)
-                .buildStatement();
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
+        List<String> userIds = userDAORequests.stream().map(UserDAORequest::getUserId).collect(Collectors.toList());
+        List<UserDO> userDOS;
 
-        String userIds = userDAORequests.stream().map(UserDAORequest::getUserId).collect(Collectors.joining(", "));
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, userIds), new UserDOMapper());
+        try {
+            userDOS = userRepository.findByIds(userIds);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAo#queryByIds[result=%s]", userDOS));
 
@@ -200,58 +112,64 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public UserDO queryByEmail(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.EMAIL, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps ->
-                ps.setString(1, daoRequest.getEmail()), new UserDOMapper());
-
-        if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "userDAO#queryByEmail[result=null]");
-            return null;
+        UserDO userDO;
+        try {
+            userDO = userRepository.findByEmail(daoRequest.getEmail()).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[result=%s]", userDOS.get(0)));
-        return userDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[result=%s]", userDO));
+        return userDO;
     }
 
     @Override
     public UserDO queryByPhoneNumber(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[request=%s]", daoRequest.toString()));
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.PHONE_NUMBER, DatabaseConst.COMPARATOR_EQUAL)
-                .buildStatement();
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
-
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps ->
-                ps.setString(1, daoRequest.getPhoneNumber()), new UserDOMapper());
-
-        if (userDOS.isEmpty()) {
-            LogUtil.info(DALGEN_LOGGER, "userDAO#queryByPhoneNumber[result=null]");
-            return null;
+        UserDO userDO;
+        try {
+            userDO = userRepository.findByPhoneNumber(daoRequest.getPhoneNumber()).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
-        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[result=%s]", userDOS.get(0).toString()));
-        return userDOS.get(0);
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[result=%s]", userDO));
+        return userDO;
     }
 
     @Override
     public List<UserDO> queryAll() {
-        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
-                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
-                .buildStatement();
+        LogUtil.info(DALGEN_LOGGER, "userDAO#queryAll");
 
-        LogUtil.info(DAO_LOGGER, "statement", statement);
+        List<UserDO> result;
+        try {
+            result = userRepository.findAll();
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
 
-        List<UserDO> result = jdbcTemplate.query(statement, new UserDOMapper());
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryAll[request=%s]", result));
-
         return result;
+    }
+
+    private UserDO convertFromDAORequest(UserDAORequest request) {
+        if (request == null) {
+            return null;
+        }
+
+        UserDO userDO = new UserDO();
+        userDO.setUserId(request.getUserId());
+        userDO.setUsername(request.getUsername());
+        userDO.setEmail(request.getEmail());
+        userDO.setPhoneNumber(request.getPhoneNumber());
+        userDO.setRoleId(request.getRoleId());
+        userDO.setActive(request.isActive());
+        userDO.setDeleted(request.isDeleted());
+        userDO.setProfilePicture(request.getProfilePicture());
+        userDO.setPassword(request.getPassword());
+
+        return userDO;
     }
 }

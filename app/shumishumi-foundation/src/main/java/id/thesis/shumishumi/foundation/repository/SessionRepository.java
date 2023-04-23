@@ -24,6 +24,6 @@ public interface SessionRepository extends JpaRepository<SessionDO, String> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE SessionDO s SET s.isActive = false WHERE s.sessionDt < CURRENT_TIMESTAMP() AND s.isActive = true AND s.isRemembered = false", nativeQuery = true)
+    @Query(value = "UPDATE SessionDO s SET s.isActive = false WHERE s.sessionDt < CURRENT_TIMESTAMP() AND s.isActive = true AND s.isRemembered = false")
     void expiredSession();
 }

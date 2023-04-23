@@ -32,11 +32,10 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public List<ItemDO> queryAll(ItemDAORequest request) {
-
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[request=%s]", request.toString()));
 
         PagingContext pagination = request.getPagingContext();
-        Pageable pageable = PageRequest.of(pagination.getPageNumber() - 1, pagination.getNumberOfItem());
+        Pageable pageable = PageRequest.of(pagination.getPageNumber() - 1, Math.max(pagination.getNumberOfItem(), 1));
 
         List<ItemDO> result;
         try {
@@ -46,7 +45,6 @@ public class ItemDAOImpl implements ItemDAO {
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[result=%s]", result));
-
         return result;
     }
 
