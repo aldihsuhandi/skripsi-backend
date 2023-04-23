@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService {
         daoRequest.setContent(post.getContent());
         daoRequest.setUserId(post.getUserId());
         daoRequest.setImages(imageStr);
-        daoRequest.setTitle(tagStr);
+        daoRequest.setTags(tagStr);
 
         postDAO.insert(daoRequest);
 
@@ -90,7 +90,7 @@ public class PostServiceImpl implements PostService {
         daoRequest.setContent(post.getContent());
         daoRequest.setUserId(post.getUserId());
         daoRequest.setImages(imageStr);
-        daoRequest.setTitle(tagStr);
+        daoRequest.setTags(tagStr);
 
         postDAO.update(daoRequest);
     }
@@ -134,7 +134,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int countList(String title, List<String> tags) {
+    public long countList(String title, List<String> tags) {
         StringBuilder tagsSb = new StringBuilder();
         tags.forEach(tag -> {
             tagsSb.append(tag).append(CommonConst.SEPARATOR);

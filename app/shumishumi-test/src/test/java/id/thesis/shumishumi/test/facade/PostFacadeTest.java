@@ -154,7 +154,7 @@ public class PostFacadeTest extends FacadeTestBase {
 
         Mockito.when(postDAO.query(Mockito.any())).thenReturn(
                 Collections.singletonList(mockPostDO("userId", "keyboard|switches", "")));
-        Mockito.when(postDAO.countList(Mockito.any())).thenReturn(230);
+        Mockito.when(postDAO.countList(Mockito.any())).thenReturn(230L);
         Mockito.when(postVoteDAO.queryVote(Mockito.any(), Mockito.eq(-1))).thenReturn(10);
         Mockito.when(postVoteDAO.queryVote(Mockito.any(), Mockito.eq(1))).thenReturn(200);
         mockUserWithRole();

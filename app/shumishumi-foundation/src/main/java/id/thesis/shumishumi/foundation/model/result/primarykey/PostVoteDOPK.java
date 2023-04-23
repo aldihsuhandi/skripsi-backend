@@ -7,29 +7,29 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class ItemWishlistDOPK implements Serializable {
-    private static final long serialVersionUID = 3229436141578338249L;
+public class PostVoteDOPK implements Serializable {
+    private static final long serialVersionUID = 1968817105032096898L;
 
-    @Column(name = "item_id")
-    private String itemId;
+    @Column(name = "post_id")
+    private String postId;
 
     @Column(name = "user_id")
     private String userId;
 
-    public ItemWishlistDOPK(String itemId, String userId) {
-        this.itemId = itemId;
+    public PostVoteDOPK(String postId, String userId) {
+        this.postId = postId;
         this.userId = userId;
     }
 
-    public ItemWishlistDOPK() {
+    public PostVoteDOPK() {
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public String getUserId() {

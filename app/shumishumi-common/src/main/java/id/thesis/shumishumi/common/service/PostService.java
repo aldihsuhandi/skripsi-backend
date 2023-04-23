@@ -17,7 +17,7 @@ public interface PostService {
 
     List<PostVO> queryList(String title, List<String> tags, PagingContext pagingContext);
 
-    int countList(String title, List<String> tags);
+    long countList(String title, List<String> tags);
 
     void insertVote(String userId, String postId, int value);
 

@@ -20,6 +20,9 @@ public class UserCrowdDOPK implements Serializable {
         this.crowdId = crowdId;
     }
 
+    public UserCrowdDOPK() {
+    }
+
     public String getUserId() {
         return userId;
     }

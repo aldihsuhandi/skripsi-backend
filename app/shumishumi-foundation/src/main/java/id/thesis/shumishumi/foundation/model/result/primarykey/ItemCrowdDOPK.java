@@ -21,6 +21,9 @@ public class ItemCrowdDOPK implements Serializable {
         this.crowdId = crowdId;
     }
 
+    public ItemCrowdDOPK() {
+    }
+
     public String getItemId() {
         return itemId;
     }

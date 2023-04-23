@@ -36,7 +36,7 @@ public class ItemDAOImpl implements ItemDAO {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[request=%s]", request.toString()));
 
         PagingContext pagination = request.getPagingContext();
-        Pageable pageable = PageRequest.of(pagination.calculateOffset(), pagination.getNumberOfItem());
+        Pageable pageable = PageRequest.of(pagination.getPageNumber() - 1, pagination.getNumberOfItem());
 
         List<ItemDO> result;
         try {
@@ -79,7 +79,7 @@ public class ItemDAOImpl implements ItemDAO {
         ItemDO itemDO = convertToExampleDO(request);
         Example<ItemDO> exampleObject = Example.of(itemDO, matcher);
 
-        Pageable pageable = PageRequest.of(paging.getPageNumber(), paging.getNumberOfItem());
+        Pageable pageable = PageRequest.of(paging.getPageNumber() - 1, paging.getNumberOfItem());
         List<ItemDO> result;
         try {
             if (request.getMinPrice() != null && request.getMaxPrice() != null) {
@@ -165,7 +165,7 @@ public class ItemDAOImpl implements ItemDAO {
     public List<String> autocomplete(ItemDAORequest request) {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[request=%s]", request.toString()));
 
-        Pageable pageable = PageRequest.of(1, 15);
+        Pageable pageable = PageRequest.of(0, 15);
         ItemDO itemDO = new ItemDO();
         itemDO.setItemName(request.getItemName());
         itemDO.setApproved(true);

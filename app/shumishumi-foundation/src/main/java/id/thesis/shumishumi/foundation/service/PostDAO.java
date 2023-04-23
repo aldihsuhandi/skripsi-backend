@@ -17,5 +17,5 @@ public interface PostDAO {
 
     List<PostDO> query(PostDAORequest request);
 
-    int countList(PostDAORequest request);
+    long countList(PostDAORequest request);
 }
