@@ -34,7 +34,7 @@ public class FunctionUtil {
     }
 
     public static String generateOtp(int length, boolean useNumber, boolean useLetter) {
-        return RandomStringUtils.random(length, useNumber, useLetter);
+        return RandomStringUtils.random(length, useLetter, useNumber);
     }
 
     public static void fillEmptyUpdateContext(UserUpdateContext updateContext, UserVO userVO) {

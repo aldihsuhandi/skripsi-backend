@@ -3,21 +3,16 @@
  */
 package id.thesis.shumishumi.foundation.service.impl;
 
-import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
-import id.thesis.shumishumi.common.util.database.StatementBuilder;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
-import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.foundation.model.mapper.ItemCategoryDOMapper;
 import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.repository.ItemCategoryRepository;
 import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
