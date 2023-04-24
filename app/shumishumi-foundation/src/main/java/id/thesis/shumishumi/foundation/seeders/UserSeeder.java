@@ -20,7 +20,7 @@ public class UserSeeder extends BaseSeeder {
 
     @Override
     public void setOrder() {
-        this.order = 1;
+        this.order = 2;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class UserSeeder extends BaseSeeder {
         userDO.setActive(userRequest.isActive);
         userDO.setActive(userRequest.isDeleted);
         userDO.setProfilePicture(imageId);
-        userDO.setPassword(userRequest.password);
+        userDO.setPassword(FunctionUtil.hashPassword(userRequest.password));
 
         try {
             userRepository.save(userDO);

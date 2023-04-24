@@ -30,4 +30,6 @@ public interface UserService {
     UserVO queryByPhoneNumber(String phoneNumber, boolean useCache);
 
     void refreshCache(List<String> userIds, boolean refreshAll);
+
+    void clearCache();
 }
