@@ -4,11 +4,7 @@
 package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
-import id.thesis.shumishumi.common.service.HobbyService;
-import id.thesis.shumishumi.common.service.InterestLevelService;
-import id.thesis.shumishumi.common.service.ItemCategoryService;
-import id.thesis.shumishumi.common.service.ItemService;
-import id.thesis.shumishumi.common.service.UserService;
+import id.thesis.shumishumi.common.service.*;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
@@ -17,11 +13,7 @@ import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
-import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
-import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
-import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
-import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
-import id.thesis.shumishumi.facade.model.viewobject.UserVO;
+import id.thesis.shumishumi.facade.model.viewobject.*;
 import id.thesis.shumishumi.foundation.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
@@ -259,7 +251,8 @@ public class ItemServiceImpl implements ItemService {
         }
 
         int sz = Math.min(pagingContext.getNumberOfItem() + pagingContext.calculateOffset(), itemVOS.size());
-        for (int i = Math.max(pagingContext.calculateOffset() - 1, 0); i < sz; ++i) {
+        System.out.printf("DEBUGGING[offset=%d,sz=%d]\n", pagingContext.calculateOffset() - 1, sz);
+        for (int i = Math.max(pagingContext.calculateOffset(), 0); i < sz; ++i) {
             result.add(itemVOS.get(i));
         }
 

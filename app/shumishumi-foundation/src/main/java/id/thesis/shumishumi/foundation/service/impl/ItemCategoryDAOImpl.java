@@ -10,6 +10,7 @@ import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.repository.ItemCategoryRepository;
 import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
     public ItemCategoryDO queryById(String categoryId) {
         LogUtil.info(DALGEN_LOGGER, String.format("itemCategoryDAO#queryById[categoryId=%s]", categoryId));
 
+        categoryId = StringUtils.defaultIfEmpty(categoryId, "");
+
         ItemCategoryDO result;
         try {
             result = itemCategoryRepository.findById(categoryId).orElse(null);
@@ -63,6 +66,8 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
     @Override
     public ItemCategoryDO queryByName(String categoryName) {
         LogUtil.info(DALGEN_LOGGER, String.format("itemCategoryDAO#queryByName[categoryName=%s]", categoryName));
+
+        categoryName = StringUtils.defaultIfEmpty(categoryName, "");
 
         ItemCategoryDO result;
         try {

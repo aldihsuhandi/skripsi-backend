@@ -10,6 +10,7 @@ import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.repository.HobbyRepository;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class HobbyDAOImpl implements HobbyDAO {
     public HobbyDO queryById(String hobbyId) {
         LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryById[hobbyId=%s]", hobbyId));
 
+        hobbyId = StringUtils.defaultIfEmpty(hobbyId, "");
+
         HobbyDO hobby = null;
         try {
             hobby = hobbyRepository.findById(hobbyId).orElse(null);
@@ -63,6 +66,8 @@ public class HobbyDAOImpl implements HobbyDAO {
     @Override
     public HobbyDO queryByName(String hobbyName) {
         LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryByName[hobbyName=%s]", hobbyName));
+
+        hobbyName = StringUtils.defaultIfEmpty(hobbyName, "");
 
         HobbyDO hobby = null;
         try {
