@@ -8,10 +8,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserForgotPasswordForm extends BaseForm {
+public class UserResetPasswordForm extends BaseForm {
     private static final long serialVersionUID = 835379121630690776L;
 
     private String otp;
     private String email;
     private String password;
+    private String confirmPassword;
 }

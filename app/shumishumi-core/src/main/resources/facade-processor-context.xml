@@ -14,8 +14,8 @@
     <bean id="userUpdateProcessor" class="id.thesis.shumishumi.core.processor.user.UserUpdateProcessor"/>
     <bean id="userQueryProcessor" class="id.thesis.shumishumi.core.processor.user.UserQueryProcessor"/>
     <bean id="userActivateProcessor" class="id.thesis.shumishumi.core.processor.user.UserActivateProcessor"/>
-    <bean id="userForgotPasswordProcessor"
-          class="id.thesis.shumishumi.core.processor.user.UserForgotPasswordProcessor"/>
+    <bean id="resetPasswordProcessor"
+          class="id.thesis.shumishumi.core.processor.user.ResetPasswordProcessor"/>
 
     <!--session-->
     <bean id="sessionQueryProcessor"
@@ -85,8 +85,8 @@
         <entry key="USER_ACTIVATE">
             <ref bean="userActivateProcessor"/>
         </entry>
-        <entry key="FORGOT_PASSWORD">
-            <ref bean="userForgotPasswordProcessor"/>
+        <entry key="RESET_PASSWORD">
+            <ref bean="resetPasswordProcessor"/>
         </entry>
 
         <entry key="SESSION_QUERY">
@@ -172,8 +172,8 @@
     <bean id="userUpdateValidator" class="id.thesis.shumishumi.core.validator.user.UserUpdateValidator"/>
     <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
     <bean id="userActivateValidator" class="id.thesis.shumishumi.core.validator.user.UserActivateValidator"/>
-    <bean id="userForgotPasswordValidator"
-          class="id.thesis.shumishumi.core.validator.user.UserForgotPasswordValidator"/>
+    <bean id="resetPasswordValidator"
+          class="id.thesis.shumishumi.core.validator.user.ResetPasswordValidator"/>
 
     <!--session-->
     <bean id="sessionQueryValidator" class="id.thesis.shumishumi.core.validator.session.SessionQueryValidator"/>
@@ -236,8 +236,8 @@
         <entry key="USER_ACTIVATE">
             <ref bean="userActivateValidator"/>
         </entry>
-        <entry key="FORGOT_PASSWORD">
-            <ref bean="userForgotPasswordValidator"/>
+        <entry key="RESET_PASSWORD">
+            <ref bean="resetPasswordValidator"/>
         </entry>
 
         <entry key="SESSION_QUERY">

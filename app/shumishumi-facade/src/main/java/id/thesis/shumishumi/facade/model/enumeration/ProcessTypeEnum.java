@@ -11,7 +11,10 @@ public enum ProcessTypeEnum {
     USER_UPDATE("USER_UPDATE", "userUpdateValidator", "userUpdateProcessor", true),
     USER_QUERY("USER_QUERY", "userQueryValidator", "userQueryProcessor", false),
     USER_ACTIVATE("USER_ACTIVATE", "userActivateValidator", "userActivateProcessor", false),
-    FORGOT_PASSWORD("FORGOT_PASSWORD", "userForgotPasswordValidator", "userForgotPasswordProcessor", false),
+
+    RESET_PASSWORD("RESET_PASSWORD", "resetPasswordValidator", "resetPasswordProcessor", false),
+    FORGOT_PASSWORD("FORGOT_PASSWORD", "forgotPasswordValidator", "forgotPasswordProcessor", false),
+    FORGOT_PASSWORD_QUERY("FORGOT_PASSWORD_QUERY", "forgotPasswordQueryValidator", "forgotPasswordQueryProcessor", false),
 
     SESSION_QUERY("SESSION_QUERY", "sessionQueryValidator", "sessionQueryProcessor", true),
     SESSION_LOGOUT("SESSION_LOGOUT", "sessionLogoutValidator", "sessionLogoutProcessor", true),

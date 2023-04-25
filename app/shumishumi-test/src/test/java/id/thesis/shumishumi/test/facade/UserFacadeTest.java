@@ -5,18 +5,8 @@ import id.thesis.shumishumi.facade.api.UserFacade;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
-import id.thesis.shumishumi.facade.request.user.UserForgotPasswordRequest;
-import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
-import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
-import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
-import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
-import id.thesis.shumishumi.facade.result.user.UserActivateResult;
-import id.thesis.shumishumi.facade.result.user.UserForgotPasswordResult;
-import id.thesis.shumishumi.facade.result.user.UserLoginResult;
-import id.thesis.shumishumi.facade.result.user.UserQueryResult;
-import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
-import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.request.user.*;
+import id.thesis.shumishumi.facade.result.user.*;
 import id.thesis.shumishumi.foundation.model.result.OtpDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
@@ -278,38 +268,32 @@ public class UserFacadeTest extends FacadeTestBase {
 
     @Test
     public void userForgotPassword_SUCCESS() {
-        UserForgotPasswordRequest request = new UserForgotPasswordRequest();
-        request.setOtp("otp");
+        UserResetPasswordRequest request = new UserResetPasswordRequest();
         request.setEmail("email@email.com");
         request.setPassword("password");
-
-        Date otpDt = Date.from(LocalDateTime.now().plus(Duration.
-                of(10, ChronoUnit.MINUTES)).atZone(ZoneId.systemDefault()).toInstant());
+        request.setConfirmPassword("password");
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
-        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(otpDt, true));
 
-        UserForgotPasswordResult result = userFacade.forgotPassword(request);
+        UserResetPasswordResult result = userFacade.resetPassword(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
     }
 
     @Test
-    public void userForgotPassword_FAILED_otpValidationError() {
-        UserForgotPasswordRequest request = new UserForgotPasswordRequest();
-        request.setOtp("otp");
+    public void userForgotPassword_FAILED_paramIllegal() {
+        UserResetPasswordRequest request = new UserResetPasswordRequest();
         request.setEmail("email@email.com");
         request.setPassword("password");
+        request.setConfirmPassword("password2");
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
-        Mockito.when(otpDAO.query(Mockito.any())).thenReturn(mockOTPDO(new Date(), true));
 
-        UserForgotPasswordResult result = userFacade.forgotPassword(request);
+        UserResetPasswordResult result = userFacade.resetPassword(request);
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
-        ResultAssert.isExpected(result.getResultContext().getResultCode(),
-                ShumishumiErrorCodeEnum.OTP_VALIDATION_ERROR.getErrorCode());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
     }
 
     private OtpDO mockOTPDO(Date otpDt, boolean isActive) {

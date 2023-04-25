@@ -69,7 +69,7 @@ public class UserSeeder extends BaseSeeder {
         userDO.setPhoneNumber(userRequest.phoneNumber);
         userDO.setRoleId(userRequest.roleId);
         userDO.setActive(userRequest.isActive);
-        userDO.setActive(userRequest.isDeleted);
+        userDO.setDeleted(userRequest.isDeleted);
         userDO.setProfilePicture(imageId);
         userDO.setPassword(FunctionUtil.hashPassword(userRequest.password));
 
