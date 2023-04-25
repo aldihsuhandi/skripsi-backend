@@ -14,6 +14,12 @@
     <bean id="userUpdateProcessor" class="id.thesis.shumishumi.core.processor.user.UserUpdateProcessor"/>
     <bean id="userQueryProcessor" class="id.thesis.shumishumi.core.processor.user.UserQueryProcessor"/>
     <bean id="userActivateProcessor" class="id.thesis.shumishumi.core.processor.user.UserActivateProcessor"/>
+
+    <!--forgot password-->
+    <bean id="forgotPasswordProcessor"
+          class="id.thesis.shumishumi.core.processor.user.forgotpassword.ForgotPasswordProcessor"/>
+
+    <!--reset password-->
     <bean id="resetPasswordProcessor"
           class="id.thesis.shumishumi.core.processor.user.ResetPasswordProcessor"/>
 
@@ -172,6 +178,12 @@
     <bean id="userUpdateValidator" class="id.thesis.shumishumi.core.validator.user.UserUpdateValidator"/>
     <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
     <bean id="userActivateValidator" class="id.thesis.shumishumi.core.validator.user.UserActivateValidator"/>
+
+    <!--forgot password-->
+    <bean id="forgotPasswordValidator"
+          class="id.thesis.shumishumi.core.validator.user.forgotpassword.ForgotPasswordValidator"/>
+
+    <!--reset password-->
     <bean id="resetPasswordValidator"
           class="id.thesis.shumishumi.core.validator.user.ResetPasswordValidator"/>
 
