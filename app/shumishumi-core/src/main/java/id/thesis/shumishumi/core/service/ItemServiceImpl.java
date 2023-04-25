@@ -103,8 +103,8 @@ public class ItemServiceImpl implements ItemService {
         }
 
         ItemCategoryVO category = itemCategoryService.query(itemFilterContext.getItemCategory(), DatabaseConst.CATEGORY_NAME);
-        InterestLevelVO merchantLevel = interestLevelService.query(itemFilterContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
-        InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
+        InterestLevelVO merchantLevel = interestLevelService.query(itemFilterContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
+        InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
         HobbyVO hobby = hobbyService.query(itemFilterContext.getHobby(), DatabaseConst.HOBBY_NAME);
 
         ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(
