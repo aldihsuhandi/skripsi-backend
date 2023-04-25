@@ -30,6 +30,8 @@ public interface ItemService {
 
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
+    void clearCache();
+
     int count(ItemFilterContext itemFilterContext, boolean useCache);
 
     List<String> autocomplete(String itemName, boolean useCache);

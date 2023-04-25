@@ -46,6 +46,7 @@ public class ItemFetchService {
     }
 
     public void clearCache() {
+        LogUtil.info(LOGGER, "itemFetchService#clearCache");
         itemCache.clear();
     }
 }

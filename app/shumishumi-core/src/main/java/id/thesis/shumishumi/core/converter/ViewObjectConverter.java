@@ -267,8 +267,8 @@ public class ViewObjectConverter {
         }
 
         ItemWishlistVO vo = new ItemWishlistVO();
-        vo.setUserId(wishlistDo.getUserId());
-        vo.setItemId(wishlistDo.getItemId());
+        vo.setUserId(wishlistDo.getPk().getUserId());
+        vo.setItemId(wishlistDo.getPk().getItemId());
         vo.setGmtCreate(wishlistDo.getGmtCreate());
         vo.setGmtModified(wishlistDo.getGmtModified());
 

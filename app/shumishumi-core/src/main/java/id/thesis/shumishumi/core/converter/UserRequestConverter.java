@@ -6,6 +6,7 @@ package id.thesis.shumishumi.core.converter;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
+import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
 
 /**
@@ -20,6 +21,7 @@ public class UserRequestConverter {
         innerRequest.setPhoneNumber(request.getPhoneNumber());
         innerRequest.setUsername(request.getUsername());
         innerRequest.setPassword(request.getPassword());
+        innerRequest.setRoleId(UserRolesEnum.USER.getUserRoleId());
 
         return innerRequest;
     }

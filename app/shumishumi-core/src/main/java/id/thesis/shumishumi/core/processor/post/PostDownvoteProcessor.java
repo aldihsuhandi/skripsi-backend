@@ -31,7 +31,7 @@ public class PostDownvoteProcessor implements BaseProcessor {
             value = -1;
             postService.insertVote(session.getUserId(), request.getPostId(), value);
         } else {
-            value = value == 0 ? -1 : 0;
+            value = value == -1 ? 0 : -1;
             postService.updateVote(session.getUserId(), request.getPostId(), value);
         }
 

@@ -1,23 +1,34 @@
-/**
- * Dana.id
- * Copyright (c) 2017-2023 All Rights Reserved.
- */
 package id.thesis.shumishumi.foundation.model.result;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.apache.commons.lang3.builder.ToStringExclude;
+import id.thesis.shumishumi.foundation.model.result.primarykey.PostVoteDOPK;
 
-/**
- * @author Aldih Suhandi <i-aldih.suhandi@dana.id>
- * @version $Id: PostVoteDO.java, v 0.1 2023‐04‐11 15.39 Aldih Suhandi Exp $$
- */
-@Getter
-@Setter
-@ToString
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "post_upvotes")
 public class PostVoteDO extends BaseDO {
-    private String userId;
-    private String postId;
+    @EmbeddedId
+    private PostVoteDOPK pk;
+
+    @Column(name = "value")
     private int value;
+
+    public PostVoteDOPK getPk() {
+        return pk;
+    }
+
+    public void setPk(PostVoteDOPK pk) {
+        this.pk = pk;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

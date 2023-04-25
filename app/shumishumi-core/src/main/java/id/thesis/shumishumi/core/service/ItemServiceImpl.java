@@ -24,6 +24,7 @@ import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void create(CreateItemInnerRequest request) {
-        ItemDAORequest itemDAORequest = ItemDAORequestConverter.toDAORequest(request);
-        itemDAO.create(itemDAORequest);
+        ItemDO item = ItemDAORequestConverter.toDAORequest(request);
+        itemDAO.create(item);
     }
 
     @Override
@@ -102,8 +103,8 @@ public class ItemServiceImpl implements ItemService {
         }
 
         ItemCategoryVO category = itemCategoryService.query(itemFilterContext.getItemCategory(), DatabaseConst.CATEGORY_NAME);
-        InterestLevelVO merchantLevel = interestLevelService.query(itemFilterContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
-        InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_ID);
+        InterestLevelVO merchantLevel = interestLevelService.query(itemFilterContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
+        InterestLevelVO userLevel = interestLevelService.query(itemFilterContext.getUserInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
         HobbyVO hobby = hobbyService.query(itemFilterContext.getHobby(), DatabaseConst.HOBBY_NAME);
 
         ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(
@@ -137,9 +138,9 @@ public class ItemServiceImpl implements ItemService {
         ItemCategoryVO category = itemCategoryService.query(updateContext.getCategoryName(), DatabaseConst.CATEGORY_NAME);
         InterestLevelVO merchantLevel = interestLevelService.query(updateContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
 
-        ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(updateContext, category.getCategoryId(),
+        ItemDO item = ItemDAORequestConverter.toDAORequest(updateContext, category.getCategoryId(),
                 hobby.getHobbyId(), merchantLevel.getInterestLevelId(), itemVO.getItemId());
-        itemDAO.update(daoRequest);
+        itemDAO.update(item);
     }
 
     @Override
@@ -183,6 +184,11 @@ public class ItemServiceImpl implements ItemService {
         }
 
         itemVOS.forEach(itemVO -> itemFetchService.putToCache(itemVO));
+    }
+
+    @Override
+    public void clearCache() {
+        itemFetchService.clearCache();
     }
 
     @Override
@@ -258,7 +264,7 @@ public class ItemServiceImpl implements ItemService {
         }
 
         int sz = Math.min(pagingContext.getNumberOfItem() + pagingContext.calculateOffset(), itemVOS.size());
-        for (int i = Math.max(pagingContext.calculateOffset() - 1, 0); i < sz; ++i) {
+        for (int i = Math.max(pagingContext.calculateOffset(), 0); i < sz; ++i) {
             result.add(itemVOS.get(i));
         }
 

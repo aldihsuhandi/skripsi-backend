@@ -138,6 +138,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void clearCache() {
+        userFetchService.clearCache();
+    }
+
     private UserVO queryFromCache(boolean useCache, String key, String identifier) {
         if (!useCache) {
             return null;

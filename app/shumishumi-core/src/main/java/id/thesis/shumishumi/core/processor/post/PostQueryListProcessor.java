@@ -36,8 +36,8 @@ public class PostQueryListProcessor implements BaseProcessor {
         PostQueryListRequest request = (PostQueryListRequest) baseRequest;
         PostQueryListResult result = (PostQueryListResult) baseResult;
 
-        int totalData = postService.countList(request.getTitle(), request.getTags());
-        PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) totalData);
+        long totalData = postService.countList(request.getTitle(), request.getTags());
+        PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), totalData);
 
         List<PostVO> posts = postService.queryList(
                 request.getTitle(), request.getTags(), pagingContext);

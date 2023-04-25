@@ -34,7 +34,7 @@ public class FunctionUtil {
     }
 
     public static String generateOtp(int length, boolean useNumber, boolean useLetter) {
-        return RandomStringUtils.random(length, useNumber, useLetter);
+        return RandomStringUtils.random(length, useLetter, useNumber);
     }
 
     public static void fillEmptyUpdateContext(UserUpdateContext updateContext, UserVO userVO) {
@@ -47,6 +47,8 @@ public class FunctionUtil {
                 updateContext.getPhoneNumber() : userVO.getPhoneNumber());
         updateContext.setProfilePicture(checkIfNotEmpty(updateContext.getProfilePicture()) ?
                 updateContext.getProfilePicture() : userVO.getProfilePicture());
+        updateContext.setRoleId(checkIfNotEmpty(updateContext.getRoleId()) ?
+                updateContext.getRoleId() : userVO.getRoleVO().getRoleId());
         updateContext.setIsDeleted(updateContext.getIsDeleted() != null ?
                 updateContext.getIsDeleted() : userVO.isDeleted());
         updateContext.setIsActive(updateContext.getIsActive() != null ?

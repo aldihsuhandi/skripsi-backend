@@ -61,6 +61,7 @@ public class UserFetchService {
     }
 
     public void clearCache() {
+        LogUtil.info(LOGGER, "userFetchService#clearCache");
         userCache.clear();
         emailMap.clear();
         phoneNumberMap.clear();

@@ -1,20 +1,24 @@
 package id.thesis.shumishumi.foundation.model.result;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import id.thesis.shumishumi.foundation.model.result.primarykey.ItemCrowdDOPK;
 
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Getter
-@Setter
-@ToString
-public class ItemCrowdDO implements Serializable {
+@Entity
+@Table(name = "item_crowds")
+public class ItemCrowdDO extends BaseDO {
     private static final long serialVersionUID = 3832624843568011286L;
 
-    private String itemId;
-    private String crowdId;
-    private Date gmtCreate;
-    private Date gmtModified;
+    @EmbeddedId
+    private ItemCrowdDOPK pk;
+
+    public ItemCrowdDOPK getPk() {
+        return pk;
+    }
+
+    public void setPk(ItemCrowdDOPK pk) {
+        this.pk = pk;
+    }
 }

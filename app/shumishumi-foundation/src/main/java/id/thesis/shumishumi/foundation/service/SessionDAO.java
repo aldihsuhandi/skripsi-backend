@@ -6,11 +6,11 @@ import id.thesis.shumishumi.foundation.model.result.SessionDO;
 public interface SessionDAO {
     SessionDO query(SessionDAORequest request);
 
-    void create(SessionDAORequest request);
+    void create(SessionDO session);
 
     void logout(SessionDAORequest request);
 
     void refreshSession(SessionDAORequest request);
 
-    void deactivateExpiredSession(SessionDAORequest request);
+    void deactivateExpiredSession();
 }

@@ -22,6 +22,7 @@ public class OTPDAORequestConverter {
         request.setOtpDt(otpDt);
         request.setEmail(email);
         request.setTypeId(typeEnum.getId());
+        request.setActive(true);
 
         return request;
     }

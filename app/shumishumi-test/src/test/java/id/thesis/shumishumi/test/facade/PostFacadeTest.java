@@ -19,6 +19,7 @@ import id.thesis.shumishumi.facade.result.post.PostQueryResult;
 import id.thesis.shumishumi.facade.result.post.PostUpvoteResult;
 import id.thesis.shumishumi.foundation.model.result.PostDO;
 import id.thesis.shumishumi.foundation.model.result.PostVoteDO;
+import id.thesis.shumishumi.foundation.model.result.primarykey.PostVoteDOPK;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -154,7 +155,7 @@ public class PostFacadeTest extends FacadeTestBase {
 
         Mockito.when(postDAO.query(Mockito.any())).thenReturn(
                 Collections.singletonList(mockPostDO("userId", "keyboard|switches", "")));
-        Mockito.when(postDAO.countList(Mockito.any())).thenReturn(230);
+        Mockito.when(postDAO.countList(Mockito.any())).thenReturn(230L);
         Mockito.when(postVoteDAO.queryVote(Mockito.any(), Mockito.eq(-1))).thenReturn(10);
         Mockito.when(postVoteDAO.queryVote(Mockito.any(), Mockito.eq(1))).thenReturn(200);
         mockUserWithRole();
@@ -180,8 +181,7 @@ public class PostFacadeTest extends FacadeTestBase {
 
     private PostVoteDO mockPostVote(String userId, int value) {
         PostVoteDO voteDO = new PostVoteDO();
-        voteDO.setPostId("id");
-        voteDO.setUserId(userId);
+        voteDO.setPk(new PostVoteDOPK(userId, "postId"));
         voteDO.setValue(value);
 
         return voteDO;

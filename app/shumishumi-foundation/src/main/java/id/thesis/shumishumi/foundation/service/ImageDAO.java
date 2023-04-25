@@ -4,7 +4,7 @@ import id.thesis.shumishumi.foundation.model.request.ImageDAORequest;
 import id.thesis.shumishumi.foundation.model.result.ImageDO;
 
 public interface ImageDAO {
-    void insert(ImageDAORequest request);
+    void insert(ImageDO request);
 
     ImageDO query(ImageDAORequest request);
 }

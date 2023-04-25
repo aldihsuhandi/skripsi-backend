@@ -23,6 +23,7 @@ public class UserDAORequestConverter {
         userDAORequest.setPhoneNumber(innerRequest.getPhoneNumber());
         userDAORequest.setUsername(innerRequest.getUsername());
         userDAORequest.setPassword(innerRequest.getPassword());
+        userDAORequest.setRoleId(innerRequest.getRoleId());
 
         return userDAORequest;
     }
@@ -36,6 +37,7 @@ public class UserDAORequestConverter {
         userDAORequest.setUsername(updateContext.getUsername());
         userDAORequest.setPassword(updateContext.getPassword());
         userDAORequest.setProfilePicture(updateContext.getProfilePicture());
+        userDAORequest.setRoleId(updateContext.getRoleId());
         userDAORequest.setActive(updateContext.getIsActive());
         userDAORequest.setDeleted(updateContext.getIsDeleted());
         userDAORequest.setGmtModified(new Date());
