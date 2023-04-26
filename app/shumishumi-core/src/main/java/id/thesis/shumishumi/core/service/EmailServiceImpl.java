@@ -1,12 +1,11 @@
 package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.model.request.otp.OTPSendInnerRequest;
+import id.thesis.shumishumi.common.service.ContentService;
 import id.thesis.shumishumi.common.service.EmailService;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.foundation.model.result.ContentDO;
-import id.thesis.shumishumi.foundation.service.ContentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
     private String email;
 
     @Autowired
-    private ContentDAO contentDAO;
+    private ContentService contentService;
 
     private JavaMailSender javaMailSender;
 
@@ -34,11 +33,23 @@ public class EmailServiceImpl implements EmailService {
         String recipients = request.getEmail();
         String otp = request.getOtp();
 
-        ContentDO contentDO = contentDAO.queryContent(CommonConst.OTP_EMAIL);
-        String content = String.format(contentDO.getContent(), recipients, otp);
-        String subject = "Shumishumi Verification Email";
+        String contentTemplate = contentService.queryContent(CommonConst.OTP_EMAIL);
+
+        String content = String.format(contentTemplate, recipients, otp);
+        String subject = contentService.queryContent(CommonConst.OTP_EMAIL_SUBJECT);
 
         sendMessage(subject, content, recipients);
+    }
+
+    @Async
+    @Override
+    public void sendForgotPasswordEmail(String email, String url) {
+        String contentTemplate = contentService.queryContent(CommonConst.FORGOT_PASSWORD_EMAIL);
+
+        String subject = contentService.queryContent(CommonConst.FORGOT_PASSWORD_EMAIL_SUBJECT);
+        String content = String.format(contentTemplate, email, url);
+
+        sendMessage(subject, content, email);
     }
 
     private void sendMessage(String subject, String content, String recipients) {

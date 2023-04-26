@@ -4,19 +4,9 @@ import id.thesis.shumishumi.core.callback.ProcessCallback;
 import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.facade.api.UserFacade;
 import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
-import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
-import id.thesis.shumishumi.facade.request.user.UserForgotPasswordRequest;
-import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
-import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
-import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
-import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.*;
 import id.thesis.shumishumi.facade.result.BaseResult;
-import id.thesis.shumishumi.facade.result.user.UserActivateResult;
-import id.thesis.shumishumi.facade.result.user.UserForgotPasswordResult;
-import id.thesis.shumishumi.facade.result.user.UserLoginResult;
-import id.thesis.shumishumi.facade.result.user.UserQueryResult;
-import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
-import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -97,11 +87,11 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
     }
 
     @Override
-    public UserForgotPasswordResult forgotPassword(UserForgotPasswordRequest request) {
-        return (UserForgotPasswordResult) ProcessCallbackSupport.process(ProcessTypeEnum.FORGOT_PASSWORD, request, new ProcessCallback() {
+    public UserResetPasswordResult resetPassword(UserResetPasswordRequest request) {
+        return (UserResetPasswordResult) ProcessCallbackSupport.process(ProcessTypeEnum.RESET_PASSWORD, request, new ProcessCallback() {
             @Override
             public BaseResult initResult() {
-                return new UserForgotPasswordResult();
+                return new UserResetPasswordResult();
             }
 
             @Override
