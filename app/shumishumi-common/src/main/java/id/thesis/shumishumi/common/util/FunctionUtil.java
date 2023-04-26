@@ -93,7 +93,7 @@ public class FunctionUtil {
     public static boolean itemFilter(ItemVO itemVO, ItemFilterContext filterContext) {
         boolean result = true;
         if (checkIfNotEmpty(filterContext.getItemName())) {
-            result = itemVO.getItemName().contains(filterContext.getItemName());
+            result = itemVO.getItemName().toLowerCase().contains(filterContext.getItemName().toLowerCase());
         }
 
         if (checkIfNotEmpty(filterContext.getItemCategory())) {
