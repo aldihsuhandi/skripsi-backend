@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
-
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserCreateInnerRequest.java, v 0.1 2022‐12‐26 7:18 AM Aldih Suhandi Exp $$
@@ -22,7 +20,7 @@ public class UserCreateInnerRequest extends BaseInnerRequest {
     private String username;
     private String email;
     private String phoneNumber;
-    private Blob profilePicture;
+    private String profilePicture;
     private String roleId;
     private String password;
 }
