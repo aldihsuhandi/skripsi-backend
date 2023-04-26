@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.form.user.UserRegisterForm;
 import id.thesis.shumishumi.common.model.form.user.UserResetPasswordForm;
 import id.thesis.shumishumi.common.model.form.user.UserUpdateForm;
 import id.thesis.shumishumi.common.model.form.user.forgotpassword.ForgotPasswordForm;
+import id.thesis.shumishumi.common.model.form.user.forgotpassword.ForgotPasswordQueryForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.ForgotPasswordFacade;
@@ -17,6 +18,7 @@ import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
 import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
 import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
 import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordQueryRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordSendRequest;
 import id.thesis.shumishumi.facade.result.user.UserActivateResult;
 import id.thesis.shumishumi.facade.result.user.UserLoginResult;
@@ -24,6 +26,7 @@ import id.thesis.shumishumi.facade.result.user.UserQueryResult;
 import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
 import id.thesis.shumishumi.facade.result.user.UserResetPasswordResult;
 import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.forgotpassword.ForgotPasswordQueryResult;
 import id.thesis.shumishumi.facade.result.user.forgotpassword.ForgotPasswordSendResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -198,6 +201,29 @@ public class UserController extends BaseController {
             @Override
             public ForgotPasswordSendResult doProcess(ForgotPasswordSendRequest request) {
                 return forgotPasswordFacade.send(request);
+            }
+        });
+    }
+
+    @PostMapping("/forgot_password/query")
+    public ResponseEntity<ForgotPasswordQueryResult> forgotPasswordQuery(@RequestHeader HttpHeaders headers, @RequestBody ForgotPasswordQueryForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<ForgotPasswordQueryResult, ForgotPasswordQueryRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public ForgotPasswordQueryRequest composeRequest() {
+                ForgotPasswordQueryRequest request = new ForgotPasswordQueryRequest();
+                request.setUuid(form.getUuid());
+
+                return request;
+            }
+
+            @Override
+            public ForgotPasswordQueryResult doProcess(ForgotPasswordQueryRequest request) {
+                return forgotPasswordFacade.query(request);
             }
         });
     }

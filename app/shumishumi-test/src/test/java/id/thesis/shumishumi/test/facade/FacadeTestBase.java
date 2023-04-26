@@ -6,6 +6,7 @@ import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.foundation.model.result.ActivityDO;
+import id.thesis.shumishumi.foundation.model.result.ContentDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
 import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
@@ -25,6 +26,7 @@ import id.thesis.shumishumi.foundation.service.ItemWishlistDAO;
 import id.thesis.shumishumi.foundation.service.OtpDAO;
 import id.thesis.shumishumi.foundation.service.PostDAO;
 import id.thesis.shumishumi.foundation.service.PostVoteDAO;
+import id.thesis.shumishumi.foundation.service.ResetPasswordDAO;
 import id.thesis.shumishumi.foundation.service.RoleDAO;
 import id.thesis.shumishumi.foundation.service.SessionDAO;
 import id.thesis.shumishumi.foundation.service.UserDAO;
@@ -72,6 +74,9 @@ public class FacadeTestBase extends TestBase {
 
     @MockBean
     protected PostVoteDAO postVoteDAO;
+
+    @MockBean
+    protected ResetPasswordDAO resetPasswordDAO;
 
     @Autowired
     protected UserFetchService userFetchService;
@@ -213,6 +218,14 @@ public class FacadeTestBase extends TestBase {
         itemDO.setGmtModified(new Date());
 
         return itemDO;
+    }
+
+    protected ContentDO mockContentDO() {
+        ContentDO contentDO = new ContentDO();
+        contentDO.setContent("content");
+        contentDO.setContentName("contentName");
+
+        return contentDO;
     }
 
 }

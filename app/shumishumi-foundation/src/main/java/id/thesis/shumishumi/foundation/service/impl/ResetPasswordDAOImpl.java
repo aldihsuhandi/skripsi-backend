@@ -39,7 +39,7 @@ public class ResetPasswordDAOImpl implements ResetPasswordDAO {
 
         ResetPasswordDO result;
         try {
-            result = resetPasswordRepository.findById(uuid).orElse(null);
+            result = resetPasswordRepository.findActiveRequest(uuid).orElse(null);
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }

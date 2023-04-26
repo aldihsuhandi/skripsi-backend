@@ -18,6 +18,8 @@
     <!--forgot password-->
     <bean id="forgotPasswordProcessor"
           class="id.thesis.shumishumi.core.processor.user.forgotpassword.ForgotPasswordProcessor"/>
+    <bean id="forgotPasswordQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.user.forgotpassword.ForgotPasswordQueryProcessor"/>
 
     <!--reset password-->
     <bean id="resetPasswordProcessor"
@@ -93,6 +95,12 @@
         </entry>
         <entry key="RESET_PASSWORD">
             <ref bean="resetPasswordProcessor"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD">
+            <ref bean="forgotPasswordProcessor"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD_QUERY">
+            <ref bean="forgotPasswordQueryProcessor"/>
         </entry>
 
         <entry key="SESSION_QUERY">
@@ -182,6 +190,8 @@
     <!--forgot password-->
     <bean id="forgotPasswordValidator"
           class="id.thesis.shumishumi.core.validator.user.forgotpassword.ForgotPasswordValidator"/>
+    <bean id="forgotPasswordQueryValidator"
+          class="id.thesis.shumishumi.core.validator.user.forgotpassword.ForgotPasswordQueryValidator"/>
 
     <!--reset password-->
     <bean id="resetPasswordValidator"
@@ -250,6 +260,12 @@
         </entry>
         <entry key="RESET_PASSWORD">
             <ref bean="resetPasswordValidator"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD">
+            <ref bean="forgotPasswordValidator"/>
+        </entry>
+        <entry key="FORGOT_PASSWORD_QUERY">
+            <ref bean="forgotPasswordQueryValidator"/>
         </entry>
 
         <entry key="SESSION_QUERY">

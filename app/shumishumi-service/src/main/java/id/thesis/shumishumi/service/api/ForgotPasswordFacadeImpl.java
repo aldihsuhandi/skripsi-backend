@@ -30,6 +30,16 @@ public class ForgotPasswordFacadeImpl extends ProcessFacade implements ForgotPas
 
     @Override
     public ForgotPasswordQueryResult query(ForgotPasswordQueryRequest request) {
-        return null;
+        return (ForgotPasswordQueryResult) ProcessCallbackSupport.process(ProcessTypeEnum.FORGOT_PASSWORD_QUERY, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new ForgotPasswordQueryResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
     }
 }
