@@ -1,7 +1,6 @@
 package id.thesis.shumishumi.core.processor.user;
 
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
-import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.service.ImageService;
 import id.thesis.shumishumi.common.service.OTPService;
 import id.thesis.shumishumi.common.service.UserService;
@@ -41,9 +40,11 @@ public class UserRegisterProcessor implements BaseProcessor {
         registerRequest.setPassword(FunctionUtil.hashPassword(registerRequest.getPassword()));
 
         UserCreateInnerRequest innerRequest = UserRequestConverter.toInnerRequest(registerRequest, userId);
+        String profilePicture = insertProfilePicture(registerRequest.getProfilePicture(), userId);
+        innerRequest.setProfilePicture(profilePicture);
+
         userService.register(innerRequest);
 
-        insertProfilePicture(registerRequest.getProfilePicture(), userId);
 
         userService.queryById(userId, false);
         otpService.send(registerRequest.getEmail(), OTPTypeEnum.USER_ACTIVATION.getName());
@@ -57,15 +58,14 @@ public class UserRegisterProcessor implements BaseProcessor {
         AssertUtil.isExpected(userVO == null || userVO.isDeleted(), "phone number already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
     }
 
-    private void insertProfilePicture(MultipartFile profilePicture, String userId) throws ShumishumiException {
+    private String insertProfilePicture(MultipartFile profilePicture, String userId) throws ShumishumiException {
         if (profilePicture == null) {
-            return;
+            return "";
         }
 
         ImageVO imageVO = new ImageVO(profilePicture);
         imageService.upload(imageVO);
 
-        UserUpdateInnerRequest innerRequest = UserRequestConverter.toInnerRequest(userId, imageVO.getImageId());
-        userService.updateProfilePicture(innerRequest);
+        return imageVO.getImageId();
     }
 }

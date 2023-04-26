@@ -24,6 +24,7 @@ public class UserDAORequestConverter {
         userDAORequest.setUsername(innerRequest.getUsername());
         userDAORequest.setPassword(innerRequest.getPassword());
         userDAORequest.setRoleId(innerRequest.getRoleId());
+        userDAORequest.setProfilePicture(innerRequest.getProfilePicture());
 
         return userDAORequest;
     }
