@@ -74,6 +74,8 @@
     <!--comment-->
     <bean id="commentCreateProcessor"
           class="id.thesis.shumishumi.core.processor.comment.CommentCreateProcessor"/>
+    <bean id="commentCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentEditProcessor"/>
 
     <!--image-->
     <bean id="imageDownloadProcessor"
@@ -178,6 +180,9 @@
         <entry key="COMMENT_CREATE">
             <ref bean="commentCreateProcessor"/>
         </entry>
+        <entry key="COMMENT_EDIT">
+            <ref bean="commentEditProcessor"/>
+        </entry>
 
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadProcessor"/>
@@ -249,6 +254,8 @@
     <!--comment-->
     <bean id="commentCreateValidator"
           class="id.thesis.shumishumi.core.validator.comment.CommentCreateValidator"/>
+    <bean id="commentCreateValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentEditValidator"/>
 
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
@@ -350,6 +357,9 @@
 
         <entry key="COMMENT_CREATE">
             <ref bean="commentCreateValidator"/>
+        </entry>
+        <entry key="COMMENT_EDIT">
+            <ref bean="commentEditValidator"/>
         </entry>
 
 

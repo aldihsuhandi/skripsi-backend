@@ -50,6 +50,7 @@ public enum ProcessTypeEnum {
     POST_QUERY("POST_QUERY", "postQueryListValidator", "postQueryListProcessor", false),
 
     COMMENT_CREATE("COMMENT_CREATE", "commentCreateValidator", "commentCreateProcessor", true),
+    COMMENT_EDIT("COMMENT_EDIT", "commentEditValidator", "commentEditProcessor", true),
 
     ;
 
