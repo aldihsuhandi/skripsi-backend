@@ -71,6 +71,10 @@
     <bean id="postQueryListProcessor"
           class="id.thesis.shumishumi.core.processor.post.PostQueryListProcessor"/>
 
+    <!--comment-->
+    <bean id="commentCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentCreateProcessor"/>
+
     <!--image-->
     <bean id="imageDownloadProcessor"
           class="id.thesis.shumishumi.core.processor.image.ImageDownloadProcessor"/>
@@ -171,6 +175,10 @@
             <ref bean="postQueryListProcessor"/>
         </entry>
 
+        <entry key="COMMENT_CREATE">
+            <ref bean="commentCreateProcessor"/>
+        </entry>
+
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadProcessor"/>
         </entry>
@@ -237,6 +245,10 @@
           class="id.thesis.shumishumi.core.validator.post.PostQueryValidator"/>
     <bean id="postQueryListValidator"
           class="id.thesis.shumishumi.core.validator.post.PostQueryListValidator"/>
+
+    <!--comment-->
+    <bean id="commentCreateValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentCreateValidator"/>
 
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
@@ -334,6 +346,10 @@
         </entry>
         <entry key="POST_QUERY">
             <ref bean="postQueryListValidator"/>
+        </entry>
+
+        <entry key="COMMENT_CREATE">
+            <ref bean="commentCreateValidator"/>
         </entry>
 
 

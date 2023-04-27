@@ -19,6 +19,9 @@ public class CommonConst {
     public static String MAIL_SMTP_HOST = "mail.smtp.host";
     public static String MAIL_SMTP_PORT = "mail.smtp.port";
 
+    public static String COMMENT_REPLY_POST = "POST";
+    public static String COMMENT_REPLY_COMMENT = "COMMENT";
+
     public static String OTP_EMAIL_SUBJECT = "OTP_EMAIL_SUBJECT";
     public static String OTP_EMAIL = "OTP_EMAIL";
     public static String FORGOT_PASSWORD_EMAIL = "RESET_PASSWORD_EMAIL";

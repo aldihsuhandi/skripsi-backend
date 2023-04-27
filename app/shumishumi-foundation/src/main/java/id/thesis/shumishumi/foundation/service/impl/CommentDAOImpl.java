@@ -79,4 +79,18 @@ public class CommentDAOImpl implements CommentDAO {
         LogUtil.info(LOGGER, String.format("commentDAO#queryCommentComment[result=%s]", result));
         return result;
     }
+
+    @Override
+    public CommentDO queryById(String commentId) {
+        LogUtil.info(LOGGER, String.format("commentDAO#queryById[commentId=%s]", commentId));
+
+        CommentDO commentDO;
+        try {
+            commentDO = commentRepository.findById(commentId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+        LogUtil.info(LOGGER, String.format("commentDAO#queryById[result=%s]", commentDO));
+        return commentDO;
+    }
 }

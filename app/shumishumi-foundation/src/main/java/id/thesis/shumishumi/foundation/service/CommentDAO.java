@@ -14,4 +14,6 @@ public interface CommentDAO {
     List<CommentDO> queryPostComment(String postId);
 
     List<CommentDO> queryCommentComment(String commentId);
+
+    CommentDO queryById(String commentId);
 }

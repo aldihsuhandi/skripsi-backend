@@ -28,6 +28,8 @@ public enum ShumishumiErrorCodeEnum {
 
     POST_NOT_FOUND("POST_NOT_FOUND", "post not found"),
 
+    COMMENT_NOT_FOUND("COMMENT_NOT_FOUND", "comment not found"),
+
     REQUEST_NOT_FOUND("REQUEST_NOT_FOUND", "request not found"),
 
     ;

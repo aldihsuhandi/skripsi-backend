@@ -7,6 +7,7 @@ import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.ClientVO;
+import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.ImageVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
@@ -22,6 +23,7 @@ import id.thesis.shumishumi.facade.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.ClientDO;
+import id.thesis.shumishumi.foundation.model.result.CommentDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.ImageDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
@@ -310,10 +312,35 @@ public class ViewObjectConverter {
         vo.setUserId(postDO.getUserId());
         vo.setTitle(postDO.getTitle());
         vo.setContent(postDO.getContent());
+        vo.setDeleted(postDO.isDeleted());
         vo.setImages(images);
         vo.setTags(tags);
         vo.setGmtCreate(postDO.getGmtCreate());
         vo.setGmtModified(postDO.getGmtModified());
+
+        return vo;
+    }
+
+    public static CommentVO toViewObject(CommentDO commentDO, UserVO userVO) {
+        if (commentDO == null) {
+            return null;
+        }
+
+        CommentVO vo = new CommentVO();
+        vo.setCommentId(commentDO.getCommentId());
+        vo.setContent(commentDO.getContent());
+        vo.setCommenter(userVO);
+
+        if (StringUtils.isNotEmpty(commentDO.getReplyCommentId())) {
+            vo.setReplyId(commentDO.getReplyCommentId());
+            vo.setReplyType(CommonConst.COMMENT_REPLY_COMMENT);
+        } else if (StringUtils.isNotEmpty(commentDO.getReplyPostId())) {
+            vo.setReplyId(commentDO.getReplyPostId());
+            vo.setReplyType(CommonConst.COMMENT_REPLY_POST);
+        }
+
+        vo.setGmtCreate(commentDO.getGmtCreate());
+        vo.setGmtModified(commentDO.getGmtModified());
 
         return vo;
     }

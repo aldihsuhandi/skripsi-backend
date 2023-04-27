@@ -18,6 +18,7 @@ public class PostVO extends BaseVO {
     private String content;
     private List<String> tags;
     private List<String> images;
+    private boolean isDeleted;
     private int upvote;
     private int downvote;
     private int currentUserVote;

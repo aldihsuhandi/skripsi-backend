@@ -49,6 +49,8 @@ public enum ProcessTypeEnum {
     POST_DETAIL_QUERY("POST_DETAIL_QUERY", "postQueryValidator", "postQueryProcessor", false),
     POST_QUERY("POST_QUERY", "postQueryListValidator", "postQueryListProcessor", false),
 
+    COMMENT_CREATE("COMMENT_CREATE", "commentCreateValidator", "commentCreateProcessor", true),
+
     ;
 
     private final String processName;
