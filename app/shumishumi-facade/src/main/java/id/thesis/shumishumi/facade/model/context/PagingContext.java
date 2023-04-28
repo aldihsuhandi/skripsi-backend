@@ -9,8 +9,8 @@ public class PagingContext {
     private Integer pageNumber = 1;
     private Integer numberOfItem = 10;
     private Boolean hasNext = false;
-    private Long totalItem;
-    private Integer totalPage;
+    private Long totalItem = 0L;
+    private Integer totalPage = 0;
 
     public PagingContext(Integer pageNumber, Integer numberOfItem, Long totalItem) {
         this.pageNumber = pageNumber;

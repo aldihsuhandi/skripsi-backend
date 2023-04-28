@@ -326,6 +326,11 @@ public class ViewObjectConverter {
             return null;
         }
 
+        if (userVO == null) {
+            userVO = new UserVO();
+            userVO.setUserId(commentDO.getUserId());
+        }
+
         CommentVO vo = new CommentVO();
         vo.setCommentId(commentDO.getCommentId());
         vo.setContent(commentDO.getContent());

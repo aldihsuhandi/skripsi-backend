@@ -13,6 +13,6 @@ public class QueryCommentRequest extends BaseRequest {
 
     private String replyTo;
     private String replyId;
-    private int pageNumber;
-    private int numberOfItem;
+    private int pageNumber = 1;
+    private int numberOfItem = 10;
 }

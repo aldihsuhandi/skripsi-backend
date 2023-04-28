@@ -15,6 +15,8 @@ import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
 import id.thesis.shumishumi.foundation.service.ClientDAO;
+import id.thesis.shumishumi.foundation.service.CommentDAO;
+import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
 import id.thesis.shumishumi.foundation.service.ContentDAO;
 import id.thesis.shumishumi.foundation.service.CrowdDAO;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
@@ -78,6 +80,12 @@ public class FacadeTestBase extends TestBase {
     @MockBean
     protected ResetPasswordDAO resetPasswordDAO;
 
+    @MockBean
+    protected CommentDAO commentDAO;
+
+    @MockBean
+    protected CommentVoteDAO commentVoteDAO;
+
     @Autowired
     protected UserFetchService userFetchService;
 
@@ -88,6 +96,10 @@ public class FacadeTestBase extends TestBase {
     public void cleanUp() {
         itemFetchService.clearCache();
         userFetchService.clearCache();
+    }
+
+    protected void mockitoSession(String userId) {
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO(userId));
     }
 
     protected SessionDO mockSessionDO() {
