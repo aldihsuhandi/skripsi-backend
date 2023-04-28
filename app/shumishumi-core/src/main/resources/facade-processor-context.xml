@@ -71,6 +71,20 @@
     <bean id="postQueryListProcessor"
           class="id.thesis.shumishumi.core.processor.post.PostQueryListProcessor"/>
 
+    <!--comment-->
+    <bean id="commentCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentCreateProcessor"/>
+    <bean id="commentEditProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentEditProcessor"/>
+    <bean id="commentDeleteProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentDeleteProcessor"/>
+    <bean id="commentQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentQueryProcessor"/>
+    <bean id="commentUpvoteProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentUpvoteProcessor"/>
+    <bean id="commentDownvoteProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentDownvoteProcessor"/>
+
     <!--image-->
     <bean id="imageDownloadProcessor"
           class="id.thesis.shumishumi.core.processor.image.ImageDownloadProcessor"/>
@@ -171,6 +185,25 @@
             <ref bean="postQueryListProcessor"/>
         </entry>
 
+        <entry key="COMMENT_CREATE">
+            <ref bean="commentCreateProcessor"/>
+        </entry>
+        <entry key="COMMENT_EDIT">
+            <ref bean="commentEditProcessor"/>
+        </entry>
+        <entry key="COMMENT_DELETE">
+            <ref bean="commentDeleteProcessor"/>
+        </entry>
+        <entry key="COMMENT_QUERY">
+            <ref bean="commentQueryProcessor"/>
+        </entry>
+        <entry key="COMMENT_UPVOTE">
+            <ref bean="commentUpvoteProcessor"/>
+        </entry>
+        <entry key="COMMENT_DOWNVOTE">
+            <ref bean="commentDownvoteProcessor"/>
+        </entry>
+
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadProcessor"/>
         </entry>
@@ -237,6 +270,20 @@
           class="id.thesis.shumishumi.core.validator.post.PostQueryValidator"/>
     <bean id="postQueryListValidator"
           class="id.thesis.shumishumi.core.validator.post.PostQueryListValidator"/>
+
+    <!--comment-->
+    <bean id="commentCreateValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentCreateValidator"/>
+    <bean id="commentEditValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentEditValidator"/>
+    <bean id="commentDeleteValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentDeleteValidator"/>
+    <bean id="commentQueryValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentQueryValidator"/>
+    <bean id="commentUpvoteValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentUpvoteValidator"/>
+    <bean id="commentDownvoteValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentDownvoteValidator"/>
 
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
@@ -334,6 +381,25 @@
         </entry>
         <entry key="POST_QUERY">
             <ref bean="postQueryListValidator"/>
+        </entry>
+
+        <entry key="COMMENT_CREATE">
+            <ref bean="commentCreateValidator"/>
+        </entry>
+        <entry key="COMMENT_EDIT">
+            <ref bean="commentEditValidator"/>
+        </entry>
+        <entry key="COMMENT_DELETE">
+            <ref bean="commentDeleteValidator"/>
+        </entry>
+        <entry key="COMMENT_QUERY">
+            <ref bean="commentQueryValidator"/>
+        </entry>
+        <entry key="COMMENT_UPVOTE">
+            <ref bean="commentUpvoteValidator"/>
+        </entry>
+        <entry key="COMMENT_DOWNVOTE">
+            <ref bean="commentDownvoteValidator"/>
         </entry>
 
 

@@ -11,16 +11,10 @@ import id.thesis.shumishumi.foundation.service.PostVoteDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PostVoteDAOImpl implements PostVoteDAO {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    private static final Logger DAO = LoggerFactory.getLogger(LogConstant.DAO_LOGGER);
     private static final Logger DALGEN = LoggerFactory.getLogger(LogConstant.DALGEN_LOGGER);
 
     @Autowired

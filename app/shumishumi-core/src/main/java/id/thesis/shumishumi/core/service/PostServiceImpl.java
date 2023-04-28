@@ -172,6 +172,10 @@ public class PostServiceImpl implements PostService {
     }
 
     private void composePostVote(PostVO post) {
+        if (post == null) {
+            return;
+        }
+
         int upvote = postVoteDAO.queryVote(post.getPostId(), 1);
         int downvote = postVoteDAO.queryVote(post.getPostId(), -1);
 
