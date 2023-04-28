@@ -5,10 +5,13 @@ import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
+import id.thesis.shumishumi.foundation.model.result.CommentVoteDO;
 import id.thesis.shumishumi.foundation.service.CommentDAO;
+import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentDAO commentDAO;
+
+    @Autowired
+    private CommentVoteDAO commentVoteDAO;
 
     @Autowired
     private UserService userService;
@@ -54,18 +60,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentVO> query(String replyId, String replyType) {
+    public List<CommentVO> query(String replyId, String replyType, PagingContext pagingContext) {
         if (StringUtils.equals(replyType, CommonConst.COMMENT_REPLY_COMMENT)) {
-            return commentDAO.queryCommentComment(replyId).stream().map(comment -> {
+            return commentDAO.queryCommentComment(replyId, pagingContext).stream().map(comment -> {
                 UserVO userVO = userService.queryById(comment.getUserId(), true);
-                return ViewObjectConverter.toViewObject(comment, userVO);
+                CommentVO commentVO = ViewObjectConverter.toViewObject(comment, userVO);
+                composeCommentVote(commentVO);
+
+                return commentVO;
             }).collect(Collectors.toList());
         }
 
         if (StringUtils.equals(replyType, CommonConst.COMMENT_REPLY_POST)) {
-            return commentDAO.queryPostComment(replyId).stream().map(comment -> {
+            return commentDAO.queryPostComment(replyId, pagingContext).stream().map(comment -> {
                 UserVO userVO = userService.queryById(comment.getUserId(), true);
-                return ViewObjectConverter.toViewObject(comment, userVO);
+                CommentVO commentVO = ViewObjectConverter.toViewObject(comment, userVO);
+                composeCommentVote(commentVO);
+
+                return commentVO;
             }).collect(Collectors.toList());
         }
 
@@ -74,6 +86,40 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentVO queryById(String commentId) {
-        return ViewObjectConverter.toViewObject(commentDAO.queryById(commentId), null);
+        CommentVO commentVO = ViewObjectConverter.toViewObject(commentDAO.queryById(commentId), null);
+        composeCommentVote(commentVO);
+
+        return commentVO;
+    }
+
+    @Override
+    public int queryVote(String userId, String commentId) {
+        CommentVoteDO voteDO = commentVoteDAO.queryUserVote(commentId, userId);
+        if (voteDO == null) {
+            return CommonConst.INT_NOT_FOUND;
+        }
+        return voteDO.getValue();
+    }
+
+    @Override
+    public void insertVote(String userId, String commentId, int value) {
+        commentVoteDAO.insert(userId, commentId, value);
+    }
+
+    @Override
+    public void updateVote(String userId, String commentId, int value) {
+        commentVoteDAO.update(userId, commentId, value);
+    }
+
+    private void composeCommentVote(CommentVO comment) {
+        if (comment == null) {
+            return;
+        }
+
+        int upvote = commentVoteDAO.queryVote(comment.getCommentId(), 1);
+        int downvote = commentVoteDAO.queryVote(comment.getCommentId(), -1);
+
+        comment.setUpvote(upvote);
+        comment.setDownvote(downvote);
     }
 }

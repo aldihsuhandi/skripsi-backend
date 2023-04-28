@@ -15,5 +15,8 @@ public class CommentVO extends BaseVO {
     private UserVO commenter;
     private String replyId;
     private String replyType;
+    private int upvote;
+    private int downvote;
+    private int currentUserVote = 0;
     private boolean isDeleted;
 }

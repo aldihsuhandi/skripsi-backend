@@ -3,6 +3,7 @@ package id.thesis.shumishumi.foundation.service.impl;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
 import id.thesis.shumishumi.foundation.repository.CommentRepository;
@@ -10,6 +11,9 @@ import id.thesis.shumishumi.foundation.service.CommentDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,12 +57,16 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
-    public List<CommentDO> queryPostComment(String postId) {
-        LogUtil.info(LOGGER, String.format("commentDAO#queryPostComment[postId=%s]", postId));
+    public List<CommentDO> queryPostComment(String postId, PagingContext pagingContext) {
+        LogUtil.info(LOGGER, String.format("commentDAO#queryPostComment[postId=%s,pagingContext=%s]", postId, pagingContext));
 
         List<CommentDO> result;
         try {
-            result = commentRepository.findByReplyPostId(postId);
+            Pageable pageable = PageRequest.of(pagingContext.getPageNumber() - 1, pagingContext.getNumberOfItem());
+            Page<CommentDO> page = commentRepository.findByReplyPostId(postId, pageable);
+            pagingContext.setTotalItem(page.getTotalElements());
+
+            result = page.getContent();
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
@@ -67,12 +75,16 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
-    public List<CommentDO> queryCommentComment(String commentId) {
-        LogUtil.info(LOGGER, String.format("commentDAO#queryCommentComment[commentId=%s]", commentId));
+    public List<CommentDO> queryCommentComment(String commentId, PagingContext pagingContext) {
+        LogUtil.info(LOGGER, String.format("commentDAO#queryCommentComment[commentId=%s,pagingContext=%s]", commentId, pagingContext));
 
         List<CommentDO> result;
         try {
-            result = commentRepository.findByReplyCommentId(commentId);
+            Pageable pageable = PageRequest.of(pagingContext.getPageNumber() - 1, pagingContext.getNumberOfItem());
+            Page<CommentDO> page = commentRepository.findByReplyCommentId(commentId, pageable);
+            pagingContext.setTotalItem(page.getTotalElements());
+
+            result = page.getContent();
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }

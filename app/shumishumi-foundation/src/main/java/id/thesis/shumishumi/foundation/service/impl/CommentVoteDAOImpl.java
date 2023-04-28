@@ -51,11 +51,29 @@ public class CommentVoteDAOImpl implements CommentVoteDAO {
 
     @Override
     public void insert(String userId, String commentId, int value) {
-
+        LogUtil.info(LOGGER, String.format("commentVoteDAO#insert[userId=%s,commentId=%s,value=%d]"
+                , userId, commentId, value));
+        CommentVoteDO comment = new CommentVoteDO();
+        comment.setPk(new CommentVoteDOPK(userId, commentId));
+        comment.setValue(value);
+        try {
+            commentVoteRepository.save(comment);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
     }
 
     @Override
     public void update(String userId, String commentId, int value) {
-
+        LogUtil.info(LOGGER, String.format("commentVoteDAO#update[userId=%s,commentId=%s,value=%d]"
+                , userId, commentId, value));
+        CommentVoteDO comment = new CommentVoteDO();
+        comment.setPk(new CommentVoteDOPK(userId, commentId));
+        comment.setValue(value);
+        try {
+            commentVoteRepository.save(comment);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
     }
 }

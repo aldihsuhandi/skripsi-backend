@@ -1,6 +1,8 @@
 package id.thesis.shumishumi.foundation.repository;
 
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,13 +10,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Repository
 public interface CommentRepository extends JpaRepository<CommentDO, String> {
-    List<CommentDO> findByReplyCommentId(String replyCommentId);
+    Page<CommentDO> findByReplyCommentId(String replyCommentId, Pageable pageable);
 
-    List<CommentDO> findByReplyPostId(String replyPostId);
+    Page<CommentDO> findByReplyPostId(String replyPostId, Pageable pageable);
 
     @Modifying
     @Transactional
