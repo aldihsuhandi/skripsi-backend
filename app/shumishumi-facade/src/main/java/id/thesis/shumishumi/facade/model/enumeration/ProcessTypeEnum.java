@@ -51,6 +51,7 @@ public enum ProcessTypeEnum {
 
     COMMENT_CREATE("COMMENT_CREATE", "commentCreateValidator", "commentCreateProcessor", true),
     COMMENT_EDIT("COMMENT_EDIT", "commentEditValidator", "commentEditProcessor", true),
+    COMMENT_DELETE("COMMENT_DELETE", "commentDeleteValidator", "deleteCommentProcessor", true),
 
     ;
 
