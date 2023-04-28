@@ -80,6 +80,10 @@
           class="id.thesis.shumishumi.core.processor.comment.CommentDeleteProcessor"/>
     <bean id="commentQueryProcessor"
           class="id.thesis.shumishumi.core.processor.comment.CommentQueryProcessor"/>
+    <bean id="commentUpvoteProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentUpvoteProcessor"/>
+    <bean id="commentDownvoteProcessor"
+          class="id.thesis.shumishumi.core.processor.comment.CommentDownvoteProcessor"/>
 
     <!--image-->
     <bean id="imageDownloadProcessor"
@@ -193,6 +197,12 @@
         <entry key="COMMENT_QUERY">
             <ref bean="commentQueryProcessor"/>
         </entry>
+        <entry key="COMMENT_UPVOTE">
+            <ref bean="commentUpvoteProcessor"/>
+        </entry>
+        <entry key="COMMENT_DOWNVOTE">
+            <ref bean="commentDownvoteProcessor"/>
+        </entry>
 
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadProcessor"/>
@@ -270,6 +280,10 @@
           class="id.thesis.shumishumi.core.validator.comment.CommentDeleteValidator"/>
     <bean id="commentQueryValidator"
           class="id.thesis.shumishumi.core.validator.comment.CommentQueryValidator"/>
+    <bean id="commentUpvoteValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentUpvoteValidator"/>
+    <bean id="commentDownvoteValidator"
+          class="id.thesis.shumishumi.core.validator.comment.CommentDownvoteValidator"/>
 
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
@@ -380,6 +394,12 @@
         </entry>
         <entry key="COMMENT_QUERY">
             <ref bean="commentQueryValidator"/>
+        </entry>
+        <entry key="COMMENT_UPVOTE">
+            <ref bean="commentUpvoteValidator"/>
+        </entry>
+        <entry key="COMMENT_DOWNVOTE">
+            <ref bean="commentDownvoteValidator"/>
         </entry>
 
 
