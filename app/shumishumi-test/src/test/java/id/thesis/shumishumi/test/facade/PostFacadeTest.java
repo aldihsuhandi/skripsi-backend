@@ -44,6 +44,8 @@ public class PostFacadeTest extends FacadeTestBase {
         request.setTitle("title");
         request.setTags(Collections.singletonList("tags"));
 
+        mockUserWithRole();
+
         PostCreateResult result = postFacade.create(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
