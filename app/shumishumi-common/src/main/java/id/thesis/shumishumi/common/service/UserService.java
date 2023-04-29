@@ -32,4 +32,8 @@ public interface UserService {
     void refreshCache(List<String> userIds, boolean refreshAll);
 
     void clearCache();
+
+    String emailEncrypt(String email);
+
+    String emailDecrypt(String uuid);
 }

@@ -25,6 +25,12 @@
     <bean id="resetPasswordProcessor"
           class="id.thesis.shumishumi.core.processor.user.ResetPasswordProcessor"/>
 
+    <!--email-->
+    <bean id="emailEncryptProcessor"
+          class="id.thesis.shumishumi.core.processor.user.email.EmailEncryptProcessor"/>
+    <bean id="emailDecryptProcessor"
+          class="id.thesis.shumishumi.core.processor.user.email.EmailDecryptProcessor"/>
+
     <!--session-->
     <bean id="sessionQueryProcessor"
           class="id.thesis.shumishumi.core.processor.session.SessionQueryProcessor"/>
@@ -115,6 +121,13 @@
         </entry>
         <entry key="FORGOT_PASSWORD_QUERY">
             <ref bean="forgotPasswordQueryProcessor"/>
+        </entry>
+
+        <entry key="EMAIL_ENCRYPT">
+            <ref bean="emailEncryptProcessor"/>
+        </entry>
+        <entry key="EMAIL_DECRYPT">
+            <ref bean="emailDecryptProcessor"/>
         </entry>
 
         <entry key="SESSION_QUERY">
@@ -230,6 +243,12 @@
     <bean id="resetPasswordValidator"
           class="id.thesis.shumishumi.core.validator.user.ResetPasswordValidator"/>
 
+    <!--email-->
+    <bean id="emailEncryptValidator"
+          class="id.thesis.shumishumi.core.validator.user.email.EmailEncryptValidator"/>
+    <bean id="emailDecryptValidator"
+          class="id.thesis.shumishumi.core.validator.user.email.EmailDecryptValidator"/>
+
     <!--session-->
     <bean id="sessionQueryValidator" class="id.thesis.shumishumi.core.validator.session.SessionQueryValidator"/>
     <bean id="sessionLogoutValidator" class="id.thesis.shumishumi.core.validator.session.SessionLogoutValidator"/>
@@ -313,6 +332,13 @@
         </entry>
         <entry key="FORGOT_PASSWORD_QUERY">
             <ref bean="forgotPasswordQueryValidator"/>
+        </entry>
+
+        <entry key="EMAIL_ENCRYPT">
+            <ref bean="emailEncryptValidator"/>
+        </entry>
+        <entry key="EMAIL_DECRYPT">
+            <ref bean="emailDecryptValidator"/>
         </entry>
 
         <entry key="SESSION_QUERY">

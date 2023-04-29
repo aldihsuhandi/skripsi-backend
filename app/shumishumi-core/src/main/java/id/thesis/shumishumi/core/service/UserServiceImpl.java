@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.common.service.RoleService;
 import id.thesis.shumishumi.common.service.UserService;
+import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
@@ -141,6 +142,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void clearCache() {
         userFetchService.clearCache();
+    }
+
+    @Override
+    public String emailEncrypt(String email) {
+        String uuid = FunctionUtil.generateUUID();
+        userDAO.emailEncrypt(uuid, email);
+        return uuid;
+    }
+
+    @Override
+    public String emailDecrypt(String uuid) {
+        return userDAO.emailDecrypt(uuid);
     }
 
     private UserVO queryFromCache(boolean useCache, String key, String identifier) {
