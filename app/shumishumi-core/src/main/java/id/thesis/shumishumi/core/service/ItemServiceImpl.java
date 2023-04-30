@@ -95,7 +95,7 @@ public class ItemServiceImpl implements ItemService {
         }
 
         if (useCache) {
-            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, pagingContext.getPageNumber(), pagingContext.getPageNumber());
+            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, pagingContext.getPageNumber(), pagingContext.getNumberOfItem());
             if (!itemVOS.isEmpty()) {
                 pagingContext.setTotalItem((long) countWithFilter(itemFilterContext));
                 return itemVOS;

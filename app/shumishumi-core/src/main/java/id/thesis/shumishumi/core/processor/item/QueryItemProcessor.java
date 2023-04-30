@@ -53,6 +53,7 @@ public class QueryItemProcessor implements BaseProcessor {
             itemVOS = queryItemList(queryRequest, pagingContext);
         }
 
+        pagingContext.calculateTotalPage();
         queryResult.setItems(itemVOS.stream().
                 map(SummaryConverter::toSummary).collect(Collectors.toList()));
         queryResult.setPagingContext(pagingContext);
