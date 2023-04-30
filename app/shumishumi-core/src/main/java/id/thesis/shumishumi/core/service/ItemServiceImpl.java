@@ -88,16 +88,16 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<ItemVO> queryList(ItemFilterContext itemFilterContext,
-                                  int page, int numberOfItem, boolean useCache) {
+    public List<ItemVO> queryList(ItemFilterContext itemFilterContext, PagingContext pagingContext, boolean useCache) {
         if (StringUtils.isNotEmpty(itemFilterContext.getMerchantEmail())) {
             UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
             itemFilterContext.setMerchantId(merchantInfo.getUserId());
         }
 
         if (useCache) {
-            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, page, numberOfItem);
+            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, pagingContext.getPageNumber(), pagingContext.getPageNumber());
             if (!itemVOS.isEmpty()) {
+                pagingContext.setTotalItem((long) countWithFilter(itemFilterContext));
                 return itemVOS;
             }
         }
@@ -114,10 +114,6 @@ public class ItemServiceImpl implements ItemService {
                 merchantLevel == null ? "" : merchantLevel.getInterestLevelId(),
                 userLevel == null ? "" : userLevel.getInterestLevelId()
         );
-
-        PagingContext pagingContext = new PagingContext();
-        pagingContext.setNumberOfItem(numberOfItem);
-        pagingContext.setPageNumber(page);
 
         daoRequest.setPagingContext(pagingContext);
 

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -69,29 +70,15 @@ public class ItemDAOImpl implements ItemDAO {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#query[request=%s]", request.toString()));
 
         PagingContext paging = request.getPagingContext();
-
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnoreCase()
-                .withMatcher("itemName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
-
-        ItemDO itemDO = convertToExampleDO(request);
-        Example<ItemDO> exampleObject = Example.of(itemDO, matcher);
-
         Pageable pageable = PageRequest.of(paging.getPageNumber() - 1, paging.getNumberOfItem());
         List<ItemDO> result;
         try {
-            if (request.getMinPrice() != null && request.getMaxPrice() != null) {
-                result = itemRepository.findByItemPriceBetween(exampleObject, request.getMinPrice(),
-                        request.getMaxPrice(), pageable).getContent();
-            } else if (request.getMinPrice() != null) {
-                result = itemRepository.findByItemPriceGreaterThanEqual(exampleObject,
-                        request.getMinPrice(), pageable).getContent();
-            } else if (request.getMaxPrice() != null) {
-                result = itemRepository.findByItemPriceLessThanEqual(exampleObject,
-                        request.getMaxPrice(), pageable).getContent();
-            } else {
-                result = itemRepository.findAll(exampleObject, pageable).getContent();
-            }
+            ItemDO itemDO = convertFromRequest(request);
+            Page<ItemDO> pageList = itemRepository.queryFilter(itemDO,
+                    request.getMinPrice(), request.getMaxPrice(), pageable);
+            paging.setTotalItem(pageList.getTotalElements());
+
+            result = pageList.getContent();
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
@@ -187,7 +174,7 @@ public class ItemDAOImpl implements ItemDAO {
         return result;
     }
 
-    private ItemDO convertToExampleDO(ItemDAORequest request) {
+    private ItemDO convertFromRequest(ItemDAORequest request) {
         if (request == null) {
             return new ItemDO();
         }
