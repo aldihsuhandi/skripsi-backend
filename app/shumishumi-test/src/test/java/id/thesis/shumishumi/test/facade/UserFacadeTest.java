@@ -5,8 +5,22 @@ import id.thesis.shumishumi.facade.api.UserFacade;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.facade.request.user.*;
-import id.thesis.shumishumi.facade.result.user.*;
+import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
+import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
+import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
+import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
+import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
+import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
+import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
+import id.thesis.shumishumi.facade.result.user.UserActivateResult;
+import id.thesis.shumishumi.facade.result.user.UserLoginResult;
+import id.thesis.shumishumi.facade.result.user.UserQueryResult;
+import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
+import id.thesis.shumishumi.facade.result.user.UserResetPasswordResult;
+import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.email.EmailDecryptResult;
+import id.thesis.shumishumi.facade.result.user.email.EmailEncryptResult;
 import id.thesis.shumishumi.foundation.model.result.OtpDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
@@ -294,6 +308,28 @@ public class UserFacadeTest extends FacadeTestBase {
         UserResetPasswordResult result = userFacade.resetPassword(request);
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
+    }
+
+    @Test
+    public void emailEncryptTest_SUCCESS() {
+        EmailEncryptRequest request = new EmailEncryptRequest();
+        request.setEmail("email");
+
+        EmailEncryptResult result = userFacade.emailEncrypt(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void emailDecryptTest_SUCCESS() {
+        EmailDecryptRequest request = new EmailDecryptRequest();
+        request.setUuid("uuid");
+
+        Mockito.when(userDAO.emailDecrypt(Mockito.any())).thenReturn("email");
+
+        EmailDecryptResult result = userFacade.emailDecrypt(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
     }
 
     private OtpDO mockOTPDO(Date otpDt, boolean isActive) {

@@ -8,7 +8,9 @@ import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.request.UserDAORequest;
+import id.thesis.shumishumi.foundation.model.result.EmailEncryptDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.repository.EmailEncryptRepository;
 import id.thesis.shumishumi.foundation.repository.UserRepository;
 import id.thesis.shumishumi.foundation.service.UserDAO;
 import org.slf4j.Logger;
@@ -31,6 +33,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailEncryptRepository emailEncryptRepository;
 
     @Override
     public void create(UserDAORequest daoRequest) {
@@ -152,6 +157,38 @@ public class UserDAOImpl implements UserDAO {
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryAll[request=%s]", result));
         return result;
+    }
+
+    @Override
+    public void emailEncrypt(String uuid, String email) {
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#emailEncrypt[uuid=%s,email=%s]", uuid, email));
+
+        try {
+            EmailEncryptDO encryptDO = new EmailEncryptDO();
+            encryptDO.setUuid(uuid);
+            encryptDO.setEmail(email);
+
+            emailEncryptRepository.save(encryptDO);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public String emailDecrypt(String uuid) {
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#emailDecrypt[uuid=%s]", uuid));
+        String email = "";
+        try {
+            EmailEncryptDO encryptDO = emailEncryptRepository.findById(uuid).orElse(null);
+            if (encryptDO != null) {
+                email = encryptDO.getEmail();
+            }
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#emailDescrypt[email=%s]", email));
+        return email;
     }
 
     private UserDO convertFromDAORequest(UserDAORequest request) {

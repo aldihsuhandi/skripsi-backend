@@ -31,4 +31,7 @@ public interface UserDAO {
 
     List<UserDO> queryAll();
 
+    void emailEncrypt(String uuid, String email);
+
+    String emailDecrypt(String uuid);
 }

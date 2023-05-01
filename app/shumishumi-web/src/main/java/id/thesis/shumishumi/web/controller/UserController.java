@@ -6,6 +6,8 @@ import id.thesis.shumishumi.common.model.form.user.UserLoginForm;
 import id.thesis.shumishumi.common.model.form.user.UserRegisterForm;
 import id.thesis.shumishumi.common.model.form.user.UserResetPasswordForm;
 import id.thesis.shumishumi.common.model.form.user.UserUpdateForm;
+import id.thesis.shumishumi.common.model.form.user.email.EmailDecryptForm;
+import id.thesis.shumishumi.common.model.form.user.email.EmailEncryptForm;
 import id.thesis.shumishumi.common.model.form.user.forgotpassword.ForgotPasswordForm;
 import id.thesis.shumishumi.common.model.form.user.forgotpassword.ForgotPasswordQueryForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
@@ -18,6 +20,8 @@ import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
 import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
 import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
 import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
+import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordQueryRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordSendRequest;
 import id.thesis.shumishumi.facade.result.user.UserActivateResult;
@@ -26,6 +30,8 @@ import id.thesis.shumishumi.facade.result.user.UserQueryResult;
 import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
 import id.thesis.shumishumi.facade.result.user.UserResetPasswordResult;
 import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.email.EmailDecryptResult;
+import id.thesis.shumishumi.facade.result.user.email.EmailEncryptResult;
 import id.thesis.shumishumi.facade.result.user.forgotpassword.ForgotPasswordQueryResult;
 import id.thesis.shumishumi.facade.result.user.forgotpassword.ForgotPasswordSendResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,6 +255,52 @@ public class UserController extends BaseController {
             @Override
             public UserResetPasswordResult doProcess(UserResetPasswordRequest request) {
                 return userFacade.resetPassword(request);
+            }
+        });
+    }
+
+    @PostMapping("/email/encrypt")
+    public ResponseEntity<EmailEncryptResult> emailEncrypt(@RequestHeader HttpHeaders headers, @RequestBody EmailEncryptForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<EmailEncryptResult, EmailEncryptRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public EmailEncryptRequest composeRequest() {
+                EmailEncryptRequest request = new EmailEncryptRequest();
+                request.setEmail(form.getEmail());
+
+                return request;
+            }
+
+            @Override
+            public EmailEncryptResult doProcess(EmailEncryptRequest request) {
+                return userFacade.emailEncrypt(request);
+            }
+        });
+    }
+
+    @PostMapping("/email/decrypt")
+    public ResponseEntity<EmailDecryptResult> emailDecrypt(@RequestHeader HttpHeaders headers, @RequestBody EmailDecryptForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<EmailDecryptResult, EmailDecryptRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public EmailDecryptRequest composeRequest() {
+                EmailDecryptRequest request = new EmailDecryptRequest();
+                request.setUuid(form.getUuid());
+
+                return request;
+            }
+
+            @Override
+            public EmailDecryptResult doProcess(EmailDecryptRequest request) {
+                return userFacade.emailDecrypt(request);
             }
         });
     }
