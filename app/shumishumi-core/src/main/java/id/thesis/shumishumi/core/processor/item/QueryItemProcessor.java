@@ -46,12 +46,7 @@ public class QueryItemProcessor implements BaseProcessor {
         pagingContext.setTotalItem(1L);
 
         List<ItemVO> itemVOS = new ArrayList<>();
-
-        queryById(queryRequest, itemVOS);
-
-        if (itemVOS.isEmpty()) {
-            itemVOS = queryItemList(queryRequest, pagingContext);
-        }
+        itemVOS = queryItemList(queryRequest, pagingContext);
 
         pagingContext.calculateTotalPage();
         queryResult.setItems(itemVOS.stream().
@@ -62,16 +57,5 @@ public class QueryItemProcessor implements BaseProcessor {
     private List<ItemVO> queryItemList(QueryItemRequest request, PagingContext pagingContext) {
         ItemFilterContext filterContext = request.getItemFilterContext();
         return itemService.queryList(filterContext, pagingContext, true);
-    }
-
-    private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {
-        if (request.getItemFilterContext().getItemId() == null || request.getItemFilterContext().getItemId().isEmpty()) {
-            return;
-        }
-
-        ItemFilterContext filterContext = request.getItemFilterContext();
-
-        ItemVO itemVO = itemService.queryById(filterContext.getItemId(), true);
-        itemVOS.add(itemVO);
     }
 }

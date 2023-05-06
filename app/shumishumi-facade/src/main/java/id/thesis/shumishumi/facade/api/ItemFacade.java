@@ -3,18 +3,8 @@
  */
 package id.thesis.shumishumi.facade.api;
 
-import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
-import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
-import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
-import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
-import id.thesis.shumishumi.facade.request.item.RecommendRequest;
-import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
-import id.thesis.shumishumi.facade.result.item.CreateItemResult;
-import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
-import id.thesis.shumishumi.facade.result.item.QueryItemResult;
-import id.thesis.shumishumi.facade.result.item.RecommendResult;
-import id.thesis.shumishumi.facade.result.item.UpdateItemResult;
+import id.thesis.shumishumi.facade.request.item.*;
+import id.thesis.shumishumi.facade.result.item.*;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -24,6 +14,8 @@ public interface ItemFacade {
     CreateItemResult create(CreateItemRequest request);
 
     QueryItemResult query(QueryItemRequest request);
+
+    QueryItemDetailResult queryDetail(QueryItemDetailRequest request);
 
     UpdateItemResult update(UpdateItemRequest request);
 
