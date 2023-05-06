@@ -10,7 +10,7 @@ import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 
 public class SummaryConverter {
-    public static ItemSummary toSummary(ItemVO vo) {
+    public static ItemSummary toSummary(ItemVO vo, int totalWishlist) {
         if (vo == null) {
             return null;
         }
@@ -27,6 +27,7 @@ public class SummaryConverter {
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
+        summary.setTotalWishlist(totalWishlist);
 
         return summary;
     }

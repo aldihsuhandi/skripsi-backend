@@ -4,6 +4,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
@@ -30,6 +31,9 @@ public class QueryItemProcessor implements BaseProcessor {
     private ItemService itemService;
 
     @Autowired
+    private ItemWishlistService itemWishlistService;
+
+    @Autowired
     private SessionService sessionService;
 
     @Override
@@ -50,7 +54,10 @@ public class QueryItemProcessor implements BaseProcessor {
 
         pagingContext.calculateTotalPage();
         queryResult.setItems(itemVOS.stream().
-                map(SummaryConverter::toSummary).collect(Collectors.toList()));
+                map(itemVO -> {
+                    int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
+                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                }).collect(Collectors.toList()));
         queryResult.setPagingContext(pagingContext);
     }
 

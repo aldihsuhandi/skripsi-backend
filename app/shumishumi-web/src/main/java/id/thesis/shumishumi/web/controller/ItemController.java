@@ -74,6 +74,7 @@ public class ItemController extends BaseController {
         });
     }
 
+    @PostMapping("/query/detail")
     public ResponseEntity<QueryItemDetailResult> queryDetail(@RequestHeader HttpHeaders headers, @RequestBody QueryItemDetailForm form) {
         return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<QueryItemDetailResult, QueryItemDetailRequest>() {
             @Override
