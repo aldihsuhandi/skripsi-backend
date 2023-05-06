@@ -59,6 +59,8 @@ public enum ProcessTypeEnum {
     COMMENT_UPVOTE("COMMENT_UPVOTE", "commentUpvoteValidator", "commentUpvoteProcessor", true),
     COMMENT_DOWNVOTE("COMMENT_DOWNVOTE", "commentDownvoteValidator", "commentDownvoteProcessor", true),
 
+    DICTIONARY_QUERY("DICTIONARY_QUERY", "dictionaryQueryValidator", "dictionaryQueryProcessor", false),
+
     ;
 
     private final String processName;
