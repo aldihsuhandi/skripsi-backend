@@ -4,6 +4,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
@@ -30,6 +31,9 @@ public class QueryItemProcessor implements BaseProcessor {
     private ItemService itemService;
 
     @Autowired
+    private ItemWishlistService itemWishlistService;
+
+    @Autowired
     private SessionService sessionService;
 
     @Override
@@ -46,32 +50,19 @@ public class QueryItemProcessor implements BaseProcessor {
         pagingContext.setTotalItem(1L);
 
         List<ItemVO> itemVOS = new ArrayList<>();
-
-        queryById(queryRequest, itemVOS);
-
-        if (itemVOS.isEmpty()) {
-            itemVOS = queryItemList(queryRequest, pagingContext);
-        }
+        itemVOS = queryItemList(queryRequest, pagingContext);
 
         pagingContext.calculateTotalPage();
         queryResult.setItems(itemVOS.stream().
-                map(SummaryConverter::toSummary).collect(Collectors.toList()));
+                map(itemVO -> {
+                    int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
+                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                }).collect(Collectors.toList()));
         queryResult.setPagingContext(pagingContext);
     }
 
     private List<ItemVO> queryItemList(QueryItemRequest request, PagingContext pagingContext) {
         ItemFilterContext filterContext = request.getItemFilterContext();
         return itemService.queryList(filterContext, pagingContext, true);
-    }
-
-    private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {
-        if (request.getItemFilterContext().getItemId() == null || request.getItemFilterContext().getItemId().isEmpty()) {
-            return;
-        }
-
-        ItemFilterContext filterContext = request.getItemFilterContext();
-
-        ItemVO itemVO = itemService.queryById(filterContext.getItemId(), true);
-        itemVOS.add(itemVO);
     }
 }

@@ -6,18 +6,8 @@ import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
-import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
-import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
-import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
-import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
-import id.thesis.shumishumi.facade.request.item.RecommendRequest;
-import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
-import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
-import id.thesis.shumishumi.facade.result.item.CreateItemResult;
-import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
-import id.thesis.shumishumi.facade.result.item.QueryItemResult;
-import id.thesis.shumishumi.facade.result.item.RecommendResult;
-import id.thesis.shumishumi.facade.result.item.UpdateItemResult;
+import id.thesis.shumishumi.facade.request.item.*;
+import id.thesis.shumishumi.facade.result.item.*;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -128,11 +118,8 @@ public class ItemFacadeTest extends FacadeTestBase {
 
     @Test
     public void queryItemTest_SUCCESS_byIdWithSession() {
-        QueryItemRequest request = new QueryItemRequest();
-        ItemFilterContext filterContext = new ItemFilterContext();
-        filterContext.setItemId("itemId");
-
-        request.setItemFilterContext(filterContext);
+        QueryItemDetailRequest request = new QueryItemDetailRequest();
+        request.setItemId("itemId");
         request.setSessionId("sessoinId");
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
@@ -140,7 +127,7 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.USER.getUserRoleName()));
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
 
-        QueryItemResult result = itemFacade.query(request);
+        QueryItemDetailResult result = itemFacade.queryDetail(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
     }

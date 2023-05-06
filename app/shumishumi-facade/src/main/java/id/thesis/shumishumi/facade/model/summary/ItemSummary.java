@@ -22,4 +22,5 @@ public class ItemSummary extends BaseSummary {
     private UserSummary merchantInfo;
     private String merchantLevel;
     private List<String> itemImages;
+    private int totalWishlist;
 }
