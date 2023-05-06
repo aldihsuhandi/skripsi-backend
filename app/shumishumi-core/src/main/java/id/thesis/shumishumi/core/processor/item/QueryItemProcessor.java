@@ -37,33 +37,31 @@ public class QueryItemProcessor implements BaseProcessor {
         QueryItemRequest queryRequest = (QueryItemRequest) baseRequest;
         QueryItemResult queryResult = (QueryItemResult) baseResult;
 
+        int page = queryRequest.getPageNumber();
+        int numberOfItems = queryRequest.getNumberOfItem();
+
+        PagingContext pagingContext = new PagingContext();
+        pagingContext.setPageNumber(page);
+        pagingContext.setNumberOfItem(numberOfItems);
+        pagingContext.setTotalItem(1L);
+
         List<ItemVO> itemVOS = new ArrayList<>();
+
         queryById(queryRequest, itemVOS);
 
         if (itemVOS.isEmpty()) {
-            int page = queryRequest.getPageNumber();
-            int numberOfItems = queryRequest.getNumberOfItem();
-
-            itemVOS = queryItemList(queryRequest, page, numberOfItems);
+            itemVOS = queryItemList(queryRequest, pagingContext);
         }
 
-        composeResult(queryRequest, queryResult, itemVOS);
-    }
-
-    private void composeResult(QueryItemRequest request, QueryItemResult result, List<ItemVO> itemVOS) {
-        Long count = (long) itemService.count(request.getItemFilterContext(), true);
-
-        PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) count);
-        pagingContext.checkHasNext(count, itemVOS.size());
-
-        result.setItems(itemVOS.stream().
+        pagingContext.calculateTotalPage();
+        queryResult.setItems(itemVOS.stream().
                 map(SummaryConverter::toSummary).collect(Collectors.toList()));
-        result.setPagingContext(pagingContext);
+        queryResult.setPagingContext(pagingContext);
     }
 
-    private List<ItemVO> queryItemList(QueryItemRequest request, int page, int numberOfItems) {
+    private List<ItemVO> queryItemList(QueryItemRequest request, PagingContext pagingContext) {
         ItemFilterContext filterContext = request.getItemFilterContext();
-        return itemService.queryList(filterContext, page, numberOfItems, true);
+        return itemService.queryList(filterContext, pagingContext, true);
     }
 
     private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {

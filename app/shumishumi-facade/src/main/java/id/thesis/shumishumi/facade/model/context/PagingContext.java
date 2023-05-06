@@ -43,6 +43,20 @@ public class PagingContext {
         return res;
     }
 
+    public void calculateTotalPage() {
+        if (numberOfItem == 0) {
+            totalPage = 0;
+            return;
+        }
+
+        int res = (int) (totalItem / (long) numberOfItem);
+        if (totalItem % ((long) numberOfItem) != 0) {
+            res += 1;
+        }
+
+        totalPage = res;
+    }
+
     public int calculateOffset() {
         return (this.getPageNumber() - 1) * this.getNumberOfItem();
     }

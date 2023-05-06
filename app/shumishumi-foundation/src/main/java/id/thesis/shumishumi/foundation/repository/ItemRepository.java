@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface ItemRepository extends JpaRepository<ItemDO, String> {
+public interface ItemRepository extends JpaRepository<ItemDO, String>, ItemRepositoryCustom {
     Page<ItemDO> findByItemPriceBetween(Example<ItemDO> example, Long minItemPrice, Long maxItemPrice, Pageable pageable);
 
     Page<ItemDO> findByItemPriceGreaterThanEqual(Example<ItemDO> example, Long minItemPrice, Pageable pageable);
