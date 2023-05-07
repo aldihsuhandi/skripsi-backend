@@ -60,13 +60,35 @@ public class UserFacadeTest extends FacadeTestBase {
     }
 
     @Test
-    public void userRegisterTest_FAILED() {
+    public void userRegisterTest_FAILED_birthDateNotValid() {
         UserRegisterRequest registerRequest = new UserRegisterRequest();
         registerRequest.setUsername("username");
         registerRequest.setEmail("email@email.com");
         registerRequest.setPassword("password");
         registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(new Date());
+
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
+        Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
+
+        UserRegisterResult result = userFacade.register(registerRequest);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
+    }
+
+    @Test
+    public void userRegisterTest_FAILED_userAlreadyExist() {
+        UserRegisterRequest registerRequest = new UserRegisterRequest();
+        registerRequest.setUsername("username");
+        registerRequest.setEmail("email@email.com");
+        registerRequest.setPassword("password");
+        registerRequest.setConfirmPassword("password");
+        registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(Date.from(LocalDate.parse("20000202", DateTimeFormatter.BASIC_ISO_DATE).
+                atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", false, false));
         Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
