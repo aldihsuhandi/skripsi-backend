@@ -31,4 +31,6 @@ public class CommonConst {
     public static String TRACE_PREPEND = "0a358";
 
     public static int INT_NOT_FOUND = -9123;
+
+    public static String DICTIONARY_GENDER = "GENDER";
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class UserVO extends BaseVO {
     private String phoneNumber;
     private String profilePicture;
     private String gender;
-    private int age;
+    private Date dateOfBirth;
     private Map<String, String> location = new HashMap<>();
     private boolean isActive;
     private boolean isDeleted;

@@ -25,7 +25,7 @@ public class UserDAORequest implements Serializable {
     private String phoneNumber;
     private String profilePicture;
     private String password;
-    private int age;
+    private Date dateOfBirth;
     private String gender;
     private String location;
     private boolean isActive;

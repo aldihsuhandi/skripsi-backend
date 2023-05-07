@@ -9,7 +9,11 @@ import id.thesis.shumishumi.foundation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,7 +71,9 @@ public class UserSeeder extends BaseSeeder {
         userDO.setUsername(userRequest.username);
         userDO.setEmail(userRequest.email);
         userDO.setPhoneNumber(userRequest.phoneNumber);
-        userDO.setAge(23);
+        userDO.setDateOfBirth(
+                Date.from(LocalDate.parse("20000101", DateTimeFormatter.BASIC_ISO_DATE).
+                        atStartOfDay(ZoneId.systemDefault()).toInstant()));
         userDO.setGender("male");
         userDO.setRoleId(userRequest.roleId);
         userDO.setActive(userRequest.isActive);

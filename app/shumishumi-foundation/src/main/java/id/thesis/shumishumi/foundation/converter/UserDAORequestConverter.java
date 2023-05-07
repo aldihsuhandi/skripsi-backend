@@ -27,7 +27,7 @@ public class UserDAORequestConverter {
         userDAORequest.setPassword(innerRequest.getPassword());
         userDAORequest.setRoleId(innerRequest.getRoleId());
         userDAORequest.setProfilePicture(innerRequest.getProfilePicture());
-        userDAORequest.setAge(innerRequest.getAge());
+        userDAORequest.setDateOfBirth(innerRequest.getDateOfBirth());
         userDAORequest.setGender(innerRequest.getGender());
         userDAORequest.setLocation(JSONStringUtil.parseObject(new HashMap<>()));
 
@@ -46,7 +46,6 @@ public class UserDAORequestConverter {
         userDAORequest.setRoleId(updateContext.getRoleId());
         userDAORequest.setActive(updateContext.getIsActive());
         userDAORequest.setDeleted(updateContext.getIsDeleted());
-        userDAORequest.setAge(updateContext.getAge());
         userDAORequest.setGender(updateContext.getGender());
         userDAORequest.setLocation(JSONStringUtil.parseObject(updateContext.getLocation()));
         userDAORequest.setGmtModified(new Date());

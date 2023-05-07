@@ -3,6 +3,7 @@
  */
 package id.thesis.shumishumi.core.converter;
 
+import id.thesis.shumishumi.common.util.JSONStringUtil;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ActivityVO;
@@ -59,6 +60,9 @@ public class ViewObjectConverter {
         userVO.setUsername(userDO.getUsername());
         userVO.setEmail(userDO.getEmail());
         userVO.setPhoneNumber(userDO.getPhoneNumber());
+        userVO.setLocation(JSONStringUtil.parseJSONString(userDO.getLocation()));
+        userVO.setGender(userDO.getGender());
+        userVO.setDateOfBirth(userDO.getDateOfBirth());
         userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setDeleted(userDO.isDeleted());
         userVO.setActive(userDO.isActive());

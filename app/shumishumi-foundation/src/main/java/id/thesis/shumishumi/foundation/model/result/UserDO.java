@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -31,8 +32,8 @@ public class UserDO extends BaseDO {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
     @Column(name = "location")
     private String location;
@@ -132,12 +133,12 @@ public class UserDO extends BaseDO {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getLocation() {

@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.test.facade;
 
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.core.fetch.DictionaryFetchService;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
@@ -19,6 +20,7 @@ import id.thesis.shumishumi.foundation.service.CommentDAO;
 import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
 import id.thesis.shumishumi.foundation.service.ContentDAO;
 import id.thesis.shumishumi.foundation.service.CrowdDAO;
+import id.thesis.shumishumi.foundation.service.DictionaryDAO;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
 import id.thesis.shumishumi.foundation.service.ImageDAO;
 import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
@@ -35,6 +37,7 @@ import id.thesis.shumishumi.foundation.service.UserDAO;
 import id.thesis.shumishumi.test.TestBase;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -86,16 +89,28 @@ public class FacadeTestBase extends TestBase {
     @MockBean
     protected CommentVoteDAO commentVoteDAO;
 
+    @MockBean
+    protected DictionaryDAO dictionaryDAO;
+
     @Autowired
     protected UserFetchService userFetchService;
 
     @Autowired
     protected ItemFetchService itemFetchService;
 
+    @Autowired
+    protected DictionaryFetchService dictionaryFetchService;
+
+    @BeforeEach
+    public void setUp() {
+        dictionaryFetchService.putToCache("GENDER", "gender");
+    }
+
     @AfterEach
     public void cleanUp() {
         itemFetchService.clearCache();
         userFetchService.clearCache();
+        dictionaryFetchService.clearCache();
     }
 
     protected void mockitoSession(String userId) {

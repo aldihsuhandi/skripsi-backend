@@ -3,6 +3,7 @@ package id.thesis.shumishumi.common.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,10 @@ public class JSONStringUtil {
     }
 
     public static Map<String, String> parseJSONString(String jsonString) {
+        if (StringUtils.isEmpty(jsonString)) {
+            return new HashMap<>();
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> hashMap = new HashMap<>();
         try {

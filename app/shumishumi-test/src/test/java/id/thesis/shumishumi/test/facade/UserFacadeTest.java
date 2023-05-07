@@ -28,8 +28,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -45,6 +47,9 @@ public class UserFacadeTest extends FacadeTestBase {
         registerRequest.setPassword("password");
         registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(Date.from(LocalDate.parse("20000202", DateTimeFormatter.BASIC_ISO_DATE).
+                atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
