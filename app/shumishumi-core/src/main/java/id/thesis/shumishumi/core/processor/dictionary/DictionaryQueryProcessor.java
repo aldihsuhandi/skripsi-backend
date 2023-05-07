@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.core.processor.dictionary;
 
+import id.thesis.shumishumi.common.service.DictionaryService;
 import id.thesis.shumishumi.common.service.HobbyService;
 import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemCategoryService;
@@ -24,6 +25,9 @@ public class DictionaryQueryProcessor implements BaseProcessor {
     @Autowired
     private HobbyService hobbyService;
 
+    @Autowired
+    private DictionaryService dictionaryService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         DictionaryQueryRequest request = (DictionaryQueryRequest) baseRequest;
@@ -47,6 +51,8 @@ public class DictionaryQueryProcessor implements BaseProcessor {
                 break;
 
             default:
+                dictionaries.addAll(dictionaryService.
+                        queryByType(request.getDictionaryKey()));
                 break;
         }
 

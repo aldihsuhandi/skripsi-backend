@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.core.configuration;
 
+import id.thesis.shumishumi.common.service.DictionaryService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.LogUtil;
@@ -18,6 +19,9 @@ public class StartupRunner {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private DictionaryService dictionaryService;
+
     @EventListener(ApplicationReadyEvent.class)
     public void refreshUserCache() {
         try {
@@ -35,6 +39,18 @@ public class StartupRunner {
         try {
             TracerContext.initialize();
             itemService.refreshCache(null, true);
+        } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
+        } finally {
+            TracerContext.removeTracer();
+        }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void refreshDictionaryCache() {
+        try {
+            TracerContext.initialize();
+            dictionaryService.refreshCache();
         } catch (Exception e) {
             LogUtil.exception(e.getMessage(), e);
         } finally {
