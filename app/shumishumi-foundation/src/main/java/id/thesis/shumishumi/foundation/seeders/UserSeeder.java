@@ -67,6 +67,8 @@ public class UserSeeder extends BaseSeeder {
         userDO.setUsername(userRequest.username);
         userDO.setEmail(userRequest.email);
         userDO.setPhoneNumber(userRequest.phoneNumber);
+        userDO.setAge(23);
+        userDO.setGender("male");
         userDO.setRoleId(userRequest.roleId);
         userDO.setActive(userRequest.isActive);
         userDO.setDeleted(userRequest.isDeleted);

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserUpdateContext.java, v 0.1 2022‐12‐26 8:23 AM Aldih Suhandi Exp $$
@@ -21,6 +23,9 @@ public class UserUpdateContext {
     private String profilePicture;
     private String password;
     private String roleId;
+    private String gender;
+    private int age;
+    private Map<String, String> location;
     private Boolean isDeleted;
     private Boolean isActive;
 }

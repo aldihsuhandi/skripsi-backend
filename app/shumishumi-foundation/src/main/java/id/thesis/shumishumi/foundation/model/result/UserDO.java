@@ -28,6 +28,15 @@ public class UserDO extends BaseDO {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "role_id")
     private String roleId;
 
@@ -113,5 +122,29 @@ public class UserDO extends BaseDO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

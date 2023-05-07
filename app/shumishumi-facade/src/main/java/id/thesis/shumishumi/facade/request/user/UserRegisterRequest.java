@@ -13,6 +13,8 @@ public class UserRegisterRequest extends BaseRequest {
     private String username;
     private String email;
     private String phoneNumber;
+    private int age;
+    private String gender;
     private MultipartFile profilePicture;
     private String password;
     private String confirmPassword;

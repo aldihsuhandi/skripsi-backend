@@ -22,6 +22,8 @@ public class UserRequestConverter {
         innerRequest.setUsername(request.getUsername());
         innerRequest.setPassword(request.getPassword());
         innerRequest.setRoleId(UserRolesEnum.USER.getUserRoleId());
+        innerRequest.setAge(request.getAge());
+        innerRequest.setGender(request.getGender());
 
         return innerRequest;
     }
