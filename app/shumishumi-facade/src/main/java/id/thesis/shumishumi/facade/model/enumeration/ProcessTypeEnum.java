@@ -29,6 +29,7 @@ public enum ProcessTypeEnum {
 
     ITEM_CREATE("ITEM_CREATE", "createItemValidator", "createItemProcessor", true),
     ITEM_QUERY("ITEM_QUERY", "queryItemValidator", "queryItemProcessor", false),
+    ITEM_QUERY_DETAIL("ITEM_QUERY_DETAIL", "queryItemDetailValidator", "queryItemDetailProcessor", false),
     ITEM_UPDATE("ITEM_UPDATE", "updateItemValidator", "updateItemProcessor", true),
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
     RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", false),
@@ -58,6 +59,8 @@ public enum ProcessTypeEnum {
     COMMENT_QUERY("COMMENT_QUERY", "commentQueryValidator", "commentQueryProcessor", false),
     COMMENT_UPVOTE("COMMENT_UPVOTE", "commentUpvoteValidator", "commentUpvoteProcessor", true),
     COMMENT_DOWNVOTE("COMMENT_DOWNVOTE", "commentDownvoteValidator", "commentDownvoteProcessor", true),
+
+    DICTIONARY_QUERY("DICTIONARY_QUERY", "dictionaryQueryValidator", "dictionaryQueryProcessor", false),
 
     ;
 

@@ -1,9 +1,6 @@
 package id.thesis.shumishumi.core.processor.item;
 
-import id.thesis.shumishumi.common.service.CrowdService;
-import id.thesis.shumishumi.common.service.ItemService;
-import id.thesis.shumishumi.common.service.SessionService;
-import id.thesis.shumishumi.common.service.UserService;
+import id.thesis.shumishumi.common.service.*;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
@@ -15,17 +12,16 @@ import id.thesis.shumishumi.facade.result.item.RecommendResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RecommendProcessor implements BaseProcessor {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ItemWishlistService itemWishlistService;
 
     @Autowired
     private SessionService sessionService;
@@ -78,6 +74,9 @@ public class RecommendProcessor implements BaseProcessor {
         }
 
         result.setItems(itemVOS.stream().
-                map(SummaryConverter::toSummary).collect(Collectors.toList()));
+                map(itemVO -> {
+                    int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
+                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                }).collect(Collectors.toList()));
     }
 }

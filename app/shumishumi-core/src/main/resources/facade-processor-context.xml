@@ -47,6 +47,7 @@
     <!--item-->
     <bean id="createItemProcessor" class="id.thesis.shumishumi.core.processor.item.CreateItemProcessor"/>
     <bean id="queryItemProcessor" class="id.thesis.shumishumi.core.processor.item.QueryItemProcessor"/>
+    <bean id="queryItemDetailProcessor" class="id.thesis.shumishumi.core.processor.item.QueryItemDetailProcessor"/>
     <bean id="updateItemProcessor" class="id.thesis.shumishumi.core.processor.item.UpdateItemProcessor"/>
     <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.core.processor.item.ItemApprovalProcessor"/>
     <bean id="recommendProcessor" class="id.thesis.shumishumi.core.processor.item.RecommendProcessor"/>
@@ -96,6 +97,10 @@
           class="id.thesis.shumishumi.core.processor.image.ImageDownloadProcessor"/>
     <bean id="imageUploadProcessor"
           class="id.thesis.shumishumi.core.processor.image.ImageUploadProcessor"/>
+
+    <!--dictionary-->
+    <bean id="dictionaryQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.dictionary.DictionaryQueryProcessor"/>
 
     <util:map id="processorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -150,6 +155,9 @@
 
         <entry key="ITEM_CREATE">
             <ref bean="createItemProcessor"/>
+        </entry>
+        <entry key="ITEM_QUERY_DETAIL">
+            <ref bean="queryItemDetailProcessor"/>
         </entry>
         <entry key="ITEM_QUERY">
             <ref bean="queryItemProcessor"/>
@@ -223,6 +231,10 @@
         <entry key="IMAGE_UPLOAD">
             <ref bean="imageUploadProcessor"/>
         </entry>
+
+        <entry key="DICTIONARY_QUERY">
+            <ref bean="dictionaryQueryProcessor"/>
+        </entry>
     </util:map>
 
     <!--validators-->
@@ -263,6 +275,7 @@
     <!--item-->
     <bean id="createItemValidator" class="id.thesis.shumishumi.core.validator.item.CreateItemValidator"/>
     <bean id="queryItemValidator" class="id.thesis.shumishumi.core.validator.item.QueryItemValidator"/>
+    <bean id="queryItemDetailValidator" class="id.thesis.shumishumi.core.validator.item.QueryItemDetailValidator"/>
     <bean id="updateItemValidator" class="id.thesis.shumishumi.core.validator.item.UpdateItemValidator"/>
     <bean id="itemApprovalValidator" class="id.thesis.shumishumi.core.validator.item.ItemApprovalValidator"/>
     <bean id="recommendValidator" class="id.thesis.shumishumi.core.validator.item.RecommendValidator"/>
@@ -307,6 +320,10 @@
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
     <bean id="imageUploadValidator" class="id.thesis.shumishumi.core.validator.image.ImageUploadValidator"/>
+
+    <!--dictionary-->
+    <bean id="dictionaryQueryValidator"
+          class="id.thesis.shumishumi.core.validator.dictionary.DictionaryQueryValidator"/>
 
     <util:map id="validatorMap" map-class="java.util.HashMap">
         <entry key="USER_REGISTER">
@@ -364,6 +381,9 @@
         </entry>
         <entry key="ITEM_QUERY">
             <ref bean="queryItemValidator"/>
+        </entry>
+        <entry key="ITEM_QUERY_DETAIL">
+            <ref bean="queryItemDetailValidator"/>
         </entry>
         <entry key="ITEM_UPDATE">
             <ref bean="updateItemValidator"/>
@@ -428,12 +448,15 @@
             <ref bean="commentDownvoteValidator"/>
         </entry>
 
-
         <entry key="IMAGE_DOWNLOAD">
             <ref bean="imageDownloadValidator"/>
         </entry>
         <entry key="IMAGE_UPLOAD">
             <ref bean="imageUploadValidator"/>
+        </entry>
+
+        <entry key="DICTIONARY_QUERY">
+            <ref bean="dictionaryQueryValidator"/>
         </entry>
     </util:map>
 </beans>

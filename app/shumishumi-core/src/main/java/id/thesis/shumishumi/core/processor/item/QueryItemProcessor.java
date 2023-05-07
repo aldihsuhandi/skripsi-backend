@@ -4,6 +4,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
@@ -30,6 +31,9 @@ public class QueryItemProcessor implements BaseProcessor {
     private ItemService itemService;
 
     @Autowired
+    private ItemWishlistService itemWishlistService;
+
+    @Autowired
     private SessionService sessionService;
 
     @Override
@@ -37,43 +41,28 @@ public class QueryItemProcessor implements BaseProcessor {
         QueryItemRequest queryRequest = (QueryItemRequest) baseRequest;
         QueryItemResult queryResult = (QueryItemResult) baseResult;
 
+        int page = queryRequest.getPageNumber();
+        int numberOfItems = queryRequest.getNumberOfItem();
+
+        PagingContext pagingContext = new PagingContext();
+        pagingContext.setPageNumber(page);
+        pagingContext.setNumberOfItem(numberOfItems);
+        pagingContext.setTotalItem(1L);
+
         List<ItemVO> itemVOS = new ArrayList<>();
-        queryById(queryRequest, itemVOS);
+        itemVOS = queryItemList(queryRequest, pagingContext);
 
-        if (itemVOS.isEmpty()) {
-            int page = queryRequest.getPageNumber();
-            int numberOfItems = queryRequest.getNumberOfItem();
-
-            itemVOS = queryItemList(queryRequest, page, numberOfItems);
-        }
-
-        composeResult(queryRequest, queryResult, itemVOS);
+        pagingContext.calculateTotalPage();
+        queryResult.setItems(itemVOS.stream().
+                map(itemVO -> {
+                    int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
+                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                }).collect(Collectors.toList()));
+        queryResult.setPagingContext(pagingContext);
     }
 
-    private void composeResult(QueryItemRequest request, QueryItemResult result, List<ItemVO> itemVOS) {
-        Long count = (long) itemService.count(request.getItemFilterContext(), true);
-
-        PagingContext pagingContext = new PagingContext(request.getPageNumber(), request.getNumberOfItem(), (long) count);
-        pagingContext.checkHasNext(count, itemVOS.size());
-
-        result.setItems(itemVOS.stream().
-                map(SummaryConverter::toSummary).collect(Collectors.toList()));
-        result.setPagingContext(pagingContext);
-    }
-
-    private List<ItemVO> queryItemList(QueryItemRequest request, int page, int numberOfItems) {
+    private List<ItemVO> queryItemList(QueryItemRequest request, PagingContext pagingContext) {
         ItemFilterContext filterContext = request.getItemFilterContext();
-        return itemService.queryList(filterContext, page, numberOfItems, true);
-    }
-
-    private void queryById(QueryItemRequest request, List<ItemVO> itemVOS) {
-        if (request.getItemFilterContext().getItemId() == null || request.getItemFilterContext().getItemId().isEmpty()) {
-            return;
-        }
-
-        ItemFilterContext filterContext = request.getItemFilterContext();
-
-        ItemVO itemVO = itemService.queryById(filterContext.getItemId(), true);
-        itemVOS.add(itemVO);
+        return itemService.queryList(filterContext, pagingContext, true);
     }
 }
