@@ -40,12 +40,12 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         }
 
         if (StringUtils.isNotEmpty(itemDO.getMerchantLevelId())) {
-            predicates.add(cb.equal(item.get("merchantInterestLevel"),
+            predicates.add(cb.equal(item.get("merchantLecelId"),
                     itemDO.getMerchantLevelId()));
         }
 
 //        if(StringUtils.isNotEmpty(itemDO.getUserInterestLevel())) {
-//            predicates.add(cb.equal(item.get("userInterestLevel"),
+//            predicates.add(cb.equal(item.get("userLevelId"),
 //                    itemDO.getUserInterestLevel()));
 //        }
 
