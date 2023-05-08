@@ -40,7 +40,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         }
 
         if (StringUtils.isNotEmpty(itemDO.getMerchantLevelId())) {
-            predicates.add(cb.equal(item.get("merchantLecelId"),
+            predicates.add(cb.equal(item.get("merchantLevelId"),
                     itemDO.getMerchantLevelId()));
         }
 
@@ -99,7 +99,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         }
 
         if (StringUtils.isNotEmpty(itemDO.getMerchantLevelId())) {
-            predicates.add(cb.equal(item.get("merchantInterestLevel"),
+            predicates.add(cb.equal(item.get("merchantLevelId"),
                     itemDO.getMerchantLevelId()));
         }
 
