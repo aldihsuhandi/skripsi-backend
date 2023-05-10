@@ -1,7 +1,9 @@
 package id.thesis.shumishumi.foundation.seeders;
 
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.JSONStringUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
@@ -12,9 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserSeeder extends BaseSeeder {
@@ -80,6 +80,13 @@ public class UserSeeder extends BaseSeeder {
         userDO.setDeleted(userRequest.isDeleted);
         userDO.setProfilePicture(imageId);
         userDO.setPassword(FunctionUtil.hashPassword(userRequest.password));
+
+        Map<String, String> location = new HashMap<>();
+        location.put(CommonConst.LOCATION_CITY, "Jakarta Utara");
+        location.put(CommonConst.LOCATION_PROVINCE, "Ibukota Jakarta");
+        location.put(CommonConst.LOCATION_POST_CODE, "16413");
+        location.put(CommonConst.LOCATION_DETAIL, "Karet Sudirman");
+        userDO.setLocation(JSONStringUtil.parseObject(location));
 
         try {
             userRepository.save(userDO);
