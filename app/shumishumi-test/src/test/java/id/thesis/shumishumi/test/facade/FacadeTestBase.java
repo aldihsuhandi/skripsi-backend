@@ -6,34 +6,8 @@ import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
-import id.thesis.shumishumi.foundation.model.result.ActivityDO;
-import id.thesis.shumishumi.foundation.model.result.ContentDO;
-import id.thesis.shumishumi.foundation.model.result.HobbyDO;
-import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
-import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
-import id.thesis.shumishumi.foundation.model.result.ItemDO;
-import id.thesis.shumishumi.foundation.model.result.RoleDO;
-import id.thesis.shumishumi.foundation.model.result.SessionDO;
-import id.thesis.shumishumi.foundation.model.result.UserDO;
-import id.thesis.shumishumi.foundation.service.ClientDAO;
-import id.thesis.shumishumi.foundation.service.CommentDAO;
-import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
-import id.thesis.shumishumi.foundation.service.ContentDAO;
-import id.thesis.shumishumi.foundation.service.CrowdDAO;
-import id.thesis.shumishumi.foundation.service.DictionaryDAO;
-import id.thesis.shumishumi.foundation.service.HobbyDAO;
-import id.thesis.shumishumi.foundation.service.ImageDAO;
-import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
-import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
-import id.thesis.shumishumi.foundation.service.ItemDAO;
-import id.thesis.shumishumi.foundation.service.ItemWishlistDAO;
-import id.thesis.shumishumi.foundation.service.OtpDAO;
-import id.thesis.shumishumi.foundation.service.PostDAO;
-import id.thesis.shumishumi.foundation.service.PostVoteDAO;
-import id.thesis.shumishumi.foundation.service.ResetPasswordDAO;
-import id.thesis.shumishumi.foundation.service.RoleDAO;
-import id.thesis.shumishumi.foundation.service.SessionDAO;
-import id.thesis.shumishumi.foundation.service.UserDAO;
+import id.thesis.shumishumi.foundation.model.result.*;
+import id.thesis.shumishumi.foundation.service.*;
 import id.thesis.shumishumi.test.TestBase;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -134,6 +108,11 @@ public class FacadeTestBase extends TestBase {
     protected void mockUserWithRole() {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO("USER"));
+    }
+
+    protected void mockUserWithRole(String role) {
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(role));
     }
 
 

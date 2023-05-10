@@ -6,6 +6,7 @@ import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.facade.request.user.*;
 import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
@@ -378,6 +379,19 @@ public class UserFacadeTest extends FacadeTestBase {
         MerchantApplyResult result = userFacade.merchantApply(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void merchantApplyTest_FAILED_merchantRole() {
+        MerchantApplyRequest request = new MerchantApplyRequest();
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        mockUserWithRole(UserRolesEnum.MERCHANT.getUserRoleName());
+
+        MerchantApplyResult result = userFacade.merchantApply(request);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.USER_ROLE_INVALID.getErrorCode());
     }
 
     @Test

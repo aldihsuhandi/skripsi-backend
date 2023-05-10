@@ -32,7 +32,7 @@ public class MerchantApplyProcessor implements BaseProcessor {
         UserVO userVO = userService.queryById(userId, true);
 
         AssertUtil.isExpected(!StringUtils.equals(userVO.getRoleVO().getRoleName(),
-                UserRolesEnum.MERCHANT.getUserRoleName()), "user role is not expected", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+                UserRolesEnum.MERCHANT.getUserRoleName()), "user role is not expected", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
         RoleChangeInnerRequest innerRequest = new RoleChangeInnerRequest();
         innerRequest.setUserId(userId);
