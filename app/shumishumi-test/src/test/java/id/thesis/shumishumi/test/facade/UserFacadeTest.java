@@ -2,23 +2,14 @@ package id.thesis.shumishumi.test.facade;
 
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.api.UserFacade;
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
-import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
-import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
-import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
-import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
-import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
-import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.*;
 import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
-import id.thesis.shumishumi.facade.result.user.UserActivateResult;
-import id.thesis.shumishumi.facade.result.user.UserLoginResult;
-import id.thesis.shumishumi.facade.result.user.UserQueryResult;
-import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
-import id.thesis.shumishumi.facade.result.user.UserResetPasswordResult;
-import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.*;
 import id.thesis.shumishumi.facade.result.user.email.EmailDecryptResult;
 import id.thesis.shumishumi.facade.result.user.email.EmailEncryptResult;
 import id.thesis.shumishumi.foundation.model.result.OtpDO;
@@ -34,6 +25,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserFacadeTest extends FacadeTestBase {
     @Autowired
@@ -173,6 +166,33 @@ public class UserFacadeTest extends FacadeTestBase {
         request.setUsername("username");
         request.setOldPassword("password");
         request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserUpdateResult result = userFacade.update(request);
+
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void userUpdateTest_SUCCESS_withLocation() {
+        UserUpdateRequest request = new UserUpdateRequest();
+
+        Map<String, String> location = new HashMap<>();
+        location.put(CommonConst.LOCATION_PROVINCE, "province");
+        location.put(CommonConst.LOCATION_CITY, "city");
+        location.put(CommonConst.LOCATION_POST_CODE, "post_code");
+        location.put(CommonConst.LOCATION_DETAIL, "detail");
+
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
+        request.setOldPassword("password");
+        request.setSessionId("sessionId");
+        request.setLocation(location);
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));

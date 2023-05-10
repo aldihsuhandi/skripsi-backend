@@ -9,6 +9,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
+import java.util.Map;
+
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
  * @version $Id: UserUpdateRequest.java, v 0.1 2022‐12‐27 1:43 PM Aldih Suhandi Exp $$
@@ -24,6 +27,9 @@ public class UserUpdateRequest extends BaseRequest {
     private String email;
     private String phoneNumber;
     private MultipartFile profilePicture;
+    private String gender;
+    private Date dateOfBirth;
+    private Map<String, String> location;
     private String password;
     private String confirmPassword;
     private boolean isDeleted;

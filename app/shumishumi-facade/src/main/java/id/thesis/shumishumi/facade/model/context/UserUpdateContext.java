@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -24,7 +25,7 @@ public class UserUpdateContext {
     private String password;
     private String roleId;
     private String gender;
-    private int age;
+    private Date dateOfBirth;
     private Map<String, String> location;
     private Boolean isDeleted;
     private Boolean isActive;

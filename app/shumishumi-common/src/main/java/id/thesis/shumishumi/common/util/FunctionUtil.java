@@ -53,6 +53,12 @@ public class FunctionUtil {
                 updateContext.getIsDeleted() : userVO.isDeleted());
         updateContext.setIsActive(updateContext.getIsActive() != null ?
                 updateContext.getIsActive() : userVO.isActive());
+        updateContext.setDateOfBirth(updateContext.getDateOfBirth() != null ?
+                updateContext.getDateOfBirth() : userVO.getDateOfBirth());
+        updateContext.setGender(checkIfNotEmpty(updateContext.getGender()) ?
+                updateContext.getGender() : userVO.getGender());
+        updateContext.setLocation(CollectionUtils.isEmpty(updateContext.getLocation()) ?
+                userVO.getLocation() : updateContext.getLocation());
     }
 
     public static void fillEmptyUpdateContext(ItemUpdateContext updateContext, ItemVO itemVO) {

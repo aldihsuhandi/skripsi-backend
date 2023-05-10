@@ -19,6 +19,11 @@ public class CommonConst {
     public static String MAIL_SMTP_HOST = "mail.smtp.host";
     public static String MAIL_SMTP_PORT = "mail.smtp.port";
 
+    public static String LOCATION_CITY = "city";
+    public static String LOCATION_PROVINCE = "province";
+    public static String LOCATION_POST_CODE = "postCode";
+    public static String LOCATION_DETAIL = "detail";
+
     public static String COMMENT_REPLY_POST = "POST";
     public static String COMMENT_REPLY_COMMENT = "COMMENT";
 
