@@ -368,6 +368,19 @@ public class UserFacadeTest extends FacadeTestBase {
     }
 
     @Test
+    public void merchantApplyTest_SUCCESS() {
+        MerchantApplyRequest request = new MerchantApplyRequest();
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        mockUserWithRole();
+
+        MerchantApplyResult result = userFacade.merchantApply(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
     public void emailDecryptTest_SUCCESS() {
         EmailDecryptRequest request = new EmailDecryptRequest();
         request.setUuid("uuid");

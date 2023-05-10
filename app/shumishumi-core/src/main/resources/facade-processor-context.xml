@@ -15,6 +15,9 @@
     <bean id="userQueryProcessor" class="id.thesis.shumishumi.core.processor.user.UserQueryProcessor"/>
     <bean id="userActivateProcessor" class="id.thesis.shumishumi.core.processor.user.UserActivateProcessor"/>
 
+    <!--merchant-->
+    <bean id="merchantApplyProcessor" class="id.thesis.shumishumi.core.processor.user.MerchantApplyProcessor"/>
+
     <!--forgot password-->
     <bean id="forgotPasswordProcessor"
           class="id.thesis.shumishumi.core.processor.user.forgotpassword.ForgotPasswordProcessor"/>
@@ -118,6 +121,11 @@
         <entry key="USER_ACTIVATE">
             <ref bean="userActivateProcessor"/>
         </entry>
+
+        <entry key="MERCHANT_APPLY">
+            <ref bean="merchantApplyProcessor"/>
+        </entry>
+
         <entry key="RESET_PASSWORD">
             <ref bean="resetPasswordProcessor"/>
         </entry>
@@ -245,6 +253,9 @@
     <bean id="userQueryValidator" class="id.thesis.shumishumi.core.validator.user.UserQueryValidator"/>
     <bean id="userActivateValidator" class="id.thesis.shumishumi.core.validator.user.UserActivateValidator"/>
 
+    <!--merchant-->
+    <bean id="merchantApplyValidator" class="id.thesis.shumishumi.core.validator.user.MerchantApplyValidator"/>
+
     <!--forgot password-->
     <bean id="forgotPasswordValidator"
           class="id.thesis.shumishumi.core.validator.user.forgotpassword.ForgotPasswordValidator"/>
@@ -341,6 +352,11 @@
         <entry key="USER_ACTIVATE">
             <ref bean="userActivateValidator"/>
         </entry>
+
+        <entry key="MERCHANT_APPLY">
+            <ref bean="merchantApplyValidator"/>
+        </entry>
+
         <entry key="RESET_PASSWORD">
             <ref bean="resetPasswordValidator"/>
         </entry>

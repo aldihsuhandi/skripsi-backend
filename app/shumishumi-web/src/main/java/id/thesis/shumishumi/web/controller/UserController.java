@@ -172,6 +172,26 @@ public class UserController extends BaseController {
         });
     }
 
+    @PostMapping("/merchant/apply")
+    public ResponseEntity<MerchantApplyResult> merchantApply(@RequestHeader HttpHeaders headers, @RequestBody MerchantApplyForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<MerchantApplyResult, MerchantApplyRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public MerchantApplyRequest composeRequest() {
+                return new MerchantApplyRequest();
+            }
+
+            @Override
+            public MerchantApplyResult doProcess(MerchantApplyRequest request) {
+                return userFacade.merchantApply(request);
+            }
+        });
+    }
+
     @PostMapping("/forgot_password/send")
     public ResponseEntity<ForgotPasswordSendResult> forgotPassword(@RequestHeader HttpHeaders httpHeaders, @RequestBody ForgotPasswordForm form) {
         return ControllerCallbackSupport.process(httpHeaders, form, MediaType.APPLICATION_JSON, new ControllerCallback<ForgotPasswordSendResult, ForgotPasswordSendRequest>() {
