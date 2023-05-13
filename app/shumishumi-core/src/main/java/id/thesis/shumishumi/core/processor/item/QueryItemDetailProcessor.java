@@ -29,6 +29,7 @@ public class QueryItemDetailProcessor implements BaseProcessor {
 
         ItemVO itemVO = itemService.queryById(request.getItemId(), true);
         AssertUtil.isNotNull(itemVO, "item doesn't exist", ShumishumiErrorCodeEnum.ITEM_NOT_FOUND);
+        AssertUtil.isExpected(!itemVO.isDeleted(), "item not found", ShumishumiErrorCodeEnum.ITEM_NOT_FOUND);
 
         ItemSummary itemSummary = SummaryConverter.toSummary(itemVO,
                 itemWishlistService.countItemWishlist(itemVO.getItemId()));
