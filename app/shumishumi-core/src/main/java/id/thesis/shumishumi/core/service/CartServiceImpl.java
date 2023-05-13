@@ -48,4 +48,17 @@ public class CartServiceImpl implements CartService {
             return ViewObjectConverter.toViewObject(cartDO, item);
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public Long calculatePrice(String userId) {
+        Long price = 0L;
+        List<CartDO> carts = cartDAO.queryAll(userId);
+
+        for (CartDO cart : carts) {
+            ItemVO item = itemService.queryById(cart.getPk().getItemId(), true);
+            price = item.getItemPrice() * cart.getQuantity();
+        }
+
+        return price;
+    }
 }

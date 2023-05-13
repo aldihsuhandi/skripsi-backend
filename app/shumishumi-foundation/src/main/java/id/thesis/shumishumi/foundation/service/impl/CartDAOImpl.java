@@ -99,4 +99,19 @@ public class CartDAOImpl implements CartDAO {
         LogUtil.info(LOGGER, String.format("cartDAO#queryList[carts=%s]", carts));
         return carts;
     }
+
+    @Override
+    public List<CartDO> queryAll(String userId) {
+        LogUtil.info(LOGGER, String.format("cartDAO#queryAll[userId=%s]", userId));
+        List<CartDO> carts;
+
+        try {
+            carts = cartRepository.findByPkUserId(userId);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("cartDAO#queryAll[carts=%s]", carts));
+        return carts;
+    }
 }

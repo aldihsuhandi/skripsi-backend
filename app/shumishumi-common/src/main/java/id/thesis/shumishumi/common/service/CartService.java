@@ -13,4 +13,6 @@ public interface CartService {
     CartVO queryItemInCart(String userId, String itemId);
 
     List<CartVO> queryCartList(String userId, PagingContext pagingContext);
+
+    Long calculatePrice(String userId);
 }

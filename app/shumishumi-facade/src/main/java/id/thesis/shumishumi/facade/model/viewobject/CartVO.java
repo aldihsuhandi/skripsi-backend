@@ -11,6 +11,6 @@ public class CartVO extends BaseVO {
     private static final long serialVersionUID = -7941515958656437439L;
 
     private String userId;
-    private ItemVO items;
+    private ItemVO item;
     private int quantity;
 }

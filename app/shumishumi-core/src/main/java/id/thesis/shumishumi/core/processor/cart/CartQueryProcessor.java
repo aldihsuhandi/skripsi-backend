@@ -2,6 +2,7 @@ package id.thesis.shumishumi.core.processor.cart;
 
 import id.thesis.shumishumi.common.service.CartService;
 import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.viewobject.CartVO;
@@ -12,6 +13,7 @@ import id.thesis.shumishumi.facade.result.cart.CartQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartQueryProcessor implements BaseProcessor {
 
@@ -32,7 +34,13 @@ public class CartQueryProcessor implements BaseProcessor {
         pagingContext.setNumberOfItem(request.getNumberOfItem());
 
         List<CartVO> carts = cartService.queryCartList(userId, pagingContext);
+
         pagingContext.calculateTotalPage();
         pagingContext.checkHasNext(pagingContext.getTotalItem(), pagingContext.getNumberOfItem());
+
+        result.setCarts(carts.stream().map(SummaryConverter::toSummary)
+                .collect(Collectors.toList()));
+        result.setPrice(cartService.calculatePrice(userId));
+        result.setPagingContext(pagingContext);
     }
 }

@@ -360,7 +360,7 @@ public class ViewObjectConverter {
         CartVO cartVO = new CartVO();
         cartVO.setUserId(cartVO.getUserId());
         cartVO.setQuantity(cartDO.getQuantity());
-        cartVO.setItems(itemVO);
+        cartVO.setItem(itemVO);
         cartVO.setGmtCreate(cartDO.getGmtCreate());
         cartVO.setGmtModified(cartDO.getGmtModified());
 

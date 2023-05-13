@@ -15,4 +15,6 @@ public interface CartDAO {
     CartDO query(String userId, String itemId);
 
     List<CartDO> queryList(String userId, PagingContext pagingContext);
+
+    List<CartDO> queryAll(String userId);
 }
