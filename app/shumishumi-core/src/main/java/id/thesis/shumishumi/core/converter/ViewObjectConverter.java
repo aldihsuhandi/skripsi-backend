@@ -6,6 +6,7 @@ package id.thesis.shumishumi.core.converter;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ActivityVO;
+import id.thesis.shumishumi.facade.model.viewobject.CartVO;
 import id.thesis.shumishumi.facade.model.viewobject.ClientVO;
 import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
@@ -22,6 +23,7 @@ import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.model.result.ActivityDO;
+import id.thesis.shumishumi.foundation.model.result.CartDO;
 import id.thesis.shumishumi.foundation.model.result.ClientDO;
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
@@ -348,5 +350,20 @@ public class ViewObjectConverter {
         vo.setGmtModified(commentDO.getGmtModified());
 
         return vo;
+    }
+
+    public static CartVO toViewObject(CartDO cartDO, ItemVO itemVO) {
+        if (cartDO == null) {
+            return null;
+        }
+
+        CartVO cartVO = new CartVO();
+        cartVO.setUserId(cartVO.getUserId());
+        cartVO.setQuantity(cartDO.getQuantity());
+        cartVO.setItems(itemVO);
+        cartVO.setGmtCreate(cartDO.getGmtCreate());
+        cartVO.setGmtModified(cartDO.getGmtModified());
+
+        return cartVO;
     }
 }
