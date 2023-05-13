@@ -53,6 +53,10 @@ public class QueryItemProcessor implements BaseProcessor {
         itemVOS = queryItemList(queryRequest, pagingContext);
 
         pagingContext.calculateTotalPage();
+        pagingContext.checkHasNext(pagingContext.getTotalItem(), pagingContext.getNumberOfItem());
+
+        System.out.printf("pagingContext=%s\n", pagingContext);
+
         queryResult.setItems(itemVOS.stream().
                 map(itemVO -> {
                     int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
