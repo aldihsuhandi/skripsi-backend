@@ -30,7 +30,11 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void update(String userId, String itemId, int quantity) {
-        cartDAO.update(userId, itemId, quantity);
+        if (quantity == 0) {
+            cartDAO.delete(userId, itemId);
+        } else {
+            cartDAO.update(userId, itemId, quantity);
+        }
     }
 
     @Override

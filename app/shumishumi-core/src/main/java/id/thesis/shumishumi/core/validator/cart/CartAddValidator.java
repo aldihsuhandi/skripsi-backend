@@ -14,6 +14,8 @@ public class CartAddValidator implements BaseValidator {
 
         CartAddRequest request = (CartAddRequest) baseRequest;
         ParamChecker.isNotEmpty(request.getItemId(), "itemId", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+
         ParamChecker.isNotNull(request.getQuantity(), "quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        ParamChecker.isExpected(request.getQuantity() > 0, "quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
 }
