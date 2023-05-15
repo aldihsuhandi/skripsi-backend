@@ -485,16 +485,16 @@
         </entry>
 
         <entry key="CART_ADD">
-            <ref bean="cartAddProcessor"/>
+            <ref bean="cartAddValidator"/>
         </entry>
         <entry key="CART_UPDATE">
-            <ref bean="cartUpdateProcessor"/>
+            <ref bean="cartUpdateValidator"/>
         </entry>
         <entry key="CART_QUERY">
-            <ref bean="cartQueryProcessor"/>
+            <ref bean="cartQueryValidator"/>
         </entry>
         <entry key="CART_CALCULATE">
-            <ref bean="cartCalculateProcessor"/>
+            <ref bean="cartCalculateValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

@@ -14,6 +14,7 @@ import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.service.CartDAO;
 import id.thesis.shumishumi.foundation.service.ClientDAO;
 import id.thesis.shumishumi.foundation.service.CommentDAO;
 import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
@@ -70,21 +71,18 @@ public class FacadeTestBase extends TestBase {
     protected CrowdDAO crowdDAO;
     @MockBean
     protected ImageDAO imageDAO;
-
     @MockBean
     protected PostDAO postDAO;
-
     @MockBean
     protected PostVoteDAO postVoteDAO;
-
     @MockBean
     protected ResetPasswordDAO resetPasswordDAO;
-
     @MockBean
     protected CommentDAO commentDAO;
-
     @MockBean
     protected CommentVoteDAO commentVoteDAO;
+    @MockBean
+    protected CartDAO cartDAO;
 
     @Autowired
     protected UserFetchService userFetchService;

@@ -40,6 +40,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartVO queryItemInCart(String userId, String itemId) {
         CartDO cartDO = cartDAO.query(userId, itemId);
+        if (cartDO == null) {
+            return null;
+        }
+
         ItemVO itemVO = itemService.queryById(cartDO.getPk().getItemId(), true);
 
         return ViewObjectConverter.toViewObject(cartDO, itemVO);
@@ -60,7 +64,7 @@ public class CartServiceImpl implements CartService {
 
         for (CartDO cart : carts) {
             ItemVO item = itemService.queryById(cart.getPk().getItemId(), true);
-            price = item.getItemPrice() * cart.getQuantity();
+            price += item.getItemPrice() * cart.getQuantity();
         }
 
         return price;
