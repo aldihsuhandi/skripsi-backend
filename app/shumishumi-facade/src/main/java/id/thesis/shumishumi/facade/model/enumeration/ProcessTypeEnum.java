@@ -62,6 +62,11 @@ public enum ProcessTypeEnum {
 
     DICTIONARY_QUERY("DICTIONARY_QUERY", "dictionaryQueryValidator", "dictionaryQueryProcessor", false),
 
+    CART_ADD("CART_ADD", "cartAddValidator", "cartAddProcessor", true),
+    CART_UPDATE("CART_UPDATE", "cartUpdateValidator", "cartUpdateProcessor", true),
+    CART_QUERY("CART_QUERY", "cartQueryValidator", "cartQueryProcessor", true),
+    CART_CALCULATE("CART_CALCULATE", "cartCalculateValidator", "cartCalculateProcessor", true),
+
     ;
 
     private final String processName;
