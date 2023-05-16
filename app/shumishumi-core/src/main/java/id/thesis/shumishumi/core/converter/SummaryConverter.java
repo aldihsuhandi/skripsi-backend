@@ -1,9 +1,11 @@
 package id.thesis.shumishumi.core.converter;
 
+import id.thesis.shumishumi.facade.model.summary.CartSummary;
 import id.thesis.shumishumi.facade.model.summary.CommentSummary;
 import id.thesis.shumishumi.facade.model.summary.ItemSummary;
 import id.thesis.shumishumi.facade.model.summary.PostSummary;
 import id.thesis.shumishumi.facade.model.summary.UserSummary;
+import id.thesis.shumishumi.facade.model.viewobject.CartVO;
 import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
@@ -14,6 +16,17 @@ public class SummaryConverter {
         if (vo == null) {
             return null;
         }
+        ItemSummary summary = toSummary(vo);
+        summary.setTotalWishlist(totalWishlist);
+
+        return summary;
+    }
+
+    private static ItemSummary toSummary(ItemVO vo) {
+        if (vo == null) {
+            return null;
+        }
+
         ItemSummary summary = new ItemSummary();
         summary.setItemId(vo.getItemId());
         summary.setItemName(vo.getItemName());
@@ -27,8 +40,6 @@ public class SummaryConverter {
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
-        summary.setTotalWishlist(totalWishlist);
-
         return summary;
     }
 
@@ -81,6 +92,20 @@ public class SummaryConverter {
         summary.setUpvote(vo.getUpvote());
         summary.setDownvote(vo.getDownvote());
         summary.setCurrentUserVote(vo.getCurrentUserVote());
+
+        return summary;
+    }
+
+    public static CartSummary toSummary(CartVO vo) {
+        if (vo == null) {
+            return null;
+        }
+
+        CartSummary summary = new CartSummary();
+        summary.setItemSummary(toSummary(vo.getItem()));
+        summary.setQuantity(vo.getQuantity());
+        summary.setGmtCreate(vo.getGmtCreate());
+        summary.setGmtModified(vo.getGmtModified());
 
         return summary;
     }
