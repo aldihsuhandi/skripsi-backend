@@ -27,7 +27,7 @@ public class PagingContext {
 
     public void checkHasNext(long count, int currentItemNumber) {
         int offset = this.calculateOffset() + currentItemNumber;
-        this.hasNext = !(count == offset);
+        this.hasNext = (count > offset);
     }
 
     public int calculateTotalPage(int numberOfItem, Long totalItem) {

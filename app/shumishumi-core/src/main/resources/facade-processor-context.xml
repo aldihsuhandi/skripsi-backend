@@ -101,6 +101,16 @@
     <bean id="imageUploadProcessor"
           class="id.thesis.shumishumi.core.processor.image.ImageUploadProcessor"/>
 
+    <!--cart-->
+    <bean id="cartAddProcessor"
+          class="id.thesis.shumishumi.core.processor.cart.CartAddProcessor"/>
+    <bean id="cartUpdateProcessor"
+          class="id.thesis.shumishumi.core.processor.cart.CartUpdateProcessor"/>
+    <bean id="cartQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.cart.CartQueryProcessor"/>
+    <bean id="cartCalculateProcessor"
+          class="id.thesis.shumishumi.core.processor.cart.CartCalculateProcessor"/>
+
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
           class="id.thesis.shumishumi.core.processor.dictionary.DictionaryQueryProcessor"/>
@@ -240,6 +250,19 @@
             <ref bean="imageUploadProcessor"/>
         </entry>
 
+        <entry key="CART_ADD">
+            <ref bean="cartAddProcessor"/>
+        </entry>
+        <entry key="CART_UPDATE">
+            <ref bean="cartUpdateProcessor"/>
+        </entry>
+        <entry key="CART_QUERY">
+            <ref bean="cartQueryProcessor"/>
+        </entry>
+        <entry key="CART_CALCULATE">
+            <ref bean="cartCalculateProcessor"/>
+        </entry>
+
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
         </entry>
@@ -331,6 +354,12 @@
     <!--image-->
     <bean id="imageDownloadValidator" class="id.thesis.shumishumi.core.validator.image.ImageDownloadValidator"/>
     <bean id="imageUploadValidator" class="id.thesis.shumishumi.core.validator.image.ImageUploadValidator"/>
+
+    <!--cart-->
+    <bean id="cartAddValidator" class="id.thesis.shumishumi.core.validator.cart.CartAddValidator"/>
+    <bean id="cartUpdateValidator" class="id.thesis.shumishumi.core.validator.cart.CartUpdateValidator"/>
+    <bean id="cartQueryValidator" class="id.thesis.shumishumi.core.validator.cart.CartQueryValidator"/>
+    <bean id="cartCalculateValidator" class="id.thesis.shumishumi.core.validator.cart.CartCalculateValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -469,6 +498,19 @@
         </entry>
         <entry key="IMAGE_UPLOAD">
             <ref bean="imageUploadValidator"/>
+        </entry>
+
+        <entry key="CART_ADD">
+            <ref bean="cartAddValidator"/>
+        </entry>
+        <entry key="CART_UPDATE">
+            <ref bean="cartUpdateValidator"/>
+        </entry>
+        <entry key="CART_QUERY">
+            <ref bean="cartQueryValidator"/>
+        </entry>
+        <entry key="CART_CALCULATE">
+            <ref bean="cartCalculateValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

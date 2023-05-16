@@ -20,6 +20,7 @@ public enum ShumishumiErrorCodeEnum {
     OTP_VALIDATION_ERROR("OTP_VALIDATION_ERROR", "otp validation error"),
 
     ITEM_NOT_FOUND("ITEM_NOT_FOUND", "item not found"),
+    ITEM_NOT_ENOUGH("ITEM_NOT_ENOUGH", "item quantity is not enough"),
     ITEM_ALREADY_APPROVED("ITEM_ALREADY_APPROVED", "item already approved"),
 
     IMAGE_NOT_FOUND("IMAGE_NOT_FOUND", "cannot found the image you trying to download"),
