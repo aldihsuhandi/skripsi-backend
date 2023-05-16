@@ -11,6 +11,6 @@ import lombok.ToString;
 public class CartQueryRequest extends BaseRequest {
     private static final long serialVersionUID = -53626115769661185L;
 
-    private int pageNumber;
-    private int numberOfItem;
+    private int pageNumber = 1;
+    private int numberOfItem = 10;
 }
