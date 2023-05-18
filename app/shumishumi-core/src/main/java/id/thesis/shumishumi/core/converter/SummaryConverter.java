@@ -53,6 +53,9 @@ public class SummaryConverter {
         userSummary.setProfilePicture(vo.getProfilePicture());
         userSummary.setPhoneNumber(vo.getPhoneNumber());
         userSummary.setRole(vo.getRoleVO().getRoleName());
+        userSummary.setGender(vo.getGender());
+        userSummary.setLocation(vo.getLocation());
+        userSummary.setDateOfBirth(vo.getDateOfBirth());
         userSummary.setGmtCreate(vo.getGmtCreate());
         userSummary.setGmtModified(vo.getGmtModified());
 

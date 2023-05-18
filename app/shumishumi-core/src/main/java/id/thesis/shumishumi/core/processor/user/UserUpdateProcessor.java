@@ -67,6 +67,10 @@ public class UserUpdateProcessor implements BaseProcessor {
         context.setEmail(request.getEmail());
         context.setPhoneNumber(request.getPhoneNumber());
         context.setIsActive(request.isActive());
+        context.setLocation(request.getLocation());
+        context.setGender(request.getGender());
+        context.setDateOfBirth(request.getDateOfBirth());
+
 
         return context;
     }

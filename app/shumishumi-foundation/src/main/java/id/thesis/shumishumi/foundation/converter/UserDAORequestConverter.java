@@ -6,10 +6,12 @@ package id.thesis.shumishumi.foundation.converter;
 import id.thesis.shumishumi.common.model.request.user.RoleChangeInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
+import id.thesis.shumishumi.common.util.JSONStringUtil;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
 import id.thesis.shumishumi.foundation.model.request.UserDAORequest;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -25,6 +27,9 @@ public class UserDAORequestConverter {
         userDAORequest.setPassword(innerRequest.getPassword());
         userDAORequest.setRoleId(innerRequest.getRoleId());
         userDAORequest.setProfilePicture(innerRequest.getProfilePicture());
+        userDAORequest.setDateOfBirth(innerRequest.getDateOfBirth());
+        userDAORequest.setGender(innerRequest.getGender());
+        userDAORequest.setLocation(JSONStringUtil.parseObject(new HashMap<>()));
 
         return userDAORequest;
     }
@@ -41,6 +46,9 @@ public class UserDAORequestConverter {
         userDAORequest.setRoleId(updateContext.getRoleId());
         userDAORequest.setActive(updateContext.getIsActive());
         userDAORequest.setDeleted(updateContext.getIsDeleted());
+        userDAORequest.setGender(updateContext.getGender());
+        userDAORequest.setDateOfBirth(userDAORequest.getDateOfBirth());
+        userDAORequest.setLocation(JSONStringUtil.parseObject(updateContext.getLocation()));
         userDAORequest.setGmtModified(new Date());
 
         return userDAORequest;

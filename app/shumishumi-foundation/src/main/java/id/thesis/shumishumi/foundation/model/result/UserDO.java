@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -27,6 +28,15 @@ public class UserDO extends BaseDO {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
+
+    @Column(name = "location")
+    private String location;
 
     @Column(name = "role_id")
     private String roleId;
@@ -113,5 +123,29 @@ public class UserDO extends BaseDO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

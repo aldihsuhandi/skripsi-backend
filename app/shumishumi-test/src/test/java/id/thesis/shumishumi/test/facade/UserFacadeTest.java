@@ -2,9 +2,12 @@ package id.thesis.shumishumi.test.facade;
 
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.api.UserFacade;
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
+import id.thesis.shumishumi.facade.request.user.MerchantApplyRequest;
 import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
 import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
 import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
@@ -13,6 +16,7 @@ import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
 import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
+import id.thesis.shumishumi.facade.result.user.MerchantApplyResult;
 import id.thesis.shumishumi.facade.result.user.UserActivateResult;
 import id.thesis.shumishumi.facade.result.user.UserLoginResult;
 import id.thesis.shumishumi.facade.result.user.UserQueryResult;
@@ -28,10 +32,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserFacadeTest extends FacadeTestBase {
     @Autowired
@@ -45,6 +53,9 @@ public class UserFacadeTest extends FacadeTestBase {
         registerRequest.setPassword("password");
         registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(Date.from(LocalDate.parse("20000202", DateTimeFormatter.BASIC_ISO_DATE).
+                atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
         Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
@@ -55,13 +66,35 @@ public class UserFacadeTest extends FacadeTestBase {
     }
 
     @Test
-    public void userRegisterTest_FAILED() {
+    public void userRegisterTest_FAILED_birthDateNotValid() {
         UserRegisterRequest registerRequest = new UserRegisterRequest();
         registerRequest.setUsername("username");
         registerRequest.setEmail("email@email.com");
         registerRequest.setPassword("password");
         registerRequest.setConfirmPassword("password");
         registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(new Date());
+
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
+        Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
+
+        UserRegisterResult result = userFacade.register(registerRequest);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.PARAM_ILLEGAL.getErrorCode());
+    }
+
+    @Test
+    public void userRegisterTest_FAILED_userAlreadyExist() {
+        UserRegisterRequest registerRequest = new UserRegisterRequest();
+        registerRequest.setUsername("username");
+        registerRequest.setEmail("email@email.com");
+        registerRequest.setPassword("password");
+        registerRequest.setConfirmPassword("password");
+        registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(Date.from(LocalDate.parse("20000202", DateTimeFormatter.BASIC_ISO_DATE).
+                atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password", false, false));
         Mockito.when(userDAO.queryByPhoneNumber(Mockito.any())).thenReturn(null);
@@ -146,6 +179,33 @@ public class UserFacadeTest extends FacadeTestBase {
         request.setUsername("username");
         request.setOldPassword("password");
         request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserUpdateResult result = userFacade.update(request);
+
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void userUpdateTest_SUCCESS_withLocation() {
+        UserUpdateRequest request = new UserUpdateRequest();
+
+        Map<String, String> location = new HashMap<>();
+        location.put(CommonConst.LOCATION_PROVINCE, "province");
+        location.put(CommonConst.LOCATION_CITY, "city");
+        location.put(CommonConst.LOCATION_POST_CODE, "post_code");
+        location.put(CommonConst.LOCATION_DETAIL, "detail");
+
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
+        request.setOldPassword("password");
+        request.setSessionId("sessionId");
+        request.setLocation(location);
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
@@ -318,6 +378,32 @@ public class UserFacadeTest extends FacadeTestBase {
         EmailEncryptResult result = userFacade.emailEncrypt(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void merchantApplyTest_SUCCESS() {
+        MerchantApplyRequest request = new MerchantApplyRequest();
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        mockUserWithRole();
+
+        MerchantApplyResult result = userFacade.merchantApply(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void merchantApplyTest_FAILED_merchantRole() {
+        MerchantApplyRequest request = new MerchantApplyRequest();
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        mockUserWithRole(UserRolesEnum.MERCHANT.getUserRoleName());
+
+        MerchantApplyResult result = userFacade.merchantApply(request);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.USER_ROLE_INVALID.getErrorCode());
     }
 
     @Test

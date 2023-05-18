@@ -206,6 +206,9 @@ public class UserDAOImpl implements UserDAO {
         userDO.setDeleted(request.isDeleted());
         userDO.setProfilePicture(request.getProfilePicture());
         userDO.setPassword(request.getPassword());
+        userDO.setDateOfBirth(request.getDateOfBirth());
+        userDO.setLocation(request.getLocation());
+        userDO.setGender(request.getGender());
 
         return userDO;
     }

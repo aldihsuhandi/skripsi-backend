@@ -4,6 +4,7 @@ import id.thesis.shumishumi.core.callback.ProcessCallback;
 import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.facade.api.UserFacade;
 import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.user.MerchantApplyRequest;
 import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
 import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
 import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
@@ -13,6 +14,7 @@ import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.user.MerchantApplyResult;
 import id.thesis.shumishumi.facade.result.user.UserActivateResult;
 import id.thesis.shumishumi.facade.result.user.UserLoginResult;
 import id.thesis.shumishumi.facade.result.user.UserQueryResult;
@@ -136,6 +138,21 @@ public class UserFacadeImpl extends ProcessFacade implements UserFacade {
             @Override
             public BaseResult initResult() {
                 return new EmailDecryptResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public MerchantApplyResult merchantApply(MerchantApplyRequest request) {
+        return (MerchantApplyResult) ProcessCallbackSupport.process(ProcessTypeEnum.MERCHANT_APPLY, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new MerchantApplyResult();
             }
 
             @Override

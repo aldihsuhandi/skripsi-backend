@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.web.controller;
 
+import id.thesis.shumishumi.common.model.form.user.MerchantApplyForm;
 import id.thesis.shumishumi.common.model.form.user.UserActivateForm;
 import id.thesis.shumishumi.common.model.form.user.UserInfoForm;
 import id.thesis.shumishumi.common.model.form.user.UserLoginForm;
@@ -14,6 +15,7 @@ import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.ForgotPasswordFacade;
 import id.thesis.shumishumi.facade.api.UserFacade;
+import id.thesis.shumishumi.facade.request.user.MerchantApplyRequest;
 import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
 import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
 import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
@@ -24,6 +26,7 @@ import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordQueryRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordSendRequest;
+import id.thesis.shumishumi.facade.result.user.MerchantApplyResult;
 import id.thesis.shumishumi.facade.result.user.UserActivateResult;
 import id.thesis.shumishumi.facade.result.user.UserLoginResult;
 import id.thesis.shumishumi.facade.result.user.UserQueryResult;
@@ -72,6 +75,8 @@ public class UserController extends BaseController {
                 request.setProfilePicture(form.getProfilePicture());
                 request.setPassword(form.getPassword());
                 request.setConfirmPassword(form.getConfirmPassword());
+                request.setDateOfBirth(form.getDateOfBirth());
+                request.setGender(form.getGender());
 
                 return request;
             }
@@ -118,7 +123,6 @@ public class UserController extends BaseController {
 
             @Override
             public UserUpdateRequest composeRequest() {
-
                 UserUpdateRequest request = new UserUpdateRequest();
                 request.setOldPassword(form.getOldPassword());
                 request.setUsername(form.getUsername());
@@ -126,6 +130,9 @@ public class UserController extends BaseController {
                 request.setPhoneNumber(form.getPhoneNumber());
                 request.setPassword(form.getPassword());
                 request.setConfirmPassword(form.getConfirmPassword());
+                request.setLocation(form.getLocation());
+                request.setDateOfBirth(form.getDateOfBirth());
+                request.setGender(form.getGender());
                 request.setProfilePicture(form.getProfilePicture());
                 request.setActive(form.isActive());
                 request.setDeleted(form.isDeleted());
@@ -184,6 +191,26 @@ public class UserController extends BaseController {
             @Override
             public UserActivateResult doProcess(UserActivateRequest request) {
                 return userFacade.activate(request);
+            }
+        });
+    }
+
+    @PostMapping("/merchant/apply")
+    public ResponseEntity<MerchantApplyResult> merchantApply(@RequestHeader HttpHeaders headers, @RequestBody MerchantApplyForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<MerchantApplyResult, MerchantApplyRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public MerchantApplyRequest composeRequest() {
+                return new MerchantApplyRequest();
+            }
+
+            @Override
+            public MerchantApplyResult doProcess(MerchantApplyRequest request) {
+                return userFacade.merchantApply(request);
             }
         });
     }

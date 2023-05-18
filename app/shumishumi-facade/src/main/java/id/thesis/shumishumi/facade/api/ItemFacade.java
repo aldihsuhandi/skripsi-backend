@@ -3,8 +3,21 @@
  */
 package id.thesis.shumishumi.facade.api;
 
-import id.thesis.shumishumi.facade.request.item.*;
-import id.thesis.shumishumi.facade.result.item.*;
+import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
+import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
+import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
+import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
+import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
+import id.thesis.shumishumi.facade.request.item.RecommendRequest;
+import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
+import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
+import id.thesis.shumishumi.facade.result.item.CreateItemResult;
+import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
+import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
+import id.thesis.shumishumi.facade.result.item.QueryItemResult;
+import id.thesis.shumishumi.facade.result.item.RecommendResult;
+import id.thesis.shumishumi.facade.result.item.UpdateItemResult;
+
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)

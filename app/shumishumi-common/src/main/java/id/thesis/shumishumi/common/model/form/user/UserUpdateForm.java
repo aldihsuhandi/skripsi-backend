@@ -6,6 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
+import java.util.Map;
+
 @Getter
 @Setter
 @ToString
@@ -17,6 +20,9 @@ public class UserUpdateForm extends BaseForm {
     private String email;
     private String phoneNumber;
     private MultipartFile profilePicture;
+    private String gender;
+    private Date dateOfBirth;
+    private Map<String, String> location;
     private String password;
     private String confirmPassword;
     private boolean isDeleted;

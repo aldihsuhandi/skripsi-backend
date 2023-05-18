@@ -62,7 +62,7 @@ public class ItemSeeder extends BaseSeeder {
                 "KEYCAPS", "KEYBOARD", "KeyboardShop", InterestLevelEnum.BEGINNER.getId()));
 
         r.add(new ItemRequest("Akko Midnight", 550000L, "AKKO PBT Midnight Keycaps with ASA Profile", 10,
-                Collections.singletonList("https://akkogear.com.vn/wp-content/uploads/2021/04/ban-phim-co-akko-3108-ds-midnight-akko-sw-v2-01.jpg"),
+                Collections.singletonList("https://cdn.shopify.com/s/files/1/0563/2154/0245/products/product-image-1821137548_2048x2048.jpg"),
                 "KEYCAPS", "KEYBOARD", "KeyboardShop", InterestLevelEnum.INTERMEDIATE.getId()));
 
         r.add(new ItemRequest("Akko WOB", 585000L, "AKKO PBT WOB (White on Black) Keycaps with ASA Profile", 1,
