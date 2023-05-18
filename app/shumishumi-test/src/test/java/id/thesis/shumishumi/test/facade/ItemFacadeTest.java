@@ -20,6 +20,7 @@ import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
 import id.thesis.shumishumi.facade.result.item.RecommendResult;
 import id.thesis.shumishumi.facade.result.item.UpdateItemResult;
+import id.thesis.shumishumi.foundation.model.result.ItemWishlistDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -138,6 +139,26 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.USER.getUserRoleName()));
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        QueryItemDetailResult result = itemFacade.queryDetail(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void queryItemTest_SUCCESS_withWishlist() {
+        QueryItemDetailRequest request = new QueryItemDetailRequest();
+        request.setItemId("itemId");
+        request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.USER.getUserRoleName()));
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        ItemWishlistDO wishlistDO = new ItemWishlistDO();
+        Mockito.when(itemWishlistDAO.findByUserIdAndItemId(Mockito.any(),
+                Mockito.any())).thenReturn(wishlistDO);
 
         QueryItemDetailResult result = itemFacade.queryDetail(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());

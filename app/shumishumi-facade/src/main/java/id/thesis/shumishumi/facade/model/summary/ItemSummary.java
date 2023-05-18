@@ -23,4 +23,5 @@ public class ItemSummary extends BaseSummary {
     private String merchantLevel;
     private List<String> itemImages;
     private int totalWishlist;
+    private boolean inWishlist = false;
 }

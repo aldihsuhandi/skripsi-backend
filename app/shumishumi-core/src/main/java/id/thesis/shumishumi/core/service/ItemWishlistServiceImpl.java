@@ -4,6 +4,7 @@ import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.facade.model.viewobject.ItemWishlistVO;
 import id.thesis.shumishumi.foundation.service.ItemWishlistDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,14 @@ public class ItemWishlistServiceImpl implements ItemWishlistService {
     @Override
     public int countItemWishlist(String itemId) {
         return itemWishlistDAO.countItemWishlist(itemId);
+    }
+
+    @Override
+    public boolean checkItemInWishlist(String userId, String itemId) {
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(itemId)) {
+            return false;
+        }
+
+        return itemWishlistDAO.findByUserIdAndItemId(userId, itemId) != null;
     }
 }

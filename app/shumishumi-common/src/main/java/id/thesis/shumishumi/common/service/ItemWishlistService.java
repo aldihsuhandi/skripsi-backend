@@ -14,4 +14,6 @@ public interface ItemWishlistService {
 
     int countItemWishlist(String itemId);
 
+    boolean checkItemInWishlist(String userId, String itemId);
+
 }
