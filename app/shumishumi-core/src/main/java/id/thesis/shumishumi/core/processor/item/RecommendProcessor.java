@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
+import id.thesis.shumishumi.facade.model.summary.ItemSummary;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
@@ -84,7 +85,11 @@ public class RecommendProcessor implements BaseProcessor {
         result.setItems(itemVOS.stream().
                 map(itemVO -> {
                     int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
-                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                    ItemSummary itemSummary = SummaryConverter.toSummary(itemVO, totalWishlist);
+                    itemSummary.setInWishlist(itemWishlistService.checkItemInWishlist(
+                            sessionVO.getUserId(), itemSummary.getItemId()));
+
+                    return itemSummary;
                 }).collect(Collectors.toList()));
     }
 }

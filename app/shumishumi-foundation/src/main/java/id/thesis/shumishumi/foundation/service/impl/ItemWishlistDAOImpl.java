@@ -81,4 +81,19 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
 
         return result;
     }
+
+    @Override
+    public ItemWishlistDO findByUserIdAndItemId(String userId, String itemId) {
+        LogUtil.info(DALGEN, String.format("itemWishlistDAO#findByUserIdAndItemId[userId=%s,itemId=%s]", userId, itemId));
+        ItemWishlistDO wishlistDO;
+        try {
+            ItemWishlistDOPK pk = new ItemWishlistDOPK(itemId, userId);
+            wishlistDO = itemWishlistRepository.findById(pk).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(DALGEN, String.format("itemWishlistDAO#findByUserIdAndItemId[result=%s]", wishlistDO));
+        return wishlistDO;
+    }
 }

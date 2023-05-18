@@ -10,11 +10,14 @@ import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.summary.ItemSummary;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
+import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -52,13 +55,24 @@ public class QueryItemProcessor implements BaseProcessor {
         List<ItemVO> itemVOS = new ArrayList<>();
         itemVOS = queryItemList(queryRequest, pagingContext);
 
+        String userId;
+        if (StringUtils.isNotEmpty(queryRequest.getSessionId())) {
+            SessionVO session = sessionService.query(queryRequest.getSessionId());
+            userId = session != null ? session.getUserId() : "";
+        } else {
+            userId = "";
+        }
+
         pagingContext.calculateTotalPage();
         pagingContext.checkHasNext(pagingContext.getTotalItem(), pagingContext.getNumberOfItem());
 
         queryResult.setItems(itemVOS.stream().
                 map(itemVO -> {
                     int totalWishlist = itemWishlistService.countItemWishlist(itemVO.getItemId());
-                    return SummaryConverter.toSummary(itemVO, totalWishlist);
+                    ItemSummary itemSummary = SummaryConverter.toSummary(itemVO, totalWishlist);
+                    itemSummary.setInWishlist(itemWishlistService.checkItemInWishlist(userId, itemSummary.getItemId()));
+
+                    return itemSummary;
                 }).collect(Collectors.toList()));
         queryResult.setPagingContext(pagingContext);
     }

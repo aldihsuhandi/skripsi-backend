@@ -63,7 +63,11 @@ public class WishlistQueryProcessor implements BaseProcessor {
         int sz = Math.min(pagingContext.getNumberOfItem() + pagingContext.calculateOffset(), filteredItem.size());
         for (int i = pagingContext.calculateOffset(); i < sz; ++i) {
             int totalWishlist = itemWishlistService.countItemWishlist(filteredItem.get(i).getItemId());
-            itemResult.add(SummaryConverter.toSummary(filteredItem.get(i), totalWishlist));
+            ItemSummary itemSummary = SummaryConverter.toSummary(filteredItem.get(i), totalWishlist);
+            itemSummary.setInWishlist(itemWishlistService.
+                    checkItemInWishlist(userVO.getUserId(), itemSummary.getItemId()));
+
+            itemResult.add(itemSummary);
         }
 
         result.setPagingContext(pagingContext);

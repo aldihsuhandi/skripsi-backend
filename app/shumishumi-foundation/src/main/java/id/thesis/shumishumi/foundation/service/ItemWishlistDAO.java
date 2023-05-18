@@ -12,4 +12,6 @@ public interface ItemWishlistDAO {
     List<ItemWishlistDO> queryUserWishlist(String userId);
 
     int countItemWishlist(String itemId);
+
+    ItemWishlistDO findByUserIdAndItemId(String userId, String itemId);
 }
