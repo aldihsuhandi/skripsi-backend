@@ -75,7 +75,7 @@ public class UserController extends BaseController {
                 request.setProfilePicture(form.getProfilePicture());
                 request.setPassword(form.getPassword());
                 request.setConfirmPassword(form.getConfirmPassword());
-                request.setDateOfBirth(form.getBirthOfDate());
+                request.setDateOfBirth(form.getDateOfBirth());
                 request.setGender(form.getGender());
 
                 return request;

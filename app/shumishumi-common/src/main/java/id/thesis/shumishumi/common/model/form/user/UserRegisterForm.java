@@ -18,7 +18,7 @@ public class UserRegisterForm extends BaseForm {
     private String email;
     private String phoneNumber;
     private String gender;
-    private Date birthOfDate;
+    private Date dateOfBirth;
     private MultipartFile profilePicture;
     private String password;
     private String confirmPassword;
