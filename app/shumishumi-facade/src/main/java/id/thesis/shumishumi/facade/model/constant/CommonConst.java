@@ -38,4 +38,6 @@ public class CommonConst {
     public static int INT_NOT_FOUND = -9123;
 
     public static String DICTIONARY_GENDER = "GENDER";
+    public static String DICTIONARY_ITEM_SORTING = "ITEM_SORTING";
+    public static String DICTIONARY_SORTING_TYPE = "SORTING_TYPE";
 }

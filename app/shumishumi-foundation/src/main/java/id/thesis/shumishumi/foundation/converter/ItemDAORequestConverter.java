@@ -9,6 +9,7 @@ import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 
@@ -45,7 +46,7 @@ public class ItemDAORequestConverter {
         return item;
     }
 
-    public static ItemDAORequest toDAORequest(ItemFilterContext filterContext, String categoryId,
+    public static ItemDAORequest toDAORequest(ItemFilterContext filterContext, SortingContext sortingContext, String categoryId,
                                               String hobbyId, String merchantLevelId, String userLevelId) {
         ItemDAORequest itemDAORequest = new ItemDAORequest();
         itemDAORequest.setItemName(filterContext.getItemName());
@@ -58,6 +59,7 @@ public class ItemDAORequestConverter {
         itemDAORequest.setMerchantId(filterContext.getMerchantId());
         itemDAORequest.setDeleted(filterContext.isDeleted());
         itemDAORequest.setApproved(filterContext.isApproved());
+        itemDAORequest.setSortingContext(sortingContext);
 
         return itemDAORequest;
     }

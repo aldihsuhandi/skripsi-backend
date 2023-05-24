@@ -3,6 +3,7 @@ package id.thesis.shumishumi.test.facade;
 import id.thesis.shumishumi.facade.api.ItemFacade;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
@@ -171,7 +172,12 @@ public class ItemFacadeTest extends FacadeTestBase {
         ItemFilterContext filterContext = new ItemFilterContext();
         filterContext.setItemCategory("category");
 
+        SortingContext sortingContext = new SortingContext();
+        sortingContext.setSorting("sorting");
+        sortingContext.setSortingType("sorting type");
+
         request.setItemFilterContext(filterContext);
+        request.setSortingContext(sortingContext);
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(mockUserDO("password"));
