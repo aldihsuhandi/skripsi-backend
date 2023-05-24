@@ -38,4 +38,12 @@ public class CommonConst {
     public static int INT_NOT_FOUND = -9123;
 
     public static String DICTIONARY_GENDER = "GENDER";
+
+    /**
+     * MIDTRANS
+     */
+    public static String MIDTRANS_TRANSACTION_DETAIL = "transaction_details";
+    public static String MIDTRANS_ITEM_DETAILS = "item_details";
+    public static String MIDTRANS_ORDER_ID = "order_id";
+    public static String MIDTRANS_GROSS_AMOUNT = "gross_amount";
 }

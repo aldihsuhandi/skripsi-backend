@@ -124,17 +124,18 @@
             </encoder>
         </appender>
 
-        <appender name="DAO-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <appender name="INTEGRATION-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <append>true</append>
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>info</level>
             </filter>
 
             <!--log file name-->
-            <file>${logging.path}/${app.name}/${app.name}-dao.log</file>
+            <file>${logging.path}/${app.name}/${app.name}-integration.log</file>
 
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <FileNamePattern>${logging.path}/${app.name}/${app.name}-dao.log.%d{yyyy-MM-dd}</FileNamePattern>
+                <FileNamePattern>${logging.path}/${app.name}/${app.name}-integration.log.%d{yyyy-MM-dd}
+                </FileNamePattern>
                 <MaxHistory>30</MaxHistory>
             </rollingPolicy>
 
@@ -211,8 +212,8 @@
             <appender-ref ref="DALGEN-APPENDER"/>
         </logger>
 
-        <logger name="DAO-LOGGER" level="info" addivity="false">
-            <appender-ref ref="DAO-APPENDER"/>
+        <logger name="INTEGRATION-LOGGER" level="info" addivity="false">
+            <appender-ref ref="INTEGRATION-APPENDER"/>
         </logger>
 
         <logger name="SEEDERS-LOGGER" level="info" addivity="false">
