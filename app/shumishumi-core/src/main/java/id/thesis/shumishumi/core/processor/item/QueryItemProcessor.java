@@ -10,6 +10,7 @@ import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.model.summary.ItemSummary;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
@@ -79,6 +80,7 @@ public class QueryItemProcessor implements BaseProcessor {
 
     private List<ItemVO> queryItemList(QueryItemRequest request, PagingContext pagingContext) {
         ItemFilterContext filterContext = request.getItemFilterContext();
-        return itemService.queryList(filterContext, pagingContext, true);
+        SortingContext sortingContext = request.getSortingContext();
+        return itemService.queryList(filterContext, sortingContext, pagingContext, true);
     }
 }

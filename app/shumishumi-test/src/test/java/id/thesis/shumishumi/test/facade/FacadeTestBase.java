@@ -107,6 +107,8 @@ public class FacadeTestBase extends TestBase {
     @BeforeEach
     public void setUp() {
         dictionaryFetchService.putToCache("GENDER", "gender");
+        dictionaryFetchService.putToCache("ITEM_SORTING", "sorting");
+        dictionaryFetchService.putToCache("SORTING_TYPE", "sorting type");
     }
 
     @AfterEach

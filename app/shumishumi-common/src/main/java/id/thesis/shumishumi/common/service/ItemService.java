@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ItemService {
 
     ItemVO queryById(String itemId, boolean useCache);
 
-    List<ItemVO> queryList(ItemFilterContext itemFilterContext, PagingContext pagingContext, boolean useCache);
+    List<ItemVO> queryList(ItemFilterContext itemFilterContext, SortingContext sortingContext, PagingContext pagingContext, boolean useCache);
 
     void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext);
 

@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.foundation.repository.impl;
 
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.repository.ItemRepositoryCustom;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public Page<ItemDO> queryFilter(ItemDO itemDO, Long minPrice, Long maxPrice, Pageable pageable) {
+    public Page<ItemDO> queryFilter(ItemDO itemDO, Long minPrice, Long maxPrice,
+                                    SortingContext sortingContext, Pageable pageable) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<ItemDO> cq = cb.createQuery(ItemDO.class);
         Root<ItemDO> item = cq.from(ItemDO.class);
@@ -70,6 +72,28 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
             predicates.add(cb.ge(item.get("itemPrice"), minPrice));
         } else if (maxPrice != null) {
             predicates.add(cb.le(item.get("itemPrice"), maxPrice));
+        }
+
+        String sorting = sortingContext.getSorting();
+        String sortingType = sortingContext.getSortingType();
+        if (StringUtils.equals(sorting, "Price")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                cq.orderBy(cb.desc(item.get("itemPrice")));
+            } else {
+                cq.orderBy(cb.asc(item.get("itemPrice")));
+            }
+        } else if (StringUtils.equals(sorting, "Alphabetical")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                cq.orderBy(cb.desc(item.get("itemName")));
+            } else {
+                cq.orderBy(cb.asc(item.get("itemName")));
+            }
+        } else if (StringUtils.equals(sorting, "Created")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                cq.orderBy(cb.desc(item.get("gmtCreate")));
+            } else {
+                cq.orderBy(cb.asc(item.get("gmtCreate")));
+            }
         }
 
         cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));

@@ -9,6 +9,7 @@ import id.thesis.shumishumi.common.model.form.item.UpdateItemForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.ItemFacade;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
@@ -78,10 +79,15 @@ public class ItemController extends BaseController {
 
             @Override
             public QueryItemRequest composeRequest() {
+                SortingContext sortingContext = new SortingContext();
+                sortingContext.setSortingType(form.getSortingType());
+                sortingContext.setSorting(form.getSorting());
+
                 QueryItemRequest request = new QueryItemRequest();
                 request.setItemFilterContext(form.getItemFilterContext());
                 request.setNumberOfItem(form.getNumberOfItem());
                 request.setPageNumber(form.getPageNumber());
+                request.setSortingContext(sortingContext);
 
                 return request;
             }
