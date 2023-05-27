@@ -14,5 +14,10 @@ public class TransactionVO extends BaseVO {
 
     private String transactionId;
     private List<TransactionDetailVO> details;
+    private String userId;
+    private String midtransId;
+    private String midtransLink;
     private Long price;
+    private String status;
+    private String paymentType;
 }

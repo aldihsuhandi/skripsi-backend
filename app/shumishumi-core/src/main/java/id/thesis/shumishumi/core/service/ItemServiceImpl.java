@@ -24,6 +24,7 @@ import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.model.result.HistoryItemDO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
 import org.apache.commons.lang3.StringUtils;
@@ -63,6 +64,34 @@ public class ItemServiceImpl implements ItemService {
     public void create(CreateItemInnerRequest request) {
         ItemDO item = ItemDAORequestConverter.toDAORequest(request);
         itemDAO.create(item);
+    }
+
+    @Override
+    public String createHistoryItem(ItemVO item) {
+        StringBuilder imageBuilder = new StringBuilder();
+        item.getItemImages().forEach(image ->
+                imageBuilder.append(image).append(CommonConst.SEPARATOR));
+        String imageStr = "";
+        if (imageBuilder.length() != 0) {
+            imageStr = imageBuilder.substring(0, imageBuilder.length() - 1);
+        }
+
+        String historyItemId = FunctionUtil.generateUUID();
+        HistoryItemDO history = new HistoryItemDO();
+        history.setHistoryItemId(historyItemId);
+        history.setItemId(item.getItemId());
+        history.setItemName(item.getItemName());
+        history.setItemPrice(item.getItemPrice());
+        history.setItemDescription(item.getItemDescription());
+        history.setItemImages(imageStr);
+        history.setCategoryId(item.getItemCategory().getCategoryId());
+        history.setHobbyId(item.getHobby().getHobbyId());
+        history.setMerchantId(item.getMerchantInfo().getUserId());
+        history.setMerchantLevelId(item.getMerchantLevel().getInterestLevelId());
+
+        itemDAO.createItemHistory(history);
+
+        return historyItemId;
     }
 
     @Override

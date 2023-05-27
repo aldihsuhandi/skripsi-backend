@@ -1,7 +1,8 @@
 package id.thesis.shumishumi.foundation.integration.midtrans;
 
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
+import org.json.JSONObject;
 
 public interface MidtransClient {
-    void createPayment(TransactionVO transaction);
+    JSONObject createPayment(TransactionVO transaction);
 }

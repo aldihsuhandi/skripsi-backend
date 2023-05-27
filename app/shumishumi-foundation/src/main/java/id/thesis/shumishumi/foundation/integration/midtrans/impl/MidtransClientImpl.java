@@ -29,22 +29,20 @@ public class MidtransClientImpl implements MidtransClient {
     private MidtransCoreApi midtransCoreApi;
 
     @Override
-    public void createPayment(TransactionVO transaction) {
+    public JSONObject createPayment(TransactionVO transaction) {
         LogUtil.info(LOGGER, String.format("MidtransClient#createPayment[transaction=%s]", transaction));
         Map<String, String> transactionDetail = new HashMap<>();
         transactionDetail.put(CommonConst.MIDTRANS_GROSS_AMOUNT, String.valueOf(transaction.getPrice()));
         transactionDetail.put(CommonConst.MIDTRANS_ORDER_ID, transaction.getTransactionId());
 
         List<Map<String, String>> items = transaction.getDetails().stream().map(detail -> {
-            ItemVO itemVO = detail.getItem();
+            ItemVO itemVO = detail.getHistoryItemVO().getItem();
 
             Map<String, String> itemMap = new HashMap<>();
             itemMap.put("id", itemVO.getItemId());
             itemMap.put("price", String.valueOf(itemVO.getItemPrice()));
             itemMap.put("quantity", String.valueOf(detail.getQuantity()));
             itemMap.put("name", itemVO.getItemName());
-            itemMap.put("category", itemVO.getItemCategory().getCategoryName());
-            itemMap.put("merchant_name", itemVO.getMerchantInfo().getUserId());
 
             return itemMap;
         }).collect(Collectors.toList());
@@ -60,6 +58,8 @@ public class MidtransClientImpl implements MidtransClient {
         }
 
         LogUtil.info(LOGGER, String.format("MidtransClient#createPayment[result=%s]", result.toString()));
+
+        return result;
     }
 
 }

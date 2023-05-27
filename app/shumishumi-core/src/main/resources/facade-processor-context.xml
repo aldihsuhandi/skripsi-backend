@@ -111,6 +111,10 @@
     <bean id="cartCalculateProcessor"
           class="id.thesis.shumishumi.core.processor.cart.CartCalculateProcessor"/>
 
+    <!--transaction-->
+    <bean id="transactionCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionCreateProcessor"/>
+
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
           class="id.thesis.shumishumi.core.processor.dictionary.DictionaryQueryProcessor"/>
@@ -263,6 +267,10 @@
             <ref bean="cartCalculateProcessor"/>
         </entry>
 
+        <entry key="TRANSACTION_CREATE">
+            <ref bean="transactionCreateProcessor"/>
+        </entry>
+
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
         </entry>
@@ -360,6 +368,10 @@
     <bean id="cartUpdateValidator" class="id.thesis.shumishumi.core.validator.cart.CartUpdateValidator"/>
     <bean id="cartQueryValidator" class="id.thesis.shumishumi.core.validator.cart.CartQueryValidator"/>
     <bean id="cartCalculateValidator" class="id.thesis.shumishumi.core.validator.cart.CartCalculateValidator"/>
+
+    <!--transaction-->
+    <bean id="transactionCreateValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionCreateValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -511,6 +523,10 @@
         </entry>
         <entry key="CART_CALCULATE">
             <ref bean="cartCalculateValidator"/>
+        </entry>
+
+        <entry key="TRANSACTION_CREATE">
+            <ref bean="transactionCreateValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

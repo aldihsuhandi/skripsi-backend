@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.foundation.service;
 
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.model.result.HistoryItemDO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface ItemDAO {
     void approve(ItemDAORequest request);
 
     List<String> autocomplete(ItemDAORequest request);
+
+    void createItemHistory(HistoryItemDO historyItemDO);
 }

@@ -18,6 +18,8 @@ import java.util.List;
 public interface ItemService {
     void create(CreateItemInnerRequest request);
 
+    String createHistoryItem(ItemVO item);
+
     ItemVO queryById(String itemId, boolean useCache);
 
     List<ItemVO> queryList(ItemFilterContext itemFilterContext, PagingContext pagingContext, boolean useCache);

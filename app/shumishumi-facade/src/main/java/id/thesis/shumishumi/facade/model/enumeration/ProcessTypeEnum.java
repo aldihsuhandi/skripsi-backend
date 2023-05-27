@@ -69,6 +69,8 @@ public enum ProcessTypeEnum {
     CART_QUERY("CART_QUERY", "cartQueryValidator", "cartQueryProcessor", true),
     CART_CALCULATE("CART_CALCULATE", "cartCalculateValidator", "cartCalculateProcessor", true),
 
+    TRANSACTION_CREATE("TRANSACTION_CREATE", "transactionCreateValidator", "transactionCreateProcessor", true),
+
     ;
 
     private final String processName;
