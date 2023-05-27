@@ -22,4 +22,6 @@ public interface TransactionDAO {
     void updateStatus(String transactionId, String transactionStatus);
 
     void update(TransactionDO transaction);
+
+    void delete(String transactionId);
 }

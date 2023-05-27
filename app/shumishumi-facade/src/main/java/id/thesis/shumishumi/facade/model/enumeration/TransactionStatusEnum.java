@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public enum TransactionStatusEnum {
 
     INIT("Init", "INIT", "initial state"),
-    WAITING_PAYMENT("Waiting Payment", "WAITING PAYMENT", "waiting for payment"),
+    WAITING_PAYMENT("Waiting Payment", "WAITING_PAYMENT", "waiting for payment"),
     ONGOING("Ongoing", "ONGOING", "ongoing transaction"),
     DONE("Done", "DONE", "transaction finish"),
     CANCELED("Canceled", "CANCELED", "transaction canceled or expired"),

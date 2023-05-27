@@ -20,4 +20,6 @@ public interface TransactionService {
     void checkPaymentStatus(String transactionId);
 
     void changeStatus(String transactionId, String transactionStatus);
+
+    void delete(String transactionId);
 }

@@ -131,4 +131,14 @@ public class TransactionDAOImpl implements TransactionDAO {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
+
+    @Override
+    public void delete(String transactionId) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#delete[transactionId=%s]", transactionId));
+        try {
+            transactionRepository.deleteById(transactionId);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
 }

@@ -116,4 +116,9 @@ public class TransactionServiceImpl implements TransactionService {
     public void changeStatus(String transactionId, String transactionStatus) {
         transactionDAO.updateStatus(transactionId, transactionStatus);
     }
+
+    @Override
+    public void delete(String transactionId) {
+        transactionDAO.delete(transactionId);
+    }
 }
