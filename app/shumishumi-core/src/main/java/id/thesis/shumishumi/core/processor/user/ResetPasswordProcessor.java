@@ -29,7 +29,7 @@ public class ResetPasswordProcessor implements BaseProcessor {
         validateUser(userVO);
 
         UserUpdateContext updateContext = new UserUpdateContext();
-        updateContext.setPassword(userVO.getPassword());
+        updateContext.setPassword(forgotPasswordRequest.getPassword());
 
         FunctionUtil.fillEmptyUpdateContext(updateContext, userVO);
 
