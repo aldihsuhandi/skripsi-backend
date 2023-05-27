@@ -10,6 +10,7 @@ import id.thesis.shumishumi.common.service.ItemCategoryService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.comparator.ItemVOComparator;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.ItemFetchService;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
@@ -18,6 +19,7 @@ import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
@@ -127,14 +129,16 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<ItemVO> queryList(ItemFilterContext itemFilterContext, PagingContext pagingContext, boolean useCache) {
+    public List<ItemVO> queryList(ItemFilterContext itemFilterContext, SortingContext sortingContext,
+                                  PagingContext pagingContext, boolean useCache) {
         if (StringUtils.isNotEmpty(itemFilterContext.getMerchantEmail())) {
             UserVO merchantInfo = userService.queryByEmail(itemFilterContext.getMerchantEmail(), true);
             itemFilterContext.setMerchantId(merchantInfo.getUserId());
         }
 
         if (useCache) {
-            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, pagingContext.getPageNumber(), pagingContext.getNumberOfItem());
+            List<ItemVO> itemVOS = queryListFromCache(itemFilterContext, sortingContext,
+                    pagingContext.getPageNumber(), pagingContext.getNumberOfItem());
             if (!itemVOS.isEmpty()) {
                 pagingContext.setTotalItem((long) countWithFilter(itemFilterContext));
                 return itemVOS;
@@ -148,6 +152,7 @@ public class ItemServiceImpl implements ItemService {
 
         ItemDAORequest daoRequest = ItemDAORequestConverter.toDAORequest(
                 itemFilterContext,
+                sortingContext,
                 category == null ? "" : category.getCategoryId(),
                 hobby == null ? "" : hobby.getHobbyId(),
                 merchantLevel == null ? "" : merchantLevel.getInterestLevelId(),
@@ -285,9 +290,11 @@ public class ItemServiceImpl implements ItemService {
                 }).collect(Collectors.toList());
     }
 
-    private List<ItemVO> queryListFromCache(ItemFilterContext itemFilterContext, int page, int numberOfItems) {
-        List<ItemVO> itemVOS = itemFetchService.fetchAll().stream().
-                filter(itemVO -> FunctionUtil.itemFilter(itemVO, itemFilterContext)).collect(Collectors.toList());
+    private List<ItemVO> queryListFromCache(ItemFilterContext itemFilterContext, SortingContext sortingContext, int page, int numberOfItems) {
+        ItemVOComparator itemVOComparator = new ItemVOComparator(sortingContext.getSorting(), sortingContext.getSortingType());
+        List<ItemVO> itemVOS = itemFetchService.fetchAll().stream()
+                .sorted(itemVOComparator)
+                .filter(itemVO -> FunctionUtil.itemFilter(itemVO, itemFilterContext)).collect(Collectors.toList());
 
         PagingContext pagingContext = new PagingContext();
         pagingContext.setPageNumber(page);

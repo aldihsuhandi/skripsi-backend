@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.foundation.model.request;
 
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.context.SortingContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,4 +34,5 @@ public class ItemDAORequest implements Serializable {
     private Date gmtModified;
 
     private PagingContext pagingContext;
+    private SortingContext sortingContext;
 }

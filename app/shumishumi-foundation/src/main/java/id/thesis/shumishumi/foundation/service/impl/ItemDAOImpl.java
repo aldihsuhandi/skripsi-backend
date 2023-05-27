@@ -79,8 +79,8 @@ public class ItemDAOImpl implements ItemDAO {
         List<ItemDO> result;
         try {
             ItemDO itemDO = convertFromRequest(request);
-            Page<ItemDO> pageList = itemRepository.queryFilter(itemDO,
-                    request.getMinPrice(), request.getMaxPrice(), pageable);
+            Page<ItemDO> pageList = itemRepository.queryFilter(itemDO, request.getMinPrice(),
+                    request.getMaxPrice(), request.getSortingContext(), pageable);
             paging.setTotalItem(pageList.getTotalElements());
 
             result = pageList.getContent();

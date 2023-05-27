@@ -44,7 +44,7 @@ public class ItemSeeder extends BaseSeeder {
         // KEYBOARD
         // KEYBOARD_SWITCH
         r.add(new ItemRequest("Gateron Yellow", 3500L, "Gateron yellow", 999,
-                Collections.singletonList("https://www.mechanicalkeyboards.com/switches/images/Gateron_Yellow_Switch_45716_large.jpg"),
+                Collections.singletonList("https://alexnld.com/wp-content/uploads/2019/08/aecaf2c6-e6a4-4ad5-a4ad-ebd4f3b6f96e.jpg"),
                 "KEYBOARD_SWITCH", "KEYBOARD", "KeyboardShop", InterestLevelEnum.BEGINNER.getId()));
 
         r.add(new ItemRequest("Tecsee Sapphire V2", 6000L, "Tecsee Sapphire V2", 999,

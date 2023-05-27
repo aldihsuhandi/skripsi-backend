@@ -22,6 +22,7 @@ public class ItemVO extends BaseVO {
     private HobbyVO hobby;
     private UserVO merchantInfo;
     private InterestLevelVO merchantLevel;
+    private InterestLevelVO userLevel;
     private boolean isDeleted;
     private boolean isApproved;
 }

@@ -13,6 +13,8 @@ public class QueryItemForm extends BaseForm {
     private static final long serialVersionUID = 6861507447162195909L;
 
     private ItemFilterContext itemFilterContext = new ItemFilterContext();
+    private String sorting = "Price";
+    private String sortingType = "Descending";
     private int pageNumber = 1;
     private int numberOfItem = 10;
 }
