@@ -5,4 +5,6 @@ import org.json.JSONObject;
 
 public interface MidtransClient {
     JSONObject createPayment(TransactionVO transaction);
+
+    JSONObject checkStatus(String midtransId);
 }

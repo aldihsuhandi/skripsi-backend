@@ -9,5 +9,7 @@ public interface TransactionService {
 
     void update(TransactionVO transaction);
 
+    void checkPaymentStatus(String transactionId);
+
     void changeStatus(String transactionId, String transactionStatus);
 }

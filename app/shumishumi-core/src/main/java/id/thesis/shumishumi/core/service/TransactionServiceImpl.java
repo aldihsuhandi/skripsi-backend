@@ -1,23 +1,30 @@
 package id.thesis.shumishumi.core.service;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.MidtransService;
 import id.thesis.shumishumi.common.service.TransactionService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
+import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionDetailVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.foundation.converter.TransactionDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.result.TransactionDO;
 import id.thesis.shumishumi.foundation.service.TransactionDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
+
+    @Autowired
+    private MidtransService midtransService;
 
     @Autowired
     private TransactionDAO transactionDAO;
@@ -43,6 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionVO query(String transactionId, boolean withDetail) {
         TransactionVO transaction = ViewObjectConverter.toViewObject(transactionDAO.
                 queryTransaction(transactionId));
+        transaction.setDetails(new ArrayList<>());
         if (withDetail) {
             List<TransactionDetailVO> details = transactionDAO.queryDetailTransaction(transactionId).
                     stream().map(detail -> {
@@ -68,6 +76,21 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDO.setStatus(transaction.getStatus());
 
         transactionDAO.update(transactionDO);
+    }
+
+    @Override
+    public void checkPaymentStatus(String transactionId) {
+        String status = midtransService.checkStatus(transactionId);
+        if (StringUtils.equals(status, "pending")) {
+            return;
+        }
+
+        if (StringUtils.equals(status, "settlement")) {
+            this.changeStatus(transactionId, TransactionStatusEnum.ONGOING.getCode());
+            return;
+        }
+
+        this.changeStatus(transactionId, TransactionStatusEnum.CANCELED.getCode());
     }
 
     @Override

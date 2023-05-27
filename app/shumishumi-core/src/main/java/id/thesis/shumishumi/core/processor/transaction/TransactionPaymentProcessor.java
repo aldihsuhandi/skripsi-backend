@@ -46,7 +46,6 @@ public class TransactionPaymentProcessor implements BaseProcessor {
         AssertUtil.isNotNull(payment, "payment type is not supported", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
 
         String userId = sessionService.query(request.getSessionId()).getUserId();
-        long price = 0;
 
         TransactionVO transaction = transactionService.query(request.getTransactionId(), true);
         AssertUtil.isNotNull(transaction, "transaction not found", ShumishumiErrorCodeEnum.TRANSACTION_NOT_FOUND);
@@ -57,11 +56,8 @@ public class TransactionPaymentProcessor implements BaseProcessor {
             AssertUtil.isNotNull(itemVO, "item is not found", ShumishumiErrorCodeEnum.ITEM_NOT_FOUND);
             AssertUtil.isExpected(itemVO.getItemQuantity() >= detail.getQuantity(),
                     "item quantity not enough", ShumishumiErrorCodeEnum.ITEM_NOT_ENOUGH);
-
-            price = detail.getQuantity() * detail.getHistoryItemVO().getItem().getItemPrice();
         }
 
-        transaction.setPrice(price);
         transaction.setPaymentType(payment.getName());
 
         MidtransChargeInnerResult midtransResult = midtransService.createPayment(transaction);

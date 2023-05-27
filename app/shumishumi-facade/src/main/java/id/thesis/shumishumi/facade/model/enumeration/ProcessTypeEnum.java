@@ -71,6 +71,7 @@ public enum ProcessTypeEnum {
 
     TRANSACTION_CREATE("TRANSACTION_CREATE", "transactionCreateValidator", "transactionCreateProcessor", true),
     TRANSACTION_PAYMENT("TRANSACTION_PAYMENT", "transactionPaymentValidator", "transactionPaymentProcessor", true),
+    TRANSACTION_DETAIL("TRANSACTION_DETAIL", "transactionQueryDetailValidator", "transactionQueryDetailProcessor", true),
 
     ;
 

@@ -38,4 +38,13 @@ public class MidtransServiceImpl implements MidtransService {
 
         return result;
     }
+
+    @Override
+    public String checkStatus(String transactionId) {
+        JSONObject statusResult = midtransClient.checkStatus(transactionId);
+        AssertUtil.isExpected(statusResult.get("status_code"), "200",
+                "Midtrans API Integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+
+        return statusResult.getString("transaction_status");
+    }
 }

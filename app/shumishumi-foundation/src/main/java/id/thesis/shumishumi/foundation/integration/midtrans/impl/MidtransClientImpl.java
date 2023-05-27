@@ -72,6 +72,23 @@ public class MidtransClientImpl implements MidtransClient {
         return result;
     }
 
+    @Override
+    public JSONObject checkStatus(String midtransId) {
+        LogUtil.info(LOGGER, String.format("MidtransClient#checkStatus[midtransId=%s]", midtransId));
+
+        JSONObject result;
+        try {
+            result = midtransCoreApi.checkTransaction(midtransId);
+        } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
+            throw new ShumishumiException("midtrans integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("MidtransClient#checkStatus[result=%s]", result.toString()));
+
+        return result;
+    }
+
     private Map<String, String> bankTransfer(String acquirer) {
         Map<String, String> bankTransfer = new HashMap<>();
         bankTransfer.put(CommonConst.MIDTRANS_BANK, acquirer);

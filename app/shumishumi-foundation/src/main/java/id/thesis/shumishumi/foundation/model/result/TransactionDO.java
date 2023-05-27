@@ -17,6 +17,9 @@ public class TransactionDO extends BaseDO {
     @Column(name = "user_id")
     private String userId;
 
+    @Column(name = "price")
+    private Long price;
+
     @Column(name = "payment_type")
     private String paymentType;
 
@@ -43,6 +46,14 @@ public class TransactionDO extends BaseDO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 
     public String getPaymentType() {

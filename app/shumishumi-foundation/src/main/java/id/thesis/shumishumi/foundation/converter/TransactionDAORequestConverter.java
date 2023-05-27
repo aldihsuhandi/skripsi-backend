@@ -14,6 +14,7 @@ public class TransactionDAORequestConverter {
         TransactionDO transactionDO = new TransactionDO();
         transactionDO.setTransactionId(transactionVO.getTransactionId());
         transactionDO.setUserId(transactionVO.getUserId());
+        transactionDO.setPrice(transactionVO.getPrice());
         transactionDO.setPaymentType(transactionVO.getPaymentType());
         transactionDO.setMidtransId(transactionVO.getMidtransId());
         transactionDO.setMidtransLink(transactionVO.getMidtransLink());

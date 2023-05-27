@@ -385,6 +385,7 @@ public class ViewObjectConverter {
         TransactionVO vo = new TransactionVO();
         vo.setTransactionId(transactionDO.getTransactionId());
         vo.setUserId(transactionDO.getUserId());
+        vo.setPrice(transactionDO.getPrice());
         vo.setMidtransId(transactionDO.getMidtransId());
         vo.setMidtransLink(transactionDO.getMidtransLink());
         vo.setStatus(transactionDO.getStatus());

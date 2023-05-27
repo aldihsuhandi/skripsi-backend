@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public enum PaymentEnum {
     QRIS("Qris", "qris", "gopay"),
     BCA_VA("BCA Virtual Account", "bank_transfer", "bca"),
+    BNI_VA("BNI Virtual Account", "bank_transfer", "bri"),
     ;
 
     PaymentEnum(String name, String paymentType, String paymentAcquirer) {

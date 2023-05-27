@@ -116,6 +116,8 @@
           class="id.thesis.shumishumi.core.processor.transaction.TransactionCreateProcessor"/>
     <bean id="transactionPaymentProcessor"
           class="id.thesis.shumishumi.core.processor.transaction.TransactionPaymentProcessor"/>
+    <bean id="transactionQueryDetailProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryDetailProcessor"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
@@ -275,6 +277,9 @@
         <entry key="TRANSACTION_PAYMENT">
             <ref bean="transactionPaymentProcessor"/>
         </entry>
+        <entry key="TRANSACTION_DETAIL">
+            <ref bean="transactionQueryDetailProcessor"/>
+        </entry>
 
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
@@ -379,6 +384,8 @@
           class="id.thesis.shumishumi.core.validator.transaction.TransactionCreateValidator"/>
     <bean id="transactionPaymentValidator"
           class="id.thesis.shumishumi.core.validator.transaction.TransactionPaymentValidator"/>
+    <bean id="transactionQueryDetailValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryDetailValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -538,7 +545,9 @@
         <entry key="TRANSACTION_CREATE">
             <ref bean="transactionPaymentValidator"/>
         </entry>
-
+        <entry key="TRANSACTION_DETAIL">
+            <ref bean="transactionQueryDetailValidator"/>
+        </entry>
 
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryValidator"/>

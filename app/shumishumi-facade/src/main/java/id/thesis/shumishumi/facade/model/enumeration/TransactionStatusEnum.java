@@ -9,6 +9,7 @@ public enum TransactionStatusEnum {
     WAITING_PAYMENT("WAITING PAYMENT", "waiting for payment"),
     ONGOING("ONGOING", "ongoing transaction"),
     DONE("DONE", "transaction finish"),
+    CANCELED("CANCELED", "transaction canceled or expired"),
     ;
 
     private String code;

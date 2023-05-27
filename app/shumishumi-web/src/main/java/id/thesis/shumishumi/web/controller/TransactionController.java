@@ -2,13 +2,16 @@ package id.thesis.shumishumi.web.controller;
 
 import id.thesis.shumishumi.common.model.form.transaction.TransactionCreateForm;
 import id.thesis.shumishumi.common.model.form.transaction.TransactionPaymentForm;
+import id.thesis.shumishumi.common.model.form.transaction.TransactionQueryDetailForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.TransactionFacade;
 import id.thesis.shumishumi.facade.request.transaction.TransactionCreateRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionPaymentRequest;
+import id.thesis.shumishumi.facade.request.transaction.TransactionQueryDetailRequest;
 import id.thesis.shumishumi.facade.result.transaction.TransactionCreateResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionPaymentResult;
+import id.thesis.shumishumi.facade.result.transaction.TransactionQueryDetailResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -71,6 +74,31 @@ public class TransactionController extends BaseController {
                     @Override
                     public TransactionPaymentResult doProcess(TransactionPaymentRequest request) {
                         return transactionFacade.payment(request);
+                    }
+                });
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<TransactionQueryDetailResult> detail(@RequestHeader HttpHeaders headers,
+                                                               @RequestBody TransactionQueryDetailForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON,
+                new ControllerCallback<TransactionQueryDetailResult, TransactionQueryDetailRequest>() {
+                    @Override
+                    public void authCheck(String clientId, String clientSecret) {
+                        authenticate(clientId, clientSecret);
+                    }
+
+                    @Override
+                    public TransactionQueryDetailRequest composeRequest() {
+                        TransactionQueryDetailRequest request = new TransactionQueryDetailRequest();
+                        request.setTransactionId(form.getTransactionId());
+
+                        return request;
+                    }
+
+                    @Override
+                    public TransactionQueryDetailResult doProcess(TransactionQueryDetailRequest request) {
+                        return transactionFacade.queryDetail(request);
                     }
                 });
     }
