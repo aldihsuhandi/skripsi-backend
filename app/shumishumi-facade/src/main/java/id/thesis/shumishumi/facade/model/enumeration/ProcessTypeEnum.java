@@ -70,6 +70,7 @@ public enum ProcessTypeEnum {
     CART_CALCULATE("CART_CALCULATE", "cartCalculateValidator", "cartCalculateProcessor", true),
 
     TRANSACTION_CREATE("TRANSACTION_CREATE", "transactionCreateValidator", "transactionCreateProcessor", true),
+    TRANSACTION_PAYMENT("TRANSACTION_PAYMENT", "transactionPaymentValidator", "transactionPaymentProcessor", true),
 
     ;
 

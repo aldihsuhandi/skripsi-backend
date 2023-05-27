@@ -21,7 +21,13 @@ public class MidtransConfig {
 
     @Bean
     public MidtransCoreApi midtransCoreApi() {
-        return new ConfigFactory(new Config(serverKey,
-                clientKey, production)).getCoreApi();
+        Config configOptions = Config.builder()
+                .enableLog(true)
+                .setIsProduction(production)
+                .setServerKey(serverKey)
+                .setClientKey(clientKey)
+                .build();
+
+        return new ConfigFactory(configOptions).getCoreApi();
     }
 }

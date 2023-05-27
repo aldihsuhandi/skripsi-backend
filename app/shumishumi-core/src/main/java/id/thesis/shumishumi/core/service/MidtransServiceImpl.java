@@ -22,7 +22,7 @@ public class MidtransServiceImpl implements MidtransService {
     public MidtransChargeInnerResult createPayment(TransactionVO transaction) {
         JSONObject chargeResult = midtransClient.createPayment(transaction);
 
-        AssertUtil.isExpected(chargeResult.get("status_code"), "200", "Midtrans API Integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        AssertUtil.isExpected(chargeResult.get("status_code"), "201", "Midtrans API Integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
 
         MidtransChargeInnerResult result = new MidtransChargeInnerResult();
         result.setMidtransId(chargeResult.getString("transaction_id"));

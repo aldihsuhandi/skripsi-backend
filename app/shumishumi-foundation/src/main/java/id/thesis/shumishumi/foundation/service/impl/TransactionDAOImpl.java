@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionDAOImpl implements TransactionDAO {
 
@@ -40,6 +42,55 @@ public class TransactionDAOImpl implements TransactionDAO {
         LogUtil.info(LOGGER, String.format("transactionDAO#createTransactionDetail[detail=%s]", detailDO));
         try {
             transactionDetailRepository.save(detailDO);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public TransactionDO queryTransaction(String transactionId) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryTransaction[transactionId=%s]", transactionId));
+        TransactionDO transactionDO;
+        try {
+            transactionDO = transactionRepository.findById(transactionId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryTransaction[transaction=%s]", transactionDO));
+        return transactionDO;
+    }
+
+    @Override
+    public List<TransactionDetailDO> queryDetailTransaction(String transactionId) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryDetailTransaction[transactionId=%s]", transactionId));
+        List<TransactionDetailDO> detailDOS;
+        try {
+            detailDOS = transactionDetailRepository.findByTransactionId(transactionId);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryDetailTransaction[details=%s]", detailDOS.toString()));
+        return detailDOS;
+    }
+
+    @Override
+    public void updateStatus(String transactionId, String transactionStatus) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#updateStatus[transactionId=%s,transactionStatus=%s]",
+                transactionId, transactionStatus));
+        try {
+            transactionRepository.updateStatusById(transactionId, transactionStatus);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public void update(TransactionDO transaction) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#update[transaction=%s]", transaction));
+        try {
+            transactionRepository.save(transaction);
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }

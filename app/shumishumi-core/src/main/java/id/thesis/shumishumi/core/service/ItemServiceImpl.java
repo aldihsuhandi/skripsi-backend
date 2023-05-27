@@ -17,6 +17,7 @@ import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
@@ -95,6 +96,15 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public HistoryItemVO queryItemHistory(String historyItemId) {
+        HistoryItemVO history = ViewObjectConverter.toViewObject(
+                itemDAO.queryItemHistory(historyItemId));
+        composeNecessaryInfo(history.getItem());
+
+        return history;
+    }
+
+    @Override
     public ItemVO queryById(String itemId, boolean useCache) {
         ItemDAORequest itemDAORequest = new ItemDAORequest();
         ItemVO itemVO = new ItemVO();
@@ -163,7 +173,7 @@ public class ItemServiceImpl implements ItemService {
         ItemCategoryVO category = itemCategoryService.query(updateContext.getCategoryName(), DatabaseConst.CATEGORY_NAME);
         InterestLevelVO merchantLevel = interestLevelService.query(updateContext.getMerchantInterestLevel(), DatabaseConst.INTEREST_LEVEL_NAME);
 
-        ItemDO item = ItemDAORequestConverter.toDAORequest(updateContext, category.getCategoryId(),
+        ItemDO item = ItemDAORequestConverter.toDAORequest(itemVO, updateContext, category.getCategoryId(),
                 hobby.getHobbyId(), merchantLevel.getInterestLevelId(), itemVO.getItemId());
         itemDAO.update(item);
     }

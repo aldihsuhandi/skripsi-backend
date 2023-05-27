@@ -5,10 +5,12 @@ import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
+import id.thesis.shumishumi.facade.model.enumeration.PaymentEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.foundation.integration.midtrans.MidtransClient;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,16 +52,31 @@ public class MidtransClientImpl implements MidtransClient {
         Map<String, Object> request = new HashMap<>();
         request.put(CommonConst.MIDTRANS_TRANSACTION_DETAIL, transactionDetail);
         request.put(CommonConst.MIDTRANS_ITEM_DETAILS, items);
-        JSONObject result;
+        if (StringUtils.equals(transaction.getPaymentType(), PaymentEnum.BCA_VA.getName())) {
+            request.put(CommonConst.MIDTRANS_BANK_TRANSFER, bankTransfer(PaymentEnum.BCA_VA.getPaymentAcquirer()));
+            request.put(CommonConst.MIDTRANS_PAYMENT_TYPE, PaymentEnum.BCA_VA.getPaymentType());
+        }
+
+        LogUtil.info(LOGGER, String.format("MidtransClient#createPayment[JSON Request=%s]", request));
+
+        JSONObject result = new JSONObject();
         try {
             result = midtransCoreApi.chargeTransaction(request);
         } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
             throw new ShumishumiException("error when creating transaction to midtrans", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("MidtransClient#createPayment[result=%s]", result.toString()));
 
         return result;
+    }
+
+    private Map<String, String> bankTransfer(String acquirer) {
+        Map<String, String> bankTransfer = new HashMap<>();
+        bankTransfer.put(CommonConst.MIDTRANS_BANK, acquirer);
+
+        return bankTransfer;
     }
 
 }

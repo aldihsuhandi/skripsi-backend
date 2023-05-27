@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface ItemService {
     void create(CreateItemInnerRequest request);
 
     String createHistoryItem(ItemVO item);
+
+    HistoryItemVO queryItemHistory(String historyItemId);
 
     ItemVO queryById(String itemId, boolean useCache);
 

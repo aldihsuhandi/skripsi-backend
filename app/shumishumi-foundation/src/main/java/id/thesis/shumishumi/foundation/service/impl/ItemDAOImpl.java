@@ -189,6 +189,21 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
+    @Override
+    public HistoryItemDO queryItemHistory(String historyItemId) {
+        LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#queryItemHistory[historyItemId=%s]", historyItemId));
+
+        HistoryItemDO itemDO;
+        try {
+            itemDO = historyItemRepository.findById(historyItemId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#queryItemHistory[result=%s]", itemDO));
+        return itemDO;
+    }
+
     private ItemDO convertFromRequest(ItemDAORequest request) {
         if (request == null) {
             return new ItemDO();

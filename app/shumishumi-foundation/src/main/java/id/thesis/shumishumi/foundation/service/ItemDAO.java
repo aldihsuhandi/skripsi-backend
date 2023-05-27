@@ -26,4 +26,6 @@ public interface ItemDAO {
     List<String> autocomplete(ItemDAORequest request);
 
     void createItemHistory(HistoryItemDO historyItemDO);
+
+    HistoryItemDO queryItemHistory(String historyItemId);
 }

@@ -4,6 +4,7 @@ import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.common.util.comparator.ItemVOGmtCreateComparator;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
+import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,15 +32,16 @@ public class ItemFetchService {
 
     public ItemVO fetchFromCache(String itemId) {
         LogUtil.info(LOGGER, String.format("itemFetchService#fetchFromCache[itemId=%s]", itemId));
-        ItemVO item = itemCache.get(itemId);
+        ItemVO item = SerializationUtils.clone(itemCache.get(itemId));
         LogUtil.info(LOGGER, String.format("itemFetchService#fetchFromCache[result=%s]", item));
 
         return item;
     }
 
     public List<ItemVO> fetchAll() {
-        List<ItemVO> items = new ArrayList<>(itemCache.values()).stream().
-                sorted(new ItemVOGmtCreateComparator()).collect(Collectors.toList());
+        List<ItemVO> items = new ArrayList<>(itemCache.values()).stream()
+                .map(SerializationUtils::clone)
+                .sorted(new ItemVOGmtCreateComparator()).collect(Collectors.toList());
         LogUtil.info(LOGGER, String.format("itemFetchService#fetchAll[result=%s]", items));
 
         return items;

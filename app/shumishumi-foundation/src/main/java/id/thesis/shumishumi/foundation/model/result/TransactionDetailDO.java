@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction_details")
-public class TransactionDetailDO {
+public class TransactionDetailDO extends BaseDO {
 
     @Id
     @Column(name = "transaction_detail_id")
