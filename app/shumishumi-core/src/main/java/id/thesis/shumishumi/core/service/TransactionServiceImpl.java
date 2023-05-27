@@ -4,6 +4,7 @@ import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.MidtransService;
 import id.thesis.shumishumi.common.service.TransactionService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
@@ -70,6 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDO transactionDO = new TransactionDO();
         transactionDO.setTransactionId(transaction.getTransactionId());
         transactionDO.setUserId(transaction.getUserId());
+        transactionDO.setPrice(transaction.getPrice());
         transactionDO.setPaymentType(transaction.getPaymentType());
         transactionDO.setMidtransId(transaction.getMidtransId());
         transactionDO.setMidtransLink(transaction.getMidtransLink());
@@ -80,17 +82,21 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void checkPaymentStatus(String transactionId) {
-        String status = midtransService.checkStatus(transactionId);
-        if (StringUtils.equals(status, "pending")) {
-            return;
-        }
+        try {
+            String status = midtransService.checkStatus(transactionId);
+            if (StringUtils.equals(status, "pending")) {
+                return;
+            }
 
-        if (StringUtils.equals(status, "settlement")) {
-            this.changeStatus(transactionId, TransactionStatusEnum.ONGOING.getCode());
-            return;
-        }
+            if (StringUtils.equals(status, "settlement")) {
+                this.changeStatus(transactionId, TransactionStatusEnum.ONGOING.getCode());
+                return;
+            }
 
-        this.changeStatus(transactionId, TransactionStatusEnum.CANCELED.getCode());
+            this.changeStatus(transactionId, TransactionStatusEnum.CANCELED.getCode());
+        } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
+        }
     }
 
     @Override

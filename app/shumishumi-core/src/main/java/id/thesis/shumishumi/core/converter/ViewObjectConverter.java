@@ -390,6 +390,8 @@ public class ViewObjectConverter {
         vo.setMidtransLink(transactionDO.getMidtransLink());
         vo.setStatus(transactionDO.getStatus());
         vo.setPaymentType(transactionDO.getPaymentType());
+        vo.setGmtCreate(transactionDO.getGmtCreate());
+        vo.setGmtModified(transactionDO.getGmtModified());
 
         return vo;
     }
@@ -434,6 +436,8 @@ public class ViewObjectConverter {
         item.setHobby(hobbyVO);
         item.setMerchantInfo(merchantInfo);
         item.setMerchantLevel(merchantLevel);
+        item.setGmtCreate(history.getGmtCreate());
+        item.setGmtModified(history.getGmtModified());
 
         if (StringUtils.isNotEmpty(history.getItemImages())) {
             item.setItemImages(Arrays.asList(history.

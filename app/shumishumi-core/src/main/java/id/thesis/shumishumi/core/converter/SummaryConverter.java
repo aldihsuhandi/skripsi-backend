@@ -137,6 +137,8 @@ public class SummaryConverter {
 
             return detailSummary;
         }).collect(Collectors.toList()));
+        summary.setGmtCreate(vo.getGmtCreate());
+        summary.setGmtModified(vo.getGmtModified());
 
         return summary;
     }
