@@ -3,15 +3,18 @@ package id.thesis.shumishumi.web.controller;
 import id.thesis.shumishumi.common.model.form.transaction.TransactionCreateForm;
 import id.thesis.shumishumi.common.model.form.transaction.TransactionPaymentForm;
 import id.thesis.shumishumi.common.model.form.transaction.TransactionQueryDetailForm;
+import id.thesis.shumishumi.common.model.form.transaction.TransactionQueryForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.TransactionFacade;
 import id.thesis.shumishumi.facade.request.transaction.TransactionCreateRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionPaymentRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionQueryDetailRequest;
+import id.thesis.shumishumi.facade.request.transaction.TransactionQueryRequest;
 import id.thesis.shumishumi.facade.result.transaction.TransactionCreateResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionPaymentResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionQueryDetailResult;
+import id.thesis.shumishumi.facade.result.transaction.TransactionQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -99,6 +102,33 @@ public class TransactionController extends BaseController {
                     @Override
                     public TransactionQueryDetailResult doProcess(TransactionQueryDetailRequest request) {
                         return transactionFacade.queryDetail(request);
+                    }
+                });
+    }
+
+    @PostMapping("/query")
+    public ResponseEntity<TransactionQueryResult> query(@RequestHeader HttpHeaders headers,
+                                                        @RequestBody TransactionQueryForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON,
+                new ControllerCallback<TransactionQueryResult, TransactionQueryRequest>() {
+                    @Override
+                    public void authCheck(String clientId, String clientSecret) {
+                        authenticate(clientId, clientSecret);
+                    }
+
+                    @Override
+                    public TransactionQueryRequest composeRequest() {
+                        TransactionQueryRequest request = new TransactionQueryRequest();
+                        request.setStatus(form.getStatus());
+                        request.setNumberOfItem(form.getNumberOfItems());
+                        request.setPageNumber(form.getPageNumber());
+
+                        return request;
+                    }
+
+                    @Override
+                    public TransactionQueryResult doProcess(TransactionQueryRequest request) {
+                        return transactionFacade.query(request);
                     }
                 });
     }

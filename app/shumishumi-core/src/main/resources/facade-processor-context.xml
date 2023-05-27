@@ -118,6 +118,8 @@
           class="id.thesis.shumishumi.core.processor.transaction.TransactionPaymentProcessor"/>
     <bean id="transactionQueryDetailProcessor"
           class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryDetailProcessor"/>
+    <bean id="transactionQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryProcessor"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
@@ -280,6 +282,9 @@
         <entry key="TRANSACTION_DETAIL">
             <ref bean="transactionQueryDetailProcessor"/>
         </entry>
+        <entry key="TRANSACTION_LIST">
+            <ref bean="transactionQueryProcessor"/>
+        </entry>
 
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
@@ -386,6 +391,8 @@
           class="id.thesis.shumishumi.core.validator.transaction.TransactionPaymentValidator"/>
     <bean id="transactionQueryDetailValidator"
           class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryDetailValidator"/>
+    <bean id="transactionQueryValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -547,6 +554,9 @@
         </entry>
         <entry key="TRANSACTION_DETAIL">
             <ref bean="transactionQueryDetailValidator"/>
+        </entry>
+        <entry key="TRANSACTION_LIST">
+            <ref bean="transactionQueryValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

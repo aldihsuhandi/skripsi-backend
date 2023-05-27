@@ -7,10 +7,12 @@ import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.facade.request.transaction.TransactionCreateRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionPaymentRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionQueryDetailRequest;
+import id.thesis.shumishumi.facade.request.transaction.TransactionQueryRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionCreateResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionPaymentResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionQueryDetailResult;
+import id.thesis.shumishumi.facade.result.transaction.TransactionQueryResult;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,6 +54,22 @@ public class TransactionFacadeImpl extends ProcessFacade implements TransactionF
                     @Override
                     public BaseResult initResult() {
                         return new TransactionQueryDetailResult();
+                    }
+
+                    @Override
+                    public void process(ProcessTypeEnum processType, BaseResult result) {
+                        doProcess(request, result, processType);
+                    }
+                });
+    }
+
+    @Override
+    public TransactionQueryResult query(TransactionQueryRequest request) {
+        return (TransactionQueryResult) ProcessCallbackSupport.process(ProcessTypeEnum.TRANSACTION_LIST,
+                request, new ProcessCallback() {
+                    @Override
+                    public BaseResult initResult() {
+                        return new TransactionQueryResult();
                     }
 
                     @Override

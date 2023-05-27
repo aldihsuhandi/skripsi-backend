@@ -16,6 +16,7 @@ import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class SummaryConverter {
@@ -130,13 +131,14 @@ public class SummaryConverter {
         summary.setPrice(vo.getPrice());
         summary.setStatus(vo.getStatus());
         summary.setPaymentType(vo.getPaymentType());
-        summary.setDetails(vo.getDetails().stream().map(detail -> {
+        summary.setPaymentCode(vo.getMidtransLink());
+        summary.setDetails(vo.getDetails() != null ? vo.getDetails().stream().map(detail -> {
             TransactionDetailSummary detailSummary = new TransactionDetailSummary();
             detailSummary.setItem(toSummary(detail.getHistoryItemVO()));
             detailSummary.setQuantity(detail.getQuantity());
 
             return detailSummary;
-        }).collect(Collectors.toList()));
+        }).collect(Collectors.toList()) : new ArrayList<>());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
 

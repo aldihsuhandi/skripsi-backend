@@ -3,6 +3,7 @@ package id.thesis.shumishumi.foundation.service.impl;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.LogConstant;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.result.TransactionDO;
 import id.thesis.shumishumi.foundation.model.result.TransactionDetailDO;
@@ -12,6 +13,9 @@ import id.thesis.shumishumi.foundation.service.TransactionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,6 +63,38 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         LogUtil.info(LOGGER, String.format("transactionDAO#queryTransaction[transaction=%s]", transactionDO));
         return transactionDO;
+    }
+
+    @Override
+    public List<TransactionDO> queryList(String status) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryList[status=%s]", status));
+        List<TransactionDO> transactions;
+        try {
+            transactions = transactionRepository.findByStatus(status);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryList[transactions=%s]", transactions));
+        return transactions;
+    }
+
+    @Override
+    public List<TransactionDO> queryList(String userId, String status, PagingContext pagingContext) {
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryList[userId=%s,status=%s,pagingContext=%s]", userId, status, pagingContext));
+        List<TransactionDO> transactions;
+        try {
+            Pageable pageable = PageRequest.of(pagingContext.getPageNumber() - 1, pagingContext.getNumberOfItem());
+            Page<TransactionDO> pages = transactionRepository.queryByStatus(userId, status, pageable);
+
+            pagingContext.setTotalItem(pages.getTotalElements());
+            transactions = pages.getContent();
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("transactionDAO#queryList[transactions=%s]", transactions));
+        return transactions;
     }
 
     @Override

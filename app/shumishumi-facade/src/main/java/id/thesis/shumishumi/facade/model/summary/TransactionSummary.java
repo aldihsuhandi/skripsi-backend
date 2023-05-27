@@ -17,4 +17,5 @@ public class TransactionSummary extends BaseSummary {
     private Long price;
     private String status;
     private String paymentType;
+    private String paymentCode;
 }

@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.foundation.service;
 
+import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.foundation.model.result.TransactionDO;
 import id.thesis.shumishumi.foundation.model.result.TransactionDetailDO;
 
@@ -11,6 +12,10 @@ public interface TransactionDAO {
     void createTransactionDetail(TransactionDetailDO detailDO);
 
     TransactionDO queryTransaction(String transactionId);
+
+    List<TransactionDO> queryList(String status);
+
+    List<TransactionDO> queryList(String userId, String status, PagingContext pagingContext);
 
     List<TransactionDetailDO> queryDetailTransaction(String transactionId);
 

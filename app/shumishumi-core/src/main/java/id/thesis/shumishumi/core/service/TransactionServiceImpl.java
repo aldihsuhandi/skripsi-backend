@@ -6,6 +6,7 @@ import id.thesis.shumishumi.common.service.TransactionService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
+import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionDetailVO;
@@ -64,6 +65,18 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return transaction;
+    }
+
+    @Override
+    public List<TransactionVO> queryList(String userId, String status, PagingContext pagingContext) {
+        return transactionDAO.queryList(userId, status, pagingContext).
+                stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TransactionVO> queryList(String status) {
+        return transactionDAO.queryList(status).
+                stream().map(ViewObjectConverter::toViewObject).collect(Collectors.toList());
     }
 
     @Override
