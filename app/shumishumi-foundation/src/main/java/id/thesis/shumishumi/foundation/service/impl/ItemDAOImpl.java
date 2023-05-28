@@ -6,7 +6,9 @@ import id.thesis.shumishumi.facade.model.constant.LogConstant;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
+import id.thesis.shumishumi.foundation.model.result.HistoryItemDO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
+import id.thesis.shumishumi.foundation.repository.HistoryItemRepository;
 import id.thesis.shumishumi.foundation.repository.ItemRepository;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
 import org.slf4j.Logger;
@@ -30,6 +32,9 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private HistoryItemRepository historyItemRepository;
 
     @Override
     public List<ItemDO> queryAll(ItemDAORequest request) {
@@ -172,6 +177,31 @@ public class ItemDAOImpl implements ItemDAO {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[result=%s]", result));
 
         return result;
+    }
+
+    @Override
+    public void createItemHistory(HistoryItemDO itemDO) {
+        LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#createItemHistory[item=%s]", itemDO));
+        try {
+            historyItemRepository.save(itemDO);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public HistoryItemDO queryItemHistory(String historyItemId) {
+        LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#queryItemHistory[historyItemId=%s]", historyItemId));
+
+        HistoryItemDO itemDO;
+        try {
+            itemDO = historyItemRepository.findById(historyItemId).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#queryItemHistory[result=%s]", itemDO));
+        return itemDO;
     }
 
     private ItemDO convertFromRequest(ItemDAORequest request) {

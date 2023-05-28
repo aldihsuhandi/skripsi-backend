@@ -10,6 +10,7 @@ import id.thesis.shumishumi.facade.model.viewobject.ActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.CartVO;
 import id.thesis.shumishumi.facade.model.viewobject.ClientVO;
 import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
+import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.ImageVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
@@ -21,12 +22,15 @@ import id.thesis.shumishumi.facade.model.viewobject.OtpVO;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.RoleVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
+import id.thesis.shumishumi.facade.model.viewobject.TransactionDetailVO;
+import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.CartDO;
 import id.thesis.shumishumi.foundation.model.result.ClientDO;
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
+import id.thesis.shumishumi.foundation.model.result.HistoryItemDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.ImageDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
@@ -38,6 +42,8 @@ import id.thesis.shumishumi.foundation.model.result.OtpDO;
 import id.thesis.shumishumi.foundation.model.result.PostDO;
 import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
+import id.thesis.shumishumi.foundation.model.result.TransactionDO;
+import id.thesis.shumishumi.foundation.model.result.TransactionDetailDO;
 import id.thesis.shumishumi.foundation.model.result.UserActivityDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
 import org.apache.commons.lang3.StringUtils;
@@ -369,5 +375,80 @@ public class ViewObjectConverter {
         cartVO.setGmtModified(cartDO.getGmtModified());
 
         return cartVO;
+    }
+
+    public static TransactionVO toViewObject(TransactionDO transactionDO) {
+        if (transactionDO == null) {
+            return null;
+        }
+
+        TransactionVO vo = new TransactionVO();
+        vo.setTransactionId(transactionDO.getTransactionId());
+        vo.setUserId(transactionDO.getUserId());
+        vo.setPrice(transactionDO.getPrice());
+        vo.setMidtransId(transactionDO.getMidtransId());
+        vo.setMidtransLink(transactionDO.getMidtransLink());
+        vo.setStatus(transactionDO.getStatus());
+        vo.setPaymentType(transactionDO.getPaymentType());
+        vo.setGmtCreate(transactionDO.getGmtCreate());
+        vo.setGmtModified(transactionDO.getGmtModified());
+
+        return vo;
+    }
+
+    public static TransactionDetailVO toViewObject(TransactionDetailDO detailDO, HistoryItemVO history) {
+        if (detailDO == null) {
+            return null;
+        }
+
+        TransactionDetailVO vo = new TransactionDetailVO();
+        vo.setTransactionDetailId(detailDO.getTransactionDetailId());
+        vo.setTransactionId(detailDO.getTransactionId());
+        vo.setHistoryItemVO(history);
+        vo.setQuantity(detailDO.getQuantity());
+
+        return vo;
+    }
+
+    public static HistoryItemVO toViewObject(HistoryItemDO history) {
+        if (history == null) {
+            return null;
+        }
+
+
+        UserVO merchantInfo = new UserVO();
+        HobbyVO hobbyVO = new HobbyVO();
+        ItemCategoryVO itemCategoryVO = new ItemCategoryVO();
+        InterestLevelVO merchantLevel = new InterestLevelVO();
+        InterestLevelVO userLevel = new InterestLevelVO();
+
+        merchantInfo.setUserId(history.getMerchantId());
+        hobbyVO.setHobbyId(history.getHobbyId());
+        itemCategoryVO.setCategoryId(history.getCategoryId());
+        merchantLevel.setInterestLevelId(history.getMerchantLevelId());
+
+        ItemVO item = new ItemVO();
+        item.setItemId(history.getItemId());
+        item.setItemName(history.getItemName());
+        item.setItemPrice(history.getItemPrice());
+        item.setItemDescription(history.getItemDescription());
+        item.setItemCategory(itemCategoryVO);
+        item.setHobby(hobbyVO);
+        item.setMerchantInfo(merchantInfo);
+        item.setMerchantLevel(merchantLevel);
+        item.setGmtCreate(history.getGmtCreate());
+        item.setGmtModified(history.getGmtModified());
+
+        if (StringUtils.isNotEmpty(history.getItemImages())) {
+            item.setItemImages(Arrays.asList(history.
+                    getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+
+        HistoryItemVO vo = new HistoryItemVO();
+        vo.setGmtCreate(history.getGmtCreate());
+        vo.setGmtModified(history.getGmtModified());
+        vo.setItem(item);
+
+        return vo;
     }
 }

@@ -40,4 +40,15 @@ public class CommonConst {
     public static String DICTIONARY_GENDER = "GENDER";
     public static String DICTIONARY_ITEM_SORTING = "ITEM_SORTING";
     public static String DICTIONARY_SORTING_TYPE = "SORTING_TYPE";
+
+    /**
+     * MIDTRANS
+     */
+    public static String MIDTRANS_TRANSACTION_DETAIL = "transaction_details";
+    public static String MIDTRANS_ITEM_DETAILS = "item_details";
+    public static String MIDTRANS_PAYMENT_TYPE = "payment_type";
+    public static String MIDTRANS_ORDER_ID = "order_id";
+    public static String MIDTRANS_GROSS_AMOUNT = "gross_amount";
+    public static String MIDTRANS_BANK_TRANSFER = "bank_transfer";
+    public static String MIDTRANS_BANK = "bank";
 }

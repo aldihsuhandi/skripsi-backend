@@ -22,9 +22,6 @@ public class InterestLevelDAOImpl implements InterestLevelDAO {
     private static final Logger DALGEN_LOGGER = LoggerFactory.
             getLogger(LogConstant.DALGEN_LOGGER);
 
-    private static final Logger DAO_LOGGER = LoggerFactory.
-            getLogger(LogConstant.DAO_LOGGER);
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

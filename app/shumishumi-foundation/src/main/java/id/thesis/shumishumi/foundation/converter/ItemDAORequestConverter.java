@@ -10,6 +10,7 @@ import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.SortingContext;
+import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 
@@ -64,10 +65,20 @@ public class ItemDAORequestConverter {
         return itemDAORequest;
     }
 
-    public static ItemDO toDAORequest(ItemUpdateContext updateContext, String categoryId,
+    public static ItemDO toDAORequest(ItemVO itemVO, ItemUpdateContext updateContext, String categoryId,
                                       String hobbyId, String merchantLevelId, String itemId) {
+        StringBuilder imageBuilder = new StringBuilder();
+        itemVO.getItemImages().forEach(image ->
+                imageBuilder.append(image).append(CommonConst.SEPARATOR));
+        String imageStr = "";
+        if (imageBuilder.length() != 0) {
+            imageStr = imageBuilder.substring(0, imageBuilder.length() - 1);
+        }
+
         ItemDO itemDO = new ItemDO();
         itemDO.setItemId(itemId);
+        itemDO.setItemImages(imageStr);
+        itemDO.setMerchantId(itemVO.getMerchantInfo().getUserId());
         itemDO.setItemName(updateContext.getItemName());
         itemDO.setItemPrice(updateContext.getItemPrice());
         itemDO.setItemDescription(updateContext.getItemDescription());
@@ -75,6 +86,7 @@ public class ItemDAORequestConverter {
         itemDO.setCategoryId(categoryId);
         itemDO.setHobbyId(hobbyId);
         itemDO.setMerchantLevelId(merchantLevelId);
+        itemDO.setGmtCreate(itemVO.getGmtCreate());
         itemDO.setGmtModified(new Date());
 
         return itemDO;

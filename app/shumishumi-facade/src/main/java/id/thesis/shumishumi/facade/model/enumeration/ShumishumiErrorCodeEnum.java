@@ -33,6 +33,9 @@ public enum ShumishumiErrorCodeEnum {
 
     REQUEST_NOT_FOUND("REQUEST_NOT_FOUND", "request not found"),
 
+    TRANSACTION_NOT_FOUND("TRANSACTION_NOT_FOUND", "transaction not found"),
+    TRANSACTION_STATUS_INVALID("TRANSACTION_STATUS_INVALID", "transaction status is not valid"),
+
     ;
 
     private final String errorCode;

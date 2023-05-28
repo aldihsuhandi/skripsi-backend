@@ -111,6 +111,20 @@
     <bean id="cartCalculateProcessor"
           class="id.thesis.shumishumi.core.processor.cart.CartCalculateProcessor"/>
 
+    <!--transaction-->
+    <bean id="transactionCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionCreateProcessor"/>
+    <bean id="transactionPaymentProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionPaymentProcessor"/>
+    <bean id="transactionQueryDetailProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryDetailProcessor"/>
+    <bean id="transactionQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryProcessor"/>
+    <bean id="transactionFinishProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionFinishProcessor"/>
+    <bean id="transactionCancelProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionCancelProcessor"/>
+
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
           class="id.thesis.shumishumi.core.processor.dictionary.DictionaryQueryProcessor"/>
@@ -263,6 +277,25 @@
             <ref bean="cartCalculateProcessor"/>
         </entry>
 
+        <entry key="TRANSACTION_CREATE">
+            <ref bean="transactionCreateProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_PAYMENT">
+            <ref bean="transactionPaymentProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_DETAIL">
+            <ref bean="transactionQueryDetailProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_LIST">
+            <ref bean="transactionQueryProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_FINISH">
+            <ref bean="transactionFinishProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_CANCEL">
+            <ref bean="transactionCancelProcessor"/>
+        </entry>
+
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
         </entry>
@@ -360,6 +393,20 @@
     <bean id="cartUpdateValidator" class="id.thesis.shumishumi.core.validator.cart.CartUpdateValidator"/>
     <bean id="cartQueryValidator" class="id.thesis.shumishumi.core.validator.cart.CartQueryValidator"/>
     <bean id="cartCalculateValidator" class="id.thesis.shumishumi.core.validator.cart.CartCalculateValidator"/>
+
+    <!--transaction-->
+    <bean id="transactionCreateValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionCreateValidator"/>
+    <bean id="transactionPaymentValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionPaymentValidator"/>
+    <bean id="transactionQueryDetailValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryDetailValidator"/>
+    <bean id="transactionQueryValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryValidator"/>
+    <bean id="transactionFinishValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionFinishValidator"/>
+    <bean id="transactionCancelValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionCancelValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -511,6 +558,25 @@
         </entry>
         <entry key="CART_CALCULATE">
             <ref bean="cartCalculateValidator"/>
+        </entry>
+
+        <entry key="TRANSACTION_CREATE">
+            <ref bean="transactionCreateValidator"/>
+        </entry>
+        <entry key="TRANSACTION_CREATE">
+            <ref bean="transactionPaymentValidator"/>
+        </entry>
+        <entry key="TRANSACTION_DETAIL">
+            <ref bean="transactionQueryDetailValidator"/>
+        </entry>
+        <entry key="TRANSACTION_LIST">
+            <ref bean="transactionQueryValidator"/>
+        </entry>
+        <entry key="TRANSACTION_FINISH">
+            <ref bean="transactionFinishValidator"/>
+        </entry>
+        <entry key="TRANSACTION_CANCEL">
+            <ref bean="transactionCancelValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">
