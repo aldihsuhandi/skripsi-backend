@@ -40,6 +40,18 @@ public class MidtransServiceImpl implements MidtransService {
     }
 
     @Override
+    public void cancelPayment(String transactionId) {
+        JSONObject cancelResult = midtransClient.cancelPayment(transactionId);
+        String statusCode = cancelResult.getString("status_code");
+        String transactionStatus = cancelResult.getString("transaction_status");
+
+        AssertUtil.isExpected(StringUtils.equals(statusCode, "200"),
+                "Midtrans API Integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        AssertUtil.isExpected(StringUtils.equals(transactionStatus, "cancel"),
+                "Midtrans API Integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+    }
+
+    @Override
     public String checkStatus(String transactionId) {
         JSONObject statusResult = midtransClient.checkStatus(transactionId);
         String statusCode = statusResult.getString("status_code");

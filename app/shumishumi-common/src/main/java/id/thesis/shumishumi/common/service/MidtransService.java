@@ -6,5 +6,7 @@ import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 public interface MidtransService {
     MidtransChargeInnerResult createPayment(TransactionVO transaction);
 
+    void cancelPayment(String transactionId);
+
     String checkStatus(String transactionId);
 }

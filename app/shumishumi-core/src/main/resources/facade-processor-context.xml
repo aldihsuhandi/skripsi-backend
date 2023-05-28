@@ -120,6 +120,10 @@
           class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryDetailProcessor"/>
     <bean id="transactionQueryProcessor"
           class="id.thesis.shumishumi.core.processor.transaction.TransactionQueryProcessor"/>
+    <bean id="transactionFinishProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionFinishProcessor"/>
+    <bean id="transactionCancelProcessor"
+          class="id.thesis.shumishumi.core.processor.transaction.TransactionCancelProcessor"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
@@ -285,6 +289,12 @@
         <entry key="TRANSACTION_LIST">
             <ref bean="transactionQueryProcessor"/>
         </entry>
+        <entry key="TRANSACTION_FINISH">
+            <ref bean="transactionFinishProcessor"/>
+        </entry>
+        <entry key="TRANSACTION_CANCEL">
+            <ref bean="transactionCancelProcessor"/>
+        </entry>
 
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
@@ -393,6 +403,10 @@
           class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryDetailValidator"/>
     <bean id="transactionQueryValidator"
           class="id.thesis.shumishumi.core.validator.transaction.TransactionQueryValidator"/>
+    <bean id="transactionFinishValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionFinishValidator"/>
+    <bean id="transactionCancelValidator"
+          class="id.thesis.shumishumi.core.validator.transaction.TransactionCancelValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -557,6 +571,12 @@
         </entry>
         <entry key="TRANSACTION_LIST">
             <ref bean="transactionQueryValidator"/>
+        </entry>
+        <entry key="TRANSACTION_FINISH">
+            <ref bean="transactionFinishValidator"/>
+        </entry>
+        <entry key="TRANSACTION_CANCEL">
+            <ref bean="transactionCancelValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

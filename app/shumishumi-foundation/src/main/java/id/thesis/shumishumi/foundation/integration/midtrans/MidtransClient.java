@@ -6,5 +6,7 @@ import org.json.JSONObject;
 public interface MidtransClient {
     JSONObject createPayment(TransactionVO transaction);
 
+    JSONObject cancelPayment(String midtransId);
+
     JSONObject checkStatus(String midtransId);
 }

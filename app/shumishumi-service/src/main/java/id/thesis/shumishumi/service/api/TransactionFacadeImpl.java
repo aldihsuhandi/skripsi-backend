@@ -4,12 +4,16 @@ import id.thesis.shumishumi.core.callback.ProcessCallback;
 import id.thesis.shumishumi.core.callback.ProcessCallbackSupport;
 import id.thesis.shumishumi.facade.api.TransactionFacade;
 import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
+import id.thesis.shumishumi.facade.request.transaction.TransactionCancelRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionCreateRequest;
+import id.thesis.shumishumi.facade.request.transaction.TransactionFinishRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionPaymentRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionQueryDetailRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionQueryRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.transaction.TransactionCancelResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionCreateResult;
+import id.thesis.shumishumi.facade.result.transaction.TransactionFinishResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionPaymentResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionQueryDetailResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionQueryResult;
@@ -70,6 +74,38 @@ public class TransactionFacadeImpl extends ProcessFacade implements TransactionF
                     @Override
                     public BaseResult initResult() {
                         return new TransactionQueryResult();
+                    }
+
+                    @Override
+                    public void process(ProcessTypeEnum processType, BaseResult result) {
+                        doProcess(request, result, processType);
+                    }
+                });
+    }
+
+    @Override
+    public TransactionFinishResult finish(TransactionFinishRequest request) {
+        return (TransactionFinishResult) ProcessCallbackSupport.process(ProcessTypeEnum.TRANSACTION_FINISH,
+                request, new ProcessCallback() {
+                    @Override
+                    public BaseResult initResult() {
+                        return new TransactionFinishResult();
+                    }
+
+                    @Override
+                    public void process(ProcessTypeEnum processType, BaseResult result) {
+                        doProcess(request, result, processType);
+                    }
+                });
+    }
+
+    @Override
+    public TransactionCancelResult cancel(TransactionCancelRequest request) {
+        return (TransactionCancelResult) ProcessCallbackSupport.process(ProcessTypeEnum.TRANSACTION_CANCEL,
+                request, new ProcessCallback() {
+                    @Override
+                    public BaseResult initResult() {
+                        return new TransactionCancelResult();
                     }
 
                     @Override

@@ -73,6 +73,22 @@ public class MidtransClientImpl implements MidtransClient {
     }
 
     @Override
+    public JSONObject cancelPayment(String midtransId) {
+        LogUtil.info(LOGGER, String.format("MidtransClient#cancelPayment[midtransId=%s]", midtransId));
+
+        JSONObject result;
+        try {
+            result = midtransCoreApi.cancelTransaction(midtransId);
+        } catch (Exception e) {
+            LogUtil.exception(e.getMessage(), e);
+            throw new ShumishumiException("midtrans integration error", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("MidtransClient#cancelPayment[result=%s]", result));
+        return result;
+    }
+
+    @Override
     public JSONObject checkStatus(String midtransId) {
         LogUtil.info(LOGGER, String.format("MidtransClient#checkStatus[midtransId=%s]", midtransId));
 
