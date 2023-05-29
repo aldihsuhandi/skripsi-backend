@@ -29,9 +29,9 @@ public class ItemVOComparator implements Comparator<ItemVO> {
             }
         } else if (StringUtils.equals(sorting, "Alphabetical")) {
             if (StringUtils.equals(sortingType, "Descending")) {
-                res = StringUtils.compare(itemVO.getItemName(), t1.getItemName());
-            } else {
                 res = StringUtils.compare(t1.getItemName(), itemVO.getItemName());
+            } else {
+                res = StringUtils.compare(itemVO.getItemName(), t1.getItemName());
             }
         } else if (StringUtils.equals(sorting, "Created")) {
             if (StringUtils.equals(sortingType, "Descending")) {
