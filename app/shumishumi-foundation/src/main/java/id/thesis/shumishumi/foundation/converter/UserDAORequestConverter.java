@@ -66,6 +66,9 @@ public class UserDAORequestConverter {
             case "phone_number":
                 userDAORequest.setPhoneNumber(value);
                 break;
+            case "username":
+                userDAORequest.setUsername(value);
+                break;
         }
 
         return userDAORequest;

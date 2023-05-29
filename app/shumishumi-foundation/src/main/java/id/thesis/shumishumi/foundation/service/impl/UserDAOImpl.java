@@ -145,6 +145,21 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public UserDO queryByUsername(UserDAORequest daoRequest) {
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByUsername[request=%s]", daoRequest.toString()));
+
+        UserDO userDO;
+        try {
+            userDO = userRepository.findByUsername(daoRequest.getUsername()).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByUsername[result=%s]", userDO));
+        return userDO;
+    }
+
+    @Override
     public List<UserDO> queryAll() {
         LogUtil.info(DALGEN_LOGGER, "userDAO#queryAll");
 

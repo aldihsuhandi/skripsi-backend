@@ -107,6 +107,28 @@ public class UserFacadeTest extends FacadeTestBase {
     }
 
     @Test
+    public void userRegisterTest_FAILED_usernameAlreadyExist() {
+        UserRegisterRequest registerRequest = new UserRegisterRequest();
+        registerRequest.setUsername("username");
+        registerRequest.setEmail("email@email.com");
+        registerRequest.setPassword("password");
+        registerRequest.setConfirmPassword("password");
+        registerRequest.setPhoneNumber("12345");
+        registerRequest.setGender("gender");
+        registerRequest.setDateOfBirth(Date.from(LocalDate.parse("20000202", DateTimeFormatter.BASIC_ISO_DATE).
+                atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+        Mockito.when(userDAO.queryByUsername(Mockito.any())).thenReturn(mockUserDO("password", false, false));
+        Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserRegisterResult result = userFacade.register(registerRequest);
+        ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.USER_ALREADY_EXIST.getErrorCode());
+    }
+
+    @Test
     public void userRegisterTest_FAILED_confirmPasswordEmpty() {
         UserRegisterRequest registerRequest = new UserRegisterRequest();
         registerRequest.setUsername("username");
@@ -294,10 +316,25 @@ public class UserFacadeTest extends FacadeTestBase {
     }
 
     @Test
+    public void userQueryTest_SUCCESS_username() {
+        UserQueryRequest request = new UserQueryRequest();
+        request.setIdentifier(DatabaseConst.USERNAME);
+        request.setKey("email@email.com");
+        Mockito.when(userDAO.queryByUsername(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserQueryResult result = userFacade.query(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(),
+                ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+
+    }
+
+    @Test
     public void userQueryTest_FAILED_user_not_found() {
         UserQueryRequest request = new UserQueryRequest();
         request.setIdentifier(DatabaseConst.EMAIL);
-        request.setKey("email@email.com");
+        request.setKey("username");
         Mockito.when(userDAO.queryByEmail(Mockito.any())).thenReturn(null);
 
         UserQueryResult result = userFacade.query(request);

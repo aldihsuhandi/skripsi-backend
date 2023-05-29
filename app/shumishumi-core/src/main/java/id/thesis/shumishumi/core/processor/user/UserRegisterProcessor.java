@@ -56,6 +56,9 @@ public class UserRegisterProcessor implements BaseProcessor {
 
         userVO = userService.queryByPhoneNumber(registerRequest.getPhoneNumber(), true);
         AssertUtil.isExpected(userVO == null || userVO.isDeleted(), "phone number already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
+
+        userVO = userService.queryByUsername(registerRequest.getUsername(), true);
+        AssertUtil.isExpected(userVO == null || userVO.isDeleted(), "username already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
     }
 
     private String insertProfilePicture(MultipartFile profilePicture, String userId) throws ShumishumiException {

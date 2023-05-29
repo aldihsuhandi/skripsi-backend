@@ -42,6 +42,9 @@ public class UserQueryProcessor implements BaseProcessor {
         if (DatabaseConst.EMAIL.equals(identifier)) {
             return userService.queryByEmail(key, true);
         }
+        if (DatabaseConst.USERNAME.equals(identifier)) {
+            return userService.queryByUsername(key, true);
+        }
 
         return userService.queryById(key, true);
     }
