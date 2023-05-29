@@ -25,7 +25,7 @@ public class UserQueryValidator implements BaseValidator {
         ParamChecker.isNotEmpty(queryRequest.getIdentifier(), "identifier", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         String identifier = queryRequest.getIdentifier();
-        boolean identifierValid = DatabaseConst.USER_ID.equals(identifier) ||
+        boolean identifierValid = DatabaseConst.USER_ID.equals(identifier) || DatabaseConst.USERNAME.equals(identifier) ||
                 DatabaseConst.EMAIL.equals(identifier) || DatabaseConst.PHONE_NUMBER.equals(identifier);
         ParamChecker.isExpected(identifierValid, "identifier", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
     }
