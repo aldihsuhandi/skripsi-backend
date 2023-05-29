@@ -29,6 +29,8 @@ public interface UserService {
 
     UserVO queryByPhoneNumber(String phoneNumber, boolean useCache);
 
+    UserVO queryByUsername(String username, boolean cache);
+
     void refreshCache(List<String> userIds, boolean refreshAll);
 
     void clearCache();

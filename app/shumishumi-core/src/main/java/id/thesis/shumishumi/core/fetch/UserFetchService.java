@@ -25,6 +25,7 @@ public class UserFetchService {
     private final Map<String, UserVO> userCache = new HashMap<>();
     private final Map<String, String> emailMap = new HashMap<>();
     private final Map<String, String> phoneNumberMap = new HashMap<>();
+    private final Map<String, String> usernameMap = new HashMap<>();
 
     public void putToCache(UserVO userVO) {
         LogUtil.info(LOGGER, String.format("userFetchService#putToCache[userVO=%s]", userVO));
@@ -35,9 +36,11 @@ public class UserFetchService {
         String userId = userVO.getUserId();
         String email = userVO.getEmail();
         String phoneNumber = userVO.getPhoneNumber();
+        String username = userVO.getUsername();
 
         emailMap.put(email, userId);
         phoneNumberMap.put(phoneNumber, userId);
+        usernameMap.put(username, userId);
         userCache.put(userId, userVO);
     }
 
@@ -48,6 +51,8 @@ public class UserFetchService {
             userId = emailMap.get(value);
         } else if (DatabaseConst.PHONE_NUMBER.equals(identifier)) {
             userId = phoneNumberMap.get(value);
+        } else if (DatabaseConst.USERNAME.equals(identifier)) {
+            userId = usernameMap.get(value);
         }
 
         if (!userCache.containsKey(userId)) {

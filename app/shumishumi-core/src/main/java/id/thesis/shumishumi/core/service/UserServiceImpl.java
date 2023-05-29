@@ -119,6 +119,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserVO queryByUsername(String username, boolean cache) {
+        UserVO userVO = queryFromCache(cache, username, DatabaseConst.USERNAME);
+        if (userVO == null) {
+            UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(DatabaseConst.USERNAME, username);
+            UserDO userDO = userDAO.queryByUsername(daoRequest);
+
+            userVO = ViewObjectConverter.toViewObject(userDO);
+
+            composeRoleVO(userDO, userVO);
+
+            userFetchService.putToCache(userVO);
+        }
+
+        return userVO;
+    }
+
+    @Override
     public void refreshCache(List<String> userIds, boolean refreshAll) {
         List<UserVO> userVOS = refreshCacheAll(refreshAll);
         if (userVOS == null) {

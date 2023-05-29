@@ -29,6 +29,8 @@ public interface UserDAO {
 
     UserDO queryByPhoneNumber(UserDAORequest daoRequest);
 
+    UserDO queryByUsername(UserDAORequest daoRequest);
+
     List<UserDO> queryAll();
 
     void emailEncrypt(String uuid, String email);
