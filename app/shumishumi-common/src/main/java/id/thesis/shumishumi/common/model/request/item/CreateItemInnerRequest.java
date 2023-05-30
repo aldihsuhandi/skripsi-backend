@@ -21,6 +21,7 @@ public class CreateItemInnerRequest extends BaseInnerRequest {
     private static final long serialVersionUID = -4904517867685475927L;
 
     private String itemId;
+    private String postId;
     private String itemName;
     private Long itemPrice;
     private List<String> itemImages;

@@ -1,10 +1,12 @@
 package id.thesis.shumishumi.foundation.seeders;
 
+import id.thesis.shumishumi.common.service.PostService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ItemSeeder extends BaseSeeder {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private PostService postService;
 
     @Override
     void setOrder() {
@@ -122,11 +127,26 @@ public class ItemSeeder extends BaseSeeder {
 
     private void insert(ItemRequest request) {
         ItemDO itemDO = convertFromRequest(request);
+        itemDO.setPostId(createPostForItem(request, request.merchantId));
         try {
             itemRepository.save(itemDO);
         } catch (Exception e) {
             throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
+    }
+
+    private String createPostForItem(ItemRequest request, String userId) {
+        List<String> tags = new ArrayList<>();
+        tags.add("item");
+
+        PostVO postVO = new PostVO();
+        postVO.setTitle(request.itemName);
+        postVO.setContent(request.itemDescription);
+        postVO.setUserId(userId);
+        postVO.setTags(tags);
+
+
+        return postService.create(postVO);
     }
 
     private ItemDO convertFromRequest(ItemRequest request) {

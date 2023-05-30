@@ -1,10 +1,5 @@
 package id.thesis.shumishumi.foundation.model.result;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -51,6 +46,9 @@ public class ItemDO extends BaseDO {
 
     @Column(name = "is_approved")
     private boolean isApproved;
+
+    @Column(name = "post_id")
+    private String postId;
 
     public String getItemId() {
         return itemId;
@@ -146,5 +144,13 @@ public class ItemDO extends BaseDO {
 
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

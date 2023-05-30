@@ -23,6 +23,7 @@ public class ItemVO extends BaseVO {
     private UserVO merchantInfo;
     private InterestLevelVO merchantLevel;
     private InterestLevelVO userLevel;
+    private String postId;
     private boolean isDeleted;
     private boolean isApproved;
 }

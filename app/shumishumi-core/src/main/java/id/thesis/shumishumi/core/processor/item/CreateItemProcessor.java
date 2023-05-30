@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.service.HobbyService;
 import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemCategoryService;
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.PostService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
@@ -19,6 +20,7 @@ import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
+import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
@@ -28,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Aldih Suhandi (aldih.suhandi@binus.ac.id)
@@ -52,6 +55,9 @@ public class CreateItemProcessor implements BaseProcessor {
 
     @Autowired
     private InterestLevelService interestLevelService;
+
+    @Autowired
+    private PostService postService;
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
@@ -80,10 +86,26 @@ public class CreateItemProcessor implements BaseProcessor {
         AssertUtil.isNotNull(hobbyVO, "hobby not found", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
         AssertUtil.isNotNull(interestLevelVO, "merchant interest level not found", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
+        String postId = createPostForItem(itemRequest, merchant.getUserId());
+
         CreateItemInnerRequest innerRequest = ItemRequestConverter.toInnerRequest(itemRequest, merchant.getUserId(),
-                itemCategoryVO.getCategoryId(), hobbyVO.getHobbyId(), interestLevelVO.getInterestLevelId());
+                itemCategoryVO.getCategoryId(), hobbyVO.getHobbyId(), interestLevelVO.getInterestLevelId(), postId);
 
         itemService.create(innerRequest);
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(innerRequest.getItemId())), false);
+    }
+
+    private String createPostForItem(CreateItemRequest request, String userId) {
+        List<String> tags = new ArrayList<>();
+        tags.add("item");
+
+        PostVO postVO = new PostVO();
+        postVO.setTitle(request.getItemName());
+        postVO.setContent(request.getItemDescription());
+        postVO.setUserId(userId);
+        postVO.setTags(tags);
+
+
+        return postService.create(postVO);
     }
 }
