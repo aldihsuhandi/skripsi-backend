@@ -47,7 +47,7 @@ public class UserDAORequestConverter {
         userDAORequest.setActive(updateContext.getIsActive());
         userDAORequest.setDeleted(updateContext.getIsDeleted());
         userDAORequest.setGender(updateContext.getGender());
-        userDAORequest.setDateOfBirth(userDAORequest.getDateOfBirth());
+        userDAORequest.setDateOfBirth(updateContext.getDateOfBirth());
         userDAORequest.setLocation(JSONStringUtil.parseObject(updateContext.getLocation()));
         userDAORequest.setGmtModified(new Date());
 
