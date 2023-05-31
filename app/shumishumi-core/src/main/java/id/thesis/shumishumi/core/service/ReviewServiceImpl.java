@@ -13,6 +13,7 @@ import id.thesis.shumishumi.foundation.service.ReviewDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,8 +70,10 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         StringBuilder imageBuilder = new StringBuilder();
-        review.getReviewImages().forEach(image ->
-                imageBuilder.append(image).append(CommonConst.SEPARATOR));
+        if (!CollectionUtils.isEmpty(review.getReviewImages())) {
+            review.getReviewImages().forEach(image ->
+                    imageBuilder.append(image).append(CommonConst.SEPARATOR));
+        }
         String imageStr = "";
         if (imageBuilder.length() != 0) {
             imageStr = imageBuilder.substring(0, imageBuilder.length() - 1);
@@ -83,7 +86,9 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDO.setMerchantId(review.getMerchantId());
         reviewDO.setDescription(review.getDescription());
         reviewDO.setReviewImages(imageStr);
-        reviewDO.setInterestLevel(review.getInterestLevel().getInterestLevelId());
+        if (reviewDO.getInterestLevel() != null) {
+            reviewDO.setInterestLevel(review.getInterestLevel().getInterestLevelId());
+        }
         reviewDO.setStar(review.getStar());
         reviewDO.setNeedReview(review.isNeedReview());
 

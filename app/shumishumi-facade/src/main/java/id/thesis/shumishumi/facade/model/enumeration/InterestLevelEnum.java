@@ -11,9 +11,9 @@ import lombok.Getter;
  */
 @Getter
 public enum InterestLevelEnum {
-    BEGINNER("da61603a-3252-4f7d-bf07-97ef5ef168cc", "BEGINNER", 1),
-    INTERMEDIATE("ebb5d871-af7d-4b59-807c-bef5f8962e3c", "INTERMEDIATE", 3),
-    ENTHUSIAST("5684822d-ab2d-4ed6-a124-c3754035d80c", "ENTHUSIAST", 5),
+    BEGINNER("1", "BEGINNER", 1),
+    INTERMEDIATE("3", "INTERMEDIATE", 3),
+    ENTHUSIAST("5", "ENTHUSIAST", 5),
 
     ;
     private final String id;

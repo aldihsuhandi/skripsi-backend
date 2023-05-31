@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ public class ReviewVO extends BaseVO {
     private String userId;
     private String merchantId;
     private String description;
-    private List<String> reviewImages;
+    private List<String> reviewImages = new ArrayList<>();
     private InterestLevelVO interestLevel;
     private int star;
     private boolean needReview;

@@ -38,8 +38,6 @@ public class TransactionFinishProcessor implements BaseProcessor {
         AssertUtil.isExpected(transaction.getUserId(), userId,
                 "this transaction doesn't belong to the current user", ShumishumiErrorCodeEnum.USER_INVALID);
 
-        transactionService.changeStatus(transaction.getTransactionId(), TransactionStatusEnum.DONE.getCode());
-
         transaction.getDetails().forEach(detail -> {
             HistoryItemVO itemVO = detail.getHistoryItemVO();
             String itemId = itemVO.getItem().getItemId();
@@ -54,5 +52,7 @@ public class TransactionFinishProcessor implements BaseProcessor {
 
             reviewService.create(reviewVO);
         });
+
+        transactionService.changeStatus(transaction.getTransactionId(), TransactionStatusEnum.DONE.getCode());
     }
 }
