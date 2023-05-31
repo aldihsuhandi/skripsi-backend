@@ -458,7 +458,7 @@ public class UserFacadeTest extends FacadeTestBase {
     private OtpDO mockOTPDO(Date otpDt, boolean isActive) {
         OtpDO otpDO = new OtpDO();
         otpDO.setOtpId("otpId");
-        otpDO.setOtp(FunctionUtil.generateOtp(10, true, true));
+        otpDO.setOtp(FunctionUtil.generateString(10, true, true));
         otpDO.setActive(true);
         otpDO.setOtpDt(otpDt);
         otpDO.setTypeId(OTPTypeEnum.FORGOT_PASSWORD.getId());
