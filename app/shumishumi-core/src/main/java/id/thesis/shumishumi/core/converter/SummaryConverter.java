@@ -104,6 +104,8 @@ public class SummaryConverter {
         summary.setUpvote(vo.getUpvote());
         summary.setDownvote(vo.getDownvote());
         summary.setCurrentUserVote(vo.getCurrentUserVote());
+        summary.setGmtCreate(vo.getGmtCreate());
+        summary.setGmtModified(vo.getGmtModified());
 
         return summary;
     }
