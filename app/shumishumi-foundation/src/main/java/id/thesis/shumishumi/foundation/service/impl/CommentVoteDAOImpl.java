@@ -37,7 +37,7 @@ public class CommentVoteDAOImpl implements CommentVoteDAO {
 
     @Override
     public CommentVoteDO queryUserVote(String commentId, String userId) {
-        LogUtil.info(LOGGER, String.format("commentVoteDAO#queryUserVote[commentId=%s,userId=%d]", commentId, userId));
+        LogUtil.info(LOGGER, String.format("commentVoteDAO#queryUserVote[commentId=%s,userId=%s]", commentId, userId));
         CommentVoteDO result;
         try {
             result = commentVoteRepository.findById(new CommentVoteDOPK(userId, commentId)).orElse(null);

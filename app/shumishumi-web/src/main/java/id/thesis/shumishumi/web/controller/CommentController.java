@@ -4,6 +4,7 @@ import id.thesis.shumishumi.common.model.form.comment.CommentCreateForm;
 import id.thesis.shumishumi.common.model.form.comment.CommentDeleteForm;
 import id.thesis.shumishumi.common.model.form.comment.CommentDownvoteForm;
 import id.thesis.shumishumi.common.model.form.comment.CommentEditForm;
+import id.thesis.shumishumi.common.model.form.comment.CommentQueryForm;
 import id.thesis.shumishumi.common.model.form.comment.CommentUpvoteForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
@@ -12,11 +13,13 @@ import id.thesis.shumishumi.facade.request.comment.CreateCommentRequest;
 import id.thesis.shumishumi.facade.request.comment.DeleteCommentRequest;
 import id.thesis.shumishumi.facade.request.comment.DownvoteCommentRequest;
 import id.thesis.shumishumi.facade.request.comment.EditCommentRequest;
+import id.thesis.shumishumi.facade.request.comment.QueryCommentRequest;
 import id.thesis.shumishumi.facade.request.comment.UpvoteCommentRequest;
 import id.thesis.shumishumi.facade.result.comment.CreateCommentResult;
 import id.thesis.shumishumi.facade.result.comment.DeleteCommentResult;
 import id.thesis.shumishumi.facade.result.comment.DownvoteCommentResult;
 import id.thesis.shumishumi.facade.result.comment.EditCommentResult;
+import id.thesis.shumishumi.facade.result.comment.QueryCommentResult;
 import id.thesis.shumishumi.facade.result.comment.UpvoteCommentResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -148,6 +151,32 @@ public class CommentController extends BaseController {
             @Override
             public DownvoteCommentResult doProcess(DownvoteCommentRequest request) {
                 return commentFacade.downvote(request);
+            }
+        });
+    }
+
+    @PostMapping("/query")
+    public ResponseEntity<QueryCommentResult> query(@RequestHeader HttpHeaders headers, @RequestBody CommentQueryForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<QueryCommentResult, QueryCommentRequest>() {
+            @Override
+            public void authCheck(String clientId, String clientSecret) {
+                authenticate(clientId, clientSecret);
+            }
+
+            @Override
+            public QueryCommentRequest composeRequest() {
+                QueryCommentRequest request = new QueryCommentRequest();
+                request.setReplyId(form.getReplyId());
+                request.setReplyTo(form.getReplyTo());
+                request.setPageNumber(form.getPageNumber());
+                request.setNumberOfItem(form.getNumberOfItem());
+
+                return request;
+            }
+
+            @Override
+            public QueryCommentResult doProcess(QueryCommentRequest request) {
+                return commentFacade.query(request);
             }
         });
     }
