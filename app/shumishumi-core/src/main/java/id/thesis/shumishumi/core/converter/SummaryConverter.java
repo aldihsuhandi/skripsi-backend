@@ -37,6 +37,7 @@ public class SummaryConverter {
 
         ItemSummary summary = new ItemSummary();
         summary.setItemId(vo.getItemId());
+        summary.setPostId(vo.getPostId());
         summary.setItemName(vo.getItemName());
         summary.setItemPrice(vo.getItemPrice());
         summary.setItemImages(vo.getItemImages());

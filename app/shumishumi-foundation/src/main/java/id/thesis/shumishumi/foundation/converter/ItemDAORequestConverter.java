@@ -43,6 +43,7 @@ public class ItemDAORequestConverter {
         item.setMerchantLevelId(request.getMerchantLevelId());
         item.setMerchantId(request.getMerchantId());
         item.setApproved(true);
+        item.setPostId(request.getPostId());
 
         return item;
     }
@@ -79,6 +80,7 @@ public class ItemDAORequestConverter {
         itemDO.setItemId(itemId);
         itemDO.setItemImages(imageStr);
         itemDO.setMerchantId(itemVO.getMerchantInfo().getUserId());
+        itemDO.setPostId(itemVO.getPostId());
         itemDO.setItemName(updateContext.getItemName());
         itemDO.setItemPrice(updateContext.getItemPrice());
         itemDO.setItemDescription(updateContext.getItemDescription());
