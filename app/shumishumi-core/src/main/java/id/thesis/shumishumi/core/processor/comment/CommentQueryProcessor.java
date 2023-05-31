@@ -37,6 +37,7 @@ public class CommentQueryProcessor implements BaseProcessor {
 
         List<CommentVO> comments = commentService.
                 query(request.getReplyId(), request.getReplyTo(), pagingContext);
+        pagingContext.calculateTotalPage();
         pagingContext.checkHasNext(pagingContext.getTotalItem(), comments.size());
 
         String userId;
@@ -59,7 +60,7 @@ public class CommentQueryProcessor implements BaseProcessor {
             summaries.add(SummaryConverter.toSummary(comment));
         });
 
-        result.setHasNext(pagingContext.getHasNext());
         result.setComments(summaries);
+        result.setPagingContext(pagingContext);
     }
 }
