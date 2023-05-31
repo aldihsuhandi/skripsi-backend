@@ -5,6 +5,7 @@ import id.thesis.shumishumi.facade.model.summary.CommentSummary;
 import id.thesis.shumishumi.facade.model.summary.HistoryItemSummary;
 import id.thesis.shumishumi.facade.model.summary.ItemSummary;
 import id.thesis.shumishumi.facade.model.summary.PostSummary;
+import id.thesis.shumishumi.facade.model.summary.ReviewSummary;
 import id.thesis.shumishumi.facade.model.summary.TransactionDetailSummary;
 import id.thesis.shumishumi.facade.model.summary.TransactionSummary;
 import id.thesis.shumishumi.facade.model.summary.UserSummary;
@@ -13,6 +14,7 @@ import id.thesis.shumishumi.facade.model.viewobject.CommentVO;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
+import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 
@@ -163,6 +165,22 @@ public class SummaryConverter {
         summary.setItemCategory(vo.getItem().getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
+
+        return summary;
+    }
+
+    public static ReviewSummary toSummary(ReviewVO vo) {
+        if (vo == null) {
+            return null;
+        }
+        ReviewSummary summary = new ReviewSummary();
+        summary.setReviewId(vo.getReviewId());
+        summary.setItemId(vo.getItemId());
+        summary.setReview(vo.getStar());
+        summary.setImages(vo.getReviewImages());
+        summary.setInterestLevel(vo.getInterestLevel().getInterestLevelName());
+        summary.setDescription(vo.getDescription());
+        summary.setNeedReview(vo.isNeedReview());
 
         return summary;
     }
