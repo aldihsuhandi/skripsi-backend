@@ -65,7 +65,7 @@ public class UserSeeder extends BaseSeeder {
     }
 
     private String generatePhoneNumber() {
-        return "08" + FunctionUtil.generateOtp(9, true, false);
+        return "08" + FunctionUtil.generateString(9, true, false);
     }
 
     private void createUser(UserRequest userRequest) {

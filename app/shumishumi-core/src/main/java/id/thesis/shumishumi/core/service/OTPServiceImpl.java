@@ -23,7 +23,7 @@ public class OTPServiceImpl implements OTPService {
 
     @Override
     public void send(String email, String type) {
-        String otp = FunctionUtil.generateOtp(5, true, true);
+        String otp = FunctionUtil.generateString(5, true, false);
         OTPDAORequest otpdaoRequest = OTPDAORequestConverter.toDAORequest(email, otp, type);
 
         otpDAO.insert(otpdaoRequest);

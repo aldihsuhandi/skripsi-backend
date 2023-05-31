@@ -26,14 +26,14 @@ public class FunctionUtil {
     private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public static String generateUUID() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
     public static String hashPassword(String password) {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    public static String generateOtp(int length, boolean useNumber, boolean useLetter) {
+    public static String generateString(int length, boolean useNumber, boolean useLetter) {
         return RandomStringUtils.random(length, useLetter, useNumber);
     }
 
@@ -134,13 +134,6 @@ public class FunctionUtil {
         result = result && (filterContext.isDeleted() == itemVO.isDeleted());
 
         return result;
-    }
-
-    public static String hideString(String field) {
-        if (field == null || field.isEmpty()) {
-            return "";
-        }
-        return "*".repeat(field.length());
     }
 
     private static boolean checkIfNotEmpty(String s) {

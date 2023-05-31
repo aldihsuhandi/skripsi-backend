@@ -41,6 +41,9 @@ public class ItemDO extends BaseDO {
     @Column(name = "merchant_level_id")
     private String merchantLevelId;
 
+    @Column(name = "user_level_id")
+    private String userLevelId;
+
     @Column(name = "is_deleted")
     private boolean isDeleted;
 

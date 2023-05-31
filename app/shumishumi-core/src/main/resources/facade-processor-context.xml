@@ -125,6 +125,12 @@
     <bean id="transactionCancelProcessor"
           class="id.thesis.shumishumi.core.processor.transaction.TransactionCancelProcessor"/>
 
+    <!--review-->
+    <bean id="reviewCreateProcessor"
+          class="id.thesis.shumishumi.core.processor.review.ReviewCreateProcessor"/>
+    <bean id="reviewQueryProcessor"
+          class="id.thesis.shumishumi.core.processor.review.ReviewQueryProcessor"/>
+
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
           class="id.thesis.shumishumi.core.processor.dictionary.DictionaryQueryProcessor"/>
@@ -296,6 +302,13 @@
             <ref bean="transactionCancelProcessor"/>
         </entry>
 
+        <entry key="REVIEW_CREATE">
+            <ref bean="reviewCreateProcessor"/>
+        </entry>
+        <entry key="REVIEW_QUERY">
+            <ref bean="reviewQueryProcessor"/>
+        </entry>
+
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
         </entry>
@@ -407,6 +420,12 @@
           class="id.thesis.shumishumi.core.validator.transaction.TransactionFinishValidator"/>
     <bean id="transactionCancelValidator"
           class="id.thesis.shumishumi.core.validator.transaction.TransactionCancelValidator"/>
+
+    <!--review-->
+    <bean id="reviewCreateValidator"
+          class="id.thesis.shumishumi.core.validator.review.ReviewCreateValidator"/>
+    <bean id="reviewQueryValidator"
+          class="id.thesis.shumishumi.core.validator.review.ReviewQueryValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -577,6 +596,13 @@
         </entry>
         <entry key="TRANSACTION_CANCEL">
             <ref bean="transactionCancelValidator"/>
+        </entry>
+
+        <entry key="REVIEW_CREATE">
+            <ref bean="reviewCreateValidator"/>
+        </entry>
+        <entry key="REVIEW_QUERY">
+            <ref bean="reviewQueryValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">

@@ -76,6 +76,9 @@ public enum ProcessTypeEnum {
     TRANSACTION_FINISH("TRANSACTION_FINISH", "transactionFinishValidator", "transactionFinishProcessor", true),
     TRANSACTION_CANCEL("TRANSACTION_CANCEL", "transactionCancelValidator", "transactionCancelProcessor", true),
 
+    REVIEW_CREATE("REVIEW_CREATE", "reviewCreateValidator", "reviewCreateProcessor", true),
+    REVIEW_QUERY("REVIEW_QUERY", "reviewQueryValidator", "reviewQueryProcessor", true),
+
     ;
 
     private final String processName;
