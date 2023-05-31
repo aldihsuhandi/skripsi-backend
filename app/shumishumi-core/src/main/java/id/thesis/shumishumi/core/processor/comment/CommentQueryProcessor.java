@@ -38,7 +38,7 @@ public class CommentQueryProcessor implements BaseProcessor {
         List<CommentVO> comments = commentService.
                 query(request.getReplyId(), request.getReplyTo(), pagingContext);
         pagingContext.calculateTotalPage();
-        pagingContext.checkHasNext(pagingContext.getTotalItem(), comments.size());
+        pagingContext.checkHasNext(pagingContext.getTotalItem(), request.getPageNumber());
 
         String userId;
         SessionVO sessionVO = sessionService.query(request.getSessionId());
