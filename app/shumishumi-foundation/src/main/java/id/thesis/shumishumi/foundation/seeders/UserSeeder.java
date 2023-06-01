@@ -49,17 +49,21 @@ public class UserSeeder extends BaseSeeder {
     @Override
     public void seed() {
         List<UserRequest> userRequests = new ArrayList<>();
+        Map<String, String> extendInfo = new HashMap<>();
+        extendInfo.put(CommonConst.EXTEND_INFO_TELEGRAM, "false");
+        extendInfo.put(CommonConst.EXTEND_INFO_WHATSAPP, "true");
+
         userRequests.add(new UserRequest("KeyboardShop", "Keyboard Shop",
                 "KeyboardShop@mail.com", generatePhoneNumber(), UserRolesEnum.MERCHANT.getUserRoleId(), true, false,
-                "https://cdn.shopify.com/s/files/1/0472/8874/6142/files/DSC00120.jpg", "keyboard123"));
+                "https://cdn.shopify.com/s/files/1/0472/8874/6142/files/DSC00120.jpg", "keyboard123", JSONStringUtil.parseObject(extendInfo)));
 
         userRequests.add(new UserRequest("ComputerShop", "Computer Shop",
                 "ComputerShop@mail.com", generatePhoneNumber(), UserRolesEnum.MERCHANT.getUserRoleId(), true, false,
-                "https://c1.neweggimages.com/ProductImageCompressAll1280/19-118-343-05.jpg", "computer123"));
+                "https://c1.neweggimages.com/ProductImageCompressAll1280/19-118-343-05.jpg", "computer123", JSONStringUtil.parseObject(extendInfo)));
 
         userRequests.add(new UserRequest("GuitarShop", "Guitar Shop",
                 "GuitarShop@mail.com", generatePhoneNumber(), UserRolesEnum.MERCHANT.getUserRoleId(), true, false,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/GuitareClassique5.png/366px-GuitareClassique5.png", "guitar123"));
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/GuitareClassique5.png/366px-GuitareClassique5.png", "guitar123", JSONStringUtil.parseObject(extendInfo)));
 
         userRequests.forEach(this::createUser);
     }
@@ -85,6 +89,7 @@ public class UserSeeder extends BaseSeeder {
         userDO.setDeleted(userRequest.isDeleted);
         userDO.setProfilePicture(imageId);
         userDO.setPassword(FunctionUtil.hashPassword(userRequest.password));
+        userDO.setExtendInfo(userRequest.extendInfo);
 
         Map<String, String> location = new HashMap<>();
         location.put(CommonConst.LOCATION_CITY, "Jakarta Utara");
@@ -111,8 +116,10 @@ public class UserSeeder extends BaseSeeder {
         boolean isDeleted;
         String profilePicture;
         String password;
+        String extendInfo;
 
-        public UserRequest(String userId, String username, String email, String phoneNumber, String roleId, boolean isActive, boolean isDeleted, String profilePicture, String password) {
+        public UserRequest(String userId, String username, String email, String phoneNumber, String roleId, boolean isActive,
+                           boolean isDeleted, String profilePicture, String password, String extendInfo) {
             this.userId = userId;
             this.username = username;
             this.email = email;
@@ -122,6 +129,7 @@ public class UserSeeder extends BaseSeeder {
             this.isDeleted = isDeleted;
             this.profilePicture = profilePicture;
             this.password = password;
+            this.extendInfo = extendInfo;
         }
     }
 }
