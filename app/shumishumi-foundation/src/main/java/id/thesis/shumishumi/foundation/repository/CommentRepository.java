@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<CommentDO, String> {
-    Page<CommentDO> findByReplyCommentIdOrderByGmtCreateAsc(String replyCommentId, Pageable pageable);
+    @Query("SELECT c FROM CommentDO c WHERE c.replyCommentId = :comment_id AND c.isDeleted = :deleted ORDER BY c.gmtCreate ASC")
+    Page<CommentDO> findByReplyCommentId(@Param("comment_id") String replyCommentId, @Param("deleted") boolean isDeleted, Pageable pageable);
 
-    Page<CommentDO> findByReplyPostIdOrderByGmtCreateDesc(String replyPostId, Pageable pageable);
+    @Query("SELECT c FROM CommentDO c WHERE c.replyPostId = :post_id AND c.isDeleted = :deleted ORDER BY c.gmtCreate DESC")
+    Page<CommentDO> findByReplyPostId(@Param("post_id") String replyPostId, @Param("deleted") boolean isDeleted, Pageable pageable);
 
     @Modifying
     @Transactional
