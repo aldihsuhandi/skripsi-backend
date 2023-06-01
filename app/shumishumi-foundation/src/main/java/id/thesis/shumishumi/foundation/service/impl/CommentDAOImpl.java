@@ -81,7 +81,7 @@ public class CommentDAOImpl implements CommentDAO {
         List<CommentDO> result;
         try {
             Pageable pageable = PageRequest.of(pagingContext.getPageNumber() - 1, pagingContext.getNumberOfItem());
-            Page<CommentDO> page = commentRepository.findByReplyCommentIdOrderByGmtCreateDesc(commentId, pageable);
+            Page<CommentDO> page = commentRepository.findByReplyCommentIdOrderByGmtCreateAsc(commentId, pageable);
             pagingContext.setTotalItem(page.getTotalElements());
 
             result = page.getContent();

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<CommentDO, String> {
-    Page<CommentDO> findByReplyCommentIdOrderByGmtCreateDesc(String replyCommentId, Pageable pageable);
+    Page<CommentDO> findByReplyCommentIdOrderByGmtCreateAsc(String replyCommentId, Pageable pageable);
 
     Page<CommentDO> findByReplyPostIdOrderByGmtCreateDesc(String replyPostId, Pageable pageable);
 
