@@ -19,6 +19,7 @@ import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +71,7 @@ public class UserUpdateProcessor implements BaseProcessor {
         context.setLocation(request.getLocation());
         context.setGender(request.getGender());
         context.setDateOfBirth(request.getDateOfBirth());
-
+        context.setExtendInfo(request.getExtendInfo());
 
         return context;
     }
@@ -87,7 +88,7 @@ public class UserUpdateProcessor implements BaseProcessor {
     }
 
     private void validateEmail(String email, String currentEmail) throws ShumishumiException {
-        if (email == null || email.isEmpty() || email.equals(currentEmail)) {
+        if (StringUtils.equals(email, currentEmail)) {
             return;
         }
 
@@ -96,12 +97,21 @@ public class UserUpdateProcessor implements BaseProcessor {
     }
 
     private void validatePhoneNumber(String phoneNumber, String currentPhoneNumber) throws ShumishumiException {
-        if (phoneNumber == null || phoneNumber.isEmpty() || phoneNumber.equals(currentPhoneNumber)) {
+        if (StringUtils.equals(phoneNumber, currentPhoneNumber)) {
             return;
         }
 
         UserVO userVO = userService.queryByPhoneNumber(phoneNumber, true);
         AssertUtil.isExpected(userVO == null || !userVO.isActive(), "phone number already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
+    }
+
+    private void validateUsername(String username, String currentUsername) {
+        if (StringUtils.equals(username, currentUsername)) {
+            return;
+        }
+
+        UserVO userVO = userService.queryByUsername(username, true);
+        AssertUtil.isExpected(userVO == null || !userVO.isActive(), "username already used by another user", ShumishumiErrorCodeEnum.USER_ALREADY_EXIST);
     }
 
     private UserVO queryUserFromSession(String sessionId) {

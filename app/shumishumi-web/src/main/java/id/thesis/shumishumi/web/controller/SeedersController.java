@@ -9,6 +9,7 @@ import id.thesis.shumishumi.foundation.seeders.HobbySeeder;
 import id.thesis.shumishumi.foundation.seeders.ImageSeeder;
 import id.thesis.shumishumi.foundation.seeders.ItemCategorySeeder;
 import id.thesis.shumishumi.foundation.seeders.ItemSeeder;
+import id.thesis.shumishumi.foundation.seeders.PostSeeder;
 import id.thesis.shumishumi.foundation.seeders.UserSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,9 @@ public class SeedersController {
 
     @Autowired
     private ItemSeeder itemSeeder;
+
+    @Autowired
+    private PostSeeder postSeeder;
 
     @GetMapping("/seeders")
     public String seeders() {
@@ -86,6 +90,8 @@ public class SeedersController {
         seeders.add(itemCategorySeeder);
         seeders.add(itemSeeder);
         seeders.add(imageSeeder);
+        seeders.add(postSeeder);
+
 
         seeders.sort(Comparator.comparingInt(BaseSeeder::getOrder));
     }

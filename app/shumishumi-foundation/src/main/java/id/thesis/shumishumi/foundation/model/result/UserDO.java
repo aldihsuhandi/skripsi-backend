@@ -53,6 +53,9 @@ public class UserDO extends BaseDO {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "extend_info")
+    private String extendInfo;
+
     public String getUserId() {
         return userId;
     }
@@ -147,5 +150,13 @@ public class UserDO extends BaseDO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getExtendInfo() {
+        return extendInfo;
+    }
+
+    public void setExtendInfo(String extendInfo) {
+        this.extendInfo = extendInfo;
     }
 }

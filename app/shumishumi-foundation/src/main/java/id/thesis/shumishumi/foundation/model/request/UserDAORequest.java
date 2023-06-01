@@ -30,6 +30,7 @@ public class UserDAORequest implements Serializable {
     private String location;
     private boolean isActive;
     private boolean isDeleted;
+    private String extendInfo;
     private Date gmtCreate;
     private Date gmtModified;
 }

@@ -29,4 +29,5 @@ public class UserUpdateContext {
     private Map<String, String> location;
     private Boolean isDeleted;
     private Boolean isActive;
+    private Map<String, String> extendInfo;
 }

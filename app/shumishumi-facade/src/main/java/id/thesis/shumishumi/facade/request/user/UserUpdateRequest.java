@@ -34,4 +34,5 @@ public class UserUpdateRequest extends BaseRequest {
     private String confirmPassword;
     private boolean isDeleted;
     private boolean isActive;
+    private Map<String, String> extendInfo;
 }

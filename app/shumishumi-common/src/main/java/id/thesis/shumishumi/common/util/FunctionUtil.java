@@ -59,6 +59,8 @@ public class FunctionUtil {
                 updateContext.getGender() : userVO.getGender());
         updateContext.setLocation(CollectionUtils.isEmpty(updateContext.getLocation()) ?
                 userVO.getLocation() : updateContext.getLocation());
+        updateContext.setExtendInfo(CollectionUtils.isEmpty(updateContext.getExtendInfo()) ?
+                userVO.getExtendInfo() : updateContext.getExtendInfo());
     }
 
     public static void fillEmptyUpdateContext(ItemUpdateContext updateContext, ItemVO itemVO) {

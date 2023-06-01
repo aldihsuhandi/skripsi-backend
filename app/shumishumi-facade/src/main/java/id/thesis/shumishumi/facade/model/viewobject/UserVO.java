@@ -27,6 +27,7 @@ public class UserVO extends BaseVO {
     private String gender;
     private Date dateOfBirth;
     private Map<String, String> location = new HashMap<>();
+    private Map<String, String> extendInfo = new HashMap<>();
     private boolean isActive;
     private boolean isDeleted;
     private String password;

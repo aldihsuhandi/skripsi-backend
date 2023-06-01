@@ -7,22 +7,10 @@ import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.enumeration.OTPTypeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
-import id.thesis.shumishumi.facade.request.user.MerchantApplyRequest;
-import id.thesis.shumishumi.facade.request.user.UserActivateRequest;
-import id.thesis.shumishumi.facade.request.user.UserLoginRequest;
-import id.thesis.shumishumi.facade.request.user.UserQueryRequest;
-import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
-import id.thesis.shumishumi.facade.request.user.UserResetPasswordRequest;
-import id.thesis.shumishumi.facade.request.user.UserUpdateRequest;
+import id.thesis.shumishumi.facade.request.user.*;
 import id.thesis.shumishumi.facade.request.user.email.EmailDecryptRequest;
 import id.thesis.shumishumi.facade.request.user.email.EmailEncryptRequest;
-import id.thesis.shumishumi.facade.result.user.MerchantApplyResult;
-import id.thesis.shumishumi.facade.result.user.UserActivateResult;
-import id.thesis.shumishumi.facade.result.user.UserLoginResult;
-import id.thesis.shumishumi.facade.result.user.UserQueryResult;
-import id.thesis.shumishumi.facade.result.user.UserRegisterResult;
-import id.thesis.shumishumi.facade.result.user.UserResetPasswordResult;
-import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
+import id.thesis.shumishumi.facade.result.user.*;
 import id.thesis.shumishumi.facade.result.user.email.EmailDecryptResult;
 import id.thesis.shumishumi.facade.result.user.email.EmailEncryptResult;
 import id.thesis.shumishumi.foundation.model.result.OtpDO;
@@ -201,6 +189,32 @@ public class UserFacadeTest extends FacadeTestBase {
         request.setUsername("username");
         request.setOldPassword("password");
         request.setSessionId("sessionId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO());
+
+        UserUpdateResult result = userFacade.update(request);
+
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), ShumishumiErrorCodeEnum.SUCCESS.getErrorCode());
+    }
+
+    @Test
+    public void usrUpdateTest_SUCCESS_withExtendInfo() {
+        UserUpdateRequest request = new UserUpdateRequest();
+
+        request.setPassword("password2");
+        request.setConfirmPassword("password2");
+        request.setUsername("username");
+        request.setOldPassword("password");
+        request.setSessionId("sessionId");
+
+        Map<String, String> extendInfo = new HashMap<>();
+        extendInfo.put(CommonConst.EXTEND_INFO_WHATSAPP, "true");
+        extendInfo.put(CommonConst.EXTEND_INFO_TELEGRAM, "false");
+
+        request.setExtendInfo(extendInfo);
 
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
