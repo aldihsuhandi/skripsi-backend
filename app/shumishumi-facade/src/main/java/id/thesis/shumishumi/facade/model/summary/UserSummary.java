@@ -22,4 +22,6 @@ public class UserSummary extends BaseSummary {
     private String gender;
     private Date dateOfBirth;
     private Map<String, String> location;
+    private boolean canWhatsapp = false;
+    private boolean canTelegram = false;
 }

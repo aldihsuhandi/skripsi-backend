@@ -224,6 +224,7 @@ public class UserDAOImpl implements UserDAO {
         userDO.setDateOfBirth(request.getDateOfBirth());
         userDO.setLocation(request.getLocation());
         userDO.setGender(request.getGender());
+        userDO.setExtendInfo(request.getExtendInfo());
 
         return userDO;
     }

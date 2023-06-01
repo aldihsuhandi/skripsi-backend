@@ -51,4 +51,10 @@ public class CommonConst {
     public static String MIDTRANS_GROSS_AMOUNT = "gross_amount";
     public static String MIDTRANS_BANK_TRANSFER = "bank_transfer";
     public static String MIDTRANS_BANK = "bank";
+
+    /**
+     * Extend Info Key
+     */
+    public static String EXTEND_INFO_WHATSAPP = "canWhatsapp";
+    public static String EXTEND_INFO_TELEGRAM = "canTelegram";
 }

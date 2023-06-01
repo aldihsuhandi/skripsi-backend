@@ -49,6 +49,7 @@ public class UserDAORequestConverter {
         userDAORequest.setGender(updateContext.getGender());
         userDAORequest.setDateOfBirth(updateContext.getDateOfBirth());
         userDAORequest.setLocation(JSONStringUtil.parseObject(updateContext.getLocation()));
+        userDAORequest.setExtendInfo(JSONStringUtil.parseObject(updateContext.getExtendInfo()));
         userDAORequest.setGmtModified(new Date());
 
         return userDAORequest;
