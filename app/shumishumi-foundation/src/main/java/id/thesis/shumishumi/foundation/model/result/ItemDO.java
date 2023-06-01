@@ -133,6 +133,14 @@ public class ItemDO extends BaseDO {
         this.merchantLevelId = merchantLevelId;
     }
 
+    public String getUserLevelId() {
+        return userLevelId;
+    }
+
+    public void setUserLevelId(String userLevelId) {
+        this.userLevelId = userLevelId;
+    }
+
     public boolean isDeleted() {
         return isDeleted;
     }

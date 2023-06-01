@@ -23,6 +23,8 @@ public interface ItemDAO {
 
     void approve(ItemDAORequest request);
 
+    void updateUserLevel(String itemId, String interestLevelId);
+
     List<String> autocomplete(ItemDAORequest request);
 
     void createItemHistory(HistoryItemDO historyItemDO);

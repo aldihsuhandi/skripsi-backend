@@ -52,6 +52,9 @@ public class SummaryConverter {
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
+        summary.setUserLevel(vo.getUserLevel() == null ?
+                "" : vo.getUserLevel().getInterestLevelName());
+
         return summary;
     }
 

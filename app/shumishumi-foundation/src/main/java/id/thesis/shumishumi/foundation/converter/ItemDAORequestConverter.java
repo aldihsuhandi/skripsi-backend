@@ -88,8 +88,8 @@ public class ItemDAORequestConverter {
         itemDO.setCategoryId(categoryId);
         itemDO.setHobbyId(hobbyId);
         itemDO.setMerchantLevelId(merchantLevelId);
-        itemDO.setGmtCreate(itemVO.getGmtCreate());
-        itemDO.setGmtModified(new Date());
+        itemDO.setApproved(itemVO.isApproved());
+        itemDO.setDeleted(itemDO.isDeleted());
 
         return itemDO;
     }

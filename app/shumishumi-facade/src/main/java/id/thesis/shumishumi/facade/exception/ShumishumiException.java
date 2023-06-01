@@ -9,8 +9,13 @@ import lombok.Setter;
 public class ShumishumiException extends RuntimeException {
     private ShumishumiErrorCodeEnum errorCode;
 
-    public ShumishumiException(String message, ShumishumiErrorCodeEnum errorCodeEnum) {
-        super(message);
+    public ShumishumiException(Throwable cause, ShumishumiErrorCodeEnum errorCodeEnum) {
+        super(cause.getMessage(), cause);
         this.errorCode = errorCodeEnum;
+    }
+
+    public ShumishumiException(String message, ShumishumiErrorCodeEnum errorCode) {
+        super(message);
+        this.errorCode = errorCode;
     }
 }

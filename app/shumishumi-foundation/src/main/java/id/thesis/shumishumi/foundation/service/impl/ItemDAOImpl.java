@@ -47,7 +47,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             result = itemRepository.findAll(pageable).stream().collect(Collectors.toList());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryAll[result=%s]", result));
@@ -62,7 +62,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             result = itemRepository.findById(request.getItemId()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#queryById[result=%s]", result));
@@ -85,7 +85,7 @@ public class ItemDAOImpl implements ItemDAO {
 
             result = pageList.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#query[result=%s]", result));
@@ -101,7 +101,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             result = (int) itemRepository.count();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#count[result=%d]", result));
@@ -116,7 +116,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             itemRepository.save(request);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -127,7 +127,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             itemRepository.save(request);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -137,7 +137,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             itemRepository.updateImageByItemId(request.getItemId(), request.getItemImages());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -147,7 +147,17 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             itemRepository.approve(request.getItemId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public void updateUserLevel(String itemId, String interestLevelId) {
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#updateUserLevel[itemId=%s,interestLevelId=%s]", itemId, interestLevelId));
+        try {
+            itemRepository.updateUserLevel(itemId, interestLevelId);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -171,7 +181,7 @@ public class ItemDAOImpl implements ItemDAO {
             result = itemRepository.findAll(exampleObject, pageable).getContent().stream().
                     map(ItemDO::getItemName).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[result=%s]", result));
@@ -185,7 +195,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             historyItemRepository.save(itemDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -197,7 +207,7 @@ public class ItemDAOImpl implements ItemDAO {
         try {
             itemDO = historyItemRepository.findById(historyItemId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("ItemDAO#queryItemHistory[result=%s]", itemDO));

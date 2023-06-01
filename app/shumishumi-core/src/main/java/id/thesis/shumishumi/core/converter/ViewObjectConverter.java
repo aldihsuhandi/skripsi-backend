@@ -202,6 +202,7 @@ public class ViewObjectConverter {
         hobbyVO.setHobbyId(itemDO.getHobbyId());
         itemCategoryVO.setCategoryId(itemDO.getCategoryId());
         merchantLevel.setInterestLevelId(itemDO.getMerchantLevelId());
+        userLevel.setInterestLevelId(itemDO.getUserLevelId());
 
         ItemVO itemVO = new ItemVO();
         itemVO.setItemId(itemDO.getItemId());
@@ -221,6 +222,10 @@ public class ViewObjectConverter {
 
         if (StringUtils.isNotEmpty(itemDO.getItemImages())) {
             itemVO.setItemImages(Arrays.asList(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+
+        if (StringUtils.isNotEmpty(itemDO.getUserLevelId())) {
+            itemVO.setUserLevel(userLevel);
         }
 
         return itemVO;

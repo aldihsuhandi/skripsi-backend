@@ -28,4 +28,9 @@ public interface ItemRepository extends JpaRepository<ItemDO, String>, ItemRepos
     @Transactional
     @Query("UPDATE ItemDO i set i.isApproved = true WHERE i.itemId = :item_id")
     void approve(@Param("item_id") String itemId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ItemDO i set i.userLevelId = :level_id WHERE i.itemId = :item_id")
+    void updateUserLevel(@Param("item_id") String itemId, @Param("level_id") String levelId);
 }

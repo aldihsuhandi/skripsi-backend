@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.core.processor.review;
 
 import id.thesis.shumishumi.common.service.InterestLevelService;
+import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.util.AssertUtil;
@@ -26,6 +27,9 @@ public class ReviewCreateProcessor implements BaseProcessor {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private ItemService itemService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         ReviewCreateRequest request = (ReviewCreateRequest) baseRequest;
@@ -46,5 +50,6 @@ public class ReviewCreateProcessor implements BaseProcessor {
         review.setNeedReview(false);
 
         reviewService.update(review);
+        itemService.calculateUserReview(review.getItemId());
     }
 }
