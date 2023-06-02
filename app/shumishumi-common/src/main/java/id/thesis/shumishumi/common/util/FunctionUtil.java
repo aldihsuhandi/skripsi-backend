@@ -3,6 +3,7 @@
  */
 package id.thesis.shumishumi.common.util;
 
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
@@ -15,6 +16,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -57,10 +62,33 @@ public class FunctionUtil {
                 updateContext.getDateOfBirth() : userVO.getDateOfBirth());
         updateContext.setGender(checkIfNotEmpty(updateContext.getGender()) ?
                 updateContext.getGender() : userVO.getGender());
-        updateContext.setLocation(CollectionUtils.isEmpty(updateContext.getLocation()) ?
-                userVO.getLocation() : updateContext.getLocation());
+        updateContext.setLocation(fillEmptyLocation(userVO.getLocation(), updateContext.getLocation()));
         updateContext.setExtendInfo(CollectionUtils.isEmpty(updateContext.getExtendInfo()) ?
                 userVO.getExtendInfo() : updateContext.getExtendInfo());
+    }
+
+    private static Map<String, String> fillEmptyLocation(Map<String, String> currentLocation, Map<String, String> newLocation) {
+        if (CollectionUtils.isEmpty(newLocation)) {
+            return currentLocation;
+        }
+
+        Map<String, String> location = new HashMap<>();
+        List<String> locationConst = new ArrayList<>();
+        locationConst.add(CommonConst.LOCATION_CITY);
+        locationConst.add(CommonConst.LOCATION_PROVINCE);
+        locationConst.add(CommonConst.LOCATION_POST_CODE);
+        locationConst.add(CommonConst.LOCATION_DETAIL);
+
+        locationConst.forEach(locConst -> {
+            if (newLocation.containsKey(locConst)) {
+                location.put(locConst, newLocation.get(locConst));
+            } else {
+                location.put(locConst, currentLocation.
+                        getOrDefault(locConst, StringUtils.EMPTY));
+            }
+        });
+
+        return location;
     }
 
     public static void fillEmptyUpdateContext(ItemUpdateContext updateContext, ItemVO itemVO) {
