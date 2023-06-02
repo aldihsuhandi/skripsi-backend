@@ -62,12 +62,12 @@ public class UserUpdateProcessor implements BaseProcessor {
 
     private UserUpdateContext composeUpdateContext(UserUpdateRequest request) {
         UserUpdateContext context = new UserUpdateContext();
-        context.setIsDeleted(request.isDeleted());
+        context.setIsDeleted(request.getIsDeleted());
         context.setPassword(request.getPassword());
         context.setUsername(request.getUsername());
         context.setEmail(request.getEmail());
         context.setPhoneNumber(request.getPhoneNumber());
-        context.setIsActive(request.isActive());
+        context.setIsActive(request.getIsActive());
         context.setLocation(request.getLocation());
         context.setGender(request.getGender());
         context.setDateOfBirth(request.getDateOfBirth());

@@ -138,8 +138,8 @@ public class UserController extends BaseController {
                 request.setDateOfBirth(form.getDateOfBirth());
                 request.setGender(form.getGender());
                 request.setProfilePicture(form.getProfilePicture());
-                request.setActive(form.isActive());
-                request.setDeleted(form.isDeleted());
+                request.setIsActive(form.getIsActive());
+                request.setIsDeleted(form.getIsDeleted());
 
                 Map<String, String> extendInfo = new HashMap<>();
                 extendInfo.put(CommonConst.EXTEND_INFO_TELEGRAM, String.valueOf(form.isCanTelegram()));

@@ -34,7 +34,7 @@ public class MerchantApplyProcessor implements BaseProcessor {
 
         AssertUtil.isExpected(!StringUtils.equals(userVO.getRoleVO().getRoleName(),
                 UserRolesEnum.MERCHANT.getUserRoleName()), "user role is not expected", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
-        AssertUtil.isExpected(CollectionUtils.isEmpty(userVO.getLocation()),
+        AssertUtil.isExpected(!CollectionUtils.isEmpty(userVO.getLocation()),
                 "you need to fill out your address", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         RoleChangeInnerRequest innerRequest = new RoleChangeInnerRequest();

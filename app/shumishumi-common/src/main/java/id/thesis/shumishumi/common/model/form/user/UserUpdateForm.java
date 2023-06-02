@@ -25,8 +25,8 @@ public class UserUpdateForm extends BaseForm {
     private Map<String, String> location;
     private String password;
     private String confirmPassword;
-    private boolean isDeleted;
-    private boolean isActive;
+    private Boolean isDeleted;
+    private Boolean isActive;
     private boolean canWhatsapp = false;
     private boolean canTelegram = false;
 }
