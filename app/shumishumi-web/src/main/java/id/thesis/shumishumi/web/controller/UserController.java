@@ -93,7 +93,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @ModelAttribute UserLoginForm form) {
+    public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @RequestBody UserLoginForm form) {
         return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
@@ -118,7 +118,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @RequestBody UserUpdateForm form) {
+    public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @ModelAttribute UserUpdateForm form) {
         return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
