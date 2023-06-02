@@ -29,6 +29,7 @@ public class UserDAORequestConverter {
         userDAORequest.setProfilePicture(innerRequest.getProfilePicture());
         userDAORequest.setDateOfBirth(innerRequest.getDateOfBirth());
         userDAORequest.setGender(innerRequest.getGender());
+        userDAORequest.setReview(0.0);
         userDAORequest.setLocation(JSONStringUtil.parseObject(new HashMap<>()));
 
         return userDAORequest;
@@ -37,7 +38,7 @@ public class UserDAORequestConverter {
     public static UserDAORequest toDAORequest(UserUpdateInnerRequest request) {
         UserDAORequest userDAORequest = new UserDAORequest();
         UserUpdateContext updateContext = request.getUserUpdateContext();
-        userDAORequest.setUserId(request.getUserId());
+        userDAORequest.setUserId(request.getUserVO().getUserId());
         userDAORequest.setEmail(updateContext.getEmail());
         userDAORequest.setPhoneNumber(updateContext.getPhoneNumber());
         userDAORequest.setUsername(updateContext.getUsername());
@@ -50,6 +51,8 @@ public class UserDAORequestConverter {
         userDAORequest.setDateOfBirth(updateContext.getDateOfBirth());
         userDAORequest.setLocation(JSONStringUtil.parseObject(updateContext.getLocation()));
         userDAORequest.setExtendInfo(JSONStringUtil.parseObject(updateContext.getExtendInfo()));
+        userDAORequest.setReview(request.getUserVO().getReview());
+        userDAORequest.setGmtCreate(request.getUserVO().getGmtCreate());
         userDAORequest.setGmtModified(new Date());
 
         return userDAORequest;

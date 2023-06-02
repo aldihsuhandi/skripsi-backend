@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.core.processor.transaction;
 
 import id.thesis.shumishumi.common.model.result.midtrans.MidtransChargeInnerResult;
+import id.thesis.shumishumi.common.service.CartService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.MidtransService;
 import id.thesis.shumishumi.common.service.SessionService;
@@ -36,6 +37,9 @@ public class TransactionPaymentProcessor implements BaseProcessor {
 
     @Autowired
     private SessionService sessionService;
+
+    @Autowired
+    private CartService cartService;
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
@@ -73,6 +77,8 @@ public class TransactionPaymentProcessor implements BaseProcessor {
             updateContext.setItemQuantity(itemVO.getItemQuantity() - detail.getQuantity());
 
             itemService.update(itemVO, updateContext);
+
+            cartService.update(userId, itemVO.getItemId(), 0);
 
             itemIds.add(itemVO.getItemId());
         });

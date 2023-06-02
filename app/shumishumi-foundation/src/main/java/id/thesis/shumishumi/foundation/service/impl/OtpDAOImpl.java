@@ -31,7 +31,7 @@ public class OtpDAOImpl implements OtpDAO {
         try {
             otpRepository.save(otpDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -50,7 +50,7 @@ public class OtpDAOImpl implements OtpDAO {
         try {
             result = otpRepository.findOne(exampleObject).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("otpDAO#query[result=%s]", result));
@@ -64,7 +64,7 @@ public class OtpDAOImpl implements OtpDAO {
         try {
             otpRepository.deactivate(request.getOtpId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -74,7 +74,7 @@ public class OtpDAOImpl implements OtpDAO {
         try {
             otpRepository.deactivate();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 

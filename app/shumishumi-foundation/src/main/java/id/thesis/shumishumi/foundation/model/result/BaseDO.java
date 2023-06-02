@@ -17,12 +17,12 @@ public class BaseDO implements Serializable {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_create", precision = 3)
+    @Column(name = "gmt_create", precision = 3, updatable = false)
     private Date gmtCreate;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "gmt_modified", precision = 3)
+    @Column(name = "gmt_modified", precision = 3, updatable = false)
     private Date gmtModified;
 
     public Date getGmtCreate() {

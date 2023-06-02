@@ -33,7 +33,7 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
         try {
             itemWishlistRepository.save(wishlist);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -46,7 +46,7 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
         try {
             itemWishlistRepository.delete(wishlist);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -58,7 +58,7 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
         try {
             result = itemWishlistRepository.findByUserId(userId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("itemWishlistDAO#queryUserWishlist[result=%s]", result.toString()));
@@ -74,7 +74,7 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
         try {
             result = itemWishlistRepository.countByItemId(itemId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("itemWishlistDAO#countItemWishlist[result=%s]", result));
@@ -90,7 +90,7 @@ public class ItemWishlistDAOImpl implements ItemWishlistDAO {
             ItemWishlistDOPK pk = new ItemWishlistDOPK(itemId, userId);
             wishlistDO = itemWishlistRepository.findById(pk).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("itemWishlistDAO#findByUserIdAndItemId[result=%s]", wishlistDO));

@@ -41,6 +41,9 @@ public class UserDO extends BaseDO {
     @Column(name = "role_id")
     private String roleId;
 
+    @Column(name = "review")
+    private Double review;
+
     @Column(name = "is_active")
     private boolean isActive;
 
@@ -94,6 +97,14 @@ public class UserDO extends BaseDO {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public Double getReview() {
+        return review;
+    }
+
+    public void setReview(Double review) {
+        this.review = review;
     }
 
     public boolean isActive() {

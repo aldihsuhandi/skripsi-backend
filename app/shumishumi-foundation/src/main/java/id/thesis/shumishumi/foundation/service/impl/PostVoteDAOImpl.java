@@ -29,7 +29,7 @@ public class PostVoteDAOImpl implements PostVoteDAO {
         try {
             count = postVoteRepository.countPostVote(postId, value);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("postVoteDAO#queryVote[result=%d]", count));
@@ -46,7 +46,7 @@ public class PostVoteDAOImpl implements PostVoteDAO {
         try {
             result = postVoteRepository.findById(new PostVoteDOPK(postId, userId)).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("postVoteDAO#queryUserVote[result=%s]", result));
@@ -65,7 +65,7 @@ public class PostVoteDAOImpl implements PostVoteDAO {
         try {
             postVoteRepository.save(vote);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -81,7 +81,7 @@ public class PostVoteDAOImpl implements PostVoteDAO {
         try {
             postVoteRepository.save(vote);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 }

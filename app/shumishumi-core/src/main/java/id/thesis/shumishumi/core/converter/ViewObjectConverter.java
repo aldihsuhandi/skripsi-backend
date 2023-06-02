@@ -212,6 +212,7 @@ public class ViewObjectConverter {
         itemVO.setItemQuantity(itemDO.getItemQuantity());
         itemVO.setItemCategory(itemCategoryVO);
         itemVO.setHobby(hobbyVO);
+        itemVO.setReview(itemDO.getReview());
         itemVO.setPostId(itemDO.getPostId());
         itemVO.setMerchantInfo(merchantInfo);
         itemVO.setMerchantLevel(merchantLevel);

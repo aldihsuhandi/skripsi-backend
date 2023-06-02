@@ -44,6 +44,7 @@ public class ItemDAORequestConverter {
         item.setMerchantId(request.getMerchantId());
         item.setApproved(true);
         item.setPostId(request.getPostId());
+        item.setReview(0.0);
 
         return item;
     }

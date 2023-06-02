@@ -37,7 +37,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionRepository.save(transaction);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -47,7 +47,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionDetailRepository.save(detailDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -58,7 +58,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionDO = transactionRepository.findById(transactionId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("transactionDAO#queryTransaction[transaction=%s]", transactionDO));
@@ -72,7 +72,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactions = transactionRepository.findByStatus(status);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("transactionDAO#queryList[transactions=%s]", transactions));
@@ -90,7 +90,7 @@ public class TransactionDAOImpl implements TransactionDAO {
             pagingContext.setTotalItem(pages.getTotalElements());
             transactions = pages.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("transactionDAO#queryList[transactions=%s]", transactions));
@@ -104,7 +104,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             detailDOS = transactionDetailRepository.findByTransactionId(transactionId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("transactionDAO#queryDetailTransaction[details=%s]", detailDOS.toString()));
@@ -118,7 +118,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionRepository.updateStatusById(transactionId, transactionStatus);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -128,7 +128,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionRepository.save(transaction);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -138,7 +138,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             transactionRepository.deleteById(transactionId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 }

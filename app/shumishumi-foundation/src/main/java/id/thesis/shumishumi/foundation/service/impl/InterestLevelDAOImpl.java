@@ -36,7 +36,7 @@ public class InterestLevelDAOImpl implements InterestLevelDAO {
         try {
             result = interestLevelRepository.findAll();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, "interestLevelDAO#queryAll[result=%s]", result);
@@ -53,7 +53,7 @@ public class InterestLevelDAOImpl implements InterestLevelDAO {
         try {
             result = interestLevelRepository.findById(interestLevelId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryById[result=%s]", result));
@@ -70,7 +70,7 @@ public class InterestLevelDAOImpl implements InterestLevelDAO {
         try {
             result = interestLevelRepository.findByInterestLevelName(interestLevelName).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("interestLevelDAO#queryByName[result=%s]", result));

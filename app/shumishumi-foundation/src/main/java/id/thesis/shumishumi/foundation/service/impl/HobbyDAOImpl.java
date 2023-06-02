@@ -39,7 +39,7 @@ public class HobbyDAOImpl implements HobbyDAO {
         try {
             result = hobbyRepository.findAll();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryAll[result=%s]", result));
@@ -56,7 +56,7 @@ public class HobbyDAOImpl implements HobbyDAO {
         try {
             hobby = hobbyRepository.findById(hobbyId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryById[result=%s]", hobby));
@@ -73,7 +73,7 @@ public class HobbyDAOImpl implements HobbyDAO {
         try {
             hobby = hobbyRepository.findByHobbyName(hobbyName).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("hobbyDAO#queryByName[result=%s]", hobby));
@@ -90,7 +90,7 @@ public class HobbyDAOImpl implements HobbyDAO {
         try {
             hobbyRepository.save(hobbyDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 }

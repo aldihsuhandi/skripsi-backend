@@ -12,7 +12,7 @@ public class PostSeeder extends BaseSeeder {
 
     @Override
     void setOrder() {
-        this.order = 10;
+        this.order = 9;
     }
 
     @Override

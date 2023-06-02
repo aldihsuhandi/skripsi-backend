@@ -5,6 +5,7 @@ package id.thesis.shumishumi.common.model.request.user;
 
 import id.thesis.shumishumi.common.model.request.BaseInnerRequest;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
+import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +19,6 @@ import lombok.ToString;
 @ToString
 public class UserUpdateInnerRequest extends BaseInnerRequest {
     private String userId;
+    private UserVO userVO;
     private UserUpdateContext userUpdateContext;
 }

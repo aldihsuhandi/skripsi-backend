@@ -39,7 +39,7 @@ public class CrowdDAOImpl implements CrowdDAO {
         try {
             result = itemCrowdRepository.queryByCrowdId(daoRequest.getCrowdId()).orElse(new ArrayList<>());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("crowdDAO#queryUserCrowd[result=%s]", result));
@@ -55,7 +55,7 @@ public class CrowdDAOImpl implements CrowdDAO {
         try {
             result = userCrowdRepository.queryByUserId(daoRequest.getUserId()).orElse(new ArrayList<>());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("crowdDAO#queryUserCrowd[result=%s]", result));

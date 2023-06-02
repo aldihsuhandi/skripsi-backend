@@ -49,6 +49,7 @@ public class SummaryConverter {
         summary.setMerchantInfo(toSummary(vo.getMerchantInfo()));
         summary.setMerchantLevel(vo.getMerchantLevel().getInterestLevelName());
         summary.setHobby(vo.getHobby().getHobbyName());
+        summary.setReview(vo.getReview());
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());

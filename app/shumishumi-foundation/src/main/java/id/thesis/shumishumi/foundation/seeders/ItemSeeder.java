@@ -173,6 +173,7 @@ public class ItemSeeder extends BaseSeeder {
         item.setHobbyId(request.hobbyId);
         item.setMerchantId(request.merchantId);
         item.setMerchantLevelId(request.merchantLevelId);
+        item.setReview(0.0);
         item.setDeleted(false);
         item.setApproved(true);
 

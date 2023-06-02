@@ -29,7 +29,7 @@ public class ResetPasswordDAOImpl implements ResetPasswordDAO {
         try {
             resetPasswordRepository.save(reset);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -41,7 +41,7 @@ public class ResetPasswordDAOImpl implements ResetPasswordDAO {
         try {
             result = resetPasswordRepository.findActiveRequest(uuid).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("resetPasswordDAO#query[result=%s]", result));
@@ -54,7 +54,7 @@ public class ResetPasswordDAOImpl implements ResetPasswordDAO {
         try {
             resetPasswordRepository.invalidate(uuid);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
