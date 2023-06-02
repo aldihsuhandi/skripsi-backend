@@ -80,7 +80,8 @@ public class FunctionUtil {
         locationConst.add(CommonConst.LOCATION_DETAIL);
 
         locationConst.forEach(locConst -> {
-            if (newLocation.containsKey(locConst)) {
+            if (newLocation.containsKey(locConst) &&
+                    StringUtils.isNotEmpty(newLocation.get(locConst))) {
                 location.put(locConst, newLocation.get(locConst));
             } else {
                 location.put(locConst, currentLocation.
