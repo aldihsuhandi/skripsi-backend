@@ -93,7 +93,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @RequestBody UserLoginForm form) {
+    public ResponseEntity<UserLoginResult> login(@RequestHeader HttpHeaders headers, @ModelAttribute UserLoginForm form) {
         return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserLoginResult, UserLoginRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
