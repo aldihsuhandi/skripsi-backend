@@ -17,4 +17,6 @@ import lombok.ToString;
 @ToString
 public class CreateItemResult extends BaseResult {
     private static final long serialVersionUID = -237547738838332162L;
+
+    private String itemId;
 }
