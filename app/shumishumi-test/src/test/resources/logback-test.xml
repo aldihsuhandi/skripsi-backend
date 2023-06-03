@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+    <property name="app.name" value="shumishumi"/>
+    <property name="logging.path" value="./logs"/>
+    <property name="logging.level" value="INFO"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${logging.level}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
