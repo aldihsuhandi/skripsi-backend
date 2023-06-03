@@ -26,7 +26,6 @@ import id.thesis.shumishumi.facade.model.viewobject.TransactionDetailVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserActivityVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
-import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.CartDO;
 import id.thesis.shumishumi.foundation.model.result.ClientDO;
 import id.thesis.shumishumi.foundation.model.result.CommentDO;
@@ -267,21 +266,6 @@ public class ViewObjectConverter {
         userActivityVO.setGmtModified(userActivityDO.getGmtModified());
 
         return userActivityVO;
-    }
-
-    public static ActivityVO toViewObject(ActivityDO activityDO) {
-        if (activityDO == null) {
-            return null;
-        }
-
-        ActivityVO activityVO = new ActivityVO();
-        activityVO.setActivityId(activityVO.getActivityName());
-        activityVO.setActivityName(activityDO.getActivityName());
-        activityVO.setPoint(activityDO.getPoint());
-        activityVO.setGmtCreate(activityDO.getGmtCreate());
-        activityVO.setGmtModified(activityDO.getGmtModified());
-
-        return activityVO;
     }
 
     public static ItemWishlistVO toViewObject(ItemWishlistDO wishlistDo) {

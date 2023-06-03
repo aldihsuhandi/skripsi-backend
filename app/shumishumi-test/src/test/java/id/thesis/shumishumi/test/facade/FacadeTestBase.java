@@ -7,7 +7,6 @@ import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.foundation.integration.midtrans.MidtransClient;
-import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.ContentDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
@@ -16,6 +15,7 @@ import id.thesis.shumishumi.foundation.model.result.ItemDO;
 import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.service.ActivityDAO;
 import id.thesis.shumishumi.foundation.service.CartDAO;
 import id.thesis.shumishumi.foundation.service.ClientDAO;
 import id.thesis.shumishumi.foundation.service.CommentDAO;
@@ -89,6 +89,8 @@ public class FacadeTestBase extends TestBase {
     protected DictionaryDAO dictionaryDAO;
     @MockBean
     protected TransactionDAO transactionDAO;
+    @MockBean
+    protected ActivityDAO activityDAO;
 
     @MockBean
     protected MidtransClient midtransClient;
@@ -185,16 +187,6 @@ public class FacadeTestBase extends TestBase {
         roleDO.setGmtModified(new Date());
 
         return roleDO;
-    }
-
-    protected ActivityDO mockActivityDO() {
-        ActivityDO activityDO = new ActivityDO();
-        activityDO.setActivityId("activityId");
-        activityDO.setActivityName("activityName");
-        activityDO.setGmtCreate(new Date());
-        activityDO.setGmtModified(new Date());
-
-        return activityDO;
     }
 
     protected HobbyDO mockHobbyDO() {
