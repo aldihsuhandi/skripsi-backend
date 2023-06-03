@@ -25,6 +25,8 @@ public interface ItemDAO {
 
     void updateUserLevel(String itemId, String interestLevelId);
 
+    void updateItemReview(String itemId, double review);
+
     List<String> autocomplete(ItemDAORequest request);
 
     void createItemHistory(HistoryItemDO historyItemDO);

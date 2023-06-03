@@ -6,12 +6,14 @@ package id.thesis.shumishumi.core.service;
 import id.thesis.shumishumi.common.model.request.user.RoleChangeInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
+import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.RoleService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
 import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
+import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
 import id.thesis.shumishumi.facade.model.viewobject.RoleVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.converter.UserDAORequestConverter;
@@ -21,6 +23,7 @@ import id.thesis.shumishumi.foundation.service.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +43,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @Override
     public void register(UserCreateInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
@@ -56,15 +62,6 @@ public class UserServiceImpl implements UserService {
     public void roleChange(RoleChangeInnerRequest request) {
         UserDAORequest daoRequest = UserDAORequestConverter.toDAORequest(request);
         userDAO.changeRole(daoRequest);
-    }
-
-    @Override
-    public void updateProfilePicture(UserUpdateInnerRequest request) {
-        UserDAORequest daoRequest = new UserDAORequest();
-        daoRequest.setUserId(request.getUserId());
-        daoRequest.setProfilePicture(request.getUserUpdateContext().getProfilePicture());
-
-        userDAO.updateProfilePicture(daoRequest);
     }
 
     @Override
@@ -133,6 +130,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return userVO;
+    }
+
+    @Override
+    public void updateReview(String userId) {
+        List<ReviewVO> reviews = reviewService.queryByMerchantId(userId);
+
+        double reviewN = reviews.stream().mapToInt(ReviewVO::getStar)
+                .average().orElse(0.0);
+        userDAO.updateReview(userId, reviewN);
+        refreshCache(Collections.singletonList(userId), false);
     }
 
     @Override

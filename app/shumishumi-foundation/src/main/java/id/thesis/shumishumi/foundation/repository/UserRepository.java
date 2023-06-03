@@ -23,6 +23,11 @@ public interface UserRepository extends JpaRepository<UserDO, String> {
     @Query("UPDATE UserDO u SET u.roleId = :role_id WHERE u.userId = :user_id")
     void changeRoleUser(@Param("user_id") String userId, @Param("role_id") String roleId);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE UserDO u SET u.review = :review WHERE u.userId = :id")
+    void updateUserReview(@Param("id") String userId, @Param("review") double review);
+
     @Query("SELECT u FROM UserDO u WHERE u.userId IN :user_ids")
     List<UserDO> findByIds(@Param("user_ids") List<String> userIds);
 

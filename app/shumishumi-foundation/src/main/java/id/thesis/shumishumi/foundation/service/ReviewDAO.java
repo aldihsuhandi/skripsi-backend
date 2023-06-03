@@ -12,6 +12,8 @@ public interface ReviewDAO {
 
     List<ReviewDO> queryByItemId(String itemId);
 
+    List<ReviewDO> queryByMerchantId(String merchantId);
+
     ReviewDO queryById(String reviewId);
 
     void create(ReviewDO reviewDO);

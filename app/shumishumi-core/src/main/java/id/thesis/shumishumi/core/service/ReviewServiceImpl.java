@@ -70,6 +70,12 @@ public class ReviewServiceImpl implements ReviewService {
                 .map(this::convertToVO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ReviewVO> queryByMerchantId(String merchantId) {
+        return reviewDAO.queryByMerchantId(merchantId).stream()
+                .map(this::convertToVO).collect(Collectors.toList());
+    }
+
     private ReviewDO convertToDataObject(ReviewVO review) {
         if (review == null) {
             return null;

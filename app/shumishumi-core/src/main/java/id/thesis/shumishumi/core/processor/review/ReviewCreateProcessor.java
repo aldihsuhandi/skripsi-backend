@@ -4,6 +4,7 @@ import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
@@ -30,6 +31,9 @@ public class ReviewCreateProcessor implements BaseProcessor {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         ReviewCreateRequest request = (ReviewCreateRequest) baseRequest;
@@ -51,5 +55,6 @@ public class ReviewCreateProcessor implements BaseProcessor {
 
         reviewService.update(review);
         itemService.calculateUserReview(review.getItemId());
+        userService.updateReview(review.getMerchantId());
     }
 }

@@ -245,8 +245,10 @@ public class ItemServiceImpl implements ItemService {
                 review.getInterestLevel().getInterestLevelId(), Collectors.counting()));
 
         String interestLevel = Collections.max(countMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+        double reviewNumber = reviews.stream().mapToInt(ReviewVO::getStar).average().orElse(0.0);
 
         itemDAO.updateUserLevel(itemId, interestLevel);
+        itemDAO.updateItemReview(itemId, reviewNumber);
         this.refreshCache(Collections.singletonList(itemId), false);
     }
 

@@ -82,6 +82,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public void updateReview(String userId, double review) {
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#updateReview[userId=%s,review=%f]", userId, review));
+        try {
+            userRepository.updateUserReview(userId, review);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
     public UserDO queryById(UserDAORequest daoRequest) {
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[request=%s]", daoRequest.toString()));
 

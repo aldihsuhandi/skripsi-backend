@@ -162,6 +162,16 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    public void updateItemReview(String itemId, double review) {
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#updateItemReview[itemId=%s,review=%f]", itemId, review));
+        try {
+            itemRepository.updateReview(itemId, review);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
     public List<String> autocomplete(ItemDAORequest request) {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#autocomplete[request=%s]", request.toString()));
 

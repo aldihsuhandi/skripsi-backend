@@ -78,6 +78,20 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
+    public List<ReviewDO> queryByMerchantId(String merchantId) {
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByMerchantId[merchantId=%s]", merchantId));
+        List<ReviewDO> reviews;
+        try {
+            reviews = reviewRepository.findByMerchantIdAndNeedReview(merchantId, false);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByMerchantId[reviews=%s]", reviews));
+        return reviews;
+    }
+
+    @Override
     public ReviewDO queryById(String reviewId) {
         LogUtil.info(LOGGER, String.format("ReviewDAO#queryById[reviewId=%s]", reviewId));
 

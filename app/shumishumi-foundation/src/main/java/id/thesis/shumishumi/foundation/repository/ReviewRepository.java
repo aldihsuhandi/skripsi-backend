@@ -15,4 +15,6 @@ public interface ReviewRepository extends JpaRepository<ReviewDO, String> {
     Page<ReviewDO> findByUserIdAndNeedReview(String userId, boolean needReview, Pageable pageable);
 
     List<ReviewDO> findByItemIdAndNeedReview(String itemId, boolean needReview);
+
+    List<ReviewDO> findByMerchantIdAndNeedReview(String merchantId, boolean needReview);
 }
