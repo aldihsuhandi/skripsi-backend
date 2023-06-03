@@ -21,7 +21,6 @@ import id.thesis.shumishumi.foundation.service.ClientDAO;
 import id.thesis.shumishumi.foundation.service.CommentDAO;
 import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
 import id.thesis.shumishumi.foundation.service.ContentDAO;
-import id.thesis.shumishumi.foundation.service.CrowdDAO;
 import id.thesis.shumishumi.foundation.service.DictionaryDAO;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
 import id.thesis.shumishumi.foundation.service.ImageDAO;
@@ -72,8 +71,6 @@ public class FacadeTestBase extends TestBase {
     protected InterestLevelDAO interestLevelDAO;
     @MockBean
     protected ItemCategoryDAO itemCategoryDAO;
-    @MockBean
-    protected CrowdDAO crowdDAO;
     @MockBean
     protected ImageDAO imageDAO;
     @MockBean
