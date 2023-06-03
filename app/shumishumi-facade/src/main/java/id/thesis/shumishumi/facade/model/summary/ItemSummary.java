@@ -22,6 +22,8 @@ public class ItemSummary extends BaseSummary {
     private String hobby;
     private UserSummary merchantInfo;
     private String merchantLevel;
+    private String userLevel;
+    private Double review;
     private List<String> itemImages;
     private int totalWishlist;
     private boolean inWishlist = false;

@@ -30,7 +30,7 @@ public class RoleDAOImpl implements RoleDAO {
         try {
             result = roleRepository.findById(daoRequest.getRoleId()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("roleDAO#queryById[result=%s]", result));

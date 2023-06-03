@@ -30,7 +30,7 @@ public class DictionaryDAOImpl implements DictionaryDAO {
         try {
             result = dictionaryRepository.findByDictionaryType(dictionaryType);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("dictionaryDAO#queryByType[result=%s]", result));
@@ -45,7 +45,7 @@ public class DictionaryDAOImpl implements DictionaryDAO {
         try {
             result = dictionaryRepository.findAll();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("dictionaryDAO#queryAll[result=%s]", result));

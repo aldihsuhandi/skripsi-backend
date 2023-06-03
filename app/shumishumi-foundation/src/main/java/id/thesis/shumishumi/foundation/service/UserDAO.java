@@ -21,6 +21,8 @@ public interface UserDAO {
 
     void changeRole(UserDAORequest daoRequest);
 
+    void updateReview(String userId, double review);
+
     UserDO queryById(UserDAORequest daoRequest);
 
     List<UserDO> queryByIds(List<UserDAORequest> userDAORequests);

@@ -44,6 +44,7 @@ public class ItemDAORequestConverter {
         item.setMerchantId(request.getMerchantId());
         item.setApproved(true);
         item.setPostId(request.getPostId());
+        item.setReview(0.0);
 
         return item;
     }
@@ -88,8 +89,8 @@ public class ItemDAORequestConverter {
         itemDO.setCategoryId(categoryId);
         itemDO.setHobbyId(hobbyId);
         itemDO.setMerchantLevelId(merchantLevelId);
-        itemDO.setGmtCreate(itemVO.getGmtCreate());
-        itemDO.setGmtModified(new Date());
+        itemDO.setApproved(itemVO.isApproved());
+        itemDO.setDeleted(itemDO.isDeleted());
 
         return itemDO;
     }

@@ -32,7 +32,7 @@ public class CommentDAOImpl implements CommentDAO {
         try {
             commentRepository.save(commentDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -42,7 +42,7 @@ public class CommentDAOImpl implements CommentDAO {
         try {
             commentRepository.updateComment(commentId, content);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -52,7 +52,7 @@ public class CommentDAOImpl implements CommentDAO {
         try {
             commentRepository.softDelete(commentId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -68,7 +68,7 @@ public class CommentDAOImpl implements CommentDAO {
 
             result = page.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
         LogUtil.info(LOGGER, String.format("commentDAO#queryPostComment[result=%s]", result));
         return result;
@@ -86,7 +86,7 @@ public class CommentDAOImpl implements CommentDAO {
 
             result = page.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
         LogUtil.info(LOGGER, String.format("commentDAO#queryCommentComment[result=%s]", result));
         return result;
@@ -100,7 +100,7 @@ public class CommentDAOImpl implements CommentDAO {
         try {
             commentDO = commentRepository.findById(commentId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
         LogUtil.info(LOGGER, String.format("commentDAO#queryById[result=%s]", commentDO));
         return commentDO;

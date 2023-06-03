@@ -74,6 +74,7 @@ public class ViewObjectConverter {
         userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setDeleted(userDO.isDeleted());
         userVO.setActive(userDO.isActive());
+        userVO.setReview(userDO.getReview());
         userVO.setGmtCreate(userDO.getGmtCreate());
         userVO.setGmtModified(userDO.getGmtModified());
         userVO.setExtendInfo(JSONStringUtil.parseJSONString(userDO.getExtendInfo()));
@@ -202,6 +203,7 @@ public class ViewObjectConverter {
         hobbyVO.setHobbyId(itemDO.getHobbyId());
         itemCategoryVO.setCategoryId(itemDO.getCategoryId());
         merchantLevel.setInterestLevelId(itemDO.getMerchantLevelId());
+        userLevel.setInterestLevelId(itemDO.getUserLevelId());
 
         ItemVO itemVO = new ItemVO();
         itemVO.setItemId(itemDO.getItemId());
@@ -211,6 +213,7 @@ public class ViewObjectConverter {
         itemVO.setItemQuantity(itemDO.getItemQuantity());
         itemVO.setItemCategory(itemCategoryVO);
         itemVO.setHobby(hobbyVO);
+        itemVO.setReview(itemDO.getReview());
         itemVO.setPostId(itemDO.getPostId());
         itemVO.setMerchantInfo(merchantInfo);
         itemVO.setMerchantLevel(merchantLevel);
@@ -221,6 +224,10 @@ public class ViewObjectConverter {
 
         if (StringUtils.isNotEmpty(itemDO.getItemImages())) {
             itemVO.setItemImages(Arrays.asList(itemDO.getItemImages().split(CommonConst.SEPARATOR_SPLIT)));
+        }
+
+        if (StringUtils.isNotEmpty(itemDO.getUserLevelId())) {
+            itemVO.setUserLevel(userLevel);
         }
 
         return itemVO;

@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.service.HobbyService;
 import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemCategoryService;
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.common.util.comparator.ItemVOComparator;
@@ -18,12 +19,13 @@ import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
-import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.context.SortingContext;
+import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
+import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.foundation.converter.ItemDAORequestConverter;
 import id.thesis.shumishumi.foundation.model.request.ItemDAORequest;
@@ -35,7 +37,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -62,6 +66,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private InterestLevelService interestLevelService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @Override
     public void create(CreateItemInnerRequest request) {
@@ -232,6 +239,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void calculateUserReview(String itemId) {
+        List<ReviewVO> reviews = reviewService.queryByItemId(itemId);
+        Map<String, Long> countMap = reviews.stream().collect(Collectors.groupingBy(review ->
+                review.getInterestLevel().getInterestLevelId(), Collectors.counting()));
+
+        String interestLevel = Collections.max(countMap.entrySet(), Map.Entry.comparingByValue()).getKey();
+        double reviewNumber = reviews.stream().mapToInt(ReviewVO::getStar).average().orElse(0.0);
+
+        itemDAO.updateUserLevel(itemId, interestLevel);
+        itemDAO.updateItemReview(itemId, reviewNumber);
+        this.refreshCache(Collections.singletonList(itemId), false);
+    }
+
+    @Override
     public int count(ItemFilterContext itemFilterContext, boolean useCache) {
         if (useCache) {
             return countWithFilter(itemFilterContext);
@@ -262,11 +283,17 @@ public class ItemServiceImpl implements ItemService {
         String hobbyId = itemVO.getHobby().getHobbyId();
         String categoryId = itemVO.getItemCategory().getCategoryId();
         String merchantLevel = itemVO.getMerchantLevel().getInterestLevelId();
+        String userLevel = itemVO.getUserLevel() == null ? "" :
+                itemVO.getUserLevel().getInterestLevelId();
 
         itemVO.setMerchantInfo(userService.queryById(merchantId, true));
         itemVO.setItemCategory(itemCategoryService.query(categoryId, DatabaseConst.CATEGORY_ID));
         itemVO.setMerchantLevel(interestLevelService.query(merchantLevel, DatabaseConst.INTEREST_LEVEL_ID));
         itemVO.setHobby(hobbyService.query(hobbyId, DatabaseConst.HOBBY_ID));
+
+        if (StringUtils.isNotEmpty(userLevel)) {
+            itemVO.setUserLevel(interestLevelService.query(userLevel, DatabaseConst.INTEREST_LEVEL_ID));
+        }
     }
 
     private List<ItemVO> queryAllItem(boolean refreshAll) {

@@ -41,7 +41,7 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
         try {
             itemCategoryRepository.save(categoryDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -55,7 +55,7 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
         try {
             result = itemCategoryRepository.findById(categoryId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemCategoryDAO#queryById[result=%s]", result));
@@ -73,7 +73,7 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
         try {
             result = itemCategoryRepository.findByCategoryName(categoryName).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemCategoryDAO#queryByName[result=%s]", result));
@@ -89,7 +89,7 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
         try {
             result = itemCategoryRepository.findAll();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("itemCategoryDAO#queryAll[result=%s]", result));

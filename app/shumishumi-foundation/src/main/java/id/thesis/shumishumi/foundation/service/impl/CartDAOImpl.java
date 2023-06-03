@@ -37,7 +37,7 @@ public class CartDAOImpl implements CartDAO {
         try {
             cartRepository.save(cartDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -51,7 +51,7 @@ public class CartDAOImpl implements CartDAO {
         try {
             cartRepository.save(cartDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -62,7 +62,7 @@ public class CartDAOImpl implements CartDAO {
         try {
             cartRepository.deleteById(new CartDOPK(userId, itemId));
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -74,7 +74,7 @@ public class CartDAOImpl implements CartDAO {
         try {
             cartDO = cartRepository.findById(new CartDOPK(userId, itemId)).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("cartDAO#query[cartDO=%s]", cartDO));
@@ -93,7 +93,7 @@ public class CartDAOImpl implements CartDAO {
             pagingContext.setTotalItem(pageCart.getTotalElements());
             carts = pageCart.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("cartDAO#queryList[carts=%s]", carts));
@@ -108,7 +108,7 @@ public class CartDAOImpl implements CartDAO {
         try {
             carts = cartRepository.findByPkUserId(userId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("cartDAO#queryAll[carts=%s]", carts));

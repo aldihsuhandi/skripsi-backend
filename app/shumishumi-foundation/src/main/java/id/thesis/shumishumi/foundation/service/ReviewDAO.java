@@ -10,6 +10,10 @@ public interface ReviewDAO {
 
     List<ReviewDO> queryByUserIdAndNeedReview(String userId, boolean needReview, PagingContext pagingContext);
 
+    List<ReviewDO> queryByItemId(String itemId);
+
+    List<ReviewDO> queryByMerchantId(String merchantId);
+
     ReviewDO queryById(String reviewId);
 
     void create(ReviewDO reviewDO);

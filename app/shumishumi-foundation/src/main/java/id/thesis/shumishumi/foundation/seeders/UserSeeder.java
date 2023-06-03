@@ -87,6 +87,7 @@ public class UserSeeder extends BaseSeeder {
         userDO.setRoleId(userRequest.roleId);
         userDO.setActive(userRequest.isActive);
         userDO.setDeleted(userRequest.isDeleted);
+        userDO.setReview(0.0);
         userDO.setProfilePicture(imageId);
         userDO.setPassword(FunctionUtil.hashPassword(userRequest.password));
         userDO.setExtendInfo(userRequest.extendInfo);

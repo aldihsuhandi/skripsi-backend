@@ -37,7 +37,7 @@ public class ReviewDAOImpl implements ReviewDAO {
             pagingContext.setTotalItem(reviewDOPage.getTotalElements());
             reviews = reviewDOPage.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("ReviewDAO#queryByMerchant[result=%s]", reviews));
@@ -56,10 +56,38 @@ public class ReviewDAOImpl implements ReviewDAO {
             pagingContext.setTotalItem(reviewDOPage.getTotalElements());
             reviews = reviewDOPage.getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("ReviewDAO#queryByUserIdAndNeedReview[result=%s]", reviews));
+        return reviews;
+    }
+
+    @Override
+    public List<ReviewDO> queryByItemId(String itemId) {
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByItemId[itemId=%s]", itemId));
+        List<ReviewDO> reviews;
+        try {
+            reviews = reviewRepository.findByItemIdAndNeedReview(itemId, false);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByItemId[reviews=%s]", reviews));
+        return reviews;
+    }
+
+    @Override
+    public List<ReviewDO> queryByMerchantId(String merchantId) {
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByMerchantId[merchantId=%s]", merchantId));
+        List<ReviewDO> reviews;
+        try {
+            reviews = reviewRepository.findByMerchantIdAndNeedReview(merchantId, false);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("ReviewDAO#queryByMerchantId[reviews=%s]", reviews));
         return reviews;
     }
 
@@ -71,7 +99,7 @@ public class ReviewDAOImpl implements ReviewDAO {
         try {
             reviewDO = reviewRepository.findById(reviewId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(LOGGER, String.format("ReviewDAO#queryById[review=%s]", reviewDO));
@@ -84,7 +112,7 @@ public class ReviewDAOImpl implements ReviewDAO {
         try {
             reviewRepository.save(reviewDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -94,7 +122,7 @@ public class ReviewDAOImpl implements ReviewDAO {
         try {
             reviewRepository.save(reviewDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 }

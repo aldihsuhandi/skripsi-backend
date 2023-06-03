@@ -42,7 +42,7 @@ public class UserActivateProcessor implements BaseProcessor {
         updateContext.setIsActive(true);
         FunctionUtil.fillEmptyUpdateContext(updateContext, userVO);
 
-        userService.update(UserRequestConverter.toInnerRequest(userVO.getUserId(), updateContext));
+        userService.update(UserRequestConverter.toInnerRequest(userVO, updateContext));
         userService.refreshCache(new ArrayList<>(Collections.singletonList(userVO.getUserId())), false);
         otpService.deactivate(otpVO.getOtpId());
     }

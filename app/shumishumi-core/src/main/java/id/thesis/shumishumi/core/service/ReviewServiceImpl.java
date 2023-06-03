@@ -64,6 +64,18 @@ public class ReviewServiceImpl implements ReviewService {
                 .map(this::convertToVO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ReviewVO> queryByItemId(String itemId) {
+        return reviewDAO.queryByItemId(itemId).stream()
+                .map(this::convertToVO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReviewVO> queryByMerchantId(String merchantId) {
+        return reviewDAO.queryByMerchantId(merchantId).stream()
+                .map(this::convertToVO).collect(Collectors.toList());
+    }
+
     private ReviewDO convertToDataObject(ReviewVO review) {
         if (review == null) {
             return null;
@@ -86,7 +98,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewDO.setMerchantId(review.getMerchantId());
         reviewDO.setDescription(review.getDescription());
         reviewDO.setReviewImages(imageStr);
-        if (reviewDO.getInterestLevel() != null) {
+        if (review.getInterestLevel() != null) {
             reviewDO.setInterestLevel(review.getInterestLevel().getInterestLevelId());
         }
         reviewDO.setStar(review.getStar());
@@ -112,6 +124,8 @@ public class ReviewServiceImpl implements ReviewService {
         vo.setInterestLevel(levelVO);
         vo.setNeedReview(reviewDO.getNeedReview());
         vo.setStar(reviewDO.getStar());
+        vo.setGmtCreate(reviewDO.getGmtCreate());
+        vo.setGmtModified(reviewDO.getGmtModified());
 
         if (StringUtils.isNotEmpty(reviewDO.getReviewImages())) {
             vo.setReviewImages(Arrays.asList(reviewDO.getReviewImages()

@@ -7,8 +7,8 @@ import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
-import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.context.SortingContext;
+import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 
 import java.util.List;
@@ -37,6 +37,8 @@ public interface ItemService {
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
     void clearCache();
+
+    void calculateUserReview(String itemId);
 
     int count(ItemFilterContext itemFilterContext, boolean useCache);
 

@@ -37,8 +37,7 @@ public class PostDAOImpl implements PostDAO {
         try {
             postRepository.save(post);
         } catch (Exception e) {
-            LogUtil.exception(e.getMessage(), e);
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -50,7 +49,7 @@ public class PostDAOImpl implements PostDAO {
         try {
             postRepository.save(post);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -60,7 +59,7 @@ public class PostDAOImpl implements PostDAO {
         try {
             postRepository.softDelete(postId);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -73,7 +72,7 @@ public class PostDAOImpl implements PostDAO {
         try {
             result = postRepository.findById(postId).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("postDAO#queryById[result=%s]", result));
@@ -97,7 +96,7 @@ public class PostDAOImpl implements PostDAO {
             posts = postRepository.queryFilter(request.getTitle(),
                     request.getUserId(), tags, pageable).getContent();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("postDAO#query[result=%s]", posts));
@@ -117,7 +116,7 @@ public class PostDAOImpl implements PostDAO {
             count = postRepository.countWithFilter(request.getTitle(),
                     request.getUserId(), tags);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN, String.format("postDAO#countList[result=%s]", count));

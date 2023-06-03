@@ -44,6 +44,9 @@ public class ItemDO extends BaseDO {
     @Column(name = "user_level_id")
     private String userLevelId;
 
+    @Column(name = "review")
+    private Double review;
+
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
@@ -131,6 +134,22 @@ public class ItemDO extends BaseDO {
 
     public void setMerchantLevelId(String merchantLevelId) {
         this.merchantLevelId = merchantLevelId;
+    }
+
+    public String getUserLevelId() {
+        return userLevelId;
+    }
+
+    public void setUserLevelId(String userLevelId) {
+        this.userLevelId = userLevelId;
+    }
+
+    public Double getReview() {
+        return review;
+    }
+
+    public void setReview(Double review) {
+        this.review = review;
     }
 
     public boolean isDeleted() {

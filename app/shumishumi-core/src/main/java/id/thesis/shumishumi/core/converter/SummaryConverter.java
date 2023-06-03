@@ -49,9 +49,13 @@ public class SummaryConverter {
         summary.setMerchantInfo(toSummary(vo.getMerchantInfo()));
         summary.setMerchantLevel(vo.getMerchantLevel().getInterestLevelName());
         summary.setHobby(vo.getHobby().getHobbyName());
+        summary.setReview(vo.getReview());
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
+        summary.setUserLevel(vo.getUserLevel() == null ?
+                "" : vo.getUserLevel().getInterestLevelName());
+
         return summary;
     }
 
@@ -70,6 +74,7 @@ public class SummaryConverter {
         userSummary.setDateOfBirth(vo.getDateOfBirth());
         userSummary.setGmtCreate(vo.getGmtCreate());
         userSummary.setGmtModified(vo.getGmtModified());
+        userSummary.setReview(vo.getReview());
         userSummary.setCanTelegram(Boolean.parseBoolean(vo.getExtendInfo().
                 getOrDefault(CommonConst.EXTEND_INFO_TELEGRAM, "false")));
         userSummary.setCanWhatsapp(Boolean.parseBoolean(vo.getExtendInfo().

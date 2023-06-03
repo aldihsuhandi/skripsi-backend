@@ -15,4 +15,8 @@ public interface ReviewService {
     List<ReviewVO> queryByMerchant(String merchantId, PagingContext pagingContext);
 
     List<ReviewVO> queryByUserAndNeedReview(String userId, boolean needReview, PagingContext pagingContext);
+
+    List<ReviewVO> queryByItemId(String itemId);
+
+    List<ReviewVO> queryByMerchantId(String merchantId);
 }

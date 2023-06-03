@@ -28,7 +28,7 @@ public class ContentDAOImpl implements ContentDAO {
         try {
             content = contentRepository.findById(contentName).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("contentDAO#queryContent[result=%s]", content));

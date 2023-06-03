@@ -33,7 +33,7 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             session = sessionRepository.findById(sessionId).orElse(null);
         } catch (Exception e) {
-            LogUtil.exception(e.getMessage(), e);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("sessionDAO#query[result=%s])", session));
@@ -46,7 +46,7 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             sessionRepository.save(session);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -56,7 +56,7 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             sessionRepository.logout(request.getSessionId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -66,7 +66,7 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             sessionRepository.refreshSession(request.getSessionId(), request.getSessionDt());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -76,7 +76,7 @@ public class SessionDAOImpl implements SessionDAO {
         try {
             sessionRepository.expiredSession();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 }

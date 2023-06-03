@@ -7,6 +7,7 @@ import id.thesis.shumishumi.common.model.request.user.UserCreateInnerRequest;
 import id.thesis.shumishumi.common.model.request.user.UserUpdateInnerRequest;
 import id.thesis.shumishumi.facade.model.context.UserUpdateContext;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
+import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.user.UserRegisterRequest;
 
 /**
@@ -39,9 +40,9 @@ public class UserRequestConverter {
         return innerRequest;
     }
 
-    public static UserUpdateInnerRequest toInnerRequest(String userId, UserUpdateContext updateContext) {
+    public static UserUpdateInnerRequest toInnerRequest(UserVO userVO, UserUpdateContext updateContext) {
         UserUpdateInnerRequest innerRequest = new UserUpdateInnerRequest();
-        innerRequest.setUserId(userId);
+        innerRequest.setUserVO(userVO);
         innerRequest.setUserUpdateContext(updateContext);
 
         return innerRequest;

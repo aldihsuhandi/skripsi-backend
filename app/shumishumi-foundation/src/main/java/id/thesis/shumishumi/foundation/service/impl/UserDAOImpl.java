@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userRepository.save(userDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userRepository.save(userDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -67,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userRepository.updateProfilePicture(daoRequest.getUserId(), daoRequest.getProfilePicture());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -77,7 +77,17 @@ public class UserDAOImpl implements UserDAO {
         try {
             userRepository.changeRoleUser(daoRequest.getUserId(), daoRequest.getRoleId());
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
+    public void updateReview(String userId, double review) {
+        LogUtil.info(DALGEN_LOGGER, String.format("userDAO#updateReview[userId=%s,review=%f]", userId, review));
+        try {
+            userRepository.updateUserReview(userId, review);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -89,7 +99,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             result = userRepository.findById(daoRequest.getUserId()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryById[result=%s]", result));
@@ -106,7 +116,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userDOS = userRepository.findByIds(userIds);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAo#queryByIds[result=%s]", userDOS));
@@ -122,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userDO = userRepository.findByEmail(daoRequest.getEmail()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByEmail[result=%s]", userDO));
@@ -137,7 +147,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userDO = userRepository.findByPhoneNumber(daoRequest.getPhoneNumber()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByPhoneNumber[result=%s]", userDO));
@@ -152,7 +162,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             userDO = userRepository.findByUsername(daoRequest.getUsername()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryByUsername[result=%s]", userDO));
@@ -167,7 +177,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             result = userRepository.findAll();
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#queryAll[request=%s]", result));
@@ -185,7 +195,7 @@ public class UserDAOImpl implements UserDAO {
 
             emailEncryptRepository.save(encryptDO);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -199,7 +209,7 @@ public class UserDAOImpl implements UserDAO {
                 email = encryptDO.getEmail();
             }
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("userDAO#emailDescrypt[email=%s]", email));
@@ -224,7 +234,10 @@ public class UserDAOImpl implements UserDAO {
         userDO.setDateOfBirth(request.getDateOfBirth());
         userDO.setLocation(request.getLocation());
         userDO.setGender(request.getGender());
+        userDO.setReview(request.getReview());
         userDO.setExtendInfo(request.getExtendInfo());
+        userDO.setGmtCreate(request.getGmtCreate());
+        userDO.setGmtModified(request.getGmtModified());
 
         return userDO;
     }

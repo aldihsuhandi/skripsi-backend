@@ -28,6 +28,7 @@ public class UserDAORequest implements Serializable {
     private Date dateOfBirth;
     private String gender;
     private String location;
+    private Double review;
     private boolean isActive;
     private boolean isDeleted;
     private String extendInfo;

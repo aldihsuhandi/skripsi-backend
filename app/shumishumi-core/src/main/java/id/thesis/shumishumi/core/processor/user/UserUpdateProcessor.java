@@ -56,7 +56,7 @@ public class UserUpdateProcessor implements BaseProcessor {
         changeProfilePicture(updateRequest.getProfilePicture(), updateContext);
 
         FunctionUtil.fillEmptyUpdateContext(updateContext, userVO);
-        userService.update(UserRequestConverter.toInnerRequest(userVO.getUserId(), updateContext));
+        userService.update(UserRequestConverter.toInnerRequest(userVO, updateContext));
         userService.refreshCache(new ArrayList<>(Collections.singletonList(userVO.getUserId())), false);
     }
 

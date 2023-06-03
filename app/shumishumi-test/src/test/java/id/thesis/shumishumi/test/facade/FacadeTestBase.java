@@ -159,6 +159,7 @@ public class FacadeTestBase extends TestBase {
         user.setEmail("email");
         user.setActive(isActive);
         user.setDeleted(isDeleted);
+        user.setReview(0.0);
         user.setPassword(hashPassword);
 
         return user;
@@ -251,6 +252,7 @@ public class FacadeTestBase extends TestBase {
         itemDO.setMerchantLevelId(InterestLevelEnum.BEGINNER.getLevel());
         itemDO.setItemQuantity(100);
         itemDO.setDeleted(false);
+        itemDO.setReview(0.0);
         itemDO.setApproved(isApproved);
         itemDO.setGmtCreate(new Date());
         itemDO.setGmtModified(new Date());

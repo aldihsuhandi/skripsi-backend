@@ -29,7 +29,7 @@ public class ImageDAOImpl implements ImageDAO {
         try {
             imageRepository.save(request);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -41,7 +41,7 @@ public class ImageDAOImpl implements ImageDAO {
         try {
             image = imageRepository.findById(request.getImageId()).orElse(null);
         } catch (Exception e) {
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
 
         LogUtil.info(DALGEN_LOGGER, String.format("imageDAO#query[result=%s]", image));

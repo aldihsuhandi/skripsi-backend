@@ -21,8 +21,6 @@ public interface UserService {
 
     void roleChange(RoleChangeInnerRequest request);
 
-    void updateProfilePicture(UserUpdateInnerRequest request);
-
     UserVO queryById(String userId, boolean useCache);
 
     UserVO queryByEmail(String email, boolean useCache);
@@ -30,6 +28,8 @@ public interface UserService {
     UserVO queryByPhoneNumber(String phoneNumber, boolean useCache);
 
     UserVO queryByUsername(String username, boolean cache);
+
+    void updateReview(String userId);
 
     void refreshCache(List<String> userIds, boolean refreshAll);
 
