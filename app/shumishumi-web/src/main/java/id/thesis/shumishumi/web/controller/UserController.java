@@ -118,7 +118,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @RequestBody UserUpdateForm form) {
+    public ResponseEntity<UserUpdateResult> update(@RequestHeader HttpHeaders headers, @ModelAttribute UserUpdateForm form) {
         return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON, new ControllerCallback<UserUpdateResult, UserUpdateRequest>() {
             @Override
             public void authCheck(String clientId, String clientSecret) {
@@ -138,8 +138,8 @@ public class UserController extends BaseController {
                 request.setDateOfBirth(form.getDateOfBirth());
                 request.setGender(form.getGender());
                 request.setProfilePicture(form.getProfilePicture());
-                request.setActive(form.isActive());
-                request.setDeleted(form.isDeleted());
+                request.setIsActive(form.getIsActive());
+                request.setIsDeleted(form.getIsDeleted());
 
                 Map<String, String> extendInfo = new HashMap<>();
                 extendInfo.put(CommonConst.EXTEND_INFO_TELEGRAM, String.valueOf(form.isCanTelegram()));

@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.test.facade;
 
 import id.thesis.shumishumi.common.util.FunctionUtil;
+import id.thesis.shumishumi.common.util.JSONStringUtil;
 import id.thesis.shumishumi.facade.api.UserFacade;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.constant.DatabaseConst;
@@ -26,6 +27,7 @@ import id.thesis.shumishumi.facade.result.user.UserUpdateResult;
 import id.thesis.shumishumi.facade.result.user.email.EmailDecryptResult;
 import id.thesis.shumishumi.facade.result.user.email.EmailEncryptResult;
 import id.thesis.shumishumi.foundation.model.result.OtpDO;
+import id.thesis.shumishumi.foundation.model.result.UserDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -448,8 +450,15 @@ public class UserFacadeTest extends FacadeTestBase {
         MerchantApplyRequest request = new MerchantApplyRequest();
         request.setSessionId("sessionId");
 
+        Map<String, String> location = new HashMap<>();
+        location.put(CommonConst.LOCATION_CITY, "city");
+
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
-        mockUserWithRole();
+        UserDO userDO = mockUserDO("password");
+        userDO.setLocation(JSONStringUtil.parseObject(location));
+
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(userDO);
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO("USER"));
 
         MerchantApplyResult result = userFacade.merchantApply(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());

@@ -32,7 +32,7 @@ public class UserUpdateRequest extends BaseRequest {
     private Map<String, String> location;
     private String password;
     private String confirmPassword;
-    private boolean isDeleted;
-    private boolean isActive;
+    private Boolean isDeleted;
+    private Boolean isActive;
     private Map<String, String> extendInfo;
 }

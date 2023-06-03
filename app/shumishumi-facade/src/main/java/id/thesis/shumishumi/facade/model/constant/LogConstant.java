@@ -16,4 +16,6 @@ public class LogConstant {
     public static final String INTEGRATION_LOGGER = "INTEGRATION-LOGGER";
 
     public static final String SEEDERS_LOGGER = "SEEDERS-LOGGER";
+
+    public static final String SERVER_BOOT = "SERVER_BOOT";
 }
