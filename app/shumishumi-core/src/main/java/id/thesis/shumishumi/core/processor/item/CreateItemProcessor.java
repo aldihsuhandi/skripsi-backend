@@ -26,6 +26,7 @@ import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
+import id.thesis.shumishumi.facade.result.item.CreateItemResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class CreateItemProcessor implements BaseProcessor {
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         CreateItemRequest itemRequest = (CreateItemRequest) baseRequest;
+        CreateItemResult itemResult = (CreateItemResult) baseResult;
 
         SessionVO sessionVO = sessionService.query(itemRequest.getSessionId());
         AssertUtil.isNotNull(sessionVO, "session not exist", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
@@ -93,6 +95,8 @@ public class CreateItemProcessor implements BaseProcessor {
 
         itemService.create(innerRequest);
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(innerRequest.getItemId())), false);
+
+        itemResult.setItemId(innerRequest.getItemId());
     }
 
     private String createPostForItem(CreateItemRequest request, String userId) {
