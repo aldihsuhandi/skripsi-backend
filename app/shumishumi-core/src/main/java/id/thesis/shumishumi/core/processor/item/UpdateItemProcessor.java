@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.KnowledgeService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
@@ -31,6 +32,9 @@ public class UpdateItemProcessor implements BaseProcessor {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private KnowledgeService knowledgeService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         UpdateItemRequest updateRequest = (UpdateItemRequest) baseRequest;
@@ -45,11 +49,16 @@ public class UpdateItemProcessor implements BaseProcessor {
         AssertUtil.isExpected(userVO.getUserId(), itemVO.getMerchantInfo().getUserId(),
                 "this item is not from this user", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
+        knowledgeService.removeItemFromKnowledge(itemVO);
+
         this.updateImage(itemVO, updateRequest.getItemUpdateContext().getAddedImage(),
                 updateRequest.getItemUpdateContext().getRemovedImage());
         itemService.update(itemVO, updateRequest.getItemUpdateContext());
 
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(itemVO.getItemId())), false);
+
+        itemVO = itemService.queryById(updateRequest.getItemId(), true);
+        knowledgeService.addItemToKnowledge(itemVO);
     }
 
     private void updateImage(ItemVO itemVO, List<String> addedImage, List<String> removedImage) {

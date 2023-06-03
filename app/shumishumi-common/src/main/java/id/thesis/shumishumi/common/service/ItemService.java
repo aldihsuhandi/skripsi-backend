@@ -34,6 +34,8 @@ public interface ItemService {
 
     void approveItem(String itemId);
 
+    List<ItemVO> fetchAll();
+
     void refreshCache(List<String> itemIds, boolean refreshAll);
 
     void clearCache();

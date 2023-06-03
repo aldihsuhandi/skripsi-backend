@@ -12,9 +12,11 @@ import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
 import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
+import id.thesis.shumishumi.foundation.model.result.KnowledgeDO;
 import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.model.result.primarykey.KnowledgeDOPK;
 import id.thesis.shumishumi.foundation.service.ActivityDAO;
 import id.thesis.shumishumi.foundation.service.CartDAO;
 import id.thesis.shumishumi.foundation.service.ClientDAO;
@@ -28,6 +30,7 @@ import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
 import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
 import id.thesis.shumishumi.foundation.service.ItemWishlistDAO;
+import id.thesis.shumishumi.foundation.service.KnowledgeDAO;
 import id.thesis.shumishumi.foundation.service.OtpDAO;
 import id.thesis.shumishumi.foundation.service.PostDAO;
 import id.thesis.shumishumi.foundation.service.PostVoteDAO;
@@ -91,6 +94,8 @@ public class FacadeTestBase extends TestBase {
     protected TransactionDAO transactionDAO;
     @MockBean
     protected ActivityDAO activityDAO;
+    @MockBean
+    protected KnowledgeDAO knowledgeDAO;
 
     @MockBean
     protected MidtransClient midtransClient;
@@ -144,6 +149,13 @@ public class FacadeTestBase extends TestBase {
     protected void mockUserWithRole(String role) {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(role));
+    }
+
+    protected void mockItemWithInfo() {
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+        Mockito.when(hobbyDAO.queryById(Mockito.any())).thenReturn(mockHobbyDO());
+        Mockito.when(itemCategoryDAO.queryById(Mockito.any())).thenReturn(mockCategoryDO());
+        Mockito.when(interestLevelDAO.queryById(Mockito.any())).thenReturn(mockInterestLevelDO());
     }
 
 
@@ -230,7 +242,7 @@ public class FacadeTestBase extends TestBase {
 
     protected ItemDO mockItemDO(boolean isApproved) {
         ItemDO itemDO = new ItemDO();
-        itemDO.setItemId("itemId");
+        itemDO.setItemId("itemId1");
         itemDO.setItemName("itemName");
         itemDO.setItemPrice(10000L);
         itemDO.setItemImages("images1|images2|images3");
@@ -255,6 +267,14 @@ public class FacadeTestBase extends TestBase {
         contentDO.setContentName("contentName");
 
         return contentDO;
+    }
+
+    protected KnowledgeDO mockKnowledgeDO() {
+        KnowledgeDO knowledgeDO = new KnowledgeDO();
+        knowledgeDO.setPk(new KnowledgeDOPK("type", "key"));
+        knowledgeDO.setKnowledge("itemId1|item1|item2|item3|item4");
+
+        return knowledgeDO;
     }
 
 }

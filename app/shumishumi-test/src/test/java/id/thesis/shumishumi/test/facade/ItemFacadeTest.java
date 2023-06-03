@@ -61,6 +61,33 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
 
+        mockItemWithInfo();
+
+
+        CreateItemResult result = itemFacade.create(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void createItemTest_SUCCESS_withKnowledge() {
+        CreateItemRequest request = new CreateItemRequest();
+        request.setItemName("item name");
+        request.setItemPrice(10000L);
+        request.setItemDescription("item description");
+        request.setItemQuantity(100);
+        request.setMerchantInterestLevel(InterestLevelEnum.BEGINNER.getLevel());
+        request.setItemImages(Collections.singletonList("images"));
+        request.setHobbyName("hobby name");
+        request.setCategoryName("category name");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
+        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(mockKnowledgeDO());
+
+        mockItemWithInfo();
+
 
         CreateItemResult result = itemFacade.create(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
@@ -104,6 +131,28 @@ public class ItemFacadeTest extends FacadeTestBase {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        UpdateItemResult result = itemFacade.update(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+        ResultAssert.isExpected(result.getResultContext().getResultCode(), "SUCCESS");
+    }
+
+    @Test
+    public void updateItemTest_SUCCESS_withKnowledge() {
+        UpdateItemRequest request = new UpdateItemRequest();
+        ItemUpdateContext updateContext = new ItemUpdateContext();
+        updateContext.setItemQuantity(10);
+        updateContext.setItemDescription("item description");
+
+        request.setItemId("itemId1");
+        request.setItemUpdateContext(updateContext);
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(mockKnowledgeDO());
 
         UpdateItemResult result = itemFacade.update(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());
