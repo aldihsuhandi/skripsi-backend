@@ -74,6 +74,7 @@ public class SummaryConverter {
         userSummary.setDateOfBirth(vo.getDateOfBirth());
         userSummary.setGmtCreate(vo.getGmtCreate());
         userSummary.setGmtModified(vo.getGmtModified());
+        userSummary.setReview(vo.getReview());
         userSummary.setCanTelegram(Boolean.parseBoolean(vo.getExtendInfo().
                 getOrDefault(CommonConst.EXTEND_INFO_TELEGRAM, "false")));
         userSummary.setCanWhatsapp(Boolean.parseBoolean(vo.getExtendInfo().

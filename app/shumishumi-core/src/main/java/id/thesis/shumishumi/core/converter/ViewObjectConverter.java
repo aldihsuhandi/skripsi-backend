@@ -74,6 +74,7 @@ public class ViewObjectConverter {
         userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setDeleted(userDO.isDeleted());
         userVO.setActive(userDO.isActive());
+        userVO.setReview(userDO.getReview());
         userVO.setGmtCreate(userDO.getGmtCreate());
         userVO.setGmtModified(userDO.getGmtModified());
         userVO.setExtendInfo(JSONStringUtil.parseJSONString(userDO.getExtendInfo()));
