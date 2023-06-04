@@ -28,7 +28,7 @@ public interface ItemService {
 
     List<ItemVO> queryList(ItemFilterContext itemFilterContext, SortingContext sortingContext, PagingContext pagingContext, boolean useCache);
 
-    void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext);
+    void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext, List<String> images);
 
     void updatePicture(String itemId, List<String> itemImages);
 

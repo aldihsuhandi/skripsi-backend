@@ -5,7 +5,6 @@ package id.thesis.shumishumi.foundation.converter;
 
 
 import id.thesis.shumishumi.common.model.request.item.CreateItemInnerRequest;
-import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
@@ -32,7 +31,7 @@ public class ItemDAORequestConverter {
         }
 
         ItemDO item = new ItemDO();
-        item.setItemId(FunctionUtil.generateUUID());
+        item.setItemId(request.getItemId());
         item.setItemName(request.getItemName());
         item.setItemImages(imageStr);
         item.setItemDescription(request.getItemDescription());
@@ -88,9 +87,15 @@ public class ItemDAORequestConverter {
         itemDO.setItemQuantity(updateContext.getItemQuantity());
         itemDO.setCategoryId(categoryId);
         itemDO.setHobbyId(hobbyId);
+        itemDO.setReview(itemVO.getReview());
         itemDO.setMerchantLevelId(merchantLevelId);
         itemDO.setApproved(itemVO.isApproved());
         itemDO.setDeleted(itemDO.isDeleted());
+        itemDO.setGmtCreate(itemVO.getGmtCreate());
+       
+        if (itemVO.getUserLevel() != null) {
+            itemDO.setUserLevelId(itemVO.getUserLevel().getInterestLevelId());
+        }
 
         return itemDO;
     }

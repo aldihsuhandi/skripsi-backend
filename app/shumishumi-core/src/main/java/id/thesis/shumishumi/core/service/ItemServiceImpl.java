@@ -182,8 +182,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void update(ItemVO itemVO, ItemUpdateContext updateContext) {
+    public void update(ItemVO itemVO, ItemUpdateContext updateContext, List<String> images) {
         FunctionUtil.fillEmptyUpdateContext(updateContext, itemVO);
+
+        itemVO.setItemImages(images);
 
         HobbyVO hobby = hobbyService.query(updateContext.getHobbyName(), DatabaseConst.HOBBY_NAME);
         ItemCategoryVO category = itemCategoryService.query(updateContext.getCategoryName(), DatabaseConst.CATEGORY_NAME);

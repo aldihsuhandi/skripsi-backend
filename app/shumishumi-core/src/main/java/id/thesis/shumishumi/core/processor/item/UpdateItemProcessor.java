@@ -15,6 +15,7 @@ import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,28 +52,26 @@ public class UpdateItemProcessor implements BaseProcessor {
 
         knowledgeService.removeItemFromKnowledge(itemVO);
 
-        this.updateImage(itemVO, updateRequest.getItemUpdateContext().getAddedImage(),
-                updateRequest.getItemUpdateContext().getRemovedImage());
-        itemService.update(itemVO, updateRequest.getItemUpdateContext());
+        itemService.update(itemVO, updateRequest.getItemUpdateContext(), updateImage(
+                itemVO.getItemImages(), updateRequest.getItemUpdateContext().getAddedImage(),
+                updateRequest.getItemUpdateContext().getRemovedImage()));
 
-        itemService.refreshCache(new ArrayList<>(Collections.singletonList(itemVO.getItemId())), false);
-
-        itemVO = itemService.queryById(updateRequest.getItemId(), true);
+        itemVO = itemService.queryById(updateRequest.getItemId(), false);
         knowledgeService.addItemToKnowledge(itemVO);
     }
 
-    private void updateImage(ItemVO itemVO, List<String> addedImage, List<String> removedImage) {
-        List<String> currImage = itemVO.getItemImages();
-        List<String> images = new ArrayList<>(addedImage);
+    private List<String> updateImage(List<String> curImage, List<String> addImage, List<String> removeImage) {
+        if (CollectionUtils.isEmpty(addImage) && CollectionUtils.isEmpty(removeImage)) {
+            return curImage;
+        }
 
-        for (String image : currImage) {
-            if (!removedImage.contains(image)) {
-                images.add(image);
+        List<String> images = new ArrayList<>(addImage);
+        for (String img : curImage) {
+            if (!removeImage.contains(img)) {
+                images.add(img);
             }
         }
 
-        AssertUtil.isExpected(!images.isEmpty(), "Item Image cannot be empty", ShumishumiErrorCodeEnum.SYSTEM_ERROR);
-
-        itemService.updatePicture(itemVO.getItemId(), images);
+        return images;
     }
 }
