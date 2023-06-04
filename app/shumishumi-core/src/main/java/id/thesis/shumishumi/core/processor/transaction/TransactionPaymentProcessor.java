@@ -76,7 +76,7 @@ public class TransactionPaymentProcessor implements BaseProcessor {
             ItemUpdateContext updateContext = new ItemUpdateContext();
             updateContext.setItemQuantity(itemVO.getItemQuantity() - detail.getQuantity());
 
-            itemService.update(itemVO, updateContext);
+            itemService.update(itemVO, updateContext, itemVO.getItemImages());
 
             cartService.update(userId, itemVO.getItemId(), 0);
 
