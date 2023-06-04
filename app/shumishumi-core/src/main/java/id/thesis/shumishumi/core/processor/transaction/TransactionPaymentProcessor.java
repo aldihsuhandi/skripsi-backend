@@ -82,7 +82,7 @@ public class TransactionPaymentProcessor implements BaseProcessor {
 
             itemService.update(itemVO, updateContext);
             cartService.update(userId, itemVO.getItemId(), 0);
-            activityService.addActivity(userId, itemVO, 5);
+            activityService.addActivity(userId, itemVO, 25);
 
             itemIds.add(itemVO.getItemId());
         });
