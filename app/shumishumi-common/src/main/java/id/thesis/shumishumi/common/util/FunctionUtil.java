@@ -104,7 +104,7 @@ public class FunctionUtil {
         updateContext.setHobbyName(checkIfNotEmpty(updateContext.getHobbyName()) ?
                 updateContext.getHobbyName() : itemVO.getHobby().getHobbyName());
         updateContext.setCategoryName(checkIfNotEmpty(updateContext.getCategoryName()) ?
-                updateContext.getHobbyName() : itemVO.getItemCategory().getCategoryName());
+                updateContext.getCategoryName() : itemVO.getItemCategory().getCategoryName());
         updateContext.setMerchantInterestLevel(checkIfNotEmpty(updateContext.getMerchantInterestLevel()) ?
                 updateContext.getMerchantInterestLevel() : itemVO.getMerchantLevel().getInterestLevelName());
     }
