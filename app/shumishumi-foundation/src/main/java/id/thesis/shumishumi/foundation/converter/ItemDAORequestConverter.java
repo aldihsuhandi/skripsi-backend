@@ -87,9 +87,12 @@ public class ItemDAORequestConverter {
         itemDO.setItemQuantity(updateContext.getItemQuantity());
         itemDO.setCategoryId(categoryId);
         itemDO.setHobbyId(hobbyId);
+        itemDO.setReview(itemVO.getReview());
         itemDO.setMerchantLevelId(merchantLevelId);
+        itemDO.setUserLevelId(itemVO.getUserLevel().getInterestLevelId());
         itemDO.setApproved(itemVO.isApproved());
         itemDO.setDeleted(itemDO.isDeleted());
+        itemDO.setGmtCreate(itemVO.getGmtCreate());
 
         return itemDO;
     }
