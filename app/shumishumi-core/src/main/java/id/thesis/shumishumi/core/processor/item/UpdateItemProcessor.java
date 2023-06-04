@@ -45,9 +45,9 @@ public class UpdateItemProcessor implements BaseProcessor {
         AssertUtil.isExpected(userVO.getUserId(), itemVO.getMerchantInfo().getUserId(),
                 "this item is not from this user", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
+        itemService.update(itemVO, updateRequest.getItemUpdateContext());
         this.updateImage(itemVO, updateRequest.getItemUpdateContext().getAddedImage(),
                 updateRequest.getItemUpdateContext().getRemovedImage());
-        itemService.update(itemVO, updateRequest.getItemUpdateContext());
 
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(itemVO.getItemId())), false);
     }
