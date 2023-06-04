@@ -34,7 +34,7 @@ public enum ProcessTypeEnum {
     ITEM_QUERY_DETAIL("ITEM_QUERY_DETAIL", "queryItemDetailValidator", "queryItemDetailProcessor", false),
     ITEM_UPDATE("ITEM_UPDATE", "updateItemValidator", "updateItemProcessor", true),
     ITEM_APPROVAL("ITEM_APPROVAL", "itemApprovalValidator", "itemApprovalProcessor", true),
-    RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", false),
+    RECOMMEND("RECOMMEND", "recommendValidator", "recommendProcessor", true),
     AUTOCOMPLETE("ITEM_AUTOCOMPLETE", "autocompleteItemValidator", "autocompleteItemProcessor", false),
 
     ITEM_IMAGE_ADD("ITEM_IMAGE_ADD", "itemAddImageValidator", "itemAddImageProcessor", true),

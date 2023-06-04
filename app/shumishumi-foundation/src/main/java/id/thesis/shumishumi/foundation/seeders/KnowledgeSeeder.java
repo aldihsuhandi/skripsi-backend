@@ -2,6 +2,8 @@ package id.thesis.shumishumi.foundation.seeders;
 
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.KnowledgeService;
+import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
+import id.thesis.shumishumi.foundation.repository.ItemRepository;
 import id.thesis.shumishumi.foundation.repository.KnowledgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,9 @@ public class KnowledgeSeeder extends BaseSeeder {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Override
     void setOrder() {
@@ -35,7 +40,11 @@ public class KnowledgeSeeder extends BaseSeeder {
 
     @Override
     void seed() {
-        itemService.fetchAll().forEach(item ->
-                knowledgeService.addItemToKnowledge(item));
+        itemRepository.findAll().forEach(itemDO -> {
+            String itemId = itemDO.getItemId();
+            ItemVO itemVO = itemService.queryById(itemId, false);
+
+            knowledgeService.addItemToKnowledge(itemVO);
+        });
     }
 }

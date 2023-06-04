@@ -1,6 +1,8 @@
 package id.thesis.shumishumi.test.facade;
 
+import id.thesis.shumishumi.common.util.JSONStringUtil;
 import id.thesis.shumishumi.facade.api.ItemFacade;
+import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.context.ItemFilterContext;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.SortingContext;
@@ -21,7 +23,9 @@ import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
 import id.thesis.shumishumi.facade.result.item.RecommendResult;
 import id.thesis.shumishumi.facade.result.item.UpdateItemResult;
+import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.ItemWishlistDO;
+import id.thesis.shumishumi.foundation.model.result.KnowledgeDO;
 import id.thesis.shumishumi.test.util.ResultAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +33,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemFacadeTest extends FacadeTestBase {
     @Autowired
@@ -81,10 +87,13 @@ public class ItemFacadeTest extends FacadeTestBase {
         request.setHobbyName("hobby name");
         request.setCategoryName("category name");
 
+        KnowledgeDO knowledgeDO = mockKnowledgeDO();
+        knowledgeDO.setKnowledge("singleitem|dualitem");
+
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
-        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(mockKnowledgeDO());
+        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(knowledgeDO);
 
         mockItemWithInfo();
 
@@ -276,7 +285,22 @@ public class ItemFacadeTest extends FacadeTestBase {
         RecommendRequest request = new RecommendRequest();
         request.setSessionId("sessionId");
 
+        Map<String, String> activity = new HashMap<>();
+        activity.put(CommonConst.ACTIVITY_ITEM_HOBBY, "hobby");
+        activity.put(CommonConst.ACTIVITY_ITEM_CATEGORY, "category");
+        activity.put(CommonConst.ACTIVITY_USER_LEVEL, "user_level");
+        activity.put(CommonConst.ACTIVITY_MERCHANT_LEVEL, "merchant_level");
+
+        ActivityDO activityDO = new ActivityDO();
+        activityDO.setActivityValue(5);
+        activityDO.setUserId("userId");
+        activityDO.setActivityId("activityId");
+        activityDO.setActivity(JSONStringUtil.parseObject(activity));
+
+        Mockito.when(activityDAO.queryByUserId(Mockito.any())).thenReturn(Collections.singletonList(activityDO));
         Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(mockKnowledgeDO());
+        mockItemWithInfo();
 
         RecommendResult result = itemFacade.recommend(request);
         ResultAssert.isSuccess(result.getResultContext().isSuccess());

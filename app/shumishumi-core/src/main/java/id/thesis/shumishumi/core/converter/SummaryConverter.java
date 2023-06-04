@@ -33,7 +33,7 @@ public class SummaryConverter {
         return summary;
     }
 
-    private static ItemSummary toSummary(ItemVO vo) {
+    public static ItemSummary toSummary(ItemVO vo) {
         if (vo == null) {
             return null;
         }

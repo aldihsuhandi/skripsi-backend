@@ -53,7 +53,11 @@ public class KnowledgeDAOImpl implements KnowledgeDAO {
     public void update(String type, String key, String knowledge) {
         LogUtil.info(LOGGER, String.format("knowledgeDAO#update[type=%s,key=%s,knowledge=%s]", type, key, knowledge));
         try {
-            knowledgeRepository.updateKnowledgeValue(type, key, knowledge);
+            KnowledgeDO knowledgeDO = new KnowledgeDO();
+            knowledgeDO.setPk(new KnowledgeDOPK(key, type));
+            knowledgeDO.setKnowledge(knowledge);
+
+            knowledgeRepository.save(knowledgeDO);
         } catch (Exception e) {
             throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
