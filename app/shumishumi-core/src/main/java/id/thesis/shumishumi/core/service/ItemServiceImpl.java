@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.service.HobbyService;
 import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemCategoryService;
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.KnowledgeService;
 import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
@@ -69,6 +70,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private KnowledgeService knowledgeService;
 
     @Override
     public void create(CreateItemInnerRequest request) {
@@ -218,6 +222,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<ItemVO> fetchAll() {
+        return itemFetchService.fetchAll();
+    }
+
+    @Override
     public void refreshCache(List<String> itemIds, boolean refreshAll) {
         List<ItemVO> itemVOS = queryAllItem(refreshAll);
         if (itemVOS == null) {
@@ -242,6 +251,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void calculateUserReview(String itemId) {
+        ItemVO itemVO = this.queryById(itemId, true);
+        knowledgeService.removeItemFromKnowledge(itemVO);
+
         List<ReviewVO> reviews = reviewService.queryByItemId(itemId);
         Map<String, Long> countMap = reviews.stream().collect(Collectors.groupingBy(review ->
                 review.getInterestLevel().getInterestLevelId(), Collectors.counting()));
@@ -252,6 +264,9 @@ public class ItemServiceImpl implements ItemService {
         itemDAO.updateUserLevel(itemId, interestLevel);
         itemDAO.updateItemReview(itemId, reviewNumber);
         this.refreshCache(Collections.singletonList(itemId), false);
+
+        itemVO = this.queryById(itemId, true);
+        knowledgeService.addItemToKnowledge(itemVO);
     }
 
     @Override

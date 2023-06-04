@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.service.HobbyService;
 import id.thesis.shumishumi.common.service.InterestLevelService;
 import id.thesis.shumishumi.common.service.ItemCategoryService;
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.KnowledgeService;
 import id.thesis.shumishumi.common.service.PostService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.UserService;
@@ -20,6 +21,7 @@ import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HobbyVO;
 import id.thesis.shumishumi.facade.model.viewobject.InterestLevelVO;
 import id.thesis.shumishumi.facade.model.viewobject.ItemCategoryVO;
+import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
@@ -60,6 +62,9 @@ public class CreateItemProcessor implements BaseProcessor {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private KnowledgeService knowledgeService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         CreateItemRequest itemRequest = (CreateItemRequest) baseRequest;
@@ -95,6 +100,9 @@ public class CreateItemProcessor implements BaseProcessor {
 
         itemService.create(innerRequest);
         itemService.refreshCache(new ArrayList<>(Collections.singletonList(innerRequest.getItemId())), false);
+
+        ItemVO itemVO = itemService.queryById(innerRequest.getItemId(), true);
+        knowledgeService.addItemToKnowledge(itemVO);
 
         itemResult.setItemId(innerRequest.getItemId());
     }

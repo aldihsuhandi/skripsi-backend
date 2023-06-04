@@ -57,4 +57,12 @@ public class CommonConst {
      */
     public static String EXTEND_INFO_WHATSAPP = "canWhatsapp";
     public static String EXTEND_INFO_TELEGRAM = "canTelegram";
+
+    /**
+     * Activity Key
+     */
+    public static String ACTIVITY_ITEM_HOBBY = "hobby";
+    public static String ACTIVITY_ITEM_CATEGORY = "category";
+    public static String ACTIVITY_USER_LEVEL = "user_level";
+    public static String ACTIVITY_MERCHANT_LEVEL = "merchant_level";
 }

@@ -2,7 +2,6 @@ package id.thesis.shumishumi.foundation.seeders;
 
 import id.thesis.shumishumi.common.service.PostService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
-import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.facade.exception.ShumishumiException;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
@@ -113,7 +112,7 @@ public class ItemSeeder extends BaseSeeder {
                 "CPU", "COMPUTER", "ComputerShop", InterestLevelEnum.ENTHUSIAST.getId()));
 
         r.add(new ItemRequest("ADATA XPG SPECTRIX D50 DDR4 16GB", 900000L, "ADATA XPG SPECTRIX D50 DDR4 16GB (2x8GB) RGB 3600MHz - WHITE", 190,
-                Arrays.asList("https://http2.mlstatic.com/D_NQ_NP_2X_612029-MLM43449082677_092020-F.jpg",
+                Arrays.asList("https://webapi3.adata.com/storage/product/d50_pk_dual_gr_1000x1000.png",
                         "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2020/11/3/d9cdc4b7-2d49-418d-b935-396c9e52497c.jpg?ect=4g"),
                 "CPU", "COMPUTER", "ComputerShop", InterestLevelEnum.ENTHUSIAST.getId()));
 
@@ -133,8 +132,7 @@ public class ItemSeeder extends BaseSeeder {
         try {
             itemRepository.save(itemDO);
         } catch (Exception e) {
-            LogUtil.exception(e.getMessage(), e);
-            throw new ShumishumiException(e.getMessage(), ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
     }
 

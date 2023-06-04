@@ -7,21 +7,22 @@ import id.thesis.shumishumi.core.fetch.UserFetchService;
 import id.thesis.shumishumi.facade.model.enumeration.InterestLevelEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.foundation.integration.midtrans.MidtransClient;
-import id.thesis.shumishumi.foundation.model.result.ActivityDO;
 import id.thesis.shumishumi.foundation.model.result.ContentDO;
 import id.thesis.shumishumi.foundation.model.result.HobbyDO;
 import id.thesis.shumishumi.foundation.model.result.InterestLevelDO;
 import id.thesis.shumishumi.foundation.model.result.ItemCategoryDO;
 import id.thesis.shumishumi.foundation.model.result.ItemDO;
+import id.thesis.shumishumi.foundation.model.result.KnowledgeDO;
 import id.thesis.shumishumi.foundation.model.result.RoleDO;
 import id.thesis.shumishumi.foundation.model.result.SessionDO;
 import id.thesis.shumishumi.foundation.model.result.UserDO;
+import id.thesis.shumishumi.foundation.model.result.primarykey.KnowledgeDOPK;
+import id.thesis.shumishumi.foundation.service.ActivityDAO;
 import id.thesis.shumishumi.foundation.service.CartDAO;
 import id.thesis.shumishumi.foundation.service.ClientDAO;
 import id.thesis.shumishumi.foundation.service.CommentDAO;
 import id.thesis.shumishumi.foundation.service.CommentVoteDAO;
 import id.thesis.shumishumi.foundation.service.ContentDAO;
-import id.thesis.shumishumi.foundation.service.CrowdDAO;
 import id.thesis.shumishumi.foundation.service.DictionaryDAO;
 import id.thesis.shumishumi.foundation.service.HobbyDAO;
 import id.thesis.shumishumi.foundation.service.ImageDAO;
@@ -29,6 +30,7 @@ import id.thesis.shumishumi.foundation.service.InterestLevelDAO;
 import id.thesis.shumishumi.foundation.service.ItemCategoryDAO;
 import id.thesis.shumishumi.foundation.service.ItemDAO;
 import id.thesis.shumishumi.foundation.service.ItemWishlistDAO;
+import id.thesis.shumishumi.foundation.service.KnowledgeDAO;
 import id.thesis.shumishumi.foundation.service.OtpDAO;
 import id.thesis.shumishumi.foundation.service.PostDAO;
 import id.thesis.shumishumi.foundation.service.PostVoteDAO;
@@ -73,8 +75,6 @@ public class FacadeTestBase extends TestBase {
     @MockBean
     protected ItemCategoryDAO itemCategoryDAO;
     @MockBean
-    protected CrowdDAO crowdDAO;
-    @MockBean
     protected ImageDAO imageDAO;
     @MockBean
     protected PostDAO postDAO;
@@ -92,6 +92,10 @@ public class FacadeTestBase extends TestBase {
     protected DictionaryDAO dictionaryDAO;
     @MockBean
     protected TransactionDAO transactionDAO;
+    @MockBean
+    protected ActivityDAO activityDAO;
+    @MockBean
+    protected KnowledgeDAO knowledgeDAO;
 
     @MockBean
     protected MidtransClient midtransClient;
@@ -147,6 +151,13 @@ public class FacadeTestBase extends TestBase {
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(role));
     }
 
+    protected void mockItemWithInfo() {
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+        Mockito.when(hobbyDAO.queryById(Mockito.any())).thenReturn(mockHobbyDO());
+        Mockito.when(itemCategoryDAO.queryById(Mockito.any())).thenReturn(mockCategoryDO());
+        Mockito.when(interestLevelDAO.queryById(Mockito.any())).thenReturn(mockInterestLevelDO());
+    }
+
 
     protected UserDO mockUserDO(String password) {
         return mockUserDO(password, true, false);
@@ -190,16 +201,6 @@ public class FacadeTestBase extends TestBase {
         return roleDO;
     }
 
-    protected ActivityDO mockActivityDO() {
-        ActivityDO activityDO = new ActivityDO();
-        activityDO.setActivityId("activityId");
-        activityDO.setActivityName("activityName");
-        activityDO.setGmtCreate(new Date());
-        activityDO.setGmtModified(new Date());
-
-        return activityDO;
-    }
-
     protected HobbyDO mockHobbyDO() {
         HobbyDO hobbyDO = new HobbyDO();
         hobbyDO.setHobbyId("hobbyid");
@@ -241,7 +242,7 @@ public class FacadeTestBase extends TestBase {
 
     protected ItemDO mockItemDO(boolean isApproved) {
         ItemDO itemDO = new ItemDO();
-        itemDO.setItemId("itemId");
+        itemDO.setItemId("itemId1");
         itemDO.setItemName("itemName");
         itemDO.setItemPrice(10000L);
         itemDO.setItemImages("images1|images2|images3");
@@ -266,6 +267,14 @@ public class FacadeTestBase extends TestBase {
         contentDO.setContentName("contentName");
 
         return contentDO;
+    }
+
+    protected KnowledgeDO mockKnowledgeDO() {
+        KnowledgeDO knowledgeDO = new KnowledgeDO();
+        knowledgeDO.setPk(new KnowledgeDOPK("type", "key"));
+        knowledgeDO.setKnowledge("itemId1|item1|item2|item3|item4");
+
+        return knowledgeDO;
     }
 
 }

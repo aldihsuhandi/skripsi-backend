@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.core.processor.item;
 
 import id.thesis.shumishumi.common.service.ItemService;
+import id.thesis.shumishumi.common.service.KnowledgeService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.UserService;
 import id.thesis.shumishumi.common.util.AssertUtil;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpdateItemProcessor implements BaseProcessor {
@@ -30,6 +32,9 @@ public class UpdateItemProcessor implements BaseProcessor {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private KnowledgeService knowledgeService;
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
@@ -45,11 +50,14 @@ public class UpdateItemProcessor implements BaseProcessor {
         AssertUtil.isExpected(userVO.getUserId(), itemVO.getMerchantInfo().getUserId(),
                 "this item is not from this user", ShumishumiErrorCodeEnum.USER_ROLE_INVALID);
 
+        knowledgeService.removeItemFromKnowledge(itemVO);
+
         itemService.update(itemVO, updateRequest.getItemUpdateContext(), updateImage(
                 itemVO.getItemImages(), updateRequest.getItemUpdateContext().getAddedImage(),
                 updateRequest.getItemUpdateContext().getRemovedImage()));
 
-        itemService.queryById(updateRequest.getItemId(), false);
+        itemVO = itemService.queryById(updateRequest.getItemId(), false);
+        knowledgeService.addItemToKnowledge(itemVO);
     }
 
     private List<String> updateImage(List<String> curImage, List<String> addImage, List<String> removeImage) {

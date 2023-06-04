@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.core.processor.item;
 
+import id.thesis.shumishumi.common.service.ActivityService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.common.service.SessionService;
@@ -28,6 +29,9 @@ public class QueryItemDetailProcessor implements BaseProcessor {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private ActivityService activityService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         QueryItemDetailRequest request = (QueryItemDetailRequest) baseRequest;
@@ -41,6 +45,8 @@ public class QueryItemDetailProcessor implements BaseProcessor {
         if (StringUtils.isNotEmpty(request.getSessionId())) {
             SessionVO session = sessionService.query(request.getSessionId());
             userId = session != null ? session.getUserId() : "";
+
+            activityService.addActivity(userId, itemVO, 2);
         }
 
         ItemSummary itemSummary = SummaryConverter.toSummary(itemVO,
