@@ -5,6 +5,7 @@ package id.thesis.shumishumi.facade.api;
 
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
+import id.thesis.shumishumi.facade.request.item.DeleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
@@ -12,6 +13,7 @@ import id.thesis.shumishumi.facade.request.item.RecommendRequest;
 import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.facade.result.item.CreateItemResult;
+import id.thesis.shumishumi.facade.result.item.DeleteItemResult;
 import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
@@ -31,6 +33,8 @@ public interface ItemFacade {
     QueryItemDetailResult queryDetail(QueryItemDetailRequest request);
 
     UpdateItemResult update(UpdateItemRequest request);
+
+    DeleteItemResult delete(DeleteItemRequest request);
 
     @Deprecated
     ItemApprovalResult approve(ItemApprovalRequest request);

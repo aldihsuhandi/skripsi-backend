@@ -9,6 +9,7 @@ import id.thesis.shumishumi.facade.api.ItemFacade;
 import id.thesis.shumishumi.facade.model.enumeration.ProcessTypeEnum;
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
+import id.thesis.shumishumi.facade.request.item.DeleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
@@ -17,6 +18,7 @@ import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.facade.result.item.CreateItemResult;
+import id.thesis.shumishumi.facade.result.item.DeleteItemResult;
 import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
@@ -81,6 +83,21 @@ public class ItemFacadeImpl extends ProcessFacade implements ItemFacade {
             @Override
             public BaseResult initResult() {
                 return new UpdateItemResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public DeleteItemResult delete(DeleteItemRequest request) {
+        return (DeleteItemResult) ProcessCallbackSupport.process(ProcessTypeEnum.ITEM_DELETE, request, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new DeleteItemResult();
             }
 
             @Override

@@ -132,6 +132,17 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    public void softDelete(String itemId) {
+        LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#softDelete[itemId=%s]", itemId));
+
+        try {
+            itemRepository.softDelete(itemId);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    @Override
     public void updateImage(ItemDAORequest request) {
         LogUtil.info(DALGEN_LOGGER, String.format("itemDAO#updateImage[request=%s]", request));
         try {

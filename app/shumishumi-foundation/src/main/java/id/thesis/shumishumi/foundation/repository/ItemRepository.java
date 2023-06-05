@@ -38,4 +38,9 @@ public interface ItemRepository extends JpaRepository<ItemDO, String>, ItemRepos
     @Transactional
     @Query("UPDATE ItemDO i SET i.review = :review WHERE i.itemId = :id")
     void updateReview(@Param("id") String itemId, @Param("review") double review);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ItemDO i SET i.isDeleted = true WHERE i.itemId = :id")
+    void softDelete(@Param("id") String itemId);
 }

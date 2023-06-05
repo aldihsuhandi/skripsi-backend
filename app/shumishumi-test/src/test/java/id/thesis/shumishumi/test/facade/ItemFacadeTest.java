@@ -11,6 +11,7 @@ import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.UserRolesEnum;
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
+import id.thesis.shumishumi.facade.request.item.DeleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.ItemApprovalRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
@@ -18,6 +19,7 @@ import id.thesis.shumishumi.facade.request.item.RecommendRequest;
 import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.facade.result.item.CreateItemResult;
+import id.thesis.shumishumi.facade.result.item.DeleteItemResult;
 import id.thesis.shumishumi.facade.result.item.ItemApprovalResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
@@ -186,6 +188,36 @@ public class ItemFacadeTest extends FacadeTestBase {
         ResultAssert.isNotSuccess(result.getResultContext().isSuccess());
         ResultAssert.isExpected(result.getResultContext().getResultCode(),
                 ShumishumiErrorCodeEnum.ITEM_NOT_FOUND.getErrorCode());
+    }
+
+    @Test
+    public void deleteItemTest_SUCCESS() {
+        DeleteItemRequest request = new DeleteItemRequest();
+        request.setItemId("itemId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        DeleteItemResult result = itemFacade.delete(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
+    }
+
+    @Test
+    public void deleteItemTest_SUCCESS_withKnowledge() {
+        DeleteItemRequest request = new DeleteItemRequest();
+        request.setItemId("itemId");
+
+        Mockito.when(sessionDAO.query(Mockito.any())).thenReturn(mockSessionDO());
+        Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(UserRolesEnum.MERCHANT.getUserRoleName()));
+        Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+
+        Mockito.when(knowledgeDAO.queryByTypeAndKey(Mockito.any(), Mockito.any())).thenReturn(mockKnowledgeDO());
+
+        DeleteItemResult result = itemFacade.delete(request);
+        ResultAssert.isSuccess(result.getResultContext().isSuccess());
     }
 
     @Test

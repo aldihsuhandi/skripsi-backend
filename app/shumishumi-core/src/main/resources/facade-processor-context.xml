@@ -52,6 +52,7 @@
     <bean id="queryItemProcessor" class="id.thesis.shumishumi.core.processor.item.QueryItemProcessor"/>
     <bean id="queryItemDetailProcessor" class="id.thesis.shumishumi.core.processor.item.QueryItemDetailProcessor"/>
     <bean id="updateItemProcessor" class="id.thesis.shumishumi.core.processor.item.UpdateItemProcessor"/>
+    <bean id="deleteItemProcessor" class="id.thesis.shumishumi.core.processor.item.DeleteItemProcessor"/>
     <bean id="itemApprovalProcessor" class="id.thesis.shumishumi.core.processor.item.ItemApprovalProcessor"/>
     <bean id="recommendProcessor" class="id.thesis.shumishumi.core.processor.item.RecommendProcessor"/>
     <bean id="autocompleteItemProcessor"
@@ -202,6 +203,9 @@
         </entry>
         <entry key="ITEM_UPDATE">
             <ref bean="updateItemProcessor"/>
+        </entry>
+        <entry key="ITEM_DELETE">
+            <ref bean="deleteItemProcessor"/>
         </entry>
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalProcessor"/>
@@ -357,6 +361,7 @@
     <bean id="queryItemValidator" class="id.thesis.shumishumi.core.validator.item.QueryItemValidator"/>
     <bean id="queryItemDetailValidator" class="id.thesis.shumishumi.core.validator.item.QueryItemDetailValidator"/>
     <bean id="updateItemValidator" class="id.thesis.shumishumi.core.validator.item.UpdateItemValidator"/>
+    <bean id="deleteItemValidator" class="id.thesis.shumishumi.core.validator.item.DeleteItemValidator"/>
     <bean id="itemApprovalValidator" class="id.thesis.shumishumi.core.validator.item.ItemApprovalValidator"/>
     <bean id="recommendValidator" class="id.thesis.shumishumi.core.validator.item.RecommendValidator"/>
     <bean id="autocompleteItemValidator" class="id.thesis.shumishumi.core.validator.item.AutocompleteItemValidator"/>
@@ -498,6 +503,9 @@
         </entry>
         <entry key="ITEM_UPDATE">
             <ref bean="updateItemValidator"/>
+        </entry>
+        <entry key="ITEM_DELETE">
+            <ref bean="deleteItemValidator"/>
         </entry>
         <entry key="ITEM_APPROVAL">
             <ref bean="itemApprovalValidator"/>

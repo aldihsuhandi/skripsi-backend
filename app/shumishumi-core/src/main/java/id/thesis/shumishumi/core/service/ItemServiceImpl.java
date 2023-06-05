@@ -197,6 +197,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void delete(String itemId) {
+        itemDAO.softDelete(itemId);
+    }
+
+    @Override
     public void updatePicture(String itemId, List<String> itemImages) {
 
         StringBuilder imageStr = new StringBuilder();

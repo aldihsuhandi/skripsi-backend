@@ -30,6 +30,8 @@ public interface ItemService {
 
     void update(ItemVO itemVO, ItemUpdateContext itemUpdateContext, List<String> images);
 
+    void delete(String itemId);
+
     void updatePicture(String itemId, List<String> itemImages);
 
     void approveItem(String itemId);

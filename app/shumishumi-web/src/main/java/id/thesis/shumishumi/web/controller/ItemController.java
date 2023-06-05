@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.web.controller;
 
 import id.thesis.shumishumi.common.model.form.item.CreateItemForm;
+import id.thesis.shumishumi.common.model.form.item.DeleteItemForm;
 import id.thesis.shumishumi.common.model.form.item.ItemAutocompleteForm;
 import id.thesis.shumishumi.common.model.form.item.QueryItemDetailForm;
 import id.thesis.shumishumi.common.model.form.item.QueryItemForm;
@@ -12,12 +13,14 @@ import id.thesis.shumishumi.facade.api.ItemFacade;
 import id.thesis.shumishumi.facade.model.context.SortingContext;
 import id.thesis.shumishumi.facade.request.item.AutocompleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.CreateItemRequest;
+import id.thesis.shumishumi.facade.request.item.DeleteItemRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemDetailRequest;
 import id.thesis.shumishumi.facade.request.item.QueryItemRequest;
 import id.thesis.shumishumi.facade.request.item.RecommendRequest;
 import id.thesis.shumishumi.facade.request.item.UpdateItemRequest;
 import id.thesis.shumishumi.facade.result.item.AutocompleteItemResult;
 import id.thesis.shumishumi.facade.result.item.CreateItemResult;
+import id.thesis.shumishumi.facade.result.item.DeleteItemResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemDetailResult;
 import id.thesis.shumishumi.facade.result.item.QueryItemResult;
 import id.thesis.shumishumi.facade.result.item.RecommendResult;
@@ -144,6 +147,30 @@ public class ItemController extends BaseController {
                 return itemFacade.update(request);
             }
         });
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<DeleteItemResult> delete(@RequestHeader HttpHeaders headers, @RequestBody DeleteItemForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON,
+                new ControllerCallback<DeleteItemResult, DeleteItemRequest>() {
+                    @Override
+                    public void authCheck(String clientId, String clientSecret) {
+                        authenticate(clientId, clientSecret);
+                    }
+
+                    @Override
+                    public DeleteItemRequest composeRequest() {
+                        DeleteItemRequest request = new DeleteItemRequest();
+                        request.setItemId(form.getItemId());
+
+                        return request;
+                    }
+
+                    @Override
+                    public DeleteItemResult doProcess(DeleteItemRequest request) {
+                        return itemFacade.delete(request);
+                    }
+                });
     }
 
     @PostMapping("/recommend")

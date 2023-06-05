@@ -19,6 +19,8 @@ public interface ItemDAO {
 
     void update(ItemDO request);
 
+    void softDelete(String itemId);
+
     void updateImage(ItemDAORequest request);
 
     void approve(ItemDAORequest request);
