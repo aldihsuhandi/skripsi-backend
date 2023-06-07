@@ -94,6 +94,20 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
             } else {
                 cq.orderBy(cb.asc(item.get("gmtCreate")));
             }
+        } else if (StringUtils.equals(sorting, "Interest level")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                cq.orderBy(cb.desc(item.get("merchantLevelId"))).
+                        orderBy(cb.desc(item.get("userLevelId")));
+            } else {
+                cq.orderBy(cb.asc(item.get("merchantLevelId"))).
+                        orderBy(cb.asc(item.get("userLevelId")));
+            }
+        } else if (StringUtils.equals(sorting, "Review")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                cq.orderBy(cb.desc(item.get("review")));
+            } else {
+                cq.orderBy(cb.asc(item.get("review")));
+            }
         }
 
         cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));

@@ -9,7 +9,7 @@ import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
-import id.thesis.shumishumi.facade.request.transaction.TransactionFinishRequest;
+import id.thesis.shumishumi.facade.request.transaction.TransactionCancelRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +26,7 @@ public class TransactionCancelProcessor implements BaseProcessor {
 
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
-        TransactionFinishRequest request = (TransactionFinishRequest) baseRequest;
+        TransactionCancelRequest request = (TransactionCancelRequest) baseRequest;
 
         String userId = sessionService.query(request.getSessionId()).getUserId();
         TransactionVO transaction = transactionService.query(request.getTransactionId(), false);

@@ -39,11 +39,17 @@ public class ItemVOComparator implements Comparator<ItemVO> {
             } else {
                 res = itemVO.getGmtCreate().before(t1.getGmtCreate()) ? 0 : 1;
             }
-        } else if (StringUtils.equals(sorting, "Interest Level")) {
+        } else if (StringUtils.equals(sorting, "Interest level")) {
             if (StringUtils.equals(sortingType, "Descending")) {
-                res = compareInterestLevel(itemVO, t1);
-            } else {
                 res = compareInterestLevel(t1, itemVO);
+            } else {
+                res = compareInterestLevel(itemVO, t1);
+            }
+        } else if (StringUtils.equals(sorting, "Review")) {
+            if (StringUtils.equals(sortingType, "Descending")) {
+                res = Double.compare(itemVO.getReview(), t1.getReview());
+            } else {
+                res = Double.compare(t1.getReview(), itemVO.getReview());
             }
         }
 
@@ -54,12 +60,13 @@ public class ItemVOComparator implements Comparator<ItemVO> {
         int il1 = calculateInterestLevel(i1);
         int il2 = calculateInterestLevel(i2);
 
-        return il1 - il2;
+        return Integer.compare(il1, il2);
     }
 
     private int calculateInterestLevel(ItemVO item) {
         InterestLevelEnum merchant = InterestLevelEnum.findByName(item.getMerchantLevel().getInterestLevelName());
-        InterestLevelEnum user = InterestLevelEnum.findByName(item.getUserLevel().getInterestLevelName());
+        InterestLevelEnum user = InterestLevelEnum.findByName(item.getUserLevel() != null ? item.
+                getUserLevel().getInterestLevelName() : "");
 
         int merchantIndex = merchant == null ? 0 : merchant.getIndex();
         int userIndex = user == null ? 0 : user.getIndex();
