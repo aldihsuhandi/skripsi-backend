@@ -90,7 +90,7 @@ public class CartFacadeTest extends FacadeTestBase {
         request.setSessionId("sessionId");
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
         Mockito.when(cartDAO.queryList(Mockito.any(), Mockito.any())).thenReturn(mockCarts());
-        Mockito.when(cartDAO.queryAll(Mockito.any())).thenReturn(mockCarts());
+        Mockito.when(cartDAO.queryAllSelected(Mockito.any())).thenReturn(mockCarts());
 
         Mockito.when(hobbyDAO.queryByName(Mockito.any())).thenReturn(mockHobbyDO());
         Mockito.when(itemCategoryDAO.queryByName(Mockito.any())).thenReturn(mockCategoryDO());
@@ -118,6 +118,7 @@ public class CartFacadeTest extends FacadeTestBase {
         CartDO cartDO = new CartDO();
         cartDO.setPk(new CartDOPK("userId", "itemId"));
         cartDO.setQuantity(12);
+        cartDO.setSelected(true);
 
         return cartDO;
     }

@@ -69,6 +69,7 @@ public enum ProcessTypeEnum {
     CART_UPDATE("CART_UPDATE", "cartUpdateValidator", "cartUpdateProcessor", true),
     CART_QUERY("CART_QUERY", "cartQueryValidator", "cartQueryProcessor", true),
     CART_CALCULATE("CART_CALCULATE", "cartCalculateValidator", "cartCalculateProcessor", true),
+    CART_SELECT("CART_SELECT", "cartSelectValidator", "cartSelectProcessor", true),
 
     TRANSACTION_CREATE("TRANSACTION_CREATE", "transactionCreateValidator", "transactionCreateProcessor", true),
     TRANSACTION_PAYMENT("TRANSACTION_PAYMENT", "transactionPaymentValidator", "transactionPaymentProcessor", true),

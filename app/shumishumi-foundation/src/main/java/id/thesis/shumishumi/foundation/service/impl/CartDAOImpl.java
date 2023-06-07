@@ -126,4 +126,14 @@ public class CartDAOImpl implements CartDAO {
         LogUtil.info(LOGGER, String.format("cartDAO#queryAllSelected[carts=%s]", carts));
         return carts;
     }
+
+    @Override
+    public void updateSelect(List<String> itemIds, String userId, boolean selected) {
+        LogUtil.info(LOGGER, String.format("cartDAO#updateSelect[userId=%s,itemIds=%s,selected=%s]", userId, itemIds, selected));
+        try {
+            cartRepository.updateSelectedCart(itemIds, userId, selected);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+    }
 }

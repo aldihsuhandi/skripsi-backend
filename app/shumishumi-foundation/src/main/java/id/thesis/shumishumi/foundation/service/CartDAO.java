@@ -19,4 +19,6 @@ public interface CartDAO {
     List<CartDO> queryAll(String userId);
 
     List<CartDO> queryAllSelected(String userId);
+
+    void updateSelect(List<String> itemIds, String userId, boolean selected);
 }

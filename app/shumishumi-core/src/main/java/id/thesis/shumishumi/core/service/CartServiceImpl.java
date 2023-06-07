@@ -60,6 +60,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void selectCart(List<String> itemIds, String userId, boolean selected) {
+        cartDAO.updateSelect(itemIds, userId, selected);
+    }
+
+    @Override
     public Long calculatePrice(String userId) {
         Long price = 0L;
         List<CartDO> carts = cartDAO.queryAllSelected(userId);

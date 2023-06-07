@@ -105,6 +105,8 @@
     <!--cart-->
     <bean id="cartAddProcessor"
           class="id.thesis.shumishumi.core.processor.cart.CartAddProcessor"/>
+    <bean id="cartSelectProcessor"
+          class="id.thesis.shumishumi.core.processor.cart.CartSelectProcessor"/>
     <bean id="cartUpdateProcessor"
           class="id.thesis.shumishumi.core.processor.cart.CartUpdateProcessor"/>
     <bean id="cartQueryProcessor"
@@ -280,6 +282,9 @@
         <entry key="CART_UPDATE">
             <ref bean="cartUpdateProcessor"/>
         </entry>
+        <entry key="CART_SELECT">
+            <ref bean="cartSelectProcessor"/>
+        </entry>
         <entry key="CART_QUERY">
             <ref bean="cartQueryProcessor"/>
         </entry>
@@ -409,6 +414,7 @@
     <!--cart-->
     <bean id="cartAddValidator" class="id.thesis.shumishumi.core.validator.cart.CartAddValidator"/>
     <bean id="cartUpdateValidator" class="id.thesis.shumishumi.core.validator.cart.CartUpdateValidator"/>
+    <bean id="cartSelectValidator" class="id.thesis.shumishumi.core.validator.cart.CartSelectValidator"/>
     <bean id="cartQueryValidator" class="id.thesis.shumishumi.core.validator.cart.CartQueryValidator"/>
     <bean id="cartCalculateValidator" class="id.thesis.shumishumi.core.validator.cart.CartCalculateValidator"/>
 
@@ -579,6 +585,9 @@
         </entry>
         <entry key="CART_UPDATE">
             <ref bean="cartUpdateValidator"/>
+        </entry>
+        <entry key="CART_SELECT">
+            <ref bean="cartSelectValidator"/>
         </entry>
         <entry key="CART_QUERY">
             <ref bean="cartQueryValidator"/>
