@@ -133,6 +133,7 @@ public class SummaryConverter {
         CartSummary summary = new CartSummary();
         summary.setItemSummary(toSummary(vo.getItem()));
         summary.setQuantity(vo.getQuantity());
+        summary.setSelected(vo.isSelected());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
 

@@ -13,4 +13,5 @@ public class CartVO extends BaseVO {
     private String userId;
     private ItemVO item;
     private int quantity;
+    private boolean selected;
 }

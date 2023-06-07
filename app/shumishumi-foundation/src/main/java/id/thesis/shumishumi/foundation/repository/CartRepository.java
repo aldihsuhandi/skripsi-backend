@@ -14,4 +14,6 @@ public interface CartRepository extends JpaRepository<CartDO, CartDOPK> {
     Page<CartDO> findByPkUserId(String userId, Pageable pageable);
 
     List<CartDO> findByPkUserId(String userId);
+
+    List<CartDO> findByPkUserIdAndSelected(String userId, boolean selected);
 }

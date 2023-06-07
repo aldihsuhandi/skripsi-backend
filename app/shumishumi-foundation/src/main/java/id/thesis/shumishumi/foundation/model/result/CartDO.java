@@ -18,6 +18,9 @@ public class CartDO extends BaseDO {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "selected")
+    private boolean selected;
+
     public CartDOPK getPk() {
         return pk;
     }
@@ -32,5 +35,13 @@ public class CartDO extends BaseDO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

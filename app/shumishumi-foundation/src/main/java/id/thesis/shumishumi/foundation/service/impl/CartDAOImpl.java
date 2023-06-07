@@ -42,14 +42,11 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public void update(String userId, String itemId, int quantity) {
-        LogUtil.info(LOGGER, String.format("cartDAO#update[userId=%s,itemId=%s,quantity=%d]", userId, itemId, quantity));
-        CartDO cartDO = new CartDO();
-        cartDO.setPk(new CartDOPK(userId, itemId));
-        cartDO.setQuantity(quantity);
+    public void update(CartDO cart) {
+        LogUtil.info(LOGGER, String.format("cartDAO#update[cart=%s]", cart));
 
         try {
-            cartRepository.save(cartDO);
+            cartRepository.save(cart);
         } catch (Exception e) {
             throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
         }
@@ -112,6 +109,21 @@ public class CartDAOImpl implements CartDAO {
         }
 
         LogUtil.info(LOGGER, String.format("cartDAO#queryAll[carts=%s]", carts));
+        return carts;
+    }
+
+    @Override
+    public List<CartDO> queryAllSelected(String userId) {
+        LogUtil.info(LOGGER, String.format("cartDAO#queryAllSelected[userId=%s]", userId));
+        List<CartDO> carts;
+
+        try {
+            carts = cartRepository.findByPkUserIdAndSelected(userId, true);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, String.format("cartDAO#queryAllSelected[carts=%s]", carts));
         return carts;
     }
 }

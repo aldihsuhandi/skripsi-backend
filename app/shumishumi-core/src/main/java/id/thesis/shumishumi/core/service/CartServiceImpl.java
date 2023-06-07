@@ -33,7 +33,9 @@ public class CartServiceImpl implements CartService {
         if (quantity == 0) {
             cartDAO.delete(userId, itemId);
         } else {
-            cartDAO.update(userId, itemId, quantity);
+            CartDO cart = cartDAO.query(userId, itemId);
+            cart.setQuantity(quantity);
+            cartDAO.update(cart);
         }
     }
 
@@ -60,7 +62,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Long calculatePrice(String userId) {
         Long price = 0L;
-        List<CartDO> carts = cartDAO.queryAll(userId);
+        List<CartDO> carts = cartDAO.queryAllSelected(userId);
 
         for (CartDO cart : carts) {
             ItemVO item = itemService.queryById(cart.getPk().getItemId(), true);

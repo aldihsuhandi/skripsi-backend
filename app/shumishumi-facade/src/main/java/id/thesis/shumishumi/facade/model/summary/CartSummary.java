@@ -12,4 +12,5 @@ public class CartSummary extends BaseSummary {
 
     private ItemSummary itemSummary;
     private int quantity;
+    private boolean selected;
 }
