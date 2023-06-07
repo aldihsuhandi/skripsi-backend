@@ -102,6 +102,9 @@ public class ItemServiceImpl implements ItemService {
         history.setHobbyId(item.getHobby().getHobbyId());
         history.setMerchantId(item.getMerchantInfo().getUserId());
         history.setMerchantLevelId(item.getMerchantLevel().getInterestLevelId());
+        if (item.getUserLevel() != null) {
+            history.setUserLevelId(item.getUserLevel().getInterestLevelId());
+        }
 
         itemDAO.createItemHistory(history);
 

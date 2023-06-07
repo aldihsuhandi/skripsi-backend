@@ -419,6 +419,9 @@ public class ViewObjectConverter {
         hobbyVO.setHobbyId(history.getHobbyId());
         itemCategoryVO.setCategoryId(history.getCategoryId());
         merchantLevel.setInterestLevelId(history.getMerchantLevelId());
+        if (StringUtils.isNotEmpty(history.getUserLevelId())) {
+            userLevel.setInterestLevelId(history.getUserLevelId());
+        }
 
         ItemVO item = new ItemVO();
         item.setItemId(history.getItemId());

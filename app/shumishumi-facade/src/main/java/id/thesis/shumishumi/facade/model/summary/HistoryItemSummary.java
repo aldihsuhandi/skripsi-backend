@@ -20,5 +20,6 @@ public class HistoryItemSummary extends BaseSummary {
     private String hobby;
     private UserSummary merchantInfo;
     private String merchantLevel;
+    private String userLevel;
     private List<String> itemImages;
 }

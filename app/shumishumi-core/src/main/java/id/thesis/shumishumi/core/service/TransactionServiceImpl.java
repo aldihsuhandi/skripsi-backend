@@ -52,6 +52,9 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionVO query(String transactionId, boolean withDetail) {
         TransactionVO transaction = ViewObjectConverter.toViewObject(transactionDAO.
                 queryTransaction(transactionId));
+        if (transaction == null) {
+            return null;
+        }
         transaction.setDetails(new ArrayList<>());
         if (withDetail) {
             List<TransactionDetailVO> details = transactionDAO.queryDetailTransaction(transactionId).

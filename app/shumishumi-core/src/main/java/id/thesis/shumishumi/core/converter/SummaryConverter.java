@@ -18,9 +18,12 @@ import id.thesis.shumishumi.facade.model.viewobject.PostVO;
 import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SummaryConverter {
     public static ItemSummary toSummary(ItemVO vo, int totalWishlist) {
@@ -141,19 +144,33 @@ public class SummaryConverter {
             return null;
         }
 
+        Map<String, List<TransactionDetailSummary>> details = new HashMap<>();
+        if (!CollectionUtils.isEmpty(vo.getDetails())) {
+            vo.getDetails().stream().map(detail -> {
+                TransactionDetailSummary detailSummary = new TransactionDetailSummary();
+                detailSummary.setItem(toSummary(detail.getHistoryItemVO()));
+                detailSummary.setQuantity(detail.getQuantity());
+
+                return detailSummary;
+            }).forEach(detail -> {
+                String merchant = detail.getItem().getMerchantInfo().getUsername();
+                List<TransactionDetailSummary> detailList = new ArrayList<>();
+                if (details.containsKey(merchant)) {
+                    detailList = details.get(merchant);
+                }
+
+                detailList.add(detail);
+                details.put(merchant, detailList);
+            });
+        }
+
         TransactionSummary summary = new TransactionSummary();
         summary.setTransactionId(vo.getTransactionId());
         summary.setPrice(vo.getPrice());
         summary.setStatus(vo.getStatus());
         summary.setPaymentType(vo.getPaymentType());
         summary.setPaymentCode(vo.getMidtransLink());
-        summary.setDetails(vo.getDetails() != null ? vo.getDetails().stream().map(detail -> {
-            TransactionDetailSummary detailSummary = new TransactionDetailSummary();
-            detailSummary.setItem(toSummary(detail.getHistoryItemVO()));
-            detailSummary.setQuantity(detail.getQuantity());
-
-            return detailSummary;
-        }).collect(Collectors.toList()) : new ArrayList<>());
+        summary.setDetails(details);
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
 
@@ -173,6 +190,9 @@ public class SummaryConverter {
         summary.setItemDescription(vo.getItem().getItemDescription());
         summary.setMerchantInfo(toSummary(vo.getItem().getMerchantInfo()));
         summary.setMerchantLevel(vo.getItem().getMerchantLevel().getInterestLevelName());
+        if (vo.getItem().getUserLevel() != null) {
+            summary.setUserLevel(vo.getItem().getUserLevel().getInterestLevelName());
+        }
         summary.setHobby(vo.getItem().getHobby().getHobbyName());
         summary.setItemCategory(vo.getItem().getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
