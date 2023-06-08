@@ -56,6 +56,8 @@ public class TransactionCreateProcessor implements BaseProcessor {
             transactionItems = request.getItems();
         }
 
+        AssertUtil.isExpected(!transactionItems.isEmpty(), "cart is empty", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+
         transactionItems.forEach(item -> {
             ItemVO itemVO = itemService.queryById(item.getItemId(), true);
             AssertUtil.isNotNull(itemVO, "one or more item in your cart cannot be found", ShumishumiErrorCodeEnum.ITEM_NOT_FOUND);
