@@ -38,6 +38,8 @@ public enum ShumishumiErrorCodeEnum {
 
     REVIEW_NOT_FOUND("REVIEW_NOT_FOUND", "review not found"),
 
+    CART_NOT_FOUND("CART_NOT_FOUND", "cart not found"),
+
     ;
 
     private final String errorCode;

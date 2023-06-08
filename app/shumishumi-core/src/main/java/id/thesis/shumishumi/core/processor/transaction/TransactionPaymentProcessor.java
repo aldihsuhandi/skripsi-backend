@@ -8,6 +8,7 @@ import id.thesis.shumishumi.common.service.MidtransService;
 import id.thesis.shumishumi.common.service.SessionService;
 import id.thesis.shumishumi.common.service.TransactionService;
 import id.thesis.shumishumi.common.util.AssertUtil;
+import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.enumeration.PaymentEnum;
@@ -84,9 +85,13 @@ public class TransactionPaymentProcessor implements BaseProcessor {
 
             itemService.update(itemVO, updateContext, itemVO.getItemImages());
 
-            cartService.update(userId, itemVO.getItemId(), 0);
-            activityService.addActivity(userId, itemVO, 25);
+            try {
+                cartService.update(userId, itemVO.getItemId(), 0);
+            } catch (Exception e) {
+                LogUtil.exception(e.getMessage(), e);
+            }
 
+            activityService.addActivity(userId, itemVO, 25);
             itemIds.add(itemVO.getItemId());
         });
 

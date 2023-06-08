@@ -6,11 +6,13 @@ import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
+import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.transaction.TransactionQueryDetailRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
 import id.thesis.shumishumi.facade.result.transaction.TransactionQueryDetailResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class TransactionQueryDetailProcessor implements BaseProcessor {
@@ -33,7 +35,9 @@ public class TransactionQueryDetailProcessor implements BaseProcessor {
         AssertUtil.isExpected(transaction.getUserId(), userId,
                 "this transaction is not from this user", ShumishumiErrorCodeEnum.USER_INVALID);
 
-        transactionService.checkPaymentStatus(transaction.getTransactionId());
+        if (!StringUtils.equals(transaction.getStatus(), TransactionStatusEnum.DONE.getCode())) {
+            transactionService.checkPaymentStatus(transaction.getTransactionId());
+        }
 
         transaction = transactionService.query(request.getTransactionId(), true);
 
