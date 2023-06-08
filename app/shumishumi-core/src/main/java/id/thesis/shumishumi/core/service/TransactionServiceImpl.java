@@ -6,9 +6,11 @@ import id.thesis.shumishumi.common.service.TransactionService;
 import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.common.util.LogUtil;
 import id.thesis.shumishumi.core.converter.ViewObjectConverter;
+import id.thesis.shumishumi.facade.model.context.ItemUpdateContext;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.TransactionStatusEnum;
 import id.thesis.shumishumi.facade.model.viewobject.HistoryItemVO;
+import id.thesis.shumishumi.facade.model.viewobject.ItemVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionDetailVO;
 import id.thesis.shumishumi.facade.model.viewobject.TransactionVO;
 import id.thesis.shumishumi.foundation.converter.TransactionDAORequestConverter;
@@ -108,6 +110,23 @@ public class TransactionServiceImpl implements TransactionService {
             if (StringUtils.equals(status, "settlement")) {
                 this.changeStatus(transactionId, TransactionStatusEnum.ONGOING.getCode());
                 return;
+            }
+
+            TransactionVO trx = this.query(transactionId, true);
+            if (StringUtils.equals(trx.getStatus(), TransactionStatusEnum.WAITING_PAYMENT.getCode())) {
+                List<String> itemIds = new ArrayList<>();
+                trx.getDetails().forEach(detail -> {
+                    ItemVO item = itemService.queryById(detail.getHistoryItemVO().
+                            getItem().getItemId(), true);
+
+                    ItemUpdateContext updateContext = new ItemUpdateContext();
+                    updateContext.setItemQuantity(detail.getQuantity() + item.getItemQuantity());
+
+                    itemService.update(item, updateContext, item.getItemImages());
+                    itemIds.add(item.getItemId());
+                });
+
+                itemService.refreshCache(itemIds, false);
             }
 
             this.changeStatus(transactionId, TransactionStatusEnum.CANCELED.getCode());
