@@ -15,4 +15,5 @@ public class TransactionCreateForm extends BaseForm {
     private static final long serialVersionUID = 7442157064318310165L;
 
     private List<TransactionItem> items;
+    private boolean fromCart = true;
 }

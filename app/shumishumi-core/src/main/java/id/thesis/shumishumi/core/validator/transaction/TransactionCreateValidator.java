@@ -13,10 +13,12 @@ public class TransactionCreateValidator implements BaseValidator {
         ParamChecker.isExpected(baseRequest instanceof TransactionCreateRequest, "request", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
 
         TransactionCreateRequest request = (TransactionCreateRequest) baseRequest;
-        ParamChecker.isNotEmpty(request.getItems(), "items", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-        request.getItems().forEach(item -> {
-            ParamChecker.isNotEmpty(item.getItemId(), "itemId", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-            ParamChecker.isExpected(item.getQuantity() > 0, "quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
-        });
+        if (!request.isFromCart()) {
+            ParamChecker.isNotEmpty(request.getItems(), "items", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+            request.getItems().forEach(item -> {
+                ParamChecker.isNotEmpty(item.getItemId(), "itemId", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+                ParamChecker.isExpected(item.getQuantity() > 0, "quantity", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+            });
+        }
     }
 }

@@ -14,6 +14,8 @@ public interface CartService {
 
     List<CartVO> queryCartList(String userId, PagingContext pagingContext);
 
+    List<CartVO> queryCartSelectedList(String userId);
+
     void selectCart(List<String> itemIds, String userId, boolean selected);
 
     Long calculatePrice(String userId);

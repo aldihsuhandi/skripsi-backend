@@ -60,6 +60,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<CartVO> queryCartSelectedList(String userId) {
+        return cartDAO.queryAllSelected(userId).stream().map(cartDO -> {
+            ItemVO item = itemService.queryById(cartDO.getPk().getItemId(), true);
+            return ViewObjectConverter.toViewObject(cartDO, item);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public void selectCart(List<String> itemIds, String userId, boolean selected) {
         cartDAO.updateSelect(itemIds, userId, selected);
     }

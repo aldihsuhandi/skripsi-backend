@@ -15,4 +15,5 @@ public class TransactionCreateRequest extends BaseRequest {
     private static final long serialVersionUID = -3763822505095502947L;
 
     private List<TransactionItem> items;
+    private boolean fromCart = true;
 }

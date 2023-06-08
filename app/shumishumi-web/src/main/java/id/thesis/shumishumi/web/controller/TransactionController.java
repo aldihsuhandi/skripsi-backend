@@ -51,6 +51,7 @@ public class TransactionController extends BaseController {
                     public TransactionCreateRequest composeRequest() {
                         TransactionCreateRequest request = new TransactionCreateRequest();
                         request.setItems(form.getItems());
+                        request.setFromCart(form.isFromCart());
 
                         return request;
                     }
