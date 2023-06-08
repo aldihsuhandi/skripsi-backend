@@ -58,6 +58,8 @@ public class TransactionPaymentProcessor implements BaseProcessor {
         TransactionVO transaction = transactionService.query(request.getTransactionId(), true);
         AssertUtil.isNotNull(transaction, "transaction not found", ShumishumiErrorCodeEnum.TRANSACTION_NOT_FOUND);
         AssertUtil.isExpected(transaction.getUserId(), userId, "this transaction is not from this user", ShumishumiErrorCodeEnum.USER_INVALID);
+        AssertUtil.isExpected(transaction.getStatus(), TransactionStatusEnum.INIT.getCode(),
+                "transaction status is invalid", ShumishumiErrorCodeEnum.TRANSACTION_STATUS_INVALID);
 
         for (TransactionDetailVO detail : transaction.getDetails()) {
             ItemVO itemVO = itemService.queryById(detail.getHistoryItemVO().getItem().getItemId(), true);

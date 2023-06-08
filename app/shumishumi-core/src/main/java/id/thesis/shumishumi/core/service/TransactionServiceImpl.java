@@ -55,6 +55,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (transaction == null) {
             return null;
         }
+
         transaction.setDetails(new ArrayList<>());
         if (withDetail) {
             List<TransactionDetailVO> details = transactionDAO.queryDetailTransaction(transactionId).
