@@ -12,6 +12,7 @@ public class ReviewQueryRequest extends BaseRequest {
     private static final long serialVersionUID = 4781026314932675444L;
 
     private String type;
+    private String merchantName;
     private boolean needReview = false;
     private int numberOfItem = 10;
     private int pageNumber = 1;

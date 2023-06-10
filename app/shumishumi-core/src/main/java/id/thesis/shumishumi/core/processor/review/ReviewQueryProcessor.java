@@ -2,10 +2,14 @@ package id.thesis.shumishumi.core.processor.review;
 
 import id.thesis.shumishumi.common.service.ReviewService;
 import id.thesis.shumishumi.common.service.SessionService;
+import id.thesis.shumishumi.common.service.UserService;
+import id.thesis.shumishumi.common.util.AssertUtil;
 import id.thesis.shumishumi.core.converter.SummaryConverter;
 import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
+import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
+import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.review.ReviewQueryRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
@@ -25,6 +29,9 @@ public class ReviewQueryProcessor implements BaseProcessor {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         ReviewQueryRequest request = (ReviewQueryRequest) baseRequest;
@@ -38,7 +45,12 @@ public class ReviewQueryProcessor implements BaseProcessor {
 
         List<ReviewVO> reviewVOS = new ArrayList<>();
         if (StringUtils.equals("MERCHANT", request.getType())) {
-            reviewVOS = reviewService.queryByMerchant(userId, pagingContext);
+            UserVO merchant = userService.queryByUsername(request.getMerchantName(), true);
+            AssertUtil.isNotNull(merchant, "merchant not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+            AssertUtil.isExpected(merchant.isActive(), "merchant not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+            AssertUtil.isExpected(!merchant.isDeleted(), "merchant not found", ShumishumiErrorCodeEnum.USER_NOT_FOUND);
+
+            reviewVOS = reviewService.queryByMerchant(merchant.getUserId(), pagingContext);
         } else {
             reviewVOS = reviewService.queryByUserAndNeedReview(userId, request.isNeedReview(), pagingContext);
         }

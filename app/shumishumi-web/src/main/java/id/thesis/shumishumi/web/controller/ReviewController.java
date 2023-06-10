@@ -40,6 +40,7 @@ public class ReviewController extends BaseController {
                     @Override
                     public ReviewQueryRequest composeRequest() {
                         ReviewQueryRequest request = new ReviewQueryRequest();
+                        request.setMerchantName(form.getMerchantName());
                         request.setPageNumber(form.getPageNumber());
                         request.setNumberOfItem(form.getNumberOfItem());
                         request.setNeedReview(form.isNeedReview());

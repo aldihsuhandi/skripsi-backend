@@ -12,6 +12,7 @@ public class ReviewQueryForm extends BaseForm {
     private static final long serialVersionUID = 3569197134562818760L;
 
     private String type;
+    private String merchantName;
     private boolean needReview = false;
     private int numberOfItem = 10;
     private int pageNumber = 1;
