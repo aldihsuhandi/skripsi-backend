@@ -138,7 +138,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private void composeInterestLevel(ReviewVO reviewVO) {
-        if (reviewVO == null) {
+        if (reviewVO == null || StringUtils.isEmpty(reviewVO.
+                getInterestLevel().getInterestLevelId())) {
             return;
         }
 
