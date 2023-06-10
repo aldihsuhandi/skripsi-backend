@@ -67,7 +67,7 @@ public class ReviewController extends BaseController {
                     @Override
                     public ReviewDetailRequest composeRequest() {
                         ReviewDetailRequest request = new ReviewDetailRequest();
-                        request.setReviewId(request.getReviewId());
+                        request.setReviewId(form.getReviewId());
 
                         return request;
                     }
