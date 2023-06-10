@@ -80,6 +80,7 @@ public enum ProcessTypeEnum {
 
     REVIEW_CREATE("REVIEW_CREATE", "reviewCreateValidator", "reviewCreateProcessor", true),
     REVIEW_QUERY("REVIEW_QUERY", "reviewQueryValidator", "reviewQueryProcessor", true),
+    REVIEW_DETAIL("REVIEW_DETAIL", "reviewDetailValidator", "reviewDetailProcessor", true),
 
     ;
 

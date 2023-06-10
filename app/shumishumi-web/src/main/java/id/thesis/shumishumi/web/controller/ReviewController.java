@@ -1,13 +1,16 @@
 package id.thesis.shumishumi.web.controller;
 
 import id.thesis.shumishumi.common.model.form.review.ReviewCreateForm;
+import id.thesis.shumishumi.common.model.form.review.ReviewDetailForm;
 import id.thesis.shumishumi.common.model.form.review.ReviewQueryForm;
 import id.thesis.shumishumi.core.callback.ControllerCallback;
 import id.thesis.shumishumi.core.callback.ControllerCallbackSupport;
 import id.thesis.shumishumi.facade.api.ReviewFacade;
 import id.thesis.shumishumi.facade.request.review.ReviewCreateRequest;
+import id.thesis.shumishumi.facade.request.review.ReviewDetailRequest;
 import id.thesis.shumishumi.facade.request.review.ReviewQueryRequest;
 import id.thesis.shumishumi.facade.result.review.ReviewCreateResult;
+import id.thesis.shumishumi.facade.result.review.ReviewDetailResult;
 import id.thesis.shumishumi.facade.result.review.ReviewQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +51,30 @@ public class ReviewController extends BaseController {
                     @Override
                     public ReviewQueryResult doProcess(ReviewQueryRequest request) {
                         return reviewFacade.query(request);
+                    }
+                });
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<ReviewDetailResult> detail(@RequestHeader HttpHeaders headers, @RequestBody ReviewDetailForm form) {
+        return ControllerCallbackSupport.process(headers, form, MediaType.APPLICATION_JSON,
+                new ControllerCallback<ReviewDetailResult, ReviewDetailRequest>() {
+                    @Override
+                    public void authCheck(String clientId, String clientSecret) {
+                        authenticate(clientId, clientSecret);
+                    }
+
+                    @Override
+                    public ReviewDetailRequest composeRequest() {
+                        ReviewDetailRequest request = new ReviewDetailRequest();
+                        request.setReviewId(request.getReviewId());
+
+                        return request;
+                    }
+
+                    @Override
+                    public ReviewDetailResult doProcess(ReviewDetailRequest request) {
+                        return reviewFacade.detail(request);
                     }
                 });
     }
