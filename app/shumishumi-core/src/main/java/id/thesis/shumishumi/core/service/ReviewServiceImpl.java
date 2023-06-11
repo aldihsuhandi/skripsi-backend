@@ -127,6 +127,8 @@ public class ReviewServiceImpl implements ReviewService {
         vo.setGmtCreate(reviewDO.getGmtCreate());
         vo.setGmtModified(reviewDO.getGmtModified());
 
+        composeInterestLevel(vo);
+
         if (StringUtils.isNotEmpty(reviewDO.getReviewImages())) {
             vo.setReviewImages(Arrays.asList(reviewDO.getReviewImages()
                     .split(CommonConst.SEPARATOR_SPLIT)));
@@ -136,7 +138,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private void composeInterestLevel(ReviewVO reviewVO) {
-        if (reviewVO == null) {
+        if (reviewVO == null || StringUtils.isEmpty(reviewVO.
+                getInterestLevel().getInterestLevelId())) {
             return;
         }
 

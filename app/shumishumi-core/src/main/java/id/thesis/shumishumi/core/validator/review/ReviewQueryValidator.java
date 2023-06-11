@@ -16,5 +16,10 @@ public class ReviewQueryValidator implements BaseValidator {
         ReviewQueryRequest request = (ReviewQueryRequest) baseRequest;
         ParamChecker.isExpected(StringUtils.equals(request.getType(), "MERCHANT") ||
                 StringUtils.equals(request.getType(), "USER"), "type", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+
+        if (StringUtils.equals(request.getType(), "MERCHANT")) {
+            ParamChecker.isNotEmpty(request.getMerchantName(), "merchantName", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+            ParamChecker.isExpected(!request.isNeedReview(), "needReview", ShumishumiErrorCodeEnum.PARAM_ILLEGAL);
+        }
     }
 }

@@ -133,6 +133,8 @@
           class="id.thesis.shumishumi.core.processor.review.ReviewCreateProcessor"/>
     <bean id="reviewQueryProcessor"
           class="id.thesis.shumishumi.core.processor.review.ReviewQueryProcessor"/>
+    <bean id="reviewDetailProcessor"
+          class="id.thesis.shumishumi.core.processor.review.ReviewDetailProcessor"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryProcessor"
@@ -317,6 +319,9 @@
         <entry key="REVIEW_QUERY">
             <ref bean="reviewQueryProcessor"/>
         </entry>
+        <entry key="REVIEW_DETAIL">
+            <ref bean="reviewDetailProcessor"/>
+        </entry>
 
         <entry key="DICTIONARY_QUERY">
             <ref bean="dictionaryQueryProcessor"/>
@@ -437,6 +442,8 @@
           class="id.thesis.shumishumi.core.validator.review.ReviewCreateValidator"/>
     <bean id="reviewQueryValidator"
           class="id.thesis.shumishumi.core.validator.review.ReviewQueryValidator"/>
+    <bean id="reviewDetailValidator"
+          class="id.thesis.shumishumi.core.validator.review.ReviewDetailValidator"/>
 
     <!--dictionary-->
     <bean id="dictionaryQueryValidator"
@@ -620,6 +627,9 @@
         </entry>
         <entry key="REVIEW_QUERY">
             <ref bean="reviewQueryValidator"/>
+        </entry>
+        <entry key="REVIEW_DETAIL">
+            <ref bean="reviewDetailValidator"/>
         </entry>
 
         <entry key="DICTIONARY_QUERY">
