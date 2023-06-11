@@ -1,7 +1,6 @@
 # !/bin/bash
 
-SERVER_ENV="prod"
-
-mvn clean install -DskipTests
-cd app/shumishumi-bootstrap 
-./mvnw spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=${SERVER_ENV}"
+docker build -t shumishumi-image .
+docker tag shumishumi-image gcr.io/moonlit-helper-388513/shumishumi-image
+docker push gcr.io/moonlit-helper-388513/shumishumi-image
+gcloud app deploy

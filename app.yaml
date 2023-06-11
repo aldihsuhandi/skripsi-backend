@@ -1,8 +1,4 @@
-runtime: java11
-env_variables:
-  SPRING_PROFILES_ACTIVE: "prod"
-entrypoint: java -jar app/shumishumi-bootstrap
-automatic_scaling:
-  target_cpu_utilization: 0.65
-  min_instances: 1
-  max_instances: 5
+runtime: custom
+env: flex
+service: shumishumi-be
+entrypoint: gcr.io/moonlit-helper-388513/shumishumi-image

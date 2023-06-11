@@ -10,6 +10,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <packaging>jar</packaging>
+
     <groupId>id.thesis.shumishumi</groupId>
     <artifactId>shumishumi-facade</artifactId>
 
@@ -18,5 +20,22 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
