@@ -79,7 +79,7 @@ public enum ProcessTypeEnum {
     TRANSACTION_CANCEL("TRANSACTION_CANCEL", "transactionCancelValidator", "transactionCancelProcessor", true),
 
     REVIEW_CREATE("REVIEW_CREATE", "reviewCreateValidator", "reviewCreateProcessor", true),
-    REVIEW_QUERY("REVIEW_QUERY", "reviewQueryValidator", "reviewQueryProcessor", true),
+    REVIEW_QUERY("REVIEW_QUERY", "reviewQueryValidator", "reviewQueryProcessor", false),
     REVIEW_DETAIL("REVIEW_DETAIL", "reviewDetailValidator", "reviewDetailProcessor", true),
 
     ;

@@ -9,6 +9,7 @@ import id.thesis.shumishumi.core.processor.BaseProcessor;
 import id.thesis.shumishumi.facade.model.context.PagingContext;
 import id.thesis.shumishumi.facade.model.enumeration.ShumishumiErrorCodeEnum;
 import id.thesis.shumishumi.facade.model.viewobject.ReviewVO;
+import id.thesis.shumishumi.facade.model.viewobject.SessionVO;
 import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.review.ReviewQueryRequest;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,8 +39,6 @@ public class ReviewQueryProcessor implements BaseProcessor {
         ReviewQueryRequest request = (ReviewQueryRequest) baseRequest;
         ReviewQueryResult result = (ReviewQueryResult) baseResult;
 
-        String userId = sessionService.query(request.getSessionId()).getUserId();
-
         PagingContext pagingContext = new PagingContext();
         pagingContext.setPageNumber(request.getPageNumber());
         pagingContext.setNumberOfItem(request.getNumberOfItem());
@@ -52,6 +52,13 @@ public class ReviewQueryProcessor implements BaseProcessor {
 
             reviewVOS = reviewService.queryByMerchant(merchant.getUserId(), pagingContext);
         } else {
+            SessionVO sessionVO = sessionService.query(request.getSessionId());
+            AssertUtil.isNotNull(sessionVO, "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
+            AssertUtil.isExpected(sessionVO.isActive(), "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
+            AssertUtil.isExpected(!sessionVO.isRemembered() && new Date().before(sessionVO.getSessionDt()),
+                    "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
+            String userId = sessionVO.getUserId();
+
             reviewVOS = reviewService.queryByUserAndNeedReview(userId, request.isNeedReview(), pagingContext);
         }
 
