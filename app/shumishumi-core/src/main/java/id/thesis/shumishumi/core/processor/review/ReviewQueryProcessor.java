@@ -55,7 +55,7 @@ public class ReviewQueryProcessor implements BaseProcessor {
             SessionVO sessionVO = sessionService.query(request.getSessionId());
             AssertUtil.isNotNull(sessionVO, "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
             AssertUtil.isExpected(sessionVO.isActive(), "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
-            AssertUtil.isExpected(!sessionVO.isRemembered() && new Date().before(sessionVO.getSessionDt()),
+            AssertUtil.isExpected(sessionVO.isRemembered() || new Date().before(sessionVO.getSessionDt()),
                     "session expired", ShumishumiErrorCodeEnum.SESSION_EXPIRED);
             String userId = sessionVO.getUserId();
 
