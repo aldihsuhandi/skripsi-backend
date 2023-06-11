@@ -12,4 +12,9 @@ public class HelloController {
         }
         return "Hello " + name + "!";
     }
+
+    @GetMapping("/")
+    public String springboot() {
+        return "Springboot has started";
+    }
 }
