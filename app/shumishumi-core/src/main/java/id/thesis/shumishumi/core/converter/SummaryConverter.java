@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.core.converter;
 
+import id.thesis.shumishumi.common.util.FunctionUtil;
 import id.thesis.shumishumi.facade.model.constant.CommonConst;
 import id.thesis.shumishumi.facade.model.summary.CartSummary;
 import id.thesis.shumishumi.facade.model.summary.CommentSummary;
@@ -52,7 +53,7 @@ public class SummaryConverter {
         summary.setMerchantInfo(toSummary(vo.getMerchantInfo()));
         summary.setMerchantLevel(vo.getMerchantLevel().getInterestLevelName());
         summary.setHobby(vo.getHobby().getHobbyName());
-        summary.setReview(vo.getReview());
+        summary.setReview(FunctionUtil.roundDouble(vo.getReview()));
         summary.setItemCategory(vo.getItemCategory().getCategoryName());
         summary.setGmtCreate(vo.getGmtCreate());
         summary.setGmtModified(vo.getGmtModified());
@@ -77,7 +78,7 @@ public class SummaryConverter {
         userSummary.setDateOfBirth(vo.getDateOfBirth());
         userSummary.setGmtCreate(vo.getGmtCreate());
         userSummary.setGmtModified(vo.getGmtModified());
-        userSummary.setReview(vo.getReview());
+        userSummary.setReview(FunctionUtil.roundDouble(vo.getReview()));
         userSummary.setCanTelegram(Boolean.parseBoolean(vo.getExtendInfo().
                 getOrDefault(CommonConst.EXTEND_INFO_TELEGRAM, "false")));
         userSummary.setCanWhatsapp(Boolean.parseBoolean(vo.getExtendInfo().
@@ -209,7 +210,7 @@ public class SummaryConverter {
         ReviewSummary summary = new ReviewSummary();
         summary.setReviewId(vo.getReviewId());
         summary.setItemId(vo.getItemId());
-        summary.setReview(vo.getStar());
+        summary.setReview((int) FunctionUtil.roundDouble(vo.getStar()));
         summary.setImages(vo.getReviewImages());
         summary.setInterestLevel(vo.getInterestLevel().getInterestLevelName());
         summary.setDescription(vo.getDescription());

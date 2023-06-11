@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.CollectionUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -173,6 +174,13 @@ public class FunctionUtil {
 
     public static boolean verifyHash(String password, String hash) {
         return bCryptPasswordEncoder.matches(password, hash);
+    }
+
+    public static double roundDouble(double n) {
+        DecimalFormat format = new DecimalFormat("#.#");
+        String roundStr = format.format(n);
+
+        return Double.parseDouble(roundStr);
     }
 
 }

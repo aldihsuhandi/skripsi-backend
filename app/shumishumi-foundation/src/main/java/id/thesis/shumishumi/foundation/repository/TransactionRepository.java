@@ -21,7 +21,7 @@ public interface TransactionRepository extends JpaRepository<TransactionDO, Stri
     @Query("UPDATE TransactionDO t SET t.status = :status WHERE t.transactionId = :id")
     void updateStatusById(@Param("id") String transactionId, @Param("status") String transactionStatus);
 
-    @Query("SELECT t FROM TransactionDO t WHERE t.userId = :user_id AND t.status NOT LIKE '%INIT%' AND t.status LIKE %:status%")
+    @Query("SELECT t FROM TransactionDO t WHERE t.userId = :user_id AND t.status NOT LIKE '%INIT%' AND t.status LIKE %:status% ORDER BY t.gmtCreate DESC")
     Page<TransactionDO> queryByStatus(@Param("user_id") String userId, @Param("status") String status, Pageable pageable);
 
     List<TransactionDO> findByStatus(String status);
