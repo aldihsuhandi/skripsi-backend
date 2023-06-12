@@ -2,3 +2,14 @@ runtime: custom
 env: flex
 service: shumishumi-be
 entrypoint: gcr.io/moonlit-helper-388513/shumishumi-image
+instance_class: F4_1G
+automatic_scaling:
+  min_num_instances: 3
+  max_num_instances: 10
+  cool_down_period_sec: 180
+  cpu_utilization:
+    target_utilization: 0.6
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 10

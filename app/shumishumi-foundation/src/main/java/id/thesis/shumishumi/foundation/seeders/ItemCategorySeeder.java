@@ -36,7 +36,8 @@ public class ItemCategorySeeder extends BaseSeeder {
     void seed() {
         List<Pair<String, String>> categories = new ArrayList<>();
         // MUSIC
-        categories.add(new Pair<>("GUITAR", "Guitar"));
+        categories.add(new Pair<>("ACOUSTIC_GUITAR", "Acoustic Guitar"));
+        categories.add(new Pair<>("ELECTRIC_GUITAR", "Electric Guitar"));
 
         // COMPUTER
         categories.add(new Pair<>("CPU", "Central Processing Unit"));
@@ -48,6 +49,10 @@ public class ItemCategorySeeder extends BaseSeeder {
         categories.add(new Pair<>("KEYBOARD_SWITCH", "Keyboard Switch"));
         categories.add(new Pair<>("KEYCAPS", "Key caps"));
         categories.add(new Pair<>("DIY_KIT", "Keyboard DIY Kit"));
+
+        // COFFEE
+        categories.add(new Pair<>("COFFEE_GRINDER", "Coffee Grinder"));
+        categories.add(new Pair<>("COFFEE_BREWER", "Coffee Brewer"));
 
         categories.forEach(category -> {
             ItemCategoryDO categoryDO = new ItemCategoryDO();

@@ -37,6 +37,7 @@ public class HobbySeeder extends BaseSeeder {
         requests.add(new HobbyRequest("KEYBOARD", "Keyboard"));
         requests.add(new HobbyRequest("COMPUTER", "Computer"));
         requests.add(new HobbyRequest("MUSIC", "Music"));
+        requests.add(new HobbyRequest("COFFEE", "Coffee"));
 
         requests.forEach(request -> {
             HobbyDO hobbyDO = new HobbyDO();

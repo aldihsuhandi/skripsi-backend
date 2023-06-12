@@ -65,6 +65,10 @@ public class UserSeeder extends BaseSeeder {
                 "GuitarShop@mail.com", generatePhoneNumber(), UserRolesEnum.MERCHANT.getUserRoleId(), true, false,
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/GuitareClassique5.png/366px-GuitareClassique5.png", "guitar123", JSONStringUtil.parseObject(extendInfo)));
 
+        userRequests.add(new UserRequest("CoffeeShop", "Coffee Shop", "CoffeeShop@mail.com", generatePhoneNumber(),
+                UserRolesEnum.MERCHANT.getUserRoleId(), true, false, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_and_dark_coffee.jpg/250px-Latte_and_dark_coffee.jpg",
+                "coffee123", JSONStringUtil.parseObject(extendInfo)));
+
         userRequests.forEach(this::createUser);
     }
 
