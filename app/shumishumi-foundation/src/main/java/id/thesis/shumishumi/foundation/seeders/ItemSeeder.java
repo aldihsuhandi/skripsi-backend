@@ -203,9 +203,6 @@ public class ItemSeeder extends BaseSeeder {
                 , Arrays.asList("https://m.media-amazon.com/images/I/81jP1Fn+mEL._AC_SL1500_.jpg",
                 "https://m.media-amazon.com/images/I/71WemH3mVfL._AC_SL1500_.jpg")
                 , "COFFEE_GRINDER", "COFFEE", "CoffeeShop", InterestLevelEnum.INTERMEDIATE.getId()));
-        r.add(new ItemRequest("Clever Chef French Press Coffee Maker", 150000L, "THE FRENCH PRESS: Simply the best little brewer for your morning cup of coffee, Easy brewing, exceptional filtration, quick clean-up, and sleek design all combine to give you everything you want in your french press", 23
-                , Arrays.asList("BEGINNER")
-                , " Perfect to make fresh coffee, tea, espresso, or cold brew ", "COFFEE_BREWER", "COFFEE", InterestLevelEnum.CoffeeShop.getId()));
         r.add(new ItemRequest("Coffee Gator Pour Over Coffee Maker", 250000L, " Coffee Gator Pour Over Coffee Maker - 14 oz Paperless, Portable, Drip Coffee Brewer Pour Over Set w/Glass Carafe & Stainless-Steel Mesh Filter, Clear ", 509
                 , Arrays.asList("https://m.media-amazon.com/images/I/81pVqOS2f7L._AC_SL1500_.jpg")
                 , "COFFEE_BREWER", "COFFEE", "CoffeeShop", InterestLevelEnum.BEGINNER.getId()));
