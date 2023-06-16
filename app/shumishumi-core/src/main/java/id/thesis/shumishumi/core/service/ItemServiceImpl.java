@@ -128,6 +128,8 @@ public class ItemServiceImpl implements ItemService {
         if (useCache) {
             itemVO = itemFetchService.fetchFromCache(itemId);
             if (itemVO != null) {
+                itemVO.setMerchantInfo(userService.queryById(
+                        itemVO.getMerchantInfo().getUserId(), true));
                 return itemVO;
             }
         }
