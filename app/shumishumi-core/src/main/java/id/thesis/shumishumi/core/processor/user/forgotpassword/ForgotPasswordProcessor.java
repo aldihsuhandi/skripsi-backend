@@ -1,6 +1,7 @@
 package id.thesis.shumishumi.core.processor.user.forgotpassword;
 
 import id.thesis.shumishumi.common.service.ContentService;
+import id.thesis.shumishumi.common.service.DictionaryService;
 import id.thesis.shumishumi.common.service.EmailService;
 import id.thesis.shumishumi.common.service.ResetPasswordService;
 import id.thesis.shumishumi.common.service.UserService;
@@ -12,6 +13,7 @@ import id.thesis.shumishumi.facade.model.viewobject.UserVO;
 import id.thesis.shumishumi.facade.request.BaseRequest;
 import id.thesis.shumishumi.facade.request.user.forgotpassword.ForgotPasswordSendRequest;
 import id.thesis.shumishumi.facade.result.BaseResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -29,6 +31,9 @@ public class ForgotPasswordProcessor implements BaseProcessor {
     @Autowired
     private ContentService contentService;
 
+    @Autowired
+    private DictionaryService dictionaryService;
+
     @Value("${frontend.domain.url}")
     private String urlDomain;
 
@@ -44,8 +49,14 @@ public class ForgotPasswordProcessor implements BaseProcessor {
 
         String uuid = resetPasswordService.resetPassword(email);
 
+        String dictUrl = dictionaryService.queryByKey(CommonConst.DICTIONARY_FRONTEND_URL);
+        String feDomain = urlDomain;
+        if (StringUtils.isNotEmpty(dictUrl)) {
+            feDomain = dictUrl;
+        }
+
         String urlTemplate = contentService.queryContent(CommonConst.FORGOT_PASSWORD_URL_FORMAT);
-        String url = String.format(urlTemplate, urlDomain, uuid);
+        String url = String.format(urlTemplate, feDomain, uuid);
 
         emailService.sendForgotPasswordEmail(email, url);
     }

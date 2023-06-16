@@ -41,4 +41,14 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         return result;
     }
+
+    @Override
+    public String queryByKey(String key) {
+        DictionaryDO dictionaryDO = dictionaryDAO.queryByKey(key);
+        if (dictionaryDO == null) {
+            return "";
+        }
+
+        return dictionaryDO.getDictionaryName();
+    }
 }

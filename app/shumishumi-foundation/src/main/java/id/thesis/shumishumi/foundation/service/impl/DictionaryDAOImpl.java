@@ -51,4 +51,18 @@ public class DictionaryDAOImpl implements DictionaryDAO {
         LogUtil.info(LOGGER, String.format("dictionaryDAO#queryAll[result=%s]", result));
         return result;
     }
+
+    @Override
+    public DictionaryDO queryByKey(String key) {
+        LogUtil.info(LOGGER, "dictionaryDAO#queryByKey[key=%s]", key);
+        DictionaryDO dictionaryDO;
+        try {
+            dictionaryDO = dictionaryRepository.findByDictionaryName(key).orElse(null);
+        } catch (Exception e) {
+            throw new ShumishumiException(e, ShumishumiErrorCodeEnum.SYSTEM_ERROR);
+        }
+
+        LogUtil.info(LOGGER, "dictionaryDAO#queryByKey[result=%s]\n", dictionaryDO);
+        return dictionaryDO;
+    }
 }

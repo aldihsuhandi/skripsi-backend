@@ -6,4 +6,6 @@ public interface DictionaryService {
     void refreshCache();
 
     List<String> queryByType(String dictionaryType);
+
+    String queryByKey(String key);
 }

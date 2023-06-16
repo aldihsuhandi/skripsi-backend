@@ -40,6 +40,7 @@ public class CommonConst {
     public static String DICTIONARY_GENDER = "GENDER";
     public static String DICTIONARY_ITEM_SORTING = "ITEM_SORTING";
     public static String DICTIONARY_SORTING_TYPE = "SORTING_TYPE";
+    public static String DICTIONARY_FRONTEND_URL = "FRONTEND_URL";
 
     /**
      * MIDTRANS

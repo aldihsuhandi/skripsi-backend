@@ -8,4 +8,6 @@ public interface DictionaryDAO {
     List<DictionaryDO> queryByType(String dictionaryType);
 
     List<DictionaryDO> queryAll();
+
+    DictionaryDO queryByKey(String key);
 }
