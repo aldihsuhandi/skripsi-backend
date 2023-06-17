@@ -49,6 +49,6 @@ public class DictionaryServiceImpl implements DictionaryService {
             return "";
         }
 
-        return dictionaryDO.getDictionaryName();
+        return dictionaryDO.getDisplayName();
     }
 }
