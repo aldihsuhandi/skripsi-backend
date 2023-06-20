@@ -1,5 +1,6 @@
 package id.thesis.shumishumi.core.processor.item.wishlist;
 
+import id.thesis.shumishumi.common.service.ActivityService;
 import id.thesis.shumishumi.common.service.ItemService;
 import id.thesis.shumishumi.common.service.ItemWishlistService;
 import id.thesis.shumishumi.common.service.SessionService;
@@ -22,6 +23,9 @@ public class WishlistAddProcessor implements BaseProcessor {
     @Autowired
     private ItemWishlistService itemWishlistService;
 
+    @Autowired
+    private ActivityService activityService;
+
     @Override
     public void doProcess(BaseResult baseResult, BaseRequest baseRequest) {
         AddWishlistRequest request = (AddWishlistRequest) baseRequest;
@@ -34,5 +38,6 @@ public class WishlistAddProcessor implements BaseProcessor {
         }
 
         itemWishlistService.addWishlist(sessionVO.getUserId(), itemVO.getItemId());
+        activityService.addActivity(sessionVO.getUserId(), itemVO, 15);
     }
 }
