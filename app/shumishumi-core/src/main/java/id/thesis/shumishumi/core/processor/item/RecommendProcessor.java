@@ -63,7 +63,10 @@ public class RecommendProcessor implements BaseProcessor {
 
         List<ItemSummary> items = itemIds.stream().distinct().map(id -> {
             ItemVO itemVO = itemService.queryById(id, true);
-            return SummaryConverter.toSummary(itemVO);
+            ItemSummary summary = SummaryConverter.toSummary(itemVO);
+            summary.setInWishlist(itemWishlistService.checkItemInWishlist(userId, itemVO.getItemId()));
+
+            return summary;
         }).collect(Collectors.toList());
 
         result.setItems(items.subList(0, Math.min(10, items.size())));
