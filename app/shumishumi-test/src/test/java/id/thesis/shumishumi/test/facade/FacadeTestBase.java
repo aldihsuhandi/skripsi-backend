@@ -35,6 +35,7 @@ import id.thesis.shumishumi.foundation.service.OtpDAO;
 import id.thesis.shumishumi.foundation.service.PostDAO;
 import id.thesis.shumishumi.foundation.service.PostVoteDAO;
 import id.thesis.shumishumi.foundation.service.ResetPasswordDAO;
+import id.thesis.shumishumi.foundation.service.ReviewDAO;
 import id.thesis.shumishumi.foundation.service.RoleDAO;
 import id.thesis.shumishumi.foundation.service.SessionDAO;
 import id.thesis.shumishumi.foundation.service.TransactionDAO;
@@ -96,6 +97,8 @@ public class FacadeTestBase extends TestBase {
     protected ActivityDAO activityDAO;
     @MockBean
     protected KnowledgeDAO knowledgeDAO;
+    @MockBean
+    protected ReviewDAO reviewDAO;
 
     @MockBean
     protected MidtransClient midtransClient;
@@ -153,6 +156,7 @@ public class FacadeTestBase extends TestBase {
 
     protected void mockItemWithInfo() {
         Mockito.when(itemDAO.queryById(Mockito.any())).thenReturn(mockItemDO(true));
+        mockUserWithRole("MERCHANT");
         Mockito.when(hobbyDAO.queryById(Mockito.any())).thenReturn(mockHobbyDO());
         Mockito.when(itemCategoryDAO.queryById(Mockito.any())).thenReturn(mockCategoryDO());
         Mockito.when(interestLevelDAO.queryById(Mockito.any())).thenReturn(mockInterestLevelDO());
