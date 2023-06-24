@@ -151,6 +151,7 @@ public class FacadeTestBase extends TestBase {
 
     protected void mockUserWithRole(String role) {
         Mockito.when(userDAO.queryById(Mockito.any())).thenReturn(mockUserDO("password"));
+        Mockito.when(userDAO.queryByUsername(Mockito.any())).thenReturn(mockUserDO("password"));
         Mockito.when(roleDAO.queryById(Mockito.any())).thenReturn(mockRoleDO(role));
     }
 
